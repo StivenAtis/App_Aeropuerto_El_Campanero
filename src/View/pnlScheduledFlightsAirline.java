@@ -1,5 +1,11 @@
 package View;
 
+import Classes.clsFlightRequirements;
+import Controller.ctlFlightRequirement;
+import java.util.LinkedList;
+import javax.swing.table.DefaultTableModel;
+import utils.Constants;
+
 /**
  *
  * @author Booh
@@ -88,11 +94,6 @@ public class pnlScheduledFlightsAirline extends javax.swing.JPanel {
             }
         });
         tblCustomers.setColumnSelectionAllowed(true);
-        tblCustomers.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblCustomersMouseClicked(evt);
-            }
-        });
         jScrollPane1.setViewportView(tblCustomers);
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 1160, 600));
@@ -104,23 +105,36 @@ public class pnlScheduledFlightsAirline extends javax.swing.JPanel {
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 790));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tblCustomersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCustomersMouseClicked
-        int row = tblCustomers.getSelectedRow();
-        String id = tblCustomers.getValueAt(row, 0).toString();
-
-        //        CustomerVO customer = controller.read(Integer.parseInt(id));
-
-        //        if(customer.getId() > 0) {
-            //            txtCustomerID.setText(String.valueOf(customer.getId()));
-            //            txtName.setText(customer.getName());
-            //            txtLastname.setText(customer.getLastname());
-            //            txtAddress.setText(customer.getAddress());
-            //            txtPhone.setText(customer.getPhone());
-            //            txtEmail.setText(customer.getEmail());
-            //        }
-    }//GEN-LAST:event_tblCustomersMouseClicked
-
-
+//    private void fillDataTable() {
+//         
+//        list = controller.listFlight();
+//        String datos[][] = new String[list.size()][9];
+//        
+//        if(list.size() > 0) {
+//            for (int i = 0; i < list.size(); i++) {
+//                datos[i][Constants.CODE_FLIGHT] = list.get(i).getCodigoVuelo();
+//                datos[i][Constants.TYPE_FLIGHT] = list.get(i).getTipoVuelo();
+//                datos[i][Constants.CLASS_FLIGHT] = list.get(i).getSalidaLlegada();
+//                datos[i][Constants.DATE_FLIGHT] = list.get(i).getFecha();
+//                datos[i][Constants.TIME_FLIGHT] = list.get(i).getHora();
+//                datos[i][Constants.MODEL_PLANE_FLIGHT] = list.get(i).getModeloAvion();
+//                datos[i][Constants.CAPACITY_PLANE_FLIGHT] = list.get(i).getCapacidadCarga();
+//                datos[i][Constants.CREW_PLANE_FLIGHT] = list.get(i).getTripulación();
+//                datos[i][Constants.DESTINATION_PLANE_FLIGHT] = list.get(i).getDestino();
+//            }        
+//        }        
+//        String[] columns = {
+//            "CODIGO", "TIPO", "CLASE", "FECHA", "HORA", "MODELO A.", "CAPACIDAD A.", "TRIPULACION", "DESTINO"
+//        };
+//        DefaultTableModel model = new DefaultTableModel(datos, columns);
+//        int[] columnSize = {30, 50, 50, 50, 50, 50, 50, 50, 50};
+//        for(int x=0; x<columnSize.length;x++)
+//            tblSolicitudes.getColumnModel().getColumn(x).setPreferredWidth(columnSize[x]);
+//        tblSolicitudes.setRowHeight(30);
+//        tblSolicitudes.setModel(model);
+//        tblSolicitudes.setEnabled(false);
+//    }
+     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

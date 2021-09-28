@@ -1,23 +1,39 @@
 package View;
 
+import Classes.clsFlightAgenda;
+import Classes.clsFlightRequirements;
+import Controller.ctlFlightAgenda;
+import Controller.ctlFlightRequirement;
+import java.util.LinkedList;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import utils.Constants;
+
 /**
  *
  * @author Booh
  */
 public class pnlFlightQuery extends javax.swing.JPanel {
-
+    
+    //--------------------------------------------------------------------------
+    
+    ctlFlightRequirement controlFlightRequirement = new ctlFlightRequirement();
+    ctlFlightAgenda controlFlightAgenda = new ctlFlightAgenda();
+    
+    //--------------------------------------------------------------------------
+    
     public pnlFlightQuery() {
         initComponents();
     }
 
+    //--------------------------------------------------------------------------
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         tfCodigoVuelo = new javax.swing.JTextField();
-        lbCdigoVuelo1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblCustomers = new javax.swing.JTable();
         lbCdigoVuelo3 = new javax.swing.JLabel();
         lbCdigoVuelo2 = new javax.swing.JLabel();
         lbCdigoVuelo4 = new javax.swing.JLabel();
@@ -35,57 +51,6 @@ public class pnlFlightQuery extends javax.swing.JPanel {
 
         tfCodigoVuelo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         add(tfCodigoVuelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 130, 270, 40));
-
-        lbCdigoVuelo1.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        lbCdigoVuelo1.setForeground(new java.awt.Color(255, 255, 255));
-        lbCdigoVuelo1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbCdigoVuelo1.setText("Información adicional");
-        lbCdigoVuelo1.setToolTipText("");
-        add(lbCdigoVuelo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 310, 260, 40));
-
-        tblCustomers.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        tblCustomers.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Codigo", "Tipo", "Clase", "Fecha", "Hora", "Destino", "Estado de solicitud"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tblCustomers.setColumnSelectionAllowed(true);
-        tblCustomers.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblCustomersMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tblCustomers);
-        tblCustomers.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        if (tblCustomers.getColumnModel().getColumnCount() > 0) {
-            tblCustomers.getColumnModel().getColumn(0).setResizable(false);
-            tblCustomers.getColumnModel().getColumn(1).setResizable(false);
-            tblCustomers.getColumnModel().getColumn(2).setResizable(false);
-            tblCustomers.getColumnModel().getColumn(3).setResizable(false);
-            tblCustomers.getColumnModel().getColumn(4).setResizable(false);
-            tblCustomers.getColumnModel().getColumn(5).setResizable(false);
-            tblCustomers.getColumnModel().getColumn(6).setResizable(false);
-        }
-
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, 1150, 50));
 
         lbCdigoVuelo3.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         lbCdigoVuelo3.setForeground(new java.awt.Color(255, 255, 255));
@@ -109,13 +74,15 @@ public class pnlFlightQuery extends javax.swing.JPanel {
         add(lbCdigoVuelo4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 540, 270, 40));
 
         txtAInfoAdicional.setColumns(20);
+        txtAInfoAdicional.setFont(new java.awt.Font("Monospaced", 1, 13)); // NOI18N
         txtAInfoAdicional.setRows(5);
         txtAInfoAdicional.setFocusable(false);
         jScrollPane3.setViewportView(txtAInfoAdicional);
 
-        add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 350, 1150, 170));
+        add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, 1150, 280));
 
         txtAInfoSolicitud.setColumns(20);
+        txtAInfoSolicitud.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         txtAInfoSolicitud.setRows(5);
         txtAInfoSolicitud.setFocusable(false);
         jScrollPane2.setViewportView(txtAInfoSolicitud);
@@ -126,12 +93,22 @@ public class pnlFlightQuery extends javax.swing.JPanel {
         btnConsultar.setContentAreaFilled(false);
         btnConsultar.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Consultar_min.png"))); // NOI18N
         btnConsultar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Consultar_max.png"))); // NOI18N
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
         add(btnConsultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 110, 330, 120));
 
         btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Limpiar_min.png"))); // NOI18N
         btnLimpiar.setContentAreaFilled(false);
         btnLimpiar.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Limpiar_min.png"))); // NOI18N
         btnLimpiar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Limpiar_max.png"))); // NOI18N
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
         add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 110, 330, 120));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 58)); // NOI18N
@@ -147,37 +124,124 @@ public class pnlFlightQuery extends javax.swing.JPanel {
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 790));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tblCustomersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCustomersMouseClicked
-        int row = tblCustomers.getSelectedRow();
-        String id = tblCustomers.getValueAt(row, 0).toString();
+    //--------------------------------------------------------------------------
+    
+    private void cleanRegisterQuestionnaire(){
+        tfCodigoVuelo.setText("");
+        txtAInfoAdicional.setText("");
+        txtAInfoSolicitud.setText("");
+ 
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        
+        String codigoVueloEncontrado = tfCodigoVuelo.getText();
+        
+        if(codigoVueloEncontrado.equals("")){
+            JOptionPane.showMessageDialog(this, "Debe diligenciar el codigo para poder realizar la consulta.");
+        }
+        else{
+            clsFlightRequirements FlightRequirementsSearch = controlFlightRequirement.readFlightRequirements(codigoVueloEncontrado);
+            clsFlightAgenda FlightRequirementsSearchAgenda = controlFlightAgenda.readFlightAgenda(codigoVueloEncontrado);
+            
+            if (FlightRequirementsSearch == null && FlightRequirementsSearchAgenda == null) {
+                JOptionPane.showMessageDialog(this, "¡No existe datos para el vuelo con codigo: " + codigoVueloEncontrado + "!");
+                cleanRegisterQuestionnaire();
+            } else {
 
-        //        CustomerVO customer = controller.read(Integer.parseInt(id));
+                if(FlightRequirementsSearch != null){
+                
+                if (FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de pasajeros")) {
+                    
+                    txtAInfoAdicional.setText("DATOS DE VUELO:" + "\n" +
+                                    "\n" +
+                                    "Codigo del vuelo: " + FlightRequirementsSearch.getCodigoVuelo() + "\n" +
+                                    "Tipo de vuelo: " + FlightRequirementsSearch.getTipoVuelo() + "\n" + 
+                                    "Clase de vuelo: " + FlightRequirementsSearch.getSalidaLlegada() + "\n" + 
+                                    "Modelo de avión: " + FlightRequirementsSearch.getModeloAvion() + "\n" + 
+                                    "Capacidad de almacenaje del avión: " + FlightRequirementsSearch.getCapacidadCarga() + " pasajeros" + "\n" + 
+                                    "Tripulación del avión: " + FlightRequirementsSearch.getTripulación() + "\n" + 
+                                    "Feca de vuelo: " + FlightRequirementsSearch.getFecha() + "\n" + 
+                                    "Hora de vuelo: " + FlightRequirementsSearch.getHora() + "\n" + 
+                                    "Destino del vuelo: " + FlightRequirementsSearch.getDestino());
+                    
+                    txtAInfoSolicitud.setText("El vuelo ha sido solicitado al aeropuerto y aun no se tiene una respuesta sober su agendamiento");
+                }
+                
+                if (FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de carga")) {
 
-        //        if(customer.getId() > 0) {
-            //            txtCustomerID.setText(String.valueOf(customer.getId()));
-            //            txtName.setText(customer.getName());
-            //            txtLastname.setText(customer.getLastname());
-            //            txtAddress.setText(customer.getAddress());
-            //            txtPhone.setText(customer.getPhone());
-            //            txtEmail.setText(customer.getEmail());
-            //        }
-    }//GEN-LAST:event_tblCustomersMouseClicked
+                    txtAInfoAdicional.setText("DATOS DE VUELO:" + "\n" +
+                                    "\n" +
+                                    "Codigo del vuelo: " + FlightRequirementsSearch.getCodigoVuelo() + "\n" +
+                                    "Tipo de vuelo: " + FlightRequirementsSearch.getTipoVuelo() + "\n" + 
+                                    "Clase de vuelo: " + FlightRequirementsSearch.getSalidaLlegada() + "\n" + 
+                                    "Modelo de avión: " + FlightRequirementsSearch.getModeloAvion() + "\n" + 
+                                    "Capacidad de almacenaje del avión: " + FlightRequirementsSearch.getCapacidadCarga() + " toneladas" + "\n" + 
+                                    "Tripulación del avión: " + FlightRequirementsSearch.getTripulación() + "\n" + 
+                                    "Feca de vuelo: " + FlightRequirementsSearch.getFecha() + "\n" + 
+                                    "Hora de vuelo: " + FlightRequirementsSearch.getHora() + "\n" + 
+                                    "Destino del vuelo: " + FlightRequirementsSearch.getDestino());
+                    
+                    txtAInfoSolicitud.setText("El vuelo ha sido solicitado al aeropuerto y aun no se tiene una respuesta sober su agendamiento.");
+                }
+                
+                } 
+                else{
+                    if (FlightRequirementsSearch == null && FlightRequirementsSearchAgenda != null) {
+                    
+                            txtAInfoAdicional.setText("Datos de agenda de vuelo:" + "\n" +
+                                            "\n" +
+                                            "Codigo del vuelo: " + FlightRequirementsSearchAgenda.getCodigoVueloAgenda()+ "\n" +
+                                            "Tipo de vuelo: " + FlightRequirementsSearchAgenda.getTipoVuelo() + "\n" + 
+                                            "Clase de vuelo: " + FlightRequirementsSearchAgenda.getClaseVuelo()+ "\n" +
+                                            "Tripulación del avión: " + FlightRequirementsSearchAgenda.getTripulación() + "\n" + 
+                                            "Pista de vuelo" + FlightRequirementsSearchAgenda.getPista() + "\n" + 
+                                            "Feca de vuelo: " + FlightRequirementsSearchAgenda.getFecha() + "\n" + 
+                                            "Hora de vuelo: " + FlightRequirementsSearchAgenda.getTiempo()+ "\n" + 
+                                            "Destino del vuelo: " + FlightRequirementsSearchAgenda.getDestino());
+                            
+                            txtAInfoSolicitud.setText("El vuelo ha sido agendado exitosamente por el aeropuerto.");
+                        }
+                }
+                
+            }
+        }
+    }//GEN-LAST:event_btnConsultarActionPerformed
 
+    //--------------------------------------------------------------------------
+    
+    public static void clearTable(final JTable table) {
+        for (int i = 0; i < table.getRowCount(); i++)
+            for(int j = 0; j < table.getColumnCount(); j++) {
+              table.setValueAt("", i, j);
+       }
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        
+        tfCodigoVuelo.setText("");
+        txtAInfoAdicional.setText("");
+        txtAInfoSolicitud.setText("");
+        
+    }//GEN-LAST:event_btnLimpiarActionPerformed
 
+    //--------------------------------------------------------------------------
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConsultar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JLabel lbCdigoVuelo1;
     private javax.swing.JLabel lbCdigoVuelo2;
     private javax.swing.JLabel lbCdigoVuelo3;
     private javax.swing.JLabel lbCdigoVuelo4;
-    private javax.swing.JTable tblCustomers;
     private javax.swing.JTextField tfCodigoVuelo;
     private javax.swing.JTextArea txtAInfoAdicional;
     private javax.swing.JTextArea txtAInfoSolicitud;

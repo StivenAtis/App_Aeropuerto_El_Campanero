@@ -16,7 +16,7 @@ public class Constants {
     public static final String MSG_REQUIRED = "Fields must not be empty";
     public static final String MSG_NO_EXIST_DATABASE = "The record does not exist in the database";
         
-    //Constants jTable Customers
+    //Constants jTable solicitudes
     public static final int CODE_FLIGHT = 0;
     public static final int TYPE_FLIGHT = 1;
     public static final int CLASS_FLIGHT = 2;
@@ -27,15 +27,14 @@ public class Constants {
     public static final int CREW_PLANE_FLIGHT = 7;
     public static final int DESTINATION_PLANE_FLIGHT = 8;
     
-    //Constants jTable Pets
-    public static final int ID_PET = 0;
-    public static final int CODE_PET = 1;
-    public static final int NAME_PET = 2;
-    public static final int AGE_PET = 3;
-    public static final int WEIGHT_PET = 4;
-    public static final int SPECIE_PET = 5;
-    public static final int OWNER_ID_PET = 6;
-    public static final int OWNER_FULLNAME_PET = 7;
+    //Constants jTable consultas
+    public static final int CODE_FLIGHT_REQUEST = 0;
+    public static final int TYPE_FLIGHT_REQUEST = 1;
+    public static final int CLASS_FLIGHT_REQUEST = 2;
+    public static final int DATE_FLIGHT_REQUEST = 3;
+    public static final int TIME_FLIGHT_REQUEST = 4;
+    public static final int DESTINATION_FLIGHT_REQUEST = 5;
+    public static final int STATE_FLIGHT_REQUEST = 6;
     
     //Constants jTable Plans
     public static final int ID_PLAN = 0;
