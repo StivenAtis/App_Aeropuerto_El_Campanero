@@ -17,12 +17,15 @@ public class Constants {
     public static final String MSG_NO_EXIST_DATABASE = "The record does not exist in the database";
         
     //Constants jTable Customers
-    public static final int ID_CUSTOMER = 0;
-    public static final int NAME_CUSTOMER = 1;
-    public static final int LASTNAME_CUSTOMER = 2;
-    public static final int ADDRESS_CUSTOMER = 3;
-    public static final int PHONE_CUSTOMER = 4;
-    public static final int EMAIL_CUSTOMER = 5;
+    public static final int CODE_FLIGHT = 0;
+    public static final int TYPE_FLIGHT = 1;
+    public static final int CLASS_FLIGHT = 2;
+    public static final int DATE_FLIGHT = 3;
+    public static final int TIME_FLIGHT = 4;
+    public static final int MODEL_PLANE_FLIGHT = 5;
+    public static final int CAPACITY_PLANE_FLIGHT = 6;
+    public static final int CREW_PLANE_FLIGHT = 7;
+    public static final int DESTINATION_PLANE_FLIGHT = 8;
     
     //Constants jTable Pets
     public static final int ID_PET = 0;
