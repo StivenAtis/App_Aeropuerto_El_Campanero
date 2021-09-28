@@ -5,6 +5,7 @@ import Classes.clsFlightRequirements;
 import Controller.ctlFlightAgenda;
 import Controller.ctlFlightRequirement;
 import java.util.LinkedList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import utils.Constants;
 
@@ -13,6 +14,8 @@ import utils.Constants;
  * @author Booh
  */
 public class pnlAbortFlightAirline extends javax.swing.JPanel {
+    
+    DefaultTableModel modelo;
     
     private ctlFlightRequirement controller = null;
     private LinkedList<clsFlightRequirements> list;
@@ -39,7 +42,7 @@ public class pnlAbortFlightAirline extends javax.swing.JPanel {
         lbVueloS = new javax.swing.JLabel();
         lbVueloS8 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        txtAreaReprogramacion = new javax.swing.JTextArea();
+        txtAreaCancelacion = new javax.swing.JTextArea();
         btnCancelar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -80,14 +83,12 @@ public class pnlAbortFlightAirline extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblCancelar.setColumnSelectionAllowed(true);
         tblCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblCancelarMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tblCancelar);
-        tblCancelar.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         if (tblCancelar.getColumnModel().getColumnCount() > 0) {
             tblCancelar.getColumnModel().getColumn(5).setResizable(false);
             tblCancelar.getColumnModel().getColumn(6).setResizable(false);
@@ -99,6 +100,11 @@ public class pnlAbortFlightAirline extends javax.swing.JPanel {
         btnLimpiar.setContentAreaFilled(false);
         btnLimpiar.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Limpiar_min.png"))); // NOI18N
         btnLimpiar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Limpiar_max.png"))); // NOI18N
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
         add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 630, 330, 120));
 
         btnVuelosAgendados.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -135,9 +141,9 @@ public class pnlAbortFlightAirline extends javax.swing.JPanel {
         lbVueloS8.setToolTipText("");
         add(lbVueloS8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 390, 1160, 40));
 
-        txtAreaReprogramacion.setColumns(20);
-        txtAreaReprogramacion.setRows(5);
-        jScrollPane2.setViewportView(txtAreaReprogramacion);
+        txtAreaCancelacion.setColumns(20);
+        txtAreaCancelacion.setRows(5);
+        jScrollPane2.setViewportView(txtAreaCancelacion);
 
         add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 440, 1160, 160));
 
@@ -145,6 +151,11 @@ public class pnlAbortFlightAirline extends javax.swing.JPanel {
         btnCancelar.setContentAreaFilled(false);
         btnCancelar.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/cancelar_min.png"))); // NOI18N
         btnCancelar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/cancelar_max.png"))); // NOI18N
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
         add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 630, 330, 120));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 58)); // NOI18N
@@ -245,6 +256,68 @@ public class pnlAbortFlightAirline extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnVuelosAgendadosActionPerformed
 
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        
+        txtAreaCancelacion.setText("");
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+    
+        int fila = tblCancelar.getSelectedRow();
+        String valor = tblCancelar.getValueAt(fila, 0).toString();
+        
+        if(txtAreaCancelacion.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "¡Debe agregar el motivo para poder cancelar un vuelo!");
+        }
+        if(fila == -1){
+            JOptionPane.showMessageDialog(this, "¡Debe seleccionar un vuelo para poderlo cancelar!");
+        }
+        else{
+            
+            if(btnVuelosSolicitados.isSelected() == true){
+             
+                clsFlightRequirements  FlightCancel = new clsFlightRequirements(0, valor, "modelo avion", "Tipo vuelo", "clase vuelo", "capacidad carga", "tripulacion", "fecha", "hora", "Destino");
+       
+                int respuesta = JOptionPane.showConfirmDialog(this, "¿Está seguro que desea cancelar el vuelo?");
+
+                if (respuesta == JOptionPane.OK_OPTION) {
+
+                    if (controller.deleteFlight(FlightCancel)) {
+                         JOptionPane.showMessageDialog(this, "Vuelo cancelado con éxito.");
+                         fillDataTable();
+                         txtAreaCancelacion.setText("");
+                    }
+                } 
+                else {
+                    JOptionPane.showMessageDialog(this, "Ocurrió un error al cancelar, por favor verifique los datos");
+
+                }
+            }
+            else {
+                
+                if(btnVuelosAgendados.isSelected() == true){
+                    
+                    clsFlightAgenda flightAgendaCancel = new clsFlightAgenda(0, valor, "", "", "", "", "", "", "", "");
+                     int respuesta = JOptionPane.showConfirmDialog(this, "¿Está seguro que desea cancelar el vuelo?");
+
+                if (respuesta == JOptionPane.OK_OPTION) {
+
+                    if (controllerA.deleteFlight(flightAgendaCancel)) {
+                         JOptionPane.showMessageDialog(this, "Vuelo cancelado con éxito.");
+                         fillDataTable();
+                         txtAreaCancelacion.setText("");
+                    }
+                } 
+                else {
+                    JOptionPane.showMessageDialog(this, "Ocurrió un error al cancelar, por favor verifique los datos");
+
+                }
+                }
+            }
+            
+        }
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
@@ -259,6 +332,6 @@ public class pnlAbortFlightAirline extends javax.swing.JPanel {
     private javax.swing.JLabel lbVueloS;
     private javax.swing.JLabel lbVueloS8;
     private javax.swing.JTable tblCancelar;
-    private javax.swing.JTextArea txtAreaReprogramacion;
+    private javax.swing.JTextArea txtAreaCancelacion;
     // End of variables declaration//GEN-END:variables
 }
