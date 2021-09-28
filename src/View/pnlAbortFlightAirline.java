@@ -262,60 +262,84 @@ public class pnlAbortFlightAirline extends javax.swing.JPanel {
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-    
-        int fila = tblCancelar.getSelectedRow();
-        String valor = tblCancelar.getValueAt(fila, 0).toString();
+
+        if(btnVuelosAgendados.isSelected() == false && btnVuelosSolicitados.isSelected() == false){
+            JOptionPane.showMessageDialog(this, "¡Debe seleccionar un tipo vuelo para poderlo cancelar!");
+        }
         
-        if(txtAreaCancelacion.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "¡Debe agregar el motivo para poder cancelar un vuelo!");
-        }
-        if(fila == -1){
-            JOptionPane.showMessageDialog(this, "¡Debe seleccionar un vuelo para poderlo cancelar!");
-        }
         else{
-            
-            if(btnVuelosSolicitados.isSelected() == true){
-             
-                clsFlightRequirements  FlightCancel = new clsFlightRequirements(0, valor, "modelo avion", "Tipo vuelo", "clase vuelo", "capacidad carga", "tripulacion", "fecha", "hora", "Destino");
-       
-                int respuesta = JOptionPane.showConfirmDialog(this, "¿Está seguro que desea cancelar el vuelo?");
-
-                if (respuesta == JOptionPane.OK_OPTION) {
-
-                    if (controller.deleteFlight(FlightCancel)) {
-                         JOptionPane.showMessageDialog(this, "Vuelo cancelado con éxito.");
-                         fillDataTable();
-                         txtAreaCancelacion.setText("");
-                    }
-                } 
-                else {
-                    JOptionPane.showMessageDialog(this, "Ocurrió un error al cancelar, por favor verifique los datos");
-
-                }
+            if(tblCancelar.getSelectedRow() == -1){
+                JOptionPane.showMessageDialog(this, "¡Debe seleccionar un vuelo para poderlo cancelar!");
             }
-            else {
+            
+            else{
                 
-                if(btnVuelosAgendados.isSelected() == true){
+                if(tblCancelar.getSelectedRow() != -1){
                     
-                    clsFlightAgenda flightAgendaCancel = new clsFlightAgenda(0, valor, "", "", "", "", "", "", "", "");
-                     int respuesta = JOptionPane.showConfirmDialog(this, "¿Está seguro que desea cancelar el vuelo?");
+                    int fila = tblCancelar.getSelectedRow();
+                    String valor = tblCancelar.getValueAt(fila, 0).toString();
 
-                if (respuesta == JOptionPane.OK_OPTION) {
+                    if(btnVuelosSolicitados.isSelected() == true ){
 
-                    if (controllerA.deleteFlight(flightAgendaCancel)) {
-                         JOptionPane.showMessageDialog(this, "Vuelo cancelado con éxito.");
-                         fillDataTable();
-                         txtAreaCancelacion.setText("");
+                        clsFlightRequirements  FlightCancel = new clsFlightRequirements(0, valor, "modelo avion", "Tipo vuelo", "clase vuelo", "capacidad carga", "tripulacion", "fecha", "hora", "Destino");
+
+                        if(!"".equals(txtAreaCancelacion.getText())){
+                            
+                            if(!"".equals(txtAreaCancelacion.getText())){
+                                
+                                int respuesta = JOptionPane.showConfirmDialog(this, "¿Está seguro que desea cancelar el vuelo?");
+                                if (respuesta == JOptionPane.OK_OPTION) {
+
+                                    if (controller.deleteFlight(FlightCancel)) {
+                                         JOptionPane.showMessageDialog(this, "Vuelo cancelado con éxito.");
+                                         fillDataTable();
+                                         txtAreaCancelacion.setText("");
+                                    }
+                                }
+                                else {
+                                    JOptionPane.showMessageDialog(this, "Ocurrió un error al cancelar, por favor verifique los datos");
+                                }
+                            }
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(this, "¡Debe especificar las razones para cancelar un vuelo!");
+                        }
                     }
-                } 
-                else {
-                    JOptionPane.showMessageDialog(this, "Ocurrió un error al cancelar, por favor verifique los datos");
+                    else {
 
+                        if(btnVuelosAgendados.isSelected() == true){
+    
+                            clsFlightAgenda flightAgendaCancel = new clsFlightAgenda(0, valor, "", "", "", "", "", "", "", "");
+                            
+                            if(!"".equals(txtAreaCancelacion.getText())){
+                                
+                                int respuesta = JOptionPane.showConfirmDialog(this, "¿Está seguro que desea cancelar el vuelo?");
+    
+                                if (respuesta == JOptionPane.OK_OPTION) {
+
+                                    if (controllerA.deleteFlight(flightAgendaCancel)) {
+                                        JOptionPane.showMessageDialog(this, "Vuelo cancelado con éxito.");
+                                        fillDataTable();
+                                        txtAreaCancelacion.setText("");
+                                    }
+                                } 
+                                else {
+                                    JOptionPane.showMessageDialog(this, "Ocurrió un error al cancelar, por favor verifique los datos");
+
+                                }
+                            }
+                            else{
+                                JOptionPane.showMessageDialog(this, "¡Debe especificar las razones para cancelar un vuelo!");
+                            }
+                            
+                        }
+                    }
                 }
+                else{
+                    JOptionPane.showMessageDialog(this, "error");
                 }
             }
-            
-        }
+        } 
     }//GEN-LAST:event_btnCancelarActionPerformed
 
 
