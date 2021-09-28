@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -123,7 +123,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="tblCustomers">
+        <Component class="javax.swing.JTable" name="tblSolicitudes">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="12" style="0"/>
@@ -142,7 +142,7 @@
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-              <TableColumnModel selectionModel="2">
+              <TableColumnModel selectionModel="0">
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
@@ -190,13 +190,12 @@
                 </Column>
               </TableColumnModel>
             </Property>
-            <Property name="columnSelectionAllowed" type="boolean" value="true"/>
             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblCustomersMouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblSolicitudesMouseClicked"/>
           </Events>
         </Component>
       </SubComponents>
@@ -214,6 +213,9 @@
           <Image iconType="3" name="/Media/Limpiar_max.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLimpiarActionPerformed"/>
+      </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="910" y="650" width="330" height="110"/>
@@ -579,6 +581,25 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JRadioButton" name="btnActualizarDatos">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="14" style="1"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Actualizar datos de vuelo"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnActualizarDatosActionPerformed"/>
+      </Events>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="1040" y="110" width="-1" height="40"/>
+        </Constraint>
+      </Constraints>
+    </Component>
     <Component class="javax.swing.JLabel" name="lbEmailUserLogin6">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -701,8 +722,67 @@
           <Font name="Tahoma" size="14" style="1"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="1">
+          <StringArray count="60">
             <StringItem index="0" value="Seleccione Destino"/>
+            <StringItem index="1" value="Afganist&#xe1;n - Kabul - Asia"/>
+            <StringItem index="2" value="Albania - Tirana - Europa"/>
+            <StringItem index="3" value="Alemania - Berl&#xed;n - Europa"/>
+            <StringItem index="4" value="Andorra - Andorra la Vieja - Europa"/>
+            <StringItem index="5" value="Angola - Luanda - &#xc1;frica"/>
+            <StringItem index="6" value="Antigua y Barbuda - Saint John - Am&#xe9;rica"/>
+            <StringItem index="7" value="Arabia Saudita - Riad - Asia"/>
+            <StringItem index="8" value="Argelia - Argel - &#xc1;frica"/>
+            <StringItem index="9" value="Argentina - Buenos Aires - Am&#xe9;rica"/>
+            <StringItem index="10" value="Armenia - Erev&#xe1;n - Asia"/>
+            <StringItem index="11" value="Australia - Canberra - Ocean&#xed;a"/>
+            <StringItem index="12" value="Austria - Viena - Europa"/>
+            <StringItem index="13" value="Azerbaiy&#xe1;n - Bak&#xfa; - Asia"/>
+            <StringItem index="14" value="Bahamas - Nas&#xe1;u - Am&#xe9;rica"/>
+            <StringItem index="15" value="Banglad&#xe9;s - Daca - Asia"/>
+            <StringItem index="16" value="Barbados - Bridgetown - Am&#xe9;rica"/>
+            <StringItem index="17" value="Bar&#xe9;in - Manama - Asia"/>
+            <StringItem index="18" value="B&#xe9;lgica - Bruselas - Europa"/>
+            <StringItem index="19" value="Belice - Belmop&#xe1;n - Am&#xe9;rica"/>
+            <StringItem index="20" value="Ben&#xed;n - Porto - Novo - &#xc1;frica"/>
+            <StringItem index="21" value="Bielorrusia - Minsk - Europa"/>
+            <StringItem index="22" value="Birmania - Naipyid&#xf3; - Asia"/>
+            <StringItem index="23" value="Bolivia - Sucre - Am&#xe9;rica"/>
+            <StringItem index="24" value="Bosnia - Herzegovina - Sarajevo - Europa"/>
+            <StringItem index="25" value="Botsuana - Gaborone - &#xc1;frica"/>
+            <StringItem index="26" value="Brasil - Brasilia - Am&#xe9;rica"/>
+            <StringItem index="27" value="Brun&#xe9;i - Bandar Seri Begawan - Asia"/>
+            <StringItem index="28" value="Bulgaria - Sof&#xed;a - Europa"/>
+            <StringItem index="29" value="Burkina Faso - Uagadug&#xfa; - &#xc1;frica"/>
+            <StringItem index="30" value="Burundi - Buyumbura - &#xc1;frica"/>
+            <StringItem index="31" value="But&#xe1;n - Thimphu - Asia"/>
+            <StringItem index="32" value="Cabo Verde - Praia - &#xc1;frica"/>
+            <StringItem index="33" value="Camboya - Nom Pen - Asia"/>
+            <StringItem index="34" value="Camer&#xfa;n - Yaund&#xe9; - &#xc1;frica"/>
+            <StringItem index="35" value="Canad&#xe1; - Ottawa - Am&#xe9;rica"/>
+            <StringItem index="36" value="Catar - Doha - Asia"/>
+            <StringItem index="37" value="Chad - Yamena - &#xc1;frica"/>
+            <StringItem index="38" value="Chile - Santiago - Am&#xe9;rica"/>
+            <StringItem index="39" value="China - Pek&#xed;n - Asia"/>
+            <StringItem index="40" value="Chipre - Nicosia - Europa"/>
+            <StringItem index="41" value="Colombia - Bogot&#xe1; - Am&#xe9;rica"/>
+            <StringItem index="42" value="Comoras - Moroni - &#xc1;frica"/>
+            <StringItem index="43" value="Congo - Brazzaville - &#xc1;frica"/>
+            <StringItem index="44" value="Corea del Norte - Pionyang - Asia"/>
+            <StringItem index="45" value="Corea del Sur - Se&#xfa;l - Asia"/>
+            <StringItem index="46" value="Costa de Marfil - Yamusukro - &#xc1;frica"/>
+            <StringItem index="47" value="Costa Rica - San Jos&#xe9; - Am&#xe9;rica"/>
+            <StringItem index="48" value="Croacia - Zagreb - Europa"/>
+            <StringItem index="49" value="Cuba - La Habana - Am&#xe9;rica"/>
+            <StringItem index="50" value="Dinamarca - Copenhague - Europa"/>
+            <StringItem index="51" value="Dominica - Roseau - Am&#xe9;rica"/>
+            <StringItem index="52" value="Ecuador - Quito - Am&#xe9;rica"/>
+            <StringItem index="53" value="Egipto - El Cairo - &#xc1;frica"/>
+            <StringItem index="54" value="El Salvador - San Salvador - Am&#xe9;rica"/>
+            <StringItem index="55" value="Emiratos &#xc1;rabes Unidos - Abu Dabi - Asia"/>
+            <StringItem index="56" value="Eritrea - Asmara - &#xc1;frica"/>
+            <StringItem index="57" value="Eslovaquia - Bratislava - Europa"/>
+            <StringItem index="58" value="Eslovenia - Liubliana - Europa"/>
+            <StringItem index="59" value="Espa&#xf1;a - Madrid - Europa"/>
           </StringArray>
         </Property>
       </Properties>

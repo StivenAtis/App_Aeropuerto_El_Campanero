@@ -1,13 +1,25 @@
 package View;
 
+import Classes.clsFlightRequirements;
+import Controller.ctlFlightRequirement;
+import java.util.LinkedList;
+import javax.swing.table.DefaultTableModel;
+import utils.Constants;
+
 /**
  *
  * @author Booh
  */
 public class pnlReprogramFlightAirline extends javax.swing.JPanel {
+    
+    private ctlFlightRequirement controller = null;
+    private LinkedList<clsFlightRequirements> list;
 
     public pnlReprogramFlightAirline() {
         initComponents();
+        controller = new ctlFlightRequirement();
+        fillDataTable();
+        bloqueo();
     }
 
     @SuppressWarnings("unchecked")
@@ -20,7 +32,7 @@ public class pnlReprogramFlightAirline extends javax.swing.JPanel {
         chboxVueloSalida = new javax.swing.JCheckBox();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblCustomers = new javax.swing.JTable();
+        tblSolicitudes = new javax.swing.JTable();
         btnLimpiar = new javax.swing.JButton();
         lbVueloS = new javax.swing.JLabel();
         lbVueloS3 = new javax.swing.JLabel();
@@ -33,6 +45,7 @@ public class pnlReprogramFlightAirline extends javax.swing.JPanel {
         btnReprogramar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtAreaReprogramacion = new javax.swing.JTextArea();
+        btnActualizarDatos = new javax.swing.JRadioButton();
         lbEmailUserLogin6 = new javax.swing.JLabel();
         comboBoxTripulacionVuelo = new javax.swing.JComboBox<>();
         comboBoxCapacidadAvion = new javax.swing.JComboBox<>();
@@ -93,8 +106,8 @@ public class pnlReprogramFlightAirline extends javax.swing.JPanel {
         jLabel3.setText("Reprogramar vuelos");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 1180, 90));
 
-        tblCustomers.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tblCustomers.setModel(new javax.swing.table.DefaultTableModel(
+        tblSolicitudes.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tblSolicitudes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null},
@@ -126,14 +139,12 @@ public class pnlReprogramFlightAirline extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblCustomers.setColumnSelectionAllowed(true);
-        tblCustomers.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblSolicitudes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblCustomersMouseClicked(evt);
+                tblSolicitudesMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tblCustomers);
-        tblCustomers.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        jScrollPane1.setViewportView(tblSolicitudes);
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 1160, 190));
 
@@ -141,6 +152,11 @@ public class pnlReprogramFlightAirline extends javax.swing.JPanel {
         btnLimpiar.setContentAreaFilled(false);
         btnLimpiar.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Limpiar_min.png"))); // NOI18N
         btnLimpiar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Limpiar_max.png"))); // NOI18N
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
         add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 650, 330, 110));
 
         lbVueloS.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
@@ -196,6 +212,16 @@ public class pnlReprogramFlightAirline extends javax.swing.JPanel {
 
         add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 440, 310, 200));
 
+        btnActualizarDatos.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnActualizarDatos.setForeground(new java.awt.Color(255, 255, 255));
+        btnActualizarDatos.setText("Actualizar datos de vuelo");
+        btnActualizarDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarDatosActionPerformed(evt);
+            }
+        });
+        add(btnActualizarDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 110, -1, 40));
+
         lbEmailUserLogin6.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         lbEmailUserLogin6.setForeground(new java.awt.Color(255, 255, 255));
         lbEmailUserLogin6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -230,7 +256,7 @@ public class pnlReprogramFlightAirline extends javax.swing.JPanel {
         add(comboboxModeloAvion, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 380, 290, 40));
 
         comboBoxDestino.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        comboBoxDestino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Destino" }));
+        comboBoxDestino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Destino", "Afganistán - Kabul - Asia", "Albania - Tirana - Europa", "Alemania - Berlín - Europa", "Andorra - Andorra la Vieja - Europa", "Angola - Luanda - África", "Antigua y Barbuda - Saint John - América", "Arabia Saudita - Riad - Asia", "Argelia - Argel - África", "Argentina - Buenos Aires - América", "Armenia - Ereván - Asia", "Australia - Canberra - Oceanía", "Austria - Viena - Europa", "Azerbaiyán - Bakú - Asia", "Bahamas - Nasáu - América", "Bangladés - Daca - Asia", "Barbados - Bridgetown - América", "Baréin - Manama - Asia", "Bélgica - Bruselas - Europa", "Belice - Belmopán - América", "Benín - Porto - Novo - África", "Bielorrusia - Minsk - Europa", "Birmania - Naipyidó - Asia", "Bolivia - Sucre - América", "Bosnia - Herzegovina - Sarajevo - Europa", "Botsuana - Gaborone - África", "Brasil - Brasilia - América", "Brunéi - Bandar Seri Begawan - Asia", "Bulgaria - Sofía - Europa", "Burkina Faso - Uagadugú - África", "Burundi - Buyumbura - África", "Bután - Thimphu - Asia", "Cabo Verde - Praia - África", "Camboya - Nom Pen - Asia", "Camerún - Yaundé - África", "Canadá - Ottawa - América", "Catar - Doha - Asia", "Chad - Yamena - África", "Chile - Santiago - América", "China - Pekín - Asia", "Chipre - Nicosia - Europa", "Colombia - Bogotá - América", "Comoras - Moroni - África", "Congo - Brazzaville - África", "Corea del Norte - Pionyang - Asia", "Corea del Sur - Seúl - Asia", "Costa de Marfil - Yamusukro - África", "Costa Rica - San José - América", "Croacia - Zagreb - Europa", "Cuba - La Habana - América", "Dinamarca - Copenhague - Europa", "Dominica - Roseau - América", "Ecuador - Quito - América", "Egipto - El Cairo - África", "El Salvador - San Salvador - América", "Emiratos Árabes Unidos - Abu Dabi - Asia", "Eritrea - Asmara - África", "Eslovaquia - Bratislava - Europa", "Eslovenia - Liubliana - Europa", "España - Madrid - Europa" }));
         add(comboBoxDestino, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 590, 290, 40));
 
         lbCdigoVuelo.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
@@ -254,22 +280,36 @@ public class pnlReprogramFlightAirline extends javax.swing.JPanel {
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 790));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tblCustomersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCustomersMouseClicked
-        int row = tblCustomers.getSelectedRow();
-        String id = tblCustomers.getValueAt(row, 0).toString();
-
-        //        CustomerVO customer = controller.read(Integer.parseInt(id));
-
-        //        if(customer.getId() > 0) {
-            //            txtCustomerID.setText(String.valueOf(customer.getId()));
-            //            txtName.setText(customer.getName());
-            //            txtLastname.setText(customer.getLastname());
-            //            txtAddress.setText(customer.getAddress());
-            //            txtPhone.setText(customer.getPhone());
-            //            txtEmail.setText(customer.getEmail());
-            //        }
-    }//GEN-LAST:event_tblCustomersMouseClicked
-
+    private void fillDataTable() {
+         
+        list = controller.listFlight();
+        String datos[][] = new String[list.size()][9];
+        
+        if(list.size() > 0) {
+            for (int i = 0; i < list.size(); i++) {
+                datos[i][Constants.CODE_FLIGHT] = list.get(i).getCodigoVuelo();
+                datos[i][Constants.TYPE_FLIGHT] = list.get(i).getTipoVuelo();
+                datos[i][Constants.CLASS_FLIGHT] = list.get(i).getSalidaLlegada();
+                datos[i][Constants.DATE_FLIGHT] = list.get(i).getFecha();
+                datos[i][Constants.TIME_FLIGHT] = list.get(i).getHora();
+                datos[i][Constants.MODEL_PLANE_FLIGHT] = list.get(i).getModeloAvion();
+                datos[i][Constants.CAPACITY_PLANE_FLIGHT] = list.get(i).getCapacidadCarga();
+                datos[i][Constants.CREW_PLANE_FLIGHT] = list.get(i).getTripulación();
+                datos[i][Constants.DESTINATION_PLANE_FLIGHT] = list.get(i).getDestino();
+            }        
+        }        
+        String[] columns = {
+            "CODIGO", "TIPO", "CLASE", "FECHA", "HORA", "MODELO A.", "CAPACIDAD A.", "TRIPULACION", "DESTINO"
+        };
+        DefaultTableModel model = new DefaultTableModel(datos, columns);
+        int[] columnSize = {30, 50, 50, 50, 50, 50, 50, 50, 50};
+        for(int x=0; x<columnSize.length;x++)
+            tblSolicitudes.getColumnModel().getColumn(x).setPreferredWidth(columnSize[x]);
+        tblSolicitudes.setRowHeight(30);
+        tblSolicitudes.setModel(model);
+     }
+    
+    
     private void chboxVueloPasajerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chboxVueloPasajerosActionPerformed
         if(chboxVueloPasajeros.isSelected() == true){
 
@@ -312,8 +352,95 @@ public class pnlReprogramFlightAirline extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_chboxVueloLlegadaActionPerformed
 
+    private void tblSolicitudesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSolicitudesMouseClicked
+        int row = tblSolicitudes.getSelectedRow();
+        String id = tblSolicitudes.getValueAt(row, 0).toString();
+        
+        clsFlightRequirements FlightRequirementsSearch = controller.readFlightRequirements(id);
+        
+        if (FlightRequirementsSearch.getSalidaLlegada().equals("Vuelo de salida")) {
+
+            chboxVueloSalida.setSelected(true);
+            chboxVueloLlegada.setSelected(false);
+
+            comboBoxTripulacionVuelo.setSelectedItem(FlightRequirementsSearch.getTripulación());
+            comboboxModeloAvion.setSelectedItem(FlightRequirementsSearch.getModeloAvion());
+            comboBoxCapacidadAvion.setSelectedItem(FlightRequirementsSearch.getCapacidadCarga());
+            comboBoxDestino.setSelectedItem(FlightRequirementsSearch.getDestino());
+        }
+        if (FlightRequirementsSearch.getSalidaLlegada().equals("Vuelo de llegada")) {
+                    
+            chboxVueloLlegada.setSelected(true);
+            chboxVueloSalida.setSelected(false);
+
+            comboBoxTripulacionVuelo.setSelectedItem(FlightRequirementsSearch.getTripulación());
+            comboboxModeloAvion.setSelectedItem(FlightRequirementsSearch.getModeloAvion());
+            comboBoxCapacidadAvion.setSelectedItem(FlightRequirementsSearch.getCapacidadCarga());
+            comboBoxDestino.setSelectedItem(FlightRequirementsSearch.getDestino());
+         
+        }
+    }//GEN-LAST:event_tblSolicitudesMouseClicked
+
+    private void bloqueo(){
+        comboBoxCapacidadAvion.setEnabled(false);
+        comboBoxDestino.setEnabled(false);
+        comboBoxTripulacionVuelo.setEnabled(false);
+        comboboxModeloAvion.setEnabled(false);
+        chboxVueloCarga.setEnabled(false);
+        chboxVueloPasajeros.setEnabled(false);
+        chboxVueloSalida.setEnabled(false);
+        chboxVueloLlegada.setEnabled(false);
+    }
+    private void btnActualizarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarDatosActionPerformed
+        
+        if (btnActualizarDatos.isSelected() == false){
+            
+            comboBoxCapacidadAvion.setEnabled(false);
+            comboBoxDestino.setEnabled(false);
+            comboBoxTripulacionVuelo.setEnabled(false);
+            comboboxModeloAvion.setEnabled(false);
+            chboxVueloCarga.setEnabled(false);
+            chboxVueloPasajeros.setEnabled(false);
+            chboxVueloSalida.setEnabled(false);
+            chboxVueloLlegada.setEnabled(false);
+        }
+        else{
+            if(btnActualizarDatos.isSelected() == true){
+                comboBoxCapacidadAvion.setEnabled(true);
+                comboBoxDestino.setEnabled(true);
+                comboBoxTripulacionVuelo.setEnabled(true);
+                comboboxModeloAvion.setEnabled(true);
+                chboxVueloCarga.setEnabled(true);
+                chboxVueloPasajeros.setEnabled(true);
+                chboxVueloSalida.setEnabled(true);
+                chboxVueloLlegada.setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_btnActualizarDatosActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        
+        chboxVueloPasajeros.setSelected(false);
+        chboxVueloCarga.setSelected(false);
+        chboxVueloSalida.setSelected(false);
+        chboxVueloLlegada.setSelected(false);
+        comboBoxTripulacionVuelo.setSelectedIndex(0);
+        comboboxModeloAvion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{ "Modelo de avión"}));
+        comboBoxCapacidadAvion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Capacidad de avión"}));
+        comboBoxYearFirst.setSelectedIndex(0);
+        comboBoxMonthFirst.setSelectedIndex(0);
+        comboBoxDayFirst.setSelectedIndex(0);
+        comboBoxHourFirst.setSelectedIndex(0);
+        comboBoxMinutesFirst.setSelectedIndex(0);
+        comboBoxDestino.setSelectedIndex(0);
+        txtAreaReprogramacion.setText("");
+        btnActualizarDatos.setSelected(false);
+        bloqueo();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton btnActualizarDatos;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnReprogramar;
     private javax.swing.JCheckBox chboxVueloCarga;
@@ -342,7 +469,7 @@ public class pnlReprogramFlightAirline extends javax.swing.JPanel {
     private javax.swing.JLabel lbVueloS3;
     private javax.swing.JLabel lbVueloS8;
     private javax.swing.JLabel lbVueloS9;
-    private javax.swing.JTable tblCustomers;
+    private javax.swing.JTable tblSolicitudes;
     private javax.swing.JTextArea txtAreaReprogramacion;
     // End of variables declaration//GEN-END:variables
 }
