@@ -1,0 +1,297 @@
+package View;
+
+/**
+ *
+ * @author Booh
+ */
+public class pnlFlightCalendar extends javax.swing.JPanel {
+
+    public pnlFlightCalendar() {
+        initComponents();
+    }
+
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblCustomers = new javax.swing.JTable();
+        lbVueloS = new javax.swing.JLabel();
+        lbVueloS2 = new javax.swing.JLabel();
+        lbVueloS1 = new javax.swing.JLabel();
+        comboBoxDayFirst = new javax.swing.JComboBox<>();
+        comboBoxDaySecond = new javax.swing.JComboBox<>();
+        comboBoxMonthFirst = new javax.swing.JComboBox<>();
+        comboBoxMonthSecond = new javax.swing.JComboBox<>();
+        comboBoxYearFirst = new javax.swing.JComboBox<>();
+        comboBoxYearSecond = new javax.swing.JComboBox<>();
+        comboBoxHourFirst = new javax.swing.JComboBox<>();
+        comboBoxHourSecond = new javax.swing.JComboBox<>();
+        comboBoxMinutesFirst = new javax.swing.JComboBox<>();
+        comboBoxMinutesSecond = new javax.swing.JComboBox<>();
+        cbPistaDespegue = new javax.swing.JCheckBox();
+        cbPistaAterrizaje = new javax.swing.JCheckBox();
+        btnCrearAgenda = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
+        btnBorrarAgenda = new javax.swing.JButton();
+        lbVueloS8 = new javax.swing.JLabel();
+        lbVueloS7 = new javax.swing.JLabel();
+        lbVueloS3 = new javax.swing.JLabel();
+        lbVueloS4 = new javax.swing.JLabel();
+        lbVueloS5 = new javax.swing.JLabel();
+        lbVueloS6 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tblCustomers.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tblCustomers.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Fecha", "Hora", "Pista Despegue", "Pista Aterrizaje"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblCustomers.setColumnSelectionAllowed(true);
+        tblCustomers.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblCustomersMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblCustomers);
+        tblCustomers.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        if (tblCustomers.getColumnModel().getColumnCount() > 0) {
+            tblCustomers.getColumnModel().getColumn(0).setResizable(false);
+            tblCustomers.getColumnModel().getColumn(1).setResizable(false);
+            tblCustomers.getColumnModel().getColumn(2).setResizable(false);
+            tblCustomers.getColumnModel().getColumn(3).setResizable(false);
+        }
+
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 1160, 170));
+
+        lbVueloS.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        lbVueloS.setForeground(new java.awt.Color(255, 255, 255));
+        lbVueloS.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbVueloS.setText("Pistas disponibles");
+        lbVueloS.setToolTipText("");
+        add(lbVueloS, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 350, 310, 40));
+
+        lbVueloS2.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        lbVueloS2.setForeground(new java.awt.Color(255, 255, 255));
+        lbVueloS2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbVueloS2.setText("a");
+        lbVueloS2.setToolTipText("");
+        add(lbVueloS2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 550, 70, 40));
+
+        lbVueloS1.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        lbVueloS1.setForeground(new java.awt.Color(255, 255, 255));
+        lbVueloS1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbVueloS1.setText("Agenda disponible");
+        lbVueloS1.setToolTipText("");
+        add(lbVueloS1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 160, 40));
+
+        comboBoxDayFirst.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        comboBoxDayFirst.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Day", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        add(comboBoxDayFirst, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 480, 120, 40));
+
+        comboBoxDaySecond.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        comboBoxDaySecond.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Day", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        add(comboBoxDaySecond, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 480, 120, 40));
+
+        comboBoxMonthFirst.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        comboBoxMonthFirst.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Month", "January", "February", "March", "may", "June", "July", "August", "September", "October", "November", "December" }));
+        add(comboBoxMonthFirst, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 410, 120, 40));
+
+        comboBoxMonthSecond.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        comboBoxMonthSecond.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Month", "January", "February", "March", "may", "June", "July", "August", "September", "October", "November", "December" }));
+        add(comboBoxMonthSecond, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 410, 120, 40));
+
+        comboBoxYearFirst.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        comboBoxYearFirst.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Year", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033", "2034", "2035", "2036", "2037", "2038", "2039", "2040", "2041", "2042", "2043", "2044", "2045", "2046", "2047", "2048", "2049", "2050", "2051", "2052", "2053", "2054", "2055", "2056", "2057", "2058", "2059", "2060" }));
+        add(comboBoxYearFirst, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 550, 120, 40));
+
+        comboBoxYearSecond.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        comboBoxYearSecond.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Year", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033", "2034", "2035", "2036", "2037", "2038", "2039", "2040", "2041", "2042", "2043", "2044", "2045", "2046", "2047", "2048", "2049", "2050", "2051", "2052", "2053", "2054", "2055", "2056", "2057", "2058", "2059", "2060" }));
+        add(comboBoxYearSecond, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 550, 120, 40));
+
+        comboBoxHourFirst.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        comboBoxHourFirst.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hour", "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
+        add(comboBoxHourFirst, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 410, 120, 40));
+
+        comboBoxHourSecond.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        comboBoxHourSecond.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hour", "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
+        add(comboBoxHourSecond, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 410, 120, 40));
+
+        comboBoxMinutesFirst.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        comboBoxMinutesFirst.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Minutes", "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" }));
+        add(comboBoxMinutesFirst, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 480, 120, 40));
+
+        comboBoxMinutesSecond.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        comboBoxMinutesSecond.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Minutes", "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" }));
+        add(comboBoxMinutesSecond, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 480, 120, 40));
+
+        cbPistaDespegue.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        cbPistaDespegue.setForeground(new java.awt.Color(255, 255, 255));
+        cbPistaDespegue.setText("Pista de Despegue");
+        add(cbPistaDespegue, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 410, -1, -1));
+
+        cbPistaAterrizaje.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        cbPistaAterrizaje.setForeground(new java.awt.Color(255, 255, 255));
+        cbPistaAterrizaje.setText("Pista de Aterrizaje");
+        add(cbPistaAterrizaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 480, -1, -1));
+
+        btnCrearAgenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/agenda_crear_min.png"))); // NOI18N
+        btnCrearAgenda.setContentAreaFilled(false);
+        btnCrearAgenda.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/agenda_crear_min.png"))); // NOI18N
+        btnCrearAgenda.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/agenda_crear_max.png"))); // NOI18N
+        add(btnCrearAgenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 620, 330, 130));
+
+        btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Limpiar_min.png"))); // NOI18N
+        btnLimpiar.setContentAreaFilled(false);
+        btnLimpiar.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Limpiar_min.png"))); // NOI18N
+        btnLimpiar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Limpiar_max.png"))); // NOI18N
+        add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 620, 330, 130));
+
+        btnBorrarAgenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/agenda_borrar_min.png"))); // NOI18N
+        btnBorrarAgenda.setContentAreaFilled(false);
+        btnBorrarAgenda.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/agenda_borrar_min.png"))); // NOI18N
+        btnBorrarAgenda.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/agenda_borrar_min (1).png"))); // NOI18N
+        add(btnBorrarAgenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 620, 330, 130));
+
+        lbVueloS8.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        lbVueloS8.setForeground(new java.awt.Color(255, 255, 255));
+        lbVueloS8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbVueloS8.setText("Registrar Hora");
+        lbVueloS8.setToolTipText("");
+        add(lbVueloS8, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 350, 310, 40));
+
+        lbVueloS7.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        lbVueloS7.setForeground(new java.awt.Color(255, 255, 255));
+        lbVueloS7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbVueloS7.setText("a");
+        lbVueloS7.setToolTipText("");
+        add(lbVueloS7, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 480, 70, 40));
+
+        lbVueloS3.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        lbVueloS3.setForeground(new java.awt.Color(255, 255, 255));
+        lbVueloS3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbVueloS3.setText("Registrar fecha");
+        lbVueloS3.setToolTipText("");
+        add(lbVueloS3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 350, 310, 40));
+
+        lbVueloS4.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        lbVueloS4.setForeground(new java.awt.Color(255, 255, 255));
+        lbVueloS4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbVueloS4.setText("a");
+        lbVueloS4.setToolTipText("");
+        add(lbVueloS4, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 410, 70, 40));
+
+        lbVueloS5.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        lbVueloS5.setForeground(new java.awt.Color(255, 255, 255));
+        lbVueloS5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbVueloS5.setText("a");
+        lbVueloS5.setToolTipText("");
+        add(lbVueloS5, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 480, 70, 40));
+
+        lbVueloS6.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        lbVueloS6.setForeground(new java.awt.Color(255, 255, 255));
+        lbVueloS6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbVueloS6.setText("a");
+        lbVueloS6.setToolTipText("");
+        add(lbVueloS6, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 410, 70, 40));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 58)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Agenda de horarios");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 1180, 90));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Background_login_2.png"))); // NOI18N
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 1180, 730));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Banner_Airport.jpg"))); // NOI18N
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 790));
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void tblCustomersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCustomersMouseClicked
+        int row = tblCustomers.getSelectedRow();
+        String id = tblCustomers.getValueAt(row, 0).toString();
+
+        //        CustomerVO customer = controller.read(Integer.parseInt(id));
+
+        //        if(customer.getId() > 0) {
+            //            txtCustomerID.setText(String.valueOf(customer.getId()));
+            //            txtName.setText(customer.getName());
+            //            txtLastname.setText(customer.getLastname());
+            //            txtAddress.setText(customer.getAddress());
+            //            txtPhone.setText(customer.getPhone());
+            //            txtEmail.setText(customer.getEmail());
+            //        }
+    }//GEN-LAST:event_tblCustomersMouseClicked
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBorrarAgenda;
+    private javax.swing.JButton btnCrearAgenda;
+    private javax.swing.JButton btnLimpiar;
+    private javax.swing.JCheckBox cbPistaAterrizaje;
+    private javax.swing.JCheckBox cbPistaDespegue;
+    private javax.swing.JComboBox<String> comboBoxDayFirst;
+    private javax.swing.JComboBox<String> comboBoxDaySecond;
+    private javax.swing.JComboBox<String> comboBoxHourFirst;
+    private javax.swing.JComboBox<String> comboBoxHourSecond;
+    private javax.swing.JComboBox<String> comboBoxMinutesFirst;
+    private javax.swing.JComboBox<String> comboBoxMinutesSecond;
+    private javax.swing.JComboBox<String> comboBoxMonthFirst;
+    private javax.swing.JComboBox<String> comboBoxMonthSecond;
+    private javax.swing.JComboBox<String> comboBoxYearFirst;
+    private javax.swing.JComboBox<String> comboBoxYearSecond;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbVueloS;
+    private javax.swing.JLabel lbVueloS1;
+    private javax.swing.JLabel lbVueloS2;
+    private javax.swing.JLabel lbVueloS3;
+    private javax.swing.JLabel lbVueloS4;
+    private javax.swing.JLabel lbVueloS5;
+    private javax.swing.JLabel lbVueloS6;
+    private javax.swing.JLabel lbVueloS7;
+    private javax.swing.JLabel lbVueloS8;
+    private javax.swing.JTable tblCustomers;
+    // End of variables declaration//GEN-END:variables
+}
