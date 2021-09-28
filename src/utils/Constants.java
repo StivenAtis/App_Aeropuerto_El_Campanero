@@ -27,6 +27,15 @@ public class Constants {
     public static final int CREW_PLANE_FLIGHT = 7;
     public static final int DESTINATION_PLANE_FLIGHT = 8;
     
+    //Constants jTable vuelos agendados - Aerolinea
+    public static final int CODE_FLIGHT_AGENDA = 0;
+    public static final int TYPE_FLIGHT_AGENDA = 1;
+    public static final int CLASS_FLIGHT_AGENDA = 2;
+    public static final int DATE_FLIGHT_AGENDA = 3;
+    public static final int TIME_FLIGHT_AGENDA = 4;
+    public static final int DESTINATION_AGENDA = 5;
+    public static final int PISTA_AGENDA = 6;
+    
     //Constants jTable consultas
     public static final int CODE_FLIGHT_REQUEST = 0;
     public static final int TYPE_FLIGHT_REQUEST = 1;

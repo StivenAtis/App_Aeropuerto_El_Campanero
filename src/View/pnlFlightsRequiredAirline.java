@@ -149,19 +149,6 @@ public class pnlFlightsRequiredAirline extends javax.swing.JPanel {
     
     private void tblSolicitudesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSolicitudesMouseClicked
 
-//        int row = tblCustomers.getSelectedRow();
-//        String id = tblCustomers.getValueAt(row, 0).toString();
-
-        //        CustomerVO customer = controller.read(Integer.parseInt(id));
-
-        //        if(customer.getId() > 0) {
-            //            txtCustomerID.setText(String.valueOf(customer.getId()));
-            //            txtName.setText(customer.getName());
-            //            txtLastname.setText(customer.getLastname());
-            //            txtAddress.setText(customer.getAddress());
-            //            txtPhone.setText(customer.getPhone());
-            //            txtEmail.setText(customer.getEmail());
-            //        }
     }//GEN-LAST:event_tblSolicitudesMouseClicked
 
 
