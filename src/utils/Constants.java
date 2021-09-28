@@ -35,6 +35,17 @@ public class Constants {
     public static final int TIME_FLIGHT_AGENDA = 4;
     public static final int DESTINATION_AGENDA = 5;
     public static final int PISTA_AGENDA = 6;
+
+    //Constants jTable vuelos agendados - Aerolinea - cancelar
+    public static final int CODE_FLIGHT_AGENDA_CANCELAR = 0;
+    public static final int TYPE_FLIGHT_AGENDA_CANCELAR = 1;
+    public static final int CLASS_FLIGHT_AGENDA_CANCELAR = 2;
+    public static final int DATE_FLIGHT_AGENDA_CANCELAR = 3;
+    public static final int TIME_FLIGHT_AGENDA_CANCELAR = 4;
+    public static final int DESTINATION_AGENDA_CANCELAR = 5;
+    public static final int PISTA_AGENDA_CANCELAR = 6;
+    public static final int CREW_AGENDA_CANCELAR = 7;
+    public static final int ID_AIRLINE_CANCELAR = 8;
     
     //Constants jTable consultas
     public static final int CODE_FLIGHT_REQUEST = 0;
@@ -44,7 +55,6 @@ public class Constants {
     public static final int TIME_FLIGHT_REQUEST = 4;
     public static final int DESTINATION_FLIGHT_REQUEST = 5;
     public static final int STATE_FLIGHT_REQUEST = 6;
-    
     //Constants jTable Plans
     public static final int ID_PLAN = 0;
     public static final int CODE_PLAN = 1;
