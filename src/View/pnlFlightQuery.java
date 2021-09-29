@@ -167,7 +167,7 @@ public class pnlFlightQuery extends javax.swing.JPanel {
                                     "Hora de vuelo: " + FlightRequirementsSearch.getHora() + "\n" + 
                                     "Destino del vuelo: " + FlightRequirementsSearch.getDestino());
                     
-                    txtAInfoSolicitud.setText("El vuelo ha sido solicitado al aeropuerto y aun no se tiene una respuesta sober su agendamiento");
+                    txtAInfoSolicitud.setText("El vuelo ha sido solicitado al aeropuerto y aun no se tiene una respuesta sobre su agendamiento.");
                 }
                 
                 if (FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de carga")) {
@@ -184,7 +184,7 @@ public class pnlFlightQuery extends javax.swing.JPanel {
                                     "Hora de vuelo: " + FlightRequirementsSearch.getHora() + "\n" + 
                                     "Destino del vuelo: " + FlightRequirementsSearch.getDestino());
                     
-                    txtAInfoSolicitud.setText("El vuelo ha sido solicitado al aeropuerto y aun no se tiene una respuesta sober su agendamiento.");
+                    txtAInfoSolicitud.setText("El vuelo ha sido solicitado al aeropuerto y aun no se tiene una respuesta sobre su agendamiento.");
                 }
                 
                 } 

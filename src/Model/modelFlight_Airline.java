@@ -87,14 +87,39 @@ public class modelFlight_Airline {
     public boolean updateFlightResquest(clsFlightRequirements vuelo) {
         
         try(Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
-
-            //String query = "UPDATE `tb_monthly_fees` SET `fees`= ?, `payment_method`= ?, `payment_method_id`= ?, `date_fees`= ?, `id_plan`= ?, `id_pet`= ? WHERE `id`= ?";
             String query = "UPDATE `tb_flight_requeriment_airline` SET `date_flight` = ?,`time_flight`= ? WHERE code_flight = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             
             preparedStatement.setString(1, vuelo.getFecha());
             preparedStatement.setString(2, vuelo.getHora());
             preparedStatement.setString(3, vuelo.getCodigoVuelo());
+            
+            preparedStatement.executeUpdate();
+            
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    public boolean updateFlightResquestCoplete(clsFlightRequirements vuelo) {
+        
+        try(Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
+            String query = "UPDATE `tb_flight_requeriment_airline` SET `model_plane`=?,`Type_flight`=?,`flight_selection`=?,`capacity_plane`=?,`crew_plane`=?,`date_flight`=?,`time_flight`=?,`destination`=? WHERE code_flight=?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            
+            preparedStatement.setString(1, vuelo.getModeloAvion());
+            preparedStatement.setString(2, vuelo.getTipoVuelo());
+            preparedStatement.setString(3, vuelo.getSalidaLlegada());
+            preparedStatement.setString(4, vuelo.getCapacidadCarga());
+            preparedStatement.setString(5, vuelo.getTripulación());
+            preparedStatement.setString(6, vuelo.getFecha());
+            preparedStatement.setString(7, vuelo.getHora());
+            preparedStatement.setString(8, vuelo.getDestino());
+            preparedStatement.setString(9, vuelo.getCodigoVuelo());
             
             preparedStatement.executeUpdate();
             

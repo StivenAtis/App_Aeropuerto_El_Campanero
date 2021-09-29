@@ -569,6 +569,280 @@ public class pnlReprogramFlightAirline extends javax.swing.JPanel {
             
         
         }
+        else {
+            
+            if(btnActualizarDatos.isSelected() == true){
+                if(tblSolicitudes.getSelectedRow() == -1){
+                JOptionPane.showMessageDialog(this, "¡Debe seleccionar un vuelo para poderlo cancelar!");
+            }
+            else{
+                
+                int row = tblSolicitudes.getSelectedRow();
+                String codigo = tblSolicitudes.getValueAt(row, 0).toString();
+                
+                String anio = comboBoxYearFirst.getSelectedItem().toString();
+                String mes = comboBoxMonthFirst.getSelectedItem().toString();
+                String dia = comboBoxDayFirst.getSelectedItem().toString();
+                String hora = comboBoxHourFirst.getSelectedItem().toString();
+                String minuto = comboBoxMinutesFirst.getSelectedItem().toString();
+                
+                if(comboBoxTripulacionVuelo.getSelectedItem().toString().equals("Tripulación de vuelo") || 
+                   comboboxModeloAvion.getSelectedItem().toString().equals("Modelo de avión") || comboBoxCapacidadAvion.getSelectedItem().toString().equals("Capacidad de avión") ||
+                   comboBoxDestino.getSelectedItem().toString().equals("Seleccione destino")){
+                    
+                    JOptionPane.showMessageDialog(this, "¡Debe ingresar todos los datos del formulario!");
+                }
+                
+                if(anio.equals("Year") || mes.equals("Month") || dia.equals("Day") || hora.equals("Hour") || minuto.equals("Minutes")){
+                    JOptionPane.showMessageDialog(this, "¡Debe seleccionar una fecha u hora valida!");
+                }           
+                
+                else{
+                    
+                    String anioVuelo = comboBoxYearFirst.getSelectedItem().toString();
+                    String mesVuelo = comboBoxMonthFirst.getSelectedItem().toString();
+                    String diaVuelo = comboBoxDayFirst.getSelectedItem().toString();
+                    String horaVuelo = comboBoxHourFirst.getSelectedItem().toString();
+                    String minutoVuelo = comboBoxMinutesFirst.getSelectedItem().toString();
+                    String mesNumber = "";
+                        
+                    if(mesVuelo.equals("January")){
+                            mesNumber = "1";
+                        }
+                        if(mesVuelo.equals("February")){
+                            mesNumber = "2";
+                        }
+                        if(mesVuelo.equals("March")){
+                            mesNumber = "3";
+                        }
+                        if(mesVuelo.equals("April")){
+                            mesNumber = "4";
+                        }
+                        if(mesVuelo.equals("may")){
+                            mesNumber = "5";
+                        }
+                        if(mesVuelo.equals("June")){
+                            mesNumber = "6";
+                        }
+                        if(mesVuelo.equals("July")){
+                            mesNumber = "7";
+                        }
+                        if(mesVuelo.equals("August")){
+                            mesNumber = "8";
+                        }
+                        if(mesVuelo.equals("September")){
+                            mesNumber = "9";
+                        }
+                        if(mesVuelo.equals("October")){
+                            mesNumber = "10";
+                        }
+                        if(mesVuelo.equals("November")){
+                            mesNumber = "11";
+                        }
+                        if(mesVuelo.equals("December")){
+                            mesNumber = "12";
+                        }
+
+                        String fecha = anioVuelo + "-" + mesNumber + "-" + diaVuelo;
+                        String tiempo = horaVuelo + ":" + minutoVuelo + ":" + "00";
+                        
+                        
+                        if(chboxVueloPasajeros.isSelected()==true && chboxVueloSalida.isSelected() == true){
+                            
+                            String tripulacion = comboBoxTripulacionVuelo.getSelectedItem().toString();
+                            String modelo = comboboxModeloAvion.getSelectedItem().toString();
+                            String capacidad = comboBoxCapacidadAvion.getSelectedItem().toString();
+                            String destino = comboBoxDestino.getSelectedItem().toString();
+                            
+                            if (Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) < currentDate.getMonthValue()) {
+                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                            }
+                            else if(Integer.parseInt(anioVuelo) < currentDate.getYear()){
+                                JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                            }
+                            else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) < currentDate.getDayOfMonth()){
+                                JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                            }
+
+                            else if (Integer.parseInt(anioVuelo) >= currentDate.getYear() ){
+
+                                clsFlightRequirements FlightRequirements_update = new clsFlightRequirements(0, codigo, modelo, "Vuelo de pasajeros", "Vuelo de salida", capacidad, tripulacion, fecha, tiempo, destino);
+
+                                if(controller.updateFlightResquestComplete(FlightRequirements_update)){
+                                    Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                                    JOptionPane.showMessageDialog(this, "¡¡¡Se ha reprogramado \n una solicitud de vuelo!!!", "Solicitud reprogramada satisfactoriamente", WIDTH, m);
+                                    fillDataTable();
+                                    cleanRegisterQuestionnaire();
+                                }
+                                else {
+                                  JOptionPane.showMessageDialog(this, "¡An error occurred while updating!");  
+                                }
+
+                            }
+                            else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) > currentDate.getDayOfMonth()){
+
+                            clsFlightRequirements FlightRequirements_update = new clsFlightRequirements(0, codigo, modelo, "Vuelo de pasajeros", "Vuelo de salida", capacidad, tripulacion, fecha, tiempo, destino);
+
+                                if(controller.updateFlightResquestComplete(FlightRequirements_update)){
+                                    Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                                    JOptionPane.showMessageDialog(this, "¡¡¡Se ha reprogramado \n una solicitud de vuelo!!!", "Solicitud reprogramada satisfactoriamente", WIDTH, m);
+                                    fillDataTable();
+                                    cleanRegisterQuestionnaire();
+                                }
+                                else {
+                                  JOptionPane.showMessageDialog(this, "¡An error occurred while updating!");  
+                                }
+                            }
+                        }
+
+                        if(chboxVueloPasajeros.isSelected()==true && chboxVueloLlegada.isSelected() == true){
+
+                            String tripulacion = comboBoxTripulacionVuelo.getSelectedItem().toString();
+                            String modelo = comboboxModeloAvion.getSelectedItem().toString();
+                            String capacidad = comboBoxCapacidadAvion.getSelectedItem().toString();
+                            String destino = comboBoxDestino.getSelectedItem().toString();
+
+                            if (Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) < currentDate.getMonthValue()) {
+                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                            }
+                            else if(Integer.parseInt(anioVuelo) < currentDate.getYear()){
+                                JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                            }
+                            else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) < currentDate.getDayOfMonth()){
+                                JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                            }
+
+                            else if (Integer.parseInt(anioVuelo) >= currentDate.getYear() ){
+
+                                clsFlightRequirements FlightRequirements_update = new clsFlightRequirements(0, codigo, modelo, "Vuelo de pasajeros", "Vuelo de llegada", capacidad, tripulacion, fecha, tiempo, destino);
+
+                                if(controller.updateFlightResquestComplete(FlightRequirements_update)){
+                                    Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                                    JOptionPane.showMessageDialog(this, "¡¡¡Se ha reprogramado \n una solicitud de vuelo!!!", "Solicitud reprogramada satisfactoriamente", WIDTH, m);
+                                    fillDataTable();
+                                    cleanRegisterQuestionnaire();
+                                }
+                                else {
+                                  JOptionPane.showMessageDialog(this, "¡An error occurred while updating!");  
+                                }
+
+                            }
+                            else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) > currentDate.getDayOfMonth()){
+
+                                clsFlightRequirements FlightRequirements_update = new clsFlightRequirements(0, codigo, modelo, "Vuelo de pasajeros", "Vuelo de llegada", capacidad, tripulacion, fecha, tiempo, destino);
+
+                                if(controller.updateFlightResquestComplete(FlightRequirements_update)){
+                                    Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                                    JOptionPane.showMessageDialog(this, "¡¡¡Se ha reprogramado \n una solicitud de vuelo!!!", "Solicitud reprogramada satisfactoriamente", WIDTH, m);
+                                    fillDataTable();
+                                    cleanRegisterQuestionnaire();
+                                }
+                                else {
+                                  JOptionPane.showMessageDialog(this, "¡An error occurred while updating!");  
+                                }
+                            }
+                        }
+                        
+                        if(chboxVueloCarga.isSelected()==true && chboxVueloLlegada.isSelected() == true){
+                            
+                            String tripulacion = comboBoxTripulacionVuelo.getSelectedItem().toString();
+                            String modelo = comboboxModeloAvion.getSelectedItem().toString();
+                            String capacidad = comboBoxCapacidadAvion.getSelectedItem().toString();
+                            String destino = comboBoxDestino.getSelectedItem().toString();
+
+                            if (Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) < currentDate.getMonthValue()) {
+                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                            }
+                            else if(Integer.parseInt(anioVuelo) < currentDate.getYear()){
+                                JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                            }
+                            else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) < currentDate.getDayOfMonth()){
+                                JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                            }
+
+                            else if (Integer.parseInt(anioVuelo) >= currentDate.getYear() ){
+
+                                clsFlightRequirements FlightRequirements_update = new clsFlightRequirements(0, codigo, modelo, "Vuelo de carga", "Vuelo de llegada", capacidad, tripulacion, fecha, tiempo, destino);
+
+                                if(controller.updateFlightResquestComplete(FlightRequirements_update)){
+                                    Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                                    JOptionPane.showMessageDialog(this, "¡¡¡Se ha reprogramado \n una solicitud de vuelo!!!", "Solicitud reprogramada satisfactoriamente", WIDTH, m);
+                                    fillDataTable();
+                                    cleanRegisterQuestionnaire();
+                                }
+                                else {
+                                  JOptionPane.showMessageDialog(this, "¡An error occurred while updating!");  
+                                }
+
+                            }
+                            else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) > currentDate.getDayOfMonth()){
+
+                                clsFlightRequirements FlightRequirements_update = new clsFlightRequirements(0, codigo, modelo, "Vuelo de carga", "Vuelo de llegada", capacidad, tripulacion, fecha, tiempo, destino);
+
+                                if(controller.updateFlightResquestComplete(FlightRequirements_update)){
+                                    Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                                    JOptionPane.showMessageDialog(this, "¡¡¡Se ha reprogramado \n una solicitud de vuelo!!!", "Solicitud reprogramada satisfactoriamente", WIDTH, m);
+                                    fillDataTable();
+                                    cleanRegisterQuestionnaire();
+                                }
+                                else {
+                                  JOptionPane.showMessageDialog(this, "¡An error occurred while updating!");  
+                                }
+                            }
+                        }
+                        
+                        if(chboxVueloCarga.isSelected()==true && chboxVueloSalida.isSelected() == true){
+                            
+                            String tripulacion = comboBoxTripulacionVuelo.getSelectedItem().toString();
+                            String modelo = comboboxModeloAvion.getSelectedItem().toString();
+                            String capacidad = comboBoxCapacidadAvion.getSelectedItem().toString();
+                            String destino = comboBoxDestino.getSelectedItem().toString();
+
+                            if (Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) < currentDate.getMonthValue()) {
+                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                            }
+                            else if(Integer.parseInt(anioVuelo) < currentDate.getYear()){
+                                JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                            }
+                            else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) < currentDate.getDayOfMonth()){
+                                JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                            }
+
+                            else if (Integer.parseInt(anioVuelo) >= currentDate.getYear() ){
+
+                                clsFlightRequirements FlightRequirements_update = new clsFlightRequirements(0, codigo, modelo, "Vuelo de carga", "Vuelo de salida", capacidad, tripulacion, fecha, tiempo, destino);
+
+                                if(controller.updateFlightResquestComplete(FlightRequirements_update)){
+                                    Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                                    JOptionPane.showMessageDialog(this, "¡¡¡Se ha reprogramado \n una solicitud de vuelo!!!", "Solicitud reprogramada satisfactoriamente", WIDTH, m);
+                                    fillDataTable();
+                                    cleanRegisterQuestionnaire();
+                                }
+                                else {
+                                  JOptionPane.showMessageDialog(this, "¡An error occurred while updating!");  
+                                }
+
+                            }
+                            else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) > currentDate.getDayOfMonth()){
+
+                                clsFlightRequirements FlightRequirements_update = new clsFlightRequirements(0, codigo, modelo, "Vuelo de carga", "Vuelo de salida", capacidad, tripulacion, fecha, tiempo, destino);
+
+                                if(controller.updateFlightResquestComplete(FlightRequirements_update)){
+                                    Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                                    JOptionPane.showMessageDialog(this, "¡¡¡Se ha reprogramado \n una solicitud de vuelo!!!", "Solicitud reprogramada satisfactoriamente", WIDTH, m);
+                                    fillDataTable();
+                                    cleanRegisterQuestionnaire();
+                                }
+                                else {
+                                  JOptionPane.showMessageDialog(this, "¡An error occurred while updating!");  
+                                }
+                            }
+                        }
+                    }
+                
+                }
+            }
+        }
     }//GEN-LAST:event_btnReprogramarActionPerformed
 
     private void cleanRegisterQuestionnaire(){
