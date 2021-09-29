@@ -36,6 +36,13 @@ public class ctlFlightRequirement {
     
     //--------------------------------------------------------------------------
     
+    public boolean updateFlightResquest (clsFlightRequirements Payment){
+        
+            return modeloRequerimientoVuelo.updateFlightResquest((clsFlightRequirements) Payment);
+    }
+    
+    //--------------------------------------------------------------------------
+    
     public boolean deleteFlight(clsFlightRequirements Flight){
         
         return modeloRequerimientoVuelo.deleteFlight((clsFlightRequirements) Flight);
