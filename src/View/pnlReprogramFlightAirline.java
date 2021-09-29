@@ -473,9 +473,11 @@ public class pnlReprogramFlightAirline extends javax.swing.JPanel {
                 if(hora.equals("Hour") || minuto.equals("Minutes")){
                     JOptionPane.showMessageDialog(this, "¡Debe ingresar una hora valida del vuelo!");
                 }
+                if(txtAreaReprogramacion.getText().equals("")){
+                    JOptionPane.showMessageDialog(this, "¡Debe añadir un motivo para la reprogramación del vuelo!");
+                }
                 
-                else{
-                    
+                else{   
                     String anioVuelo = comboBoxYearFirst.getSelectedItem().toString();
                     String mesVuelo = comboBoxMonthFirst.getSelectedItem().toString();
                     String diaVuelo = comboBoxDayFirst.getSelectedItem().toString();
@@ -595,7 +597,11 @@ public class pnlReprogramFlightAirline extends javax.swing.JPanel {
                 
                 if(anio.equals("Year") || mes.equals("Month") || dia.equals("Day") || hora.equals("Hour") || minuto.equals("Minutes")){
                     JOptionPane.showMessageDialog(this, "¡Debe seleccionar una fecha u hora valida!");
-                }           
+                }
+                
+                if(txtAreaReprogramacion.getText().equals("")){
+                    JOptionPane.showMessageDialog(this, "¡Debe añadir un motivo para la reprogramación del vuelo!");
+                }
                 
                 else{
                     
