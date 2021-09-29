@@ -1,5 +1,6 @@
 package Controller;
 
+import Classes.clsDeniedFlights;
 import Classes.clsFlightAgenda;
 import Model.modelFlight_Agenda;
 import java.util.LinkedList;
@@ -43,6 +44,12 @@ public class ctlFlightAgenda {
     
     public LinkedList<clsFlightAgenda> listFlightAgenda(){
         return modeloAgendaVuelo.FlightList();
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    public LinkedList<clsDeniedFlights> listFlightDenied(){
+        return modeloAgendaVuelo.FlightDeniedList();
     }
     
     //--------------------------------------------------------------------------

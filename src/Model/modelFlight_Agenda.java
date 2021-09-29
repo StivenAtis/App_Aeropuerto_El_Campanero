@@ -1,5 +1,6 @@
 package Model;
 
+import Classes.clsDeniedFlights;
 import Classes.clsFlightAgenda;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -132,4 +133,38 @@ public class modelFlight_Agenda {
     
     //--------------------------------------------------------------------------
     
+    public LinkedList<clsDeniedFlights> FlightDeniedList(){
+        
+        LinkedList<clsDeniedFlights> FlightDenied = new LinkedList<>();
+        
+        try (Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
+            String query = "SELECT `id`, `code_flight`, `Type_flight`, `flight_selection`, `date_flight`, `time_flight`, `model_plane`, `capacity_plane`, `crew_plane`, `destiny`, `description`, `id_airline` FROM `tb_flight_declined`";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet rs = preparedStatement.executeQuery();
+            
+            while (rs.next()) {
+                clsDeniedFlights FRAgenda = new clsDeniedFlights(
+                rs.getInt("id"),
+                rs.getString("code_flight"),
+                rs.getString("Type_flight"),
+                rs.getString("flight_selection"),
+                rs.getString("date_flight"),
+                rs.getString("time_flight"),
+                rs.getString("model_plane"),
+                rs.getString("capacity_plane"),
+                rs.getString("crew_plane"),
+                rs.getString("destiny"),
+                rs.getString("description"),
+                rs.getString("id_airline"));
+                
+                FlightDenied.add(FRAgenda);
+            }
+            return FlightDenied;
+        } catch (Exception e) {
+            System.out.println("Error querying: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
 }

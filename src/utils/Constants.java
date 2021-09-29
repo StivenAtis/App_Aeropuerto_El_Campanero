@@ -47,6 +47,18 @@ public class Constants {
     public static final int CREW_AGENDA_CANCELAR = 7;
     public static final int ID_AIRLINE_CANCELAR = 8;
     
+    //constans jTable flights denied - Airline - Airport
+    public static final int CODE_FLIGHT_DENIED = 0;
+    public static final int TYPE_FLIGHT_DENIED = 1;
+    public static final int CLASS_FLIGHT_DENIED = 2;
+    public static final int DATE_FLIGHT_DENIED = 3;
+    public static final int TIME_FLIGHT_DENIED = 4;
+    public static final int MODEL_FLIGHT_DENIED = 5;
+    public static final int CAPACITY_FLIGHT_DENIED = 6;
+    public static final int CREW_FLIGHT_DENIED = 7;
+    public static final int DESTINY_FLIGHT_DENIED = 8;
+    public static final int ID_AIRLINE_DENIED = 8;
+    
     //Constants jTable consultas
     public static final int CODE_FLIGHT_REQUEST = 0;
     public static final int TYPE_FLIGHT_REQUEST = 1;
