@@ -1,22 +1,39 @@
 package View;
 
+import Classes.clsFlightAgenda;
+import Controller.ctlFlightAgenda;
+import java.util.LinkedList;
+import javax.swing.table.DefaultTableModel;
+import utils.Constants;
+
 /**
  *
  * @author Booh
  */
 public class pnlScheduledFlights extends javax.swing.JPanel {
+    
+    //--------------------------------------------------------------------------
+    
+    private ctlFlightAgenda controller = null;
+    private LinkedList<clsFlightAgenda> list;
+    
+    //--------------------------------------------------------------------------
 
     public pnlScheduledFlights() {
         initComponents();
+        controller = new ctlFlightAgenda();
+        fillDataTable();
     }
 
+    //--------------------------------------------------------------------------
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblCustomers = new javax.swing.JTable();
+        tblVuelosAgendados = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -28,8 +45,8 @@ public class pnlScheduledFlights extends javax.swing.JPanel {
         jLabel3.setText("Vuelos agendados");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 1180, 90));
 
-        tblCustomers.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tblCustomers.setModel(new javax.swing.table.DefaultTableModel(
+        tblVuelosAgendados.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tblVuelosAgendados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
@@ -87,23 +104,18 @@ public class pnlScheduledFlights extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblCustomers.setColumnSelectionAllowed(true);
-        tblCustomers.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblCustomersMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tblCustomers);
-        tblCustomers.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        if (tblCustomers.getColumnModel().getColumnCount() > 0) {
-            tblCustomers.getColumnModel().getColumn(0).setResizable(false);
-            tblCustomers.getColumnModel().getColumn(1).setResizable(false);
-            tblCustomers.getColumnModel().getColumn(2).setResizable(false);
-            tblCustomers.getColumnModel().getColumn(3).setResizable(false);
-            tblCustomers.getColumnModel().getColumn(4).setResizable(false);
-            tblCustomers.getColumnModel().getColumn(5).setResizable(false);
-            tblCustomers.getColumnModel().getColumn(6).setResizable(false);
-            tblCustomers.getColumnModel().getColumn(7).setResizable(false);
+        tblVuelosAgendados.setColumnSelectionAllowed(true);
+        jScrollPane1.setViewportView(tblVuelosAgendados);
+        tblVuelosAgendados.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        if (tblVuelosAgendados.getColumnModel().getColumnCount() > 0) {
+            tblVuelosAgendados.getColumnModel().getColumn(0).setResizable(false);
+            tblVuelosAgendados.getColumnModel().getColumn(1).setResizable(false);
+            tblVuelosAgendados.getColumnModel().getColumn(2).setResizable(false);
+            tblVuelosAgendados.getColumnModel().getColumn(3).setResizable(false);
+            tblVuelosAgendados.getColumnModel().getColumn(4).setResizable(false);
+            tblVuelosAgendados.getColumnModel().getColumn(5).setResizable(false);
+            tblVuelosAgendados.getColumnModel().getColumn(6).setResizable(false);
+            tblVuelosAgendados.getColumnModel().getColumn(7).setResizable(false);
         }
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 1160, 600));
@@ -115,28 +127,43 @@ public class pnlScheduledFlights extends javax.swing.JPanel {
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 790));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tblCustomersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCustomersMouseClicked
-        int row = tblCustomers.getSelectedRow();
-        String id = tblCustomers.getValueAt(row, 0).toString();
-
-        //        CustomerVO customer = controller.read(Integer.parseInt(id));
-
-        //        if(customer.getId() > 0) {
-            //            txtCustomerID.setText(String.valueOf(customer.getId()));
-            //            txtName.setText(customer.getName());
-            //            txtLastname.setText(customer.getLastname());
-            //            txtAddress.setText(customer.getAddress());
-            //            txtPhone.setText(customer.getPhone());
-            //            txtEmail.setText(customer.getEmail());
-            //        }
-    }//GEN-LAST:event_tblCustomersMouseClicked
-
+    //--------------------------------------------------------------------------
+    
+    private void fillDataTable() {
+         
+        list = controller.listFlightAgenda();
+        String datos[][] = new String[list.size()][7];
+        
+        if(list.size() > 0) {
+            for (int i = 0; i < list.size(); i++) {
+                datos[i][Constants.CODE_FLIGHT_AGENDA] = list.get(i).getCodigoVueloAgenda();
+                datos[i][Constants.TYPE_FLIGHT_AGENDA] = list.get(i).getTipoVuelo();
+                datos[i][Constants.CLASS_FLIGHT_AGENDA] = list.get(i).getClaseVuelo();
+                datos[i][Constants.DATE_FLIGHT_AGENDA] = list.get(i).getFecha();
+                datos[i][Constants.TIME_FLIGHT_AGENDA] = list.get(i).getTiempo();
+                datos[i][Constants.DESTINATION_AGENDA] = list.get(i).getDestino();
+                datos[i][Constants.PISTA_AGENDA] = list.get(i).getPista();
+            }        
+        }        
+        String[] columns = {
+            "CODIGO", "TIPO", "CLASE", "FECHA", "HORA", "DESTINO", "PISTA DE AVIÓN"
+        };
+        DefaultTableModel model = new DefaultTableModel(datos, columns);
+        int[] columnSize = {30, 50, 50, 50, 50, 50, 50};
+        for(int x=0; x<columnSize.length;x++)
+            tblVuelosAgendados.getColumnModel().getColumn(x).setPreferredWidth(columnSize[x]);
+        tblVuelosAgendados.setRowHeight(30);
+        tblVuelosAgendados.setModel(model);
+        tblVuelosAgendados.setEnabled(false);
+    } 
+    
+    //--------------------------------------------------------------------------
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblCustomers;
+    private javax.swing.JTable tblVuelosAgendados;
     // End of variables declaration//GEN-END:variables
 }
