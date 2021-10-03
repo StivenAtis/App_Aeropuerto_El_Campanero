@@ -81,14 +81,12 @@ public class pnlDeclinedFlights extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblVuelosDenegados.setColumnSelectionAllowed(true);
         tblVuelosDenegados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblVuelosDenegadosMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tblVuelosDenegados);
-        tblVuelosDenegados.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 1160, 290));
 
@@ -119,6 +117,18 @@ public class pnlDeclinedFlights extends javax.swing.JPanel {
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 790));
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tblVuelosDenegadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVuelosDenegadosMouseClicked
+        
+        int row = tblVuelosDenegados.getSelectedRow();
+        String id = tblVuelosDenegados.getValueAt(row, 0).toString();
+        
+        clsDeniedFlights FlightRequirementsSearch = controller.readDeniedFlightAgenda(id);
+        
+        String info = FlightRequirementsSearch.getDespricion();
+        
+        txtAInfoSolicitud.setText(info);
+    }//GEN-LAST:event_tblVuelosDenegadosMouseClicked
+
     //--------------------------------------------------------------------------
     
     private void fillDataTable() {
@@ -148,18 +158,8 @@ public class pnlDeclinedFlights extends javax.swing.JPanel {
             tblVuelosDenegados.getColumnModel().getColumn(x).setPreferredWidth(columnSize[x]);
         tblVuelosDenegados.setRowHeight(30);
         tblVuelosDenegados.setModel(model);
-        tblVuelosDenegados.setEnabled(false);
     } 
     
-    //--------------------------------------------------------------------------
-    
-    private void tblVuelosDenegadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVuelosDenegadosMouseClicked
-        int row = tblVuelosDenegados.getSelectedRow();
-        String id = tblVuelosDenegados.getValueAt(row, 0).toString();
-
-        
-    }//GEN-LAST:event_tblVuelosDenegadosMouseClicked
-
     //--------------------------------------------------------------------------
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

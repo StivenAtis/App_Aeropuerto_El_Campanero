@@ -35,6 +35,13 @@ public class ctlFlightAgenda {
     
     //--------------------------------------------------------------------------
     
+    public clsDeniedFlights readDeniedFlightAgenda(String codeFlight){
+        
+        return modeloAgendaVuelo.readDeniedFlightsAgenda(codeFlight);       
+    }
+    
+    //--------------------------------------------------------------------------
+    
     public boolean deleteFlight(clsFlightAgenda Flight){
         
         return modeloAgendaVuelo.deleteFlight((clsFlightAgenda) Flight);
