@@ -9,6 +9,8 @@ import java.time.LocalDate;
 import javax.swing.DefaultListModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
+import utils.Constants;
 
 /**
  *
@@ -16,11 +18,21 @@ import javax.swing.ImageIcon;
  */
 
 public class pnlScheduleFlight extends javax.swing.JPanel {
+    
+    private ctlFlightRequirement controller = null;
+    private ctlFlightAgenda controllerAgenda = null;
+    private LinkedList<clsFlightRequirements> list;
+    LinkedList<clsFlightAgenda> FlightAgendaObjectList = new LinkedList<>();
+    LocalDate currentDate = LocalDate.now();
 
     //--------------------------------------------------------------------------
     
     public pnlScheduleFlight() {
         initComponents();
+        controller = new ctlFlightRequirement();
+        controllerAgenda = new ctlFlightAgenda();
+        fillDataTable();
+        showFlightList();
     }
 
     //--------------------------------------------------------------------------
@@ -30,7 +42,7 @@ public class pnlScheduleFlight extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblCustomers = new javax.swing.JTable();
+        tblSolicitudes = new javax.swing.JTable();
         lbCdigoVuelo = new javax.swing.JLabel();
         tfCodigoVuelo = new javax.swing.JTextField();
         lbTipoV = new javax.swing.JLabel();
@@ -63,35 +75,35 @@ public class pnlScheduleFlight extends javax.swing.JPanel {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tblCustomers.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tblCustomers.setModel(new javax.swing.table.DefaultTableModel(
+        tblSolicitudes.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tblSolicitudes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Codigo", "Tipo", "Clase", "Destino", "Fecha", "Hora"
+                "Codigo", "Tipo", "Clase", "Destino", "Fecha", "Hora", "Capacidad avión", "null", "null"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -102,21 +114,22 @@ public class pnlScheduleFlight extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblCustomers.setColumnSelectionAllowed(true);
-        tblCustomers.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblSolicitudes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblCustomersMouseClicked(evt);
+                tblSolicitudesMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tblCustomers);
-        tblCustomers.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        if (tblCustomers.getColumnModel().getColumnCount() > 0) {
-            tblCustomers.getColumnModel().getColumn(0).setResizable(false);
-            tblCustomers.getColumnModel().getColumn(1).setResizable(false);
-            tblCustomers.getColumnModel().getColumn(2).setResizable(false);
-            tblCustomers.getColumnModel().getColumn(3).setResizable(false);
-            tblCustomers.getColumnModel().getColumn(4).setResizable(false);
-            tblCustomers.getColumnModel().getColumn(5).setResizable(false);
+        jScrollPane1.setViewportView(tblSolicitudes);
+        if (tblSolicitudes.getColumnModel().getColumnCount() > 0) {
+            tblSolicitudes.getColumnModel().getColumn(0).setResizable(false);
+            tblSolicitudes.getColumnModel().getColumn(1).setResizable(false);
+            tblSolicitudes.getColumnModel().getColumn(2).setResizable(false);
+            tblSolicitudes.getColumnModel().getColumn(3).setResizable(false);
+            tblSolicitudes.getColumnModel().getColumn(4).setResizable(false);
+            tblSolicitudes.getColumnModel().getColumn(5).setResizable(false);
+            tblSolicitudes.getColumnModel().getColumn(6).setResizable(false);
+            tblSolicitudes.getColumnModel().getColumn(7).setResizable(false);
+            tblSolicitudes.getColumnModel().getColumn(8).setResizable(false);
         }
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 1160, 140));
@@ -212,7 +225,7 @@ public class pnlScheduleFlight extends javax.swing.JPanel {
         add(comboBoxAgenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 660, 360, 40));
 
         comboBoxDestino.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        comboBoxDestino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Destino" }));
+        comboBoxDestino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Destino", "Afganistán - Kabul - Asia", "Albania - Tirana - Europa", "Alemania - Berlín - Europa", "Andorra - Andorra la Vieja - Europa", "Angola - Luanda - África", "Antigua y Barbuda - Saint John - América", "Arabia Saudita - Riad - Asia", "Argelia - Argel - África", "Argentina - Buenos Aires - América", "Armenia - Ereván - Asia", "Australia - Canberra - Oceanía", "Austria - Viena - Europa", "Azerbaiyán - Bakú - Asia", "Bahamas - Nasáu - América", "Bangladés - Daca - Asia", "Barbados - Bridgetown - América", "Baréin - Manama - Asia", "Bélgica - Bruselas - Europa", "Belice - Belmopán - América", "Benín - Porto - Novo - África", "Bielorrusia - Minsk - Europa", "Birmania - Naipyidó - Asia", "Bolivia - Sucre - América", "Bosnia - Herzegovina - Sarajevo - Europa", "Botsuana - Gaborone - África", "Brasil - Brasilia - América", "Brunéi - Bandar Seri Begawan - Asia", "Bulgaria - Sofía - Europa", "Burkina Faso - Uagadugú - África", "Burundi - Buyumbura - África", "Bután - Thimphu - Asia", "Cabo Verde - Praia - África", "Camboya - Nom Pen - Asia", "Camerún - Yaundé - África", "Canadá - Ottawa - América", "Catar - Doha - Asia", "Chad - Yamena - África", "Chile - Santiago - América", "China - Pekín - Asia", "Chipre - Nicosia - Europa", "Colombia - Bogotá - América", "Comoras - Moroni - África", "Congo - Brazzaville - África", "Corea del Norte - Pionyang - Asia", "Corea del Sur - Seúl - Asia", "Costa de Marfil - Yamusukro - África", "Costa Rica - San José - América", "Croacia - Zagreb - Europa", "Cuba - La Habana - América", "Dinamarca - Copenhague - Europa", "Dominica - Roseau - América", "Ecuador - Quito - América", "Egipto - El Cairo - África", "El Salvador - San Salvador - América", "Emiratos Árabes Unidos - Abu Dabi - Asia", "Eritrea - Asmara - África", "Eslovaquia - Bratislava - Europa", "Eslovenia - Liubliana - Europa", "España - Madrid - Europa" }));
         add(comboBoxDestino, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 320, 360, 40));
 
         lbFecha.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
@@ -278,6 +291,11 @@ public class pnlScheduleFlight extends javax.swing.JPanel {
         btnLimpiar.setContentAreaFilled(false);
         btnLimpiar.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Limpiar_min.png"))); // NOI18N
         btnLimpiar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Limpiar_max.png"))); // NOI18N
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
         add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 630, 330, 120));
 
         lbVueloS.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
@@ -302,21 +320,101 @@ public class pnlScheduleFlight extends javax.swing.JPanel {
 
     //--------------------------------------------------------------------------
     
-    private void tblCustomersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCustomersMouseClicked
-        int row = tblCustomers.getSelectedRow();
-        String id = tblCustomers.getValueAt(row, 0).toString();
+    private void fillDataTable() {
+         
+        list = controller.listFlight();
+        String datos[][] = new String[list.size()][9];
+        
+        if(list.size() > 0) {
+            for (int i = 0; i < list.size(); i++) {
+                datos[i][Constants.CODE_FLIGHT] = list.get(i).getCodigoVuelo();
+                datos[i][Constants.TYPE_FLIGHT] = list.get(i).getTipoVuelo();
+                datos[i][Constants.CLASS_FLIGHT] = list.get(i).getSalidaLlegada();
+                datos[i][Constants.DATE_FLIGHT] = list.get(i).getFecha();
+                datos[i][Constants.TIME_FLIGHT] = list.get(i).getHora();
+                datos[i][Constants.MODEL_PLANE_FLIGHT] = list.get(i).getModeloAvion();
+                datos[i][Constants.CAPACITY_PLANE_FLIGHT] = list.get(i).getCapacidadCarga();
+                datos[i][Constants.CREW_PLANE_FLIGHT] = list.get(i).getTripulación();
+                datos[i][Constants.DESTINATION_PLANE_FLIGHT] = list.get(i).getDestino();
+            }        
+        }        
+        String[] columns = {
+            "CODIGO", "TIPO", "CLASE", "FECHA", "HORA", "MODELO A.", "CAPACIDAD A.", "TRIPULACION", "DESTINO"
+        };
+        DefaultTableModel model = new DefaultTableModel(datos, columns);
+        int[] columnSize = {30, 50, 50, 50, 50, 50, 50, 50, 50};
+        for(int x=0; x<columnSize.length;x++)
+            tblSolicitudes.getColumnModel().getColumn(x).setPreferredWidth(columnSize[x]);
+        tblSolicitudes.setRowHeight(30);
+        tblSolicitudes.setModel(model);
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    private void tblSolicitudesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSolicitudesMouseClicked
+        int row = tblSolicitudes.getSelectedRow();
+        String id = tblSolicitudes.getValueAt(row, 0).toString();
 
-//        CustomerVO customer = controller.read(Integer.parseInt(id));
-
-//        if(customer.getId() > 0) {
-//            txtCustomerID.setText(String.valueOf(customer.getId()));
-//            txtName.setText(customer.getName());
-//            txtLastname.setText(customer.getLastname());
-//            txtAddress.setText(customer.getAddress());
-//            txtPhone.setText(customer.getPhone());
-//            txtEmail.setText(customer.getEmail());
-//        }
-    }//GEN-LAST:event_tblCustomersMouseClicked
+        clsFlightRequirements FlightRequirementsSearch = controller.readFlightRequirements(id);
+        
+        String code = FlightRequirementsSearch.getCodigoVuelo();
+        
+        if (FlightRequirementsSearch.getSalidaLlegada().equals("Vuelo de salida") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de pasajeros")) {
+            
+            tfCodigoVuelo.setText(code);
+            tfCodigoVuelo.setEditable(false);
+            chboxVueloSalida.setSelected(true);
+            comboBoxPistaAterrizaje.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{ "Seleccione pista"}));
+            comboBoxPistaDespegue.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione pista", "pista - 01B","pista - 03B","pista - 06B","pista - 09B","pista - 012B"}));
+            chboxVueloLlegada.setSelected(false);
+            chboxVueloPasajeros.setSelected(true);
+            chboxVueloCarga.setSelected(false);
+            
+            comboBoxDestino.setSelectedItem(FlightRequirementsSearch.getDestino());
+        }
+        if (FlightRequirementsSearch.getSalidaLlegada().equals("Vuelo de llegada") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de pasajeros")) {
+            
+            tfCodigoVuelo.setText(code);
+            tfCodigoVuelo.setEditable(false);
+            chboxVueloLlegada.setSelected(true);
+            chboxVueloSalida.setSelected(false);
+            comboBoxPistaAterrizaje.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{ "Seleccione pista","pista - 01A","pista - 03A","pista - 06A","pista - 09A","pista - 012A"}));
+            comboBoxPistaDespegue.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione pista"}));
+            chboxVueloPasajeros.setSelected(true);
+            chboxVueloCarga.setSelected(false);
+            
+            comboBoxDestino.setSelectedItem(FlightRequirementsSearch.getDestino());
+         
+        }
+        
+        if (FlightRequirementsSearch.getSalidaLlegada().equals("Vuelo de salida") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de carga")) {
+            
+            tfCodigoVuelo.setText(code);
+            tfCodigoVuelo.setEditable(false);
+            chboxVueloSalida.setSelected(true);
+            comboBoxPistaAterrizaje.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{ "Seleccione pista"}));
+            comboBoxPistaDespegue.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione pista", "pista - 01B","pista - 03B","pista - 06B","pista - 09B","pista - 012B"}));
+            chboxVueloLlegada.setSelected(false);
+            chboxVueloPasajeros.setSelected(false);
+            chboxVueloCarga.setSelected(true);
+            
+            comboBoxDestino.setSelectedItem(FlightRequirementsSearch.getDestino());
+        }
+        if (FlightRequirementsSearch.getSalidaLlegada().equals("Vuelo de llegada") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de carga")) {
+            
+            tfCodigoVuelo.setText(code);
+            tfCodigoVuelo.setEditable(false);
+            chboxVueloLlegada.setSelected(true);
+            chboxVueloSalida.setSelected(false);
+            comboBoxPistaAterrizaje.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{ "Seleccione pista","pista - 01A","pista - 03A","pista - 06A","pista - 09A","pista - 012A"}));
+            comboBoxPistaDespegue.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione pista"}));
+            chboxVueloPasajeros.setSelected(false);
+            chboxVueloCarga.setSelected(true);
+            
+            comboBoxDestino.setSelectedItem(FlightRequirementsSearch.getDestino());
+         
+        }
+    }//GEN-LAST:event_tblSolicitudesMouseClicked
 
     //--------------------------------------------------------------------------
     
@@ -371,927 +469,794 @@ public class pnlScheduleFlight extends javax.swing.JPanel {
 
     //--------------------------------------------------------------------------
     
+    private String tripulacion(){
+        String codigoVueloEncontrado = tfCodigoVuelo.getText();
+        clsFlightRequirements FlightRequirementsSearch = controller.readFlightRequirements(codigoVueloEncontrado);
+        String tripulacion = FlightRequirementsSearch.getTripulación();
+        
+        return tripulacion;
+    }
+    
+    //--------------------------------------------------------------------------
+    
     private void btAgendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgendarActionPerformed
 
-//        try {
-//            String codigo = tfCodigoVuelo.getText();
-//            String destino = tfDestino.getText();
-//            boolean tipovueloP = chboxVueloPasajeros.isSelected();
-//            boolean tipovueloC = chboxVueloCarga.isSelected();
-//            boolean vueloS = chboxVueloSalida.isSelected();
-//            boolean vueloLl = chboxVueloLlegada.isSelected();
-//            String pistaDespegue = comboBoxPistaDespegue.getSelectedItem().toString();
-//            String pistaAterrizaje = comboBoxPistaAterrizaje.getSelectedItem().toString();
-//            String anio = comboBoxYear.getSelectedItem().toString();
-//            String mes = comboBoxMonth.getSelectedItem().toString();
-//            String dia = comboBoxDay.getSelectedItem().toString();
-//            String hora = comboBoxHour.getSelectedItem().toString();
-//            String minuto = comboBoxMinutes.getSelectedItem().toString();
-//
-//            String codigoVueloEncontrado = tfCodigoVuelo.getText();
-//            String VueloConsultado = tfVueloConsultado.getText();
-//
-//            if (VueloConsultado.equals("")){
-//                JOptionPane.showMessageDialog(this, "Para agendar un vuelo primero debe consultarlo");
-//            }
-//            if (codigoVueloEncontrado.equals("")){
-//                JOptionPane.showMessageDialog(this, "Debe diligenciar el codigo del vuelo");
-//            }
-//
-//            //---
-//
-//            if (tipovueloC == false && tipovueloP == false) {
-//                JOptionPane.showMessageDialog(this, "¡Debe seleccionar un tipo de vuelo!");
-//            }
-//            if (vueloS == false && vueloLl == false) {
-//                JOptionPane.showMessageDialog(this, "¡Debe seleccionar la clase de vuelo!");
-//            }
-//            if(anio.equals("Year") || mes.equals("Month") || dia.equals("Day")){
-//                JOptionPane.showMessageDialog(this, "¡Debe seleccionar una fecha valida!");
-//            }
-//            if(hora.equals("Hour") || minuto.equals("Minutes")){
-//                JOptionPane.showMessageDialog(this, "¡Debe ingresar una hora valida del vuelo!");
-//            }
-//            if(destino.equals("")){
-//                JOptionPane.showMessageDialog(this, "¡Debe ingresar un destino para el vuelo!");
-//            }
-//            else{
-//                if(tipovueloP==true && vueloS==true && !"".equals(codigo)){
-//
-//                    String codigoVuelo = tfCodigoVuelo.getText();
-//                    //String destinoVuelo = tfDestino.getText();
-//                    String pistaDeDespegue = comboBoxPistaDespegue.getSelectedItem().toString();
-//                    String pistaDeAterrizaje = comboBoxPistaAterrizaje.getSelectedItem().toString();
-//                    String anioVuelo = comboBoxYear.getSelectedItem().toString();
-//                    String mesVuelo = comboBoxMonth.getSelectedItem().toString();
-//                    String diaVuelo = comboBoxDay.getSelectedItem().toString();
-//                    String horaVuelo = comboBoxHour.getSelectedItem().toString();
-//                    String minutoVuelo = comboBoxMinutes.getSelectedItem().toString();
-//                    String mesNumber = "";
-//
-//                    if(mesVuelo.equals("January")){
-//                        mesNumber = "1";
-//                    }
-//                    if(mesVuelo.equals("February")){
-//                        mesNumber = "2";
-//                    }
-//                    if(mesVuelo.equals("March")){
-//                        mesNumber = "3";
-//                    }
-//                    if(mesVuelo.equals("April")){
-//                        mesNumber = "4";
-//                    }
-//                    if(mesVuelo.equals("may")){
-//                        mesNumber = "5";
-//                    }
-//                    if(mesVuelo.equals("June")){
-//                        mesNumber = "6";
-//                    }
-//                    if(mesVuelo.equals("July")){
-//                        mesNumber = "7";
-//                    }
-//                    if(mesVuelo.equals("August")){
-//                        mesNumber = "8";
-//                    }
-//                    if(mesVuelo.equals("September")){
-//                        mesNumber = "9";
-//                    }
-//                    if(mesVuelo.equals("October")){
-//                        mesNumber = "10";
-//                    }
-//                    if(mesVuelo.equals("November")){
-//                        mesNumber = "11";
-//                    }
-//                    if(mesVuelo.equals("December")){
-//                        mesNumber = "12";
-//                    }
-//
-//                    String fecha = anioVuelo + "-" + mesNumber + "-" + diaVuelo;
-//                    String tiempo = horaVuelo + ":" + minutoVuelo + ":" + "00";
-//
-//                    //----------
-//                    clsFlightAgenda FlightRequirementsSearch = controlFlightAgenda.readFlightAgenda(codigoVuelo);
-//
-//                    if (FlightRequirementsSearch != null) {
-//                        JOptionPane.showMessageDialog(this, "¡Ya existe un vuelo agendado con este codigo!");
-//
-//                        if (FlightRequirementsSearch.getClaseVuelo().equals("Vuelo de salida") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de pasajeros")) {
-//
-//                            chboxVueloPasajeros.setSelected(true);
-//                            chboxVueloSalida.setSelected(true);
-//                            chboxVueloLlegada.setSelected(false);
-//                            chboxVueloCarga.setSelected(false);
-//
-//                            comboBoxPistaDespegue.setSelectedItem(FlightRequirementsSearch.getPista());
-//
-//                            tfDestino.setText(FlightRequirementsSearch.getDestino());
-//
-//                            dataAgenda.setText("Datos de agenda de vuelo:" + "\n" +
-//                                "\n" +
-//                                "Codigo del vuelo: " + FlightRequirementsSearch.getCodigoVueloAgenda()+ "\n" +
-//                                "Tipo de vuelo: " + FlightRequirementsSearch.getTipoVuelo() + "\n" +
-//                                "Clase de vuelo: " + FlightRequirementsSearch.getClaseVuelo()+ "\n" +
-//                                "Tripulación del avión: " + FlightRequirementsSearch.getTripulación() + "\n" +
-//                                "Pista de vuelo" + FlightRequirementsSearch.getPista() + "\n" +
-//                                "Feca de vuelo: " + FlightRequirementsSearch.getFecha() + "\n" +
-//                                "Hora de vuelo: " + FlightRequirementsSearch.getTiempo()+ "\n" +
-//                                "Destino del vuelo: " + FlightRequirementsSearch.getDestino());
-//                        }
-//
-//                        if (FlightRequirementsSearch.getClaseVuelo().equals("Vuelo de llegada") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de carga")) {
-//
-//                            chboxVueloCarga.setSelected(true);
-//                            chboxVueloLlegada.setSelected(true);
-//                            chboxVueloSalida.setSelected(false);
-//                            chboxVueloPasajeros.setSelected(false);
-//
-//                            comboBoxPistaAterrizaje.setSelectedItem(FlightRequirementsSearch.getPista());
-//
-//                            tfDestino.setText(FlightRequirementsSearch.getDestino());
-//
-//                            dataAgenda.setText("Datos de vuelo:" + "\n" +
-//                                "\n" +
-//                                "Codigo del vuelo: " + FlightRequirementsSearch.getCodigoVueloAgenda()+ "\n" +
-//                                "Tipo de vuelo: " + FlightRequirementsSearch.getTipoVuelo() + "\n" +
-//                                "Clase de vuelo: " + FlightRequirementsSearch.getClaseVuelo()+ "\n" +
-//                                "Tripulación del avión: " + FlightRequirementsSearch.getTripulación() + "\n" +
-//                                "Pista de vuelo" + FlightRequirementsSearch.getPista() + "\n" +
-//                                "Feca de vuelo: " + FlightRequirementsSearch.getFecha() + "\n" +
-//                                "Hora de vuelo: " + FlightRequirementsSearch.getTiempo()+ "\n" +
-//                                "Destino del vuelo: " + FlightRequirementsSearch.getDestino());
-//                        }
-//
-//                        if (FlightRequirementsSearch.getClaseVuelo().equals("Vuelo de llegada") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de pasajeros")) {
-//
-//                            chboxVueloLlegada.setSelected(true);
-//                            chboxVueloPasajeros.setSelected(true);
-//                            chboxVueloCarga.setSelected(false);
-//                            chboxVueloSalida.setSelected(false);
-//
-//                            comboBoxPistaAterrizaje.setSelectedItem(FlightRequirementsSearch.getPista());
-//
-//                            tfDestino.setText(FlightRequirementsSearch.getDestino());
-//
-//                            dataAgenda.setText("Datos de vuelo:" + "\n" +
-//                                "\n" +
-//                                "Codigo del vuelo: " + FlightRequirementsSearch.getCodigoVueloAgenda()+ "\n" +
-//                                "Tipo de vuelo: " + FlightRequirementsSearch.getTipoVuelo() + "\n" +
-//                                "Clase de vuelo: " + FlightRequirementsSearch.getClaseVuelo()+ "\n" +
-//                                "Tripulación del avión: " + FlightRequirementsSearch.getTripulación() + "\n" +
-//                                "Pista de vuelo" + FlightRequirementsSearch.getPista() + "\n" +
-//                                "Feca de vuelo: " + FlightRequirementsSearch.getFecha() + "\n" +
-//                                "Hora de vuelo: " + FlightRequirementsSearch.getTiempo()+ "\n" +
-//                                "Destino del vuelo: " + FlightRequirementsSearch.getDestino());
-//                        }
-//
-//                        if (FlightRequirementsSearch.getClaseVuelo().equals("Vuelo de salida") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de carga")) {
-//
-//                            chboxVueloCarga.setSelected(true);
-//                            chboxVueloSalida.setSelected(true);
-//                            chboxVueloPasajeros.setSelected(false);
-//                            chboxVueloLlegada.setSelected(false);
-//
-//                            comboBoxPistaDespegue.setSelectedItem(FlightRequirementsSearch.getPista());
-//
-//                            tfDestino.setText(FlightRequirementsSearch.getDestino());
-//
-//                            dataAgenda.setText("Datos de vuelo:" + "\n" +
-//                                "\n" +
-//                                "Codigo del vuelo: " + FlightRequirementsSearch.getCodigoVueloAgenda()+ "\n" +
-//                                "Tipo de vuelo: " + FlightRequirementsSearch.getClaseVuelo()+ "\n" +
-//                                "Clase de vuelo: " + FlightRequirementsSearch.getTipoVuelo() +  "\n" +
-//                                "Tripulación del avión: " + FlightRequirementsSearch.getTripulación() + "\n" +
-//                                "Pista de vuelo" + FlightRequirementsSearch.getPista() + "\n" +
-//                                "Feca de vuelo: " + FlightRequirementsSearch.getFecha() + "\n" +
-//                                "Hora de vuelo: " + FlightRequirementsSearch.getTiempo()+ "\n" +
-//                                "Destino del vuelo: " + FlightRequirementsSearch.getDestino());
-//                        }
-//
-//                    }
-//                    //----------
-//                    else{
-//                        if (Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) < currentDate.getMonthValue()) {
-//                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
-//                        }
-//                        else if(Integer.parseInt(anioVuelo) < currentDate.getYear()){
-//                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
-//                        }
-//                        else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) < currentDate.getDayOfMonth()){
-//                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
-//                        }
-//                        else if (Integer.parseInt(anioVuelo) >= currentDate.getYear() ){
-//
-//                            String tripulacion = tripulacion();
-//
-//                            clsFlightAgenda agendarVuelo = new clsFlightAgenda(0, codigoVuelo, "Vuelo de pasajeros", "Vuelo de salida", tripulacion, destinoVuelo, pistaDeDespegue, fecha, tiempo, "1");
-//
-//                            controlFlightAgenda.createFlightAgenda(agendarVuelo);
-//
-//                            dataAgenda.setText("Datos de vuelo:" + "\n" +
-//                                "\n" +
-//                                "Codigo del vuelo: " + codigoVuelo + "\n" +
-//                                "Tipo de vuelo: Vuelo de pasajeros" + "\n" +
-//                                "Clase de vuelo: Vuelo de salida" + "\n" +
-//                                "Tripulación del avión: " + "tripulacion" + "\n" +
-//                                //"Pista de vuelo" + FlightRequirementsSearch.getPista() + "\n" +
-//                                "Feca de vuelo: " + fecha + "\n" +
-//                                "Hora de vuelo: " + tiempo + "\n" +
-//                                "Destino del vuelo: " + destinoVuelo);
-//
-//                            Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
-//                            JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una agenda de vuelo!!!", "agenda realizada satisfactoriamente", WIDTH, m);
-//                            showFlightList();
-//                            cleanscheduleQuestionnaire();
-//                        }
-//                        else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) > currentDate.getDayOfMonth()){
-//
-//                            String tripulacion = tripulacion();
-//
-//                            clsFlightAgenda AgendarVuelo = new clsFlightAgenda
-//                            (0, codigoVuelo, "Vuelo de pasajeros", "Vuelo de salida", tripulacion, destinoVuelo, pistaDeDespegue, fecha, tiempo, "1");
-//
-//                            controlFlightAgenda.createFlightAgenda(AgendarVuelo);
-//
-//                            dataAgenda.setText("Datos de vuelo:" + "\n" +
-//                                "\n" +
-//                                "Codigo del vuelo: " + codigoVuelo + "\n" +
-//                                "Tipo de vuelo: Vuelo de pasajeros" + "\n" +
-//                                "Clase de vuelo: Vuelo de salida" + "\n" +
-//                                //"Pista de vuelo: " + FlightRequirementsSearch.getPista() + "\n" +
-//                                "Tripulación del avión: " + tripulacion + "\n" +
-//                                "Feca de vuelo: " + fecha + "\n" +
-//                                "Hora de vuelo: " + tiempo + "\n" +
-//                                "Destino del vuelo: " + destinoVuelo);
-//
-//                            Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
-//                            JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una agenda de vuelo!!!", "agenda realizada satisfactoriamente", WIDTH, m);
-//                            showFlightList();
-//                            cleanscheduleQuestionnaire();
-//                        }
-//                    }
-//                    //----------
-//
-//                }
-//
-//                //--------------------------------------------------------------
-//
-//                if (tipovueloC==true && vueloLl==true && !"".equals(codigo)) {
-//
-//                    String codigoVuelo = tfCodigoVuelo.getText();
-//                    String destinoVuelo = tfDestino.getText();
-//                    String pistaDeDespegue = comboBoxPistaDespegue.getSelectedItem().toString();
-//                    String pistaDeAterrizaje = comboBoxPistaAterrizaje.getSelectedItem().toString();
-//                    String anioVuelo = comboBoxYear.getSelectedItem().toString();
-//                    String mesVuelo = comboBoxMonth.getSelectedItem().toString();
-//                    String diaVuelo = comboBoxDay.getSelectedItem().toString();
-//                    String horaVuelo = comboBoxHour.getSelectedItem().toString();
-//                    String minutoVuelo = comboBoxMinutes.getSelectedItem().toString();
-//                    String mesNumber = "";
-//
-//                    if(mesVuelo.equals("January")){
-//                        mesNumber = "1";
-//                    }
-//                    if(mesVuelo.equals("February")){
-//                        mesNumber = "2";
-//                    }
-//                    if(mesVuelo.equals("March")){
-//                        mesNumber = "3";
-//                    }
-//                    if(mesVuelo.equals("April")){
-//                        mesNumber = "4";
-//                    }
-//                    if(mesVuelo.equals("may")){
-//                        mesNumber = "5";
-//                    }
-//                    if(mesVuelo.equals("June")){
-//                        mesNumber = "6";
-//                    }
-//                    if(mesVuelo.equals("July")){
-//                        mesNumber = "7";
-//                    }
-//                    if(mesVuelo.equals("August")){
-//                        mesNumber = "8";
-//                    }
-//                    if(mesVuelo.equals("September")){
-//                        mesNumber = "9";
-//                    }
-//                    if(mesVuelo.equals("October")){
-//                        mesNumber = "10";
-//                    }
-//                    if(mesVuelo.equals("November")){
-//                        mesNumber = "11";
-//                    }
-//                    if(mesVuelo.equals("December")){
-//                        mesNumber = "12";
-//                    }
-//
-//                    String fecha = anioVuelo + "-" + mesNumber + "-" + diaVuelo;
-//                    String tiempo = horaVuelo + ":" + minutoVuelo + ":" + "00";
-//
-//                    //----------
-//                    clsFlightAgenda FlightRequirementsSearch = controlFlightAgenda.readFlightAgenda(codigoVuelo);
-//
-//                    if (FlightRequirementsSearch != null) {
-//                        JOptionPane.showMessageDialog(this, "¡Ya existe un vuelo registrado con este codigo!");
-//
-//                        if (FlightRequirementsSearch.getClaseVuelo().equals("Vuelo de salida") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de pasajeros")) {
-//
-//                            chboxVueloPasajeros.setSelected(true);
-//                            chboxVueloSalida.setSelected(true);
-//                            chboxVueloLlegada.setSelected(false);
-//                            chboxVueloCarga.setSelected(false);
-//
-//                            comboBoxPistaDespegue.setSelectedItem(FlightRequirementsSearch.getPista());
-//
-//                            tfDestino.setText(FlightRequirementsSearch.getDestino());
-//
-//                            dataAgenda.setText("Datos de agenda de vuelo:" + "\n" +
-//                                "\n" +
-//                                "Codigo del vuelo: " + FlightRequirementsSearch.getCodigoVueloAgenda()+ "\n" +
-//                                "Tipo de vuelo: " + FlightRequirementsSearch.getTipoVuelo() + "\n" +
-//                                "Clase de vuelo: " + FlightRequirementsSearch.getClaseVuelo()+ "\n" +
-//                                "Tripulación del avión: " + FlightRequirementsSearch.getTripulación() + "\n" +
-//                                "Pista de vuelo" + FlightRequirementsSearch.getPista() + "\n" +
-//                                "Feca de vuelo: " + FlightRequirementsSearch.getFecha() + "\n" +
-//                                "Hora de vuelo: " + FlightRequirementsSearch.getTiempo()+ "\n" +
-//                                "Destino del vuelo: " + FlightRequirementsSearch.getDestino());
-//                        }
-//
-//                        if (FlightRequirementsSearch.getClaseVuelo().equals("Vuelo de llegada") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de carga")) {
-//
-//                            chboxVueloCarga.setSelected(true);
-//                            chboxVueloLlegada.setSelected(true);
-//                            chboxVueloSalida.setSelected(false);
-//                            chboxVueloPasajeros.setSelected(false);
-//
-//                            comboBoxPistaAterrizaje.setSelectedItem(FlightRequirementsSearch.getPista());
-//
-//                            tfDestino.setText(FlightRequirementsSearch.getDestino());
-//
-//                            dataAgenda.setText("Datos de agenda de vuelo:" + "\n" +
-//                                "\n" +
-//                                "Codigo del vuelo: " + FlightRequirementsSearch.getCodigoVueloAgenda()+ "\n" +
-//                                "Tipo de vuelo: " + FlightRequirementsSearch.getTipoVuelo() + "\n" +
-//                                "Clase de vuelo: " + FlightRequirementsSearch.getClaseVuelo()+ "\n" +
-//                                "Tripulación del avión: " + FlightRequirementsSearch.getTripulación() + "\n" +
-//                                "Pista de vuelo" + FlightRequirementsSearch.getPista() + "\n" +
-//                                "Feca de vuelo: " + FlightRequirementsSearch.getFecha() + "\n" +
-//                                "Hora de vuelo: " + FlightRequirementsSearch.getTiempo()+ "\n" +
-//                                "Destino del vuelo: " + FlightRequirementsSearch.getDestino());
-//                        }
-//
-//                        if (FlightRequirementsSearch.getClaseVuelo().equals("Vuelo de llegada") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de pasajeros")) {
-//
-//                            chboxVueloLlegada.setSelected(true);
-//                            chboxVueloPasajeros.setSelected(true);
-//                            chboxVueloCarga.setSelected(false);
-//                            chboxVueloSalida.setSelected(false);
-//
-//                            comboBoxPistaAterrizaje.setSelectedItem(FlightRequirementsSearch.getPista());
-//
-//                            tfDestino.setText(FlightRequirementsSearch.getDestino());
-//
-//                            dataAgenda.setText("Datos de agenda de vuelo:" + "\n" +
-//                                "\n" +
-//                                "Codigo del vuelo: " + FlightRequirementsSearch.getCodigoVueloAgenda()+ "\n" +
-//                                "Tipo de vuelo: " + FlightRequirementsSearch.getTipoVuelo() + "\n" +
-//                                "Clase de vuelo: " + FlightRequirementsSearch.getClaseVuelo()+ "\n" +
-//                                "Tripulación del avión: " + FlightRequirementsSearch.getTripulación() + "\n" +
-//                                "Pista de vuelo" + FlightRequirementsSearch.getPista() + "\n" +
-//                                "Feca de vuelo: " + FlightRequirementsSearch.getFecha() + "\n" +
-//                                "Hora de vuelo: " + FlightRequirementsSearch.getTiempo()+ "\n" +
-//                                "Destino del vuelo: " + FlightRequirementsSearch.getDestino());
-//                        }
-//
-//                        if (FlightRequirementsSearch.getClaseVuelo().equals("Vuelo de salida") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de carga")) {
-//
-//                            chboxVueloCarga.setSelected(true);
-//                            chboxVueloSalida.setSelected(true);
-//                            chboxVueloPasajeros.setSelected(false);
-//                            chboxVueloLlegada.setSelected(false);
-//
-//                            comboBoxPistaDespegue.setSelectedItem(FlightRequirementsSearch.getPista());
-//
-//                            tfDestino.setText(FlightRequirementsSearch.getDestino());
-//
-//                            dataAgenda.setText("Datos de agenda de vuelo:" + "\n" +
-//                                "\n" +
-//                                "Codigo del vuelo: " + FlightRequirementsSearch.getCodigoVueloAgenda()+ "\n" +
-//                                "Tipo de vuelo: " + FlightRequirementsSearch.getTipoVuelo() + "\n" +
-//                                "Clase de vuelo: " + FlightRequirementsSearch.getClaseVuelo()+ "\n" +
-//                                "Tripulación del avión: " + FlightRequirementsSearch.getTripulación() + "\n" +
-//                                "Pista de vuelo" + FlightRequirementsSearch.getPista() + "\n" +
-//                                "Feca de vuelo: " + FlightRequirementsSearch.getFecha() + "\n" +
-//                                "Hora de vuelo: " + FlightRequirementsSearch.getTiempo()+ "\n" +
-//                                "Destino del vuelo: " + FlightRequirementsSearch.getDestino());
-//                        }
-//
-//                    }
-//                    //----------
-//                    else{
-//                        if (Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) < currentDate.getMonthValue()) {
-//                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
-//                        }
-//                        else if(Integer.parseInt(anioVuelo) < currentDate.getYear()){
-//                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
-//                        }
-//                        else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) < currentDate.getDayOfMonth()){
-//                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
-//                        }
-//                        else if (Integer.parseInt(anioVuelo) >= currentDate.getYear() ){
-//
-//                            String tripulacion = tripulacion();
-//
-//                            clsFlightAgenda AgendarVuelo = new clsFlightAgenda
-//                            (0, codigoVuelo, "Vuelo de carga", "Vuelo de llegada", tripulacion, destinoVuelo, pistaDeAterrizaje, fecha, tiempo, "1");
-//
-//                            controlFlightAgenda.createFlightAgenda(AgendarVuelo);
-//
-//                            dataAgenda.setText("Datos de vuelo:" + "\n" +
-//                                "\n" +
-//                                "Codigo del vuelo: " + codigoVuelo + "\n" +
-//                                "Tipo de vuelo: Vuelo de carga" + "\n" +
-//                                "Clase de vuelo: Vuelo de llegada" + "\n" +
-//                                //"Pista de vuelo: " + FlightRequirementsSearch.getPista() + "\n" +
-//                                "Tripulación del avión: " + tripulacion + "\n" +
-//                                "Feca de vuelo: " + fecha + "\n" +
-//                                "Hora de vuelo: " + tiempo + "\n" +
-//                                "Destino del vuelo: " + destinoVuelo);
-//
-//                            Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
-//                            JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una agenda de vuelo!!!", "Agenda realizada satisfactoriamente", WIDTH, m);
-//                            showFlightList();
-//                            cleanscheduleQuestionnaire();
-//                        }
-//                        else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) > currentDate.getDayOfMonth()){
-//
-//                            String tripulacion = tripulacion();
-//
-//                            clsFlightAgenda AgendarVuelo = new clsFlightAgenda
-//                            (0, codigoVuelo, "Vuelo de carga", "Vuelo de llegada", tripulacion, destinoVuelo, pistaDeAterrizaje, fecha, tiempo, "1");
-//
-//                            controlFlightAgenda.createFlightAgenda(AgendarVuelo);
-//
-//                            dataAgenda.setText("Datos de vuelo:" + "\n" +
-//                                "\n" +
-//                                "Codigo del vuelo: " + codigoVuelo + "\n" +
-//                                "Tipo de vuelo: Vuelo de carga" + "\n" +
-//                                "Clase de vuelo: Vuelo de llegada" + "\n" +
-//                                //"Pista de vuelo: " + FlightRequirementsSearch.getPista() + "\n" +
-//                                "Tripulación del avión: " + tripulacion + "\n" +
-//                                "Feca de vuelo: " + fecha + "\n" +
-//                                "Hora de vuelo: " + tiempo + "\n" +
-//                                "Destino del vuelo: " + destinoVuelo);
-//
-//                            Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
-//                            JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una agenda de vuelo!!!", "Agenda realizada satisfactoriamente", WIDTH, m);
-//                            showFlightList();
-//                            cleanscheduleQuestionnaire();
-//                        }
-//                    }
-//                }
-//
-//                //--------------------------------------------------------------
-//
-//                if(tipovueloP==true && vueloLl==true && !"".equals(codigo)){
-//
-//                    String codigoVuelo = tfCodigoVuelo.getText();
-//                    String destinoVuelo = tfDestino.getText();
-//                    String pistaDeDespegue = comboBoxPistaDespegue.getSelectedItem().toString();
-//                    String pistaDeAterrizaje = comboBoxPistaAterrizaje.getSelectedItem().toString();
-//                    String anioVuelo = comboBoxYear.getSelectedItem().toString();
-//                    String mesVuelo = comboBoxMonth.getSelectedItem().toString();
-//                    String diaVuelo = comboBoxDay.getSelectedItem().toString();
-//                    String horaVuelo = comboBoxHour.getSelectedItem().toString();
-//                    String minutoVuelo = comboBoxMinutes.getSelectedItem().toString();
-//                    String mesNumber = "";
-//
-//                    if(mesVuelo.equals("January")){
-//                        mesNumber = "1";
-//                    }
-//                    if(mesVuelo.equals("February")){
-//                        mesNumber = "2";
-//                    }
-//                    if(mesVuelo.equals("March")){
-//                        mesNumber = "3";
-//                    }
-//                    if(mesVuelo.equals("April")){
-//                        mesNumber = "4";
-//                    }
-//                    if(mesVuelo.equals("may")){
-//                        mesNumber = "5";
-//                    }
-//                    if(mesVuelo.equals("June")){
-//                        mesNumber = "6";
-//                    }
-//                    if(mesVuelo.equals("July")){
-//                        mesNumber = "7";
-//                    }
-//                    if(mesVuelo.equals("August")){
-//                        mesNumber = "8";
-//                    }
-//                    if(mesVuelo.equals("September")){
-//                        mesNumber = "9";
-//                    }
-//                    if(mesVuelo.equals("October")){
-//                        mesNumber = "10";
-//                    }
-//                    if(mesVuelo.equals("November")){
-//                        mesNumber = "11";
-//                    }
-//                    if(mesVuelo.equals("December")){
-//                        mesNumber = "12";
-//                    }
-//                    String fecha = anioVuelo + "-" + mesNumber + "-" + diaVuelo;
-//                    String tiempo = horaVuelo + ":" + minutoVuelo + ":" + "00";
-//
-//                    //----------
-//                    clsFlightAgenda FlightRequirementsSearch = controlFlightAgenda.readFlightAgenda(codigoVuelo);
-//
-//                    if (FlightRequirementsSearch != null) {
-//                        JOptionPane.showMessageDialog(this, "¡Ya existe un vuelo registrado con este codigo!");
-//
-//                        if (FlightRequirementsSearch.getClaseVuelo().equals("Vuelo de salida") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de pasajeros")) {
-//
-//                            chboxVueloPasajeros.setSelected(true);
-//                            chboxVueloSalida.setSelected(true);
-//                            chboxVueloLlegada.setSelected(false);
-//                            chboxVueloCarga.setSelected(false);
-//
-//                            comboBoxPistaDespegue.setSelectedItem(FlightRequirementsSearch.getPista());
-//
-//                            tfDestino.setText(FlightRequirementsSearch.getDestino());
-//
-//                            dataAgenda.setText("Datos de agenda de vuelo:" + "\n" +
-//                                "\n" +
-//                                "Codigo del vuelo: " + FlightRequirementsSearch.getCodigoVueloAgenda()+ "\n" +
-//                                "Tipo de vuelo: " + FlightRequirementsSearch.getTipoVuelo() + "\n" +
-//                                "Clase de vuelo: " + FlightRequirementsSearch.getClaseVuelo()+ "\n" +
-//                                "Tripulación del avión: " + FlightRequirementsSearch.getTripulación() + "\n" +
-//                                "Pista de vuelo" + FlightRequirementsSearch.getPista() + "\n" +
-//                                "Feca de vuelo: " + FlightRequirementsSearch.getFecha() + "\n" +
-//                                "Hora de vuelo: " + FlightRequirementsSearch.getTiempo()+ "\n" +
-//                                "Destino del vuelo: " + FlightRequirementsSearch.getDestino());
-//                        }
-//
-//                        if (FlightRequirementsSearch.getClaseVuelo().equals("Vuelo de llegada") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de carga")) {
-//
-//                            chboxVueloCarga.setSelected(true);
-//                            chboxVueloLlegada.setSelected(true);
-//                            chboxVueloSalida.setSelected(false);
-//                            chboxVueloPasajeros.setSelected(false);
-//
-//                            comboBoxPistaAterrizaje.setSelectedItem(FlightRequirementsSearch.getPista());
-//
-//                            tfDestino.setText(FlightRequirementsSearch.getDestino());
-//
-//                            dataAgenda.setText("Datos de agenda de vuelo:" + "\n" +
-//                                "\n" +
-//                                "Codigo del vuelo: " + FlightRequirementsSearch.getCodigoVueloAgenda()+ "\n" +
-//                                "Tipo de vuelo: " + FlightRequirementsSearch.getTipoVuelo() + "\n" +
-//                                "Clase de vuelo: " + FlightRequirementsSearch.getClaseVuelo()+ "\n" +
-//                                "Tripulación del avión: " + FlightRequirementsSearch.getTripulación() + "\n" +
-//                                "Pista de vuelo" + FlightRequirementsSearch.getPista() + "\n" +
-//                                "Feca de vuelo: " + FlightRequirementsSearch.getFecha() + "\n" +
-//                                "Hora de vuelo: " + FlightRequirementsSearch.getTiempo()+ "\n" +
-//                                "Destino del vuelo: " + FlightRequirementsSearch.getDestino());
-//                        }
-//
-//                        if (FlightRequirementsSearch.getClaseVuelo().equals("Vuelo de llegada") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de pasajeros")) {
-//
-//                            chboxVueloLlegada.setSelected(true);
-//                            chboxVueloPasajeros.setSelected(true);
-//                            chboxVueloCarga.setSelected(false);
-//                            chboxVueloSalida.setSelected(false);
-//
-//                            comboBoxPistaAterrizaje.setSelectedItem(FlightRequirementsSearch.getPista());
-//
-//                            tfDestino.setText(FlightRequirementsSearch.getDestino());
-//
-//                            dataAgenda.setText("Datos de agenda de vuelo:" + "\n" +
-//                                "\n" +
-//                                "Codigo del vuelo: " + FlightRequirementsSearch.getCodigoVueloAgenda()+ "\n" +
-//                                "Tipo de vuelo: " + FlightRequirementsSearch.getTipoVuelo() + "\n" +
-//                                "Clase de vuelo: " + FlightRequirementsSearch.getClaseVuelo()+ "\n" +
-//                                "Tripulación del avión: " + FlightRequirementsSearch.getTripulación() + "\n" +
-//                                "Pista de vuelo" + FlightRequirementsSearch.getPista() + "\n" +
-//                                "Feca de vuelo: " + FlightRequirementsSearch.getFecha() + "\n" +
-//                                "Hora de vuelo: " + FlightRequirementsSearch.getTiempo()+ "\n" +
-//                                "Destino del vuelo: " + FlightRequirementsSearch.getDestino());
-//                        }
-//
-//                        if (FlightRequirementsSearch.getClaseVuelo().equals("Vuelo de salida") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de carga")) {
-//
-//                            chboxVueloCarga.setSelected(true);
-//                            chboxVueloSalida.setSelected(true);
-//                            chboxVueloPasajeros.setSelected(false);
-//                            chboxVueloLlegada.setSelected(false);
-//
-//                            comboBoxPistaDespegue.setSelectedItem(FlightRequirementsSearch.getPista());
-//
-//                            tfDestino.setText(FlightRequirementsSearch.getDestino());
-//
-//                            dataAgenda.setText("Datos de agenda de vuelo:" + "\n" +
-//                                "\n" +
-//                                "Codigo del vuelo: " + FlightRequirementsSearch.getCodigoVueloAgenda()+ "\n" +
-//                                "Tipo de vuelo: " + FlightRequirementsSearch.getTipoVuelo() + "\n" +
-//                                "Clase de vuelo: " + FlightRequirementsSearch.getClaseVuelo()+ "\n" +
-//                                "Tripulación del avión: " + FlightRequirementsSearch.getTripulación() + "\n" +
-//                                "Pista de vuelo" + FlightRequirementsSearch.getPista() + "\n" +
-//                                "Feca de vuelo: " + FlightRequirementsSearch.getFecha() + "\n" +
-//                                "Hora de vuelo: " + FlightRequirementsSearch.getTiempo()+ "\n" +
-//                                "Destino del vuelo: " + FlightRequirementsSearch.getDestino());
-//                        }
-//
-//                    }
-//                    //----------
-//                    else{
-//                        if (Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) < currentDate.getMonthValue()) {
-//                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
-//                        }
-//                        else if(Integer.parseInt(anioVuelo) < currentDate.getYear()){
-//                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
-//                        }
-//                        else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) < currentDate.getDayOfMonth()){
-//                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
-//                        }
-//                        else if (Integer.parseInt(anioVuelo) >= currentDate.getYear() ){
-//
-//                            String tripulacion = tripulacion();
-//
-//                            clsFlightAgenda AgendarVuelo = new clsFlightAgenda
-//                            (0, codigoVuelo, "Vuelo de pasajeros", "Vuelo de llegada", tripulacion, destinoVuelo, pistaDeAterrizaje, fecha, tiempo, "1");
-//
-//                            controlFlightAgenda.createFlightAgenda(AgendarVuelo);
-//
-//                            dataAgenda.setText("Datos de vuelo:" + "\n" +
-//                                "\n" +
-//                                "Codigo del vuelo: " + codigoVuelo + "\n" +
-//                                "Tipo de vuelo: Vuelo de pasajeros" + "\n" +
-//                                "Clase de vuelo: Vuelo de llegada" + "\n" +
-//                                //"Pista de vuelo: " + FlightRequirementsSearch.getPista() + "\n" +
-//                                "Tripulación del avión: " + tripulacion + "\n" +
-//                                "Feca de vuelo: " + fecha + "\n" +
-//                                "Hora de vuelo: " + tiempo + "\n" +
-//                                "Destino del vuelo: " + destinoVuelo);
-//
-//                            Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
-//                            JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una agenda de vuelo!!!", "Agenda realizada satisfactoriamente", WIDTH, m);
-//                            showFlightList();
-//                            cleanscheduleQuestionnaire();
-//                        }
-//                        else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) > currentDate.getDayOfMonth()){
-//
-//                            String tripulacion = tripulacion();
-//
-//                            clsFlightAgenda AgendarVuelo = new clsFlightAgenda
-//                            (0, codigoVuelo, "Vuelo de pasajeros", "Vuelo de llegada", tripulacion, destinoVuelo, pistaDeAterrizaje, fecha, tiempo, "1");
-//
-//                            controlFlightAgenda.createFlightAgenda(AgendarVuelo);
-//
-//                            dataAgenda.setText("Datos de vuelo:" + "\n" +
-//                                "\n" +
-//                                "Codigo del vuelo: " + codigoVuelo + "\n" +
-//                                "Tipo de vuelo: Vuelo de pasajeros" + "\n" +
-//                                "Clase de vuelo: Vuelo de llegada" + "\n" +
-//                                //"Pista de vuelo: " + FlightRequirementsSearch.getPista() + "\n" +
-//                                "Tripulación del avión: " + tripulacion + "\n" +
-//                                "Feca de vuelo: " + fecha + "\n" +
-//                                "Hora de vuelo: " + tiempo + "\n" +
-//                                "Destino del vuelo: " + destinoVuelo);
-//
-//                            Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
-//                            JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una agenda de vuelo!!!", "Agenda realizada satisfactoriamente", WIDTH, m);
-//                            showFlightList();
-//                            cleanscheduleQuestionnaire();
-//                        }
-//                    }
-//                }
-//
-//                //--------------------------------------------------------------
-//
-//                if (tipovueloC==true && vueloS==true && !"".equals(codigo)) {
-//
-//                    String codigoVuelo = tfCodigoVuelo.getText();
-//                    String destinoVuelo = tfDestino.getText();
-//                    String pistaDeDespegue = comboBoxPistaDespegue.getSelectedItem().toString();
-//                    String pistaDeAterrizaje = comboBoxPistaAterrizaje.getSelectedItem().toString();
-//                    String anioVuelo = comboBoxYear.getSelectedItem().toString();
-//                    String mesVuelo = comboBoxMonth.getSelectedItem().toString();
-//                    String diaVuelo = comboBoxDay.getSelectedItem().toString();
-//                    String horaVuelo = comboBoxHour.getSelectedItem().toString();
-//                    String minutoVuelo = comboBoxMinutes.getSelectedItem().toString();
-//                    String mesNumber = "";
-//
-//                    if(mesVuelo.equals("January")){
-//                        mesNumber = "1";
-//                    }
-//                    if(mesVuelo.equals("February")){
-//                        mesNumber = "2";
-//                    }
-//                    if(mesVuelo.equals("March")){
-//                        mesNumber = "3";
-//                    }
-//                    if(mesVuelo.equals("April")){
-//                        mesNumber = "4";
-//                    }
-//                    if(mesVuelo.equals("may")){
-//                        mesNumber = "5";
-//                    }
-//                    if(mesVuelo.equals("June")){
-//                        mesNumber = "6";
-//                    }
-//                    if(mesVuelo.equals("July")){
-//                        mesNumber = "7";
-//                    }
-//                    if(mesVuelo.equals("August")){
-//                        mesNumber = "8";
-//                    }
-//                    if(mesVuelo.equals("September")){
-//                        mesNumber = "9";
-//                    }
-//                    if(mesVuelo.equals("October")){
-//                        mesNumber = "10";
-//                    }
-//                    if(mesVuelo.equals("November")){
-//                        mesNumber = "11";
-//                    }
-//                    if(mesVuelo.equals("December")){
-//                        mesNumber = "12";
-//                    }
-//                    String fecha = anioVuelo + "-" + mesNumber + "-" + diaVuelo;
-//                    String tiempo = horaVuelo + ":" + minutoVuelo + ":" + "00";
-//
-//                    //----------
-//                    clsFlightAgenda FlightRequirementsSearch = controlFlightAgenda.readFlightAgenda(codigoVuelo);
-//
-//                    if (FlightRequirementsSearch != null) {
-//                        JOptionPane.showMessageDialog(this, "¡Ya existe un vuelo agendado con este codigo!");
-//
-//                        if (FlightRequirementsSearch.getClaseVuelo().equals("Vuelo de salida") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de pasajeros")) {
-//
-//                            chboxVueloPasajeros.setSelected(true);
-//                            chboxVueloSalida.setSelected(true);
-//                            chboxVueloLlegada.setSelected(false);
-//                            chboxVueloCarga.setSelected(false);
-//
-//                            comboBoxPistaDespegue.setSelectedItem(FlightRequirementsSearch.getPista());
-//
-//                            tfDestino.setText(FlightRequirementsSearch.getDestino());
-//
-//                            dataAgenda.setText("Datos de agenda de vuelo:" + "\n" +
-//                                "\n" +
-//                                "Codigo del vuelo: " + FlightRequirementsSearch.getCodigoVueloAgenda()+ "\n" +
-//                                "Tipo de vuelo: " + FlightRequirementsSearch.getTipoVuelo() + "\n" +
-//                                "Clase de vuelo: " + FlightRequirementsSearch.getClaseVuelo()+ "\n" +
-//                                "Tripulación del avión: " + FlightRequirementsSearch.getTripulación() + "\n" +
-//                                "Pista de vuelo" + FlightRequirementsSearch.getPista() + "\n" +
-//                                "Feca de vuelo: " + FlightRequirementsSearch.getFecha() + "\n" +
-//                                "Hora de vuelo: " + FlightRequirementsSearch.getTiempo()+ "\n" +
-//                                "Destino del vuelo: " + FlightRequirementsSearch.getDestino());
-//                        }
-//
-//                        if (FlightRequirementsSearch.getClaseVuelo().equals("Vuelo de llegada") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de carga")) {
-//
-//                            chboxVueloCarga.setSelected(true);
-//                            chboxVueloLlegada.setSelected(true);
-//                            chboxVueloSalida.setSelected(false);
-//                            chboxVueloPasajeros.setSelected(false);
-//
-//                            comboBoxPistaAterrizaje.setSelectedItem(FlightRequirementsSearch.getPista());
-//
-//                            tfDestino.setText(FlightRequirementsSearch.getDestino());
-//
-//                            dataAgenda.setText("Datos de agenda de vuelo:" + "\n" +
-//                                "\n" +
-//                                "Codigo del vuelo: " + FlightRequirementsSearch.getCodigoVueloAgenda()+ "\n" +
-//                                "Tipo de vuelo: " + FlightRequirementsSearch.getTipoVuelo() + "\n" +
-//                                "Clase de vuelo: " + FlightRequirementsSearch.getClaseVuelo()+ "\n" +
-//                                "Tripulación del avión: " + FlightRequirementsSearch.getTripulación() + "\n" +
-//                                "Pista de vuelo" + FlightRequirementsSearch.getPista() + "\n" +
-//                                "Feca de vuelo: " + FlightRequirementsSearch.getFecha() + "\n" +
-//                                "Hora de vuelo: " + FlightRequirementsSearch.getTiempo()+ "\n" +
-//                                "Destino del vuelo: " + FlightRequirementsSearch.getDestino());
-//                        }
-//
-//                        if (FlightRequirementsSearch.getClaseVuelo().equals("Vuelo de llegada") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de pasajeros")) {
-//
-//                            chboxVueloLlegada.setSelected(true);
-//                            chboxVueloPasajeros.setSelected(true);
-//                            chboxVueloCarga.setSelected(false);
-//                            chboxVueloSalida.setSelected(false);
-//
-//                            comboBoxPistaAterrizaje.setSelectedItem(FlightRequirementsSearch.getPista());
-//
-//                            tfDestino.setText(FlightRequirementsSearch.getDestino());
-//
-//                            dataAgenda.setText("Datos de agenda de vuelo:" + "\n" +
-//                                "\n" +
-//                                "Codigo del vuelo: " + FlightRequirementsSearch.getCodigoVueloAgenda()+ "\n" +
-//                                "Tipo de vuelo: " + FlightRequirementsSearch.getTipoVuelo() + "\n" +
-//                                "Clase de vuelo: " + FlightRequirementsSearch.getClaseVuelo()+ "\n" +
-//                                "Tripulación del avión: " + FlightRequirementsSearch.getTripulación() + "\n" +
-//                                "Pista de vuelo" + FlightRequirementsSearch.getPista() + "\n" +
-//                                "Feca de vuelo: " + FlightRequirementsSearch.getFecha() + "\n" +
-//                                "Hora de vuelo: " + FlightRequirementsSearch.getTiempo()+ "\n" +
-//                                "Destino del vuelo: " + FlightRequirementsSearch.getDestino());
-//                        }
-//
-//                        if (FlightRequirementsSearch.getClaseVuelo().equals("Vuelo de salida") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de carga")) {
-//
-//                            chboxVueloCarga.setSelected(true);
-//                            chboxVueloSalida.setSelected(true);
-//                            chboxVueloPasajeros.setSelected(false);
-//                            chboxVueloLlegada.setSelected(false);
-//
-//                            comboBoxPistaDespegue.setSelectedItem(FlightRequirementsSearch.getPista());
-//
-//                            tfDestino.setText(FlightRequirementsSearch.getDestino());
-//
-//                            dataAgenda.setText("Datos de agenda de vuelo:" + "\n" +
-//                                "\n" +
-//                                "Codigo del vuelo: " + FlightRequirementsSearch.getCodigoVueloAgenda()+ "\n" +
-//                                "Tipo de vuelo: " + FlightRequirementsSearch.getTipoVuelo() + "\n" +
-//                                "Clase de vuelo: " + FlightRequirementsSearch.getClaseVuelo()+ "\n" +
-//                                "Tripulación del avión: " + FlightRequirementsSearch.getTripulación() + "\n" +
-//                                "Pista de vuelo" + FlightRequirementsSearch.getPista() + "\n" +
-//                                "Feca de vuelo: " + FlightRequirementsSearch.getFecha() + "\n" +
-//                                "Hora de vuelo: " + FlightRequirementsSearch.getTiempo()+ "\n" +
-//                                "Destino del vuelo: " + FlightRequirementsSearch.getDestino());
-//                        }
-//
-//                    }
-//                    //----------
-//
-//                    else{
-//
-//                        if (Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) < currentDate.getMonthValue()) {
-//                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
-//                        }
-//                        else if(Integer.parseInt(anioVuelo) < currentDate.getYear()){
-//                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
-//                        }
-//                        else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) < currentDate.getDayOfMonth()){
-//                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
-//                        }
-//                        else if (Integer.parseInt(anioVuelo) >= currentDate.getYear() ){
-//
-//                            String tripulacion = tripulacion();
-//
-//                            clsFlightAgenda AgendarVuelo = new clsFlightAgenda
-//                            (0, codigoVuelo, "Vuelo de carga", "Vuelo de salida", tripulacion, destinoVuelo, pistaDeDespegue, fecha, tiempo, "1");
-//
-//                            controlFlightAgenda.createFlightAgenda(AgendarVuelo);
-//
-//                            dataAgenda.setText("Datos de vuelo:" + "\n" +
-//                                "\n" +
-//                                "Codigo del vuelo: " + codigoVuelo + "\n" +
-//                                "Tipo de vuelo: Vuelo de pasajeros" + "\n" +
-//                                "Clase de vuelo: Vuelo de llegada" + "\n" +
-//                                //"Pista de vuelo: " + FlightRequirementsSearch.getPista() + "\n" +
-//                                "Tripulación del avión: " + tripulacion + "\n" +
-//                                "Feca de vuelo: " + fecha + "\n" +
-//                                "Hora de vuelo: " + tiempo + "\n" +
-//                                "Destino del vuelo: " + destinoVuelo);
-//
-//                            Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
-//                            JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una agenda de vuelo!!!", "Agenda realizada satisfactoriamente", WIDTH, m);
-//                            showFlightList();
-//                            cleanscheduleQuestionnaire();
-//                        }
-//                        else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) > currentDate.getDayOfMonth()){
-//
-//                            String tripulacion = tripulacion();
-//
-//                            clsFlightAgenda AgendarVuelo = new clsFlightAgenda
-//                            (0, codigoVuelo, "Vuelo de carga", "Vuelo de salida", tripulacion, destinoVuelo, pistaDeDespegue, fecha, tiempo, "1");
-//
-//                            controlFlightAgenda.createFlightAgenda(AgendarVuelo);
-//
-//                            dataAgenda.setText("Datos de vuelo:" + "\n" +
-//                                "\n" +
-//                                "Codigo del vuelo: " + codigoVuelo + "\n" +
-//                                "Tipo de vuelo: Vuelo de carga" + "\n" +
-//                                "Clase de vuelo: Vuelo de salida" + "\n" +
-//                                //"Pista de vuelo: " + FlightRequirementsSearch.getPista() + "\n" +
-//                                "Tripulación del avión: " + tripulacion + "\n" +
-//                                "Feca de vuelo: " + fecha + "\n" +
-//                                "Hora de vuelo: " + tiempo + "\n" +
-//                                "Destino del vuelo: " + destinoVuelo);
-//
-//                            Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
-//                            JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una agenda de vuelo!!!", "Agenda realizada satisfactoriamente", WIDTH, m);
-//                            showFlightList();
-//                            cleanscheduleQuestionnaire();
-//                        }
-//                    }
-//                }
-//
-//            }
-//        } catch (Exception e) {
-//        }
+        try {
+            String codigo = tfCodigoVuelo.getText();
+            String destino = comboBoxDestino.getSelectedItem().toString();
+            boolean tipovueloP = chboxVueloPasajeros.isSelected();
+            boolean tipovueloC = chboxVueloCarga.isSelected();
+            boolean vueloS = chboxVueloSalida.isSelected();
+            boolean vueloLl = chboxVueloLlegada.isSelected();
+            String pistaDespegue = comboBoxPistaDespegue.getSelectedItem().toString();
+            String pistaAterrizaje = comboBoxPistaAterrizaje.getSelectedItem().toString();
+            String anio = comboBoxYear.getSelectedItem().toString();
+            String mes = comboBoxMonth.getSelectedItem().toString();
+            String dia = comboBoxDay.getSelectedItem().toString();
+            String hora = comboBoxHour.getSelectedItem().toString();
+            String minuto = comboBoxMinutes.getSelectedItem().toString();
+
+            String codigoVueloEncontrado = tfCodigoVuelo.getText();
+            
+            if (codigoVueloEncontrado.equals("")){
+                JOptionPane.showMessageDialog(this, "Debe diligenciar el codigo del vuelo");
+            }
+
+            //---
+
+            if (tipovueloC == false && tipovueloP == false) {
+                JOptionPane.showMessageDialog(this, "¡Debe seleccionar un tipo de vuelo!");
+            }
+            if (vueloS == false && vueloLl == false) {
+                JOptionPane.showMessageDialog(this, "¡Debe seleccionar la clase de vuelo!");
+            }
+            if(anio.equals("Year") || mes.equals("Month") || dia.equals("Day")){
+                JOptionPane.showMessageDialog(this, "¡Debe seleccionar una fecha valida!");
+            }
+            if(hora.equals("Hour") || minuto.equals("Minutes")){
+                JOptionPane.showMessageDialog(this, "¡Debe ingresar una hora valida del vuelo!");
+            }
+            if(destino.equals("")){
+                JOptionPane.showMessageDialog(this, "¡Debe ingresar un destino para el vuelo!");
+            }
+            else{
+                if(tipovueloP==true && vueloS==true && !"".equals(codigo)){
+
+                    String codigoVuelo = tfCodigoVuelo.getText();
+                    String destinoVuelo = comboBoxDestino.getSelectedItem().toString();
+                    String pistaDeDespegue = comboBoxPistaDespegue.getSelectedItem().toString();
+                    String pistaDeAterrizaje = comboBoxPistaAterrizaje.getSelectedItem().toString();
+                    String anioVuelo = comboBoxYear.getSelectedItem().toString();
+                    String mesVuelo = comboBoxMonth.getSelectedItem().toString();
+                    String diaVuelo = comboBoxDay.getSelectedItem().toString();
+                    String horaVuelo = comboBoxHour.getSelectedItem().toString();
+                    String minutoVuelo = comboBoxMinutes.getSelectedItem().toString();
+                    String mesNumber = "";
+
+                    if(mesVuelo.equals("January")){
+                        mesNumber = "1";
+                    }
+                    if(mesVuelo.equals("February")){
+                        mesNumber = "2";
+                    }
+                    if(mesVuelo.equals("March")){
+                        mesNumber = "3";
+                    }
+                    if(mesVuelo.equals("April")){
+                        mesNumber = "4";
+                    }
+                    if(mesVuelo.equals("may")){
+                        mesNumber = "5";
+                    }
+                    if(mesVuelo.equals("June")){
+                        mesNumber = "6";
+                    }
+                    if(mesVuelo.equals("July")){
+                        mesNumber = "7";
+                    }
+                    if(mesVuelo.equals("August")){
+                        mesNumber = "8";
+                    }
+                    if(mesVuelo.equals("September")){
+                        mesNumber = "9";
+                    }
+                    if(mesVuelo.equals("October")){
+                        mesNumber = "10";
+                    }
+                    if(mesVuelo.equals("November")){
+                        mesNumber = "11";
+                    }
+                    if(mesVuelo.equals("December")){
+                        mesNumber = "12";
+                    }
+
+                    String fecha = anioVuelo + "-" + mesNumber + "-" + diaVuelo;
+                    String tiempo = horaVuelo + ":" + minutoVuelo + ":" + "00";
+
+                    //----------
+                    clsFlightAgenda FlightRequirementsSearch = controllerAgenda.readFlightAgenda(codigoVuelo);
+
+                    if (FlightRequirementsSearch != null) {
+                        JOptionPane.showMessageDialog(this, "¡Ya existe un vuelo agendado con este codigo!");
+
+                        if (FlightRequirementsSearch.getClaseVuelo().equals("Vuelo de salida") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de pasajeros")) {
+
+                            chboxVueloPasajeros.setSelected(true);
+                            chboxVueloSalida.setSelected(true);
+                            chboxVueloLlegada.setSelected(false);
+                            chboxVueloCarga.setSelected(false);
+
+                            comboBoxPistaDespegue.setSelectedItem(FlightRequirementsSearch.getPista());
+
+                            comboBoxDestino.setSelectedItem(FlightRequirementsSearch.getDestino());
+                        }
+
+                        if (FlightRequirementsSearch.getClaseVuelo().equals("Vuelo de llegada") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de carga")) {
+
+                            chboxVueloCarga.setSelected(true);
+                            chboxVueloLlegada.setSelected(true);
+                            chboxVueloSalida.setSelected(false);
+                            chboxVueloPasajeros.setSelected(false);
+
+                            comboBoxPistaAterrizaje.setSelectedItem(FlightRequirementsSearch.getPista());
+
+                            comboBoxDestino.setSelectedItem(FlightRequirementsSearch.getDestino());
+
+                        }
+
+                        if (FlightRequirementsSearch.getClaseVuelo().equals("Vuelo de llegada") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de pasajeros")) {
+
+                            chboxVueloLlegada.setSelected(true);
+                            chboxVueloPasajeros.setSelected(true);
+                            chboxVueloCarga.setSelected(false);
+                            chboxVueloSalida.setSelected(false);
+
+                            comboBoxPistaAterrizaje.setSelectedItem(FlightRequirementsSearch.getPista());
+
+                            comboBoxDestino.setSelectedItem(FlightRequirementsSearch.getDestino());
+
+                        }
+
+                        if (FlightRequirementsSearch.getClaseVuelo().equals("Vuelo de salida") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de carga")) {
+
+                            chboxVueloCarga.setSelected(true);
+                            chboxVueloSalida.setSelected(true);
+                            chboxVueloPasajeros.setSelected(false);
+                            chboxVueloLlegada.setSelected(false);
+
+                            comboBoxPistaDespegue.setSelectedItem(FlightRequirementsSearch.getPista());
+
+                            comboBoxDestino.setSelectedItem(FlightRequirementsSearch.getDestino());
+                        }
+
+                    }
+                    //----------
+                    else{
+                        if(pistaDeDespegue.equals("Seleccione pista")){
+                            JOptionPane.showMessageDialog(this, "¡Debe seleccionar una pista de despegue para el avión!");
+                        }
+                        if (Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) < currentDate.getMonthValue()) {
+                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                        }
+                        else if(Integer.parseInt(anioVuelo) < currentDate.getYear()){
+                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                        }
+                        else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) < currentDate.getDayOfMonth()){
+                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                        }
+                        else if (Integer.parseInt(anioVuelo) >= currentDate.getYear() ){
+
+                            String tripulacion = tripulacion();
+
+                            clsFlightAgenda agendarVuelo = new clsFlightAgenda(0, codigoVuelo, "Vuelo de pasajeros", "Vuelo de salida", tripulacion, destinoVuelo, pistaDeDespegue, fecha, tiempo, "1");
+
+                            controllerAgenda.createFlightAgenda(agendarVuelo);
+
+
+
+                            Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                            JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una agenda de vuelo!!!", "agenda realizada satisfactoriamente", WIDTH, m);
+                            
+                            clsFlightRequirements  FlightDelete = new clsFlightRequirements(0, codigoVuelo, "modelo avion", "Tipo vuelo", "clase vuelo", "capacidad carga", "tripulacion", "fecha", "hora", "Destino");
+                            controller.deleteFlight(FlightDelete);
+                            
+                            fillDataTable();
+                            showFlightList();
+                            cleanscheduleQuestionnaire();
+                        }
+                        else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) > currentDate.getDayOfMonth()){
+
+                            String tripulacion = tripulacion();
+
+                            clsFlightAgenda AgendarVuelo = new clsFlightAgenda
+                            (0, codigoVuelo, "Vuelo de pasajeros", "Vuelo de salida", tripulacion, destinoVuelo, pistaDeDespegue, fecha, tiempo, "1");
+
+                            controllerAgenda.createFlightAgenda(AgendarVuelo);
+
+
+
+                            Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                            JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una agenda de vuelo!!!", "agenda realizada satisfactoriamente", WIDTH, m);
+                            
+                            clsFlightRequirements  FlightDelete = new clsFlightRequirements(0, codigoVuelo, "modelo avion", "Tipo vuelo", "clase vuelo", "capacidad carga", "tripulacion", "fecha", "hora", "Destino");
+                            controller.deleteFlight(FlightDelete);
+                            
+                            fillDataTable();
+                            showFlightList();
+                            cleanscheduleQuestionnaire();
+                        }
+                    }
+                    //----------
+
+                }
+
+                //--------------------------------------------------------------
+
+                if (tipovueloC==true && vueloLl==true && !"".equals(codigo)) {
+
+                    String codigoVuelo = tfCodigoVuelo.getText();
+                    String destinoVuelo = comboBoxDestino.getSelectedItem().toString();
+                    String pistaDeDespegue = comboBoxPistaDespegue.getSelectedItem().toString();
+                    String pistaDeAterrizaje = comboBoxPistaAterrizaje.getSelectedItem().toString();
+                    String anioVuelo = comboBoxYear.getSelectedItem().toString();
+                    String mesVuelo = comboBoxMonth.getSelectedItem().toString();
+                    String diaVuelo = comboBoxDay.getSelectedItem().toString();
+                    String horaVuelo = comboBoxHour.getSelectedItem().toString();
+                    String minutoVuelo = comboBoxMinutes.getSelectedItem().toString();
+                    String mesNumber = "";
+
+                    if(mesVuelo.equals("January")){
+                        mesNumber = "1";
+                    }
+                    if(mesVuelo.equals("February")){
+                        mesNumber = "2";
+                    }
+                    if(mesVuelo.equals("March")){
+                        mesNumber = "3";
+                    }
+                    if(mesVuelo.equals("April")){
+                        mesNumber = "4";
+                    }
+                    if(mesVuelo.equals("may")){
+                        mesNumber = "5";
+                    }
+                    if(mesVuelo.equals("June")){
+                        mesNumber = "6";
+                    }
+                    if(mesVuelo.equals("July")){
+                        mesNumber = "7";
+                    }
+                    if(mesVuelo.equals("August")){
+                        mesNumber = "8";
+                    }
+                    if(mesVuelo.equals("September")){
+                        mesNumber = "9";
+                    }
+                    if(mesVuelo.equals("October")){
+                        mesNumber = "10";
+                    }
+                    if(mesVuelo.equals("November")){
+                        mesNumber = "11";
+                    }
+                    if(mesVuelo.equals("December")){
+                        mesNumber = "12";
+                    }
+
+                    String fecha = anioVuelo + "-" + mesNumber + "-" + diaVuelo;
+                    String tiempo = horaVuelo + ":" + minutoVuelo + ":" + "00";
+
+                    //----------
+                    clsFlightAgenda FlightRequirementsSearch = controllerAgenda.readFlightAgenda(codigoVuelo);
+
+                    if (FlightRequirementsSearch != null) {
+                        JOptionPane.showMessageDialog(this, "¡Ya existe un vuelo registrado con este codigo!");
+
+                        if (FlightRequirementsSearch.getClaseVuelo().equals("Vuelo de salida") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de pasajeros")) {
+
+                            chboxVueloPasajeros.setSelected(true);
+                            chboxVueloSalida.setSelected(true);
+                            chboxVueloLlegada.setSelected(false);
+                            chboxVueloCarga.setSelected(false);
+
+                            comboBoxPistaDespegue.setSelectedItem(FlightRequirementsSearch.getPista());
+
+                            comboBoxDestino.setSelectedItem(FlightRequirementsSearch.getDestino());
+
+
+                        }
+
+                        if (FlightRequirementsSearch.getClaseVuelo().equals("Vuelo de llegada") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de carga")) {
+
+                            chboxVueloCarga.setSelected(true);
+                            chboxVueloLlegada.setSelected(true);
+                            chboxVueloSalida.setSelected(false);
+                            chboxVueloPasajeros.setSelected(false);
+
+                            comboBoxPistaAterrizaje.setSelectedItem(FlightRequirementsSearch.getPista());
+
+                            comboBoxDestino.setSelectedItem(FlightRequirementsSearch.getDestino());
+
+
+                        }
+
+                        if (FlightRequirementsSearch.getClaseVuelo().equals("Vuelo de llegada") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de pasajeros")) {
+
+                            chboxVueloLlegada.setSelected(true);
+                            chboxVueloPasajeros.setSelected(true);
+                            chboxVueloCarga.setSelected(false);
+                            chboxVueloSalida.setSelected(false);
+
+                            comboBoxPistaAterrizaje.setSelectedItem(FlightRequirementsSearch.getPista());
+
+                            comboBoxDestino.setSelectedItem(FlightRequirementsSearch.getDestino());
+
+                        }
+
+                        if (FlightRequirementsSearch.getClaseVuelo().equals("Vuelo de salida") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de carga")) {
+
+                            chboxVueloCarga.setSelected(true);
+                            chboxVueloSalida.setSelected(true);
+                            chboxVueloPasajeros.setSelected(false);
+                            chboxVueloLlegada.setSelected(false);
+
+                            comboBoxPistaDespegue.setSelectedItem(FlightRequirementsSearch.getPista());
+
+                            comboBoxDestino.setSelectedItem(FlightRequirementsSearch.getDestino());
+
+
+                        }
+
+                    }
+                    //----------
+                    else{
+                        if(pistaDeAterrizaje.equals("Seleccione pista")){
+                            JOptionPane.showMessageDialog(this, "¡Debe seleccionar una pista de aterrizaje para el avión!");
+                        }
+                        if (Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) < currentDate.getMonthValue()) {
+                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                        }
+                        else if(Integer.parseInt(anioVuelo) < currentDate.getYear()){
+                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                        }
+                        else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) < currentDate.getDayOfMonth()){
+                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                        }
+                        else if (Integer.parseInt(anioVuelo) >= currentDate.getYear() ){
+
+                            String tripulacion = tripulacion();
+
+                            clsFlightAgenda AgendarVuelo = new clsFlightAgenda
+                            (0, codigoVuelo, "Vuelo de carga", "Vuelo de llegada", tripulacion, destinoVuelo, pistaDeAterrizaje, fecha, tiempo, "1");
+
+                            controllerAgenda.createFlightAgenda(AgendarVuelo);
+
+
+
+                            Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                            JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una agenda de vuelo!!!", "Agenda realizada satisfactoriamente", WIDTH, m);
+                            
+                            clsFlightRequirements  FlightDelete = new clsFlightRequirements(0, codigoVuelo, "modelo avion", "Tipo vuelo", "clase vuelo", "capacidad carga", "tripulacion", "fecha", "hora", "Destino");
+                            controller.deleteFlight(FlightDelete);
+                            
+                            fillDataTable();
+                            showFlightList();
+                            cleanscheduleQuestionnaire();
+                        }
+                        else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) > currentDate.getDayOfMonth()){
+
+                            String tripulacion = tripulacion();
+
+                            clsFlightAgenda AgendarVuelo = new clsFlightAgenda
+                            (0, codigoVuelo, "Vuelo de carga", "Vuelo de llegada", tripulacion, destinoVuelo, pistaDeAterrizaje, fecha, tiempo, "1");
+
+                            controllerAgenda.createFlightAgenda(AgendarVuelo);
+
+                            Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                            JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una agenda de vuelo!!!", "Agenda realizada satisfactoriamente", WIDTH, m);
+                            
+                            clsFlightRequirements  FlightDelete = new clsFlightRequirements(0, codigoVuelo, "modelo avion", "Tipo vuelo", "clase vuelo", "capacidad carga", "tripulacion", "fecha", "hora", "Destino");
+                            controller.deleteFlight(FlightDelete);
+                            
+                            fillDataTable();
+                            showFlightList();
+                            cleanscheduleQuestionnaire();
+                        }
+                    }
+                }
+
+                //--------------------------------------------------------------
+
+                if(tipovueloP==true && vueloLl==true && !"".equals(codigo)){
+
+                    String codigoVuelo = tfCodigoVuelo.getText();
+                    String destinoVuelo = comboBoxDestino.getSelectedItem().toString();
+                    String pistaDeDespegue = comboBoxPistaDespegue.getSelectedItem().toString();
+                    String pistaDeAterrizaje = comboBoxPistaAterrizaje.getSelectedItem().toString();
+                    String anioVuelo = comboBoxYear.getSelectedItem().toString();
+                    String mesVuelo = comboBoxMonth.getSelectedItem().toString();
+                    String diaVuelo = comboBoxDay.getSelectedItem().toString();
+                    String horaVuelo = comboBoxHour.getSelectedItem().toString();
+                    String minutoVuelo = comboBoxMinutes.getSelectedItem().toString();
+                    String mesNumber = "";
+
+                    if(mesVuelo.equals("January")){
+                        mesNumber = "1";
+                    }
+                    if(mesVuelo.equals("February")){
+                        mesNumber = "2";
+                    }
+                    if(mesVuelo.equals("March")){
+                        mesNumber = "3";
+                    }
+                    if(mesVuelo.equals("April")){
+                        mesNumber = "4";
+                    }
+                    if(mesVuelo.equals("may")){
+                        mesNumber = "5";
+                    }
+                    if(mesVuelo.equals("June")){
+                        mesNumber = "6";
+                    }
+                    if(mesVuelo.equals("July")){
+                        mesNumber = "7";
+                    }
+                    if(mesVuelo.equals("August")){
+                        mesNumber = "8";
+                    }
+                    if(mesVuelo.equals("September")){
+                        mesNumber = "9";
+                    }
+                    if(mesVuelo.equals("October")){
+                        mesNumber = "10";
+                    }
+                    if(mesVuelo.equals("November")){
+                        mesNumber = "11";
+                    }
+                    if(mesVuelo.equals("December")){
+                        mesNumber = "12";
+                    }
+                    String fecha = anioVuelo + "-" + mesNumber + "-" + diaVuelo;
+                    String tiempo = horaVuelo + ":" + minutoVuelo + ":" + "00";
+
+                    //----------
+                    clsFlightAgenda FlightRequirementsSearch = controllerAgenda.readFlightAgenda(codigoVuelo);
+
+                    if (FlightRequirementsSearch != null) {
+                        JOptionPane.showMessageDialog(this, "¡Ya existe un vuelo registrado con este codigo!");
+
+                        if (FlightRequirementsSearch.getClaseVuelo().equals("Vuelo de salida") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de pasajeros")) {
+
+                            chboxVueloPasajeros.setSelected(true);
+                            chboxVueloSalida.setSelected(true);
+                            chboxVueloLlegada.setSelected(false);
+                            chboxVueloCarga.setSelected(false);
+
+                            comboBoxPistaDespegue.setSelectedItem(FlightRequirementsSearch.getPista());
+
+                            comboBoxDestino.setSelectedItem(FlightRequirementsSearch.getDestino());
+
+                        }
+
+                        if (FlightRequirementsSearch.getClaseVuelo().equals("Vuelo de llegada") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de carga")) {
+
+                            chboxVueloCarga.setSelected(true);
+                            chboxVueloLlegada.setSelected(true);
+                            chboxVueloSalida.setSelected(false);
+                            chboxVueloPasajeros.setSelected(false);
+
+                            comboBoxPistaAterrizaje.setSelectedItem(FlightRequirementsSearch.getPista());
+
+                            comboBoxDestino.setSelectedItem(FlightRequirementsSearch.getDestino());
+                        }
+
+                        if (FlightRequirementsSearch.getClaseVuelo().equals("Vuelo de llegada") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de pasajeros")) {
+
+                            chboxVueloLlegada.setSelected(true);
+                            chboxVueloPasajeros.setSelected(true);
+                            chboxVueloCarga.setSelected(false);
+                            chboxVueloSalida.setSelected(false);
+
+                            comboBoxPistaAterrizaje.setSelectedItem(FlightRequirementsSearch.getPista());
+
+                            comboBoxDestino.setSelectedItem(FlightRequirementsSearch.getDestino());
+                        }
+
+                        if (FlightRequirementsSearch.getClaseVuelo().equals("Vuelo de salida") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de carga")) {
+
+                            chboxVueloCarga.setSelected(true);
+                            chboxVueloSalida.setSelected(true);
+                            chboxVueloPasajeros.setSelected(false);
+                            chboxVueloLlegada.setSelected(false);
+
+                            comboBoxPistaDespegue.setSelectedItem(FlightRequirementsSearch.getPista());
+
+                            comboBoxDestino.setSelectedItem(FlightRequirementsSearch.getDestino());
+                        }
+
+                    }
+                    //----------
+                    else{
+                        if(pistaDeAterrizaje.equals("Seleccione pista")){
+                            JOptionPane.showMessageDialog(this, "¡Debe seleccionar una pista de aterrizaje para el avión!");
+                        }
+                        if (Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) < currentDate.getMonthValue()) {
+                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                        }
+                        else if(Integer.parseInt(anioVuelo) < currentDate.getYear()){
+                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                        }
+                        else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) < currentDate.getDayOfMonth()){
+                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                        }
+                        else if (Integer.parseInt(anioVuelo) >= currentDate.getYear() ){
+
+                            String tripulacion = tripulacion();
+
+                            clsFlightAgenda AgendarVuelo = new clsFlightAgenda
+                            (0, codigoVuelo, "Vuelo de pasajeros", "Vuelo de llegada", tripulacion, destinoVuelo, pistaDeAterrizaje, fecha, tiempo, "1");
+
+                            controllerAgenda.createFlightAgenda(AgendarVuelo);
+
+                            Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                            JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una agenda de vuelo!!!", "Agenda realizada satisfactoriamente", WIDTH, m);
+                            
+                            clsFlightRequirements  FlightDelete = new clsFlightRequirements(0, codigoVuelo, "modelo avion", "Tipo vuelo", "clase vuelo", "capacidad carga", "tripulacion", "fecha", "hora", "Destino");
+                            controller.deleteFlight(FlightDelete);
+                            
+                            fillDataTable();
+                            showFlightList();
+                            cleanscheduleQuestionnaire();
+                        }
+                        else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) > currentDate.getDayOfMonth()){
+
+                            String tripulacion = tripulacion();
+
+                            clsFlightAgenda AgendarVuelo = new clsFlightAgenda
+                            (0, codigoVuelo, "Vuelo de pasajeros", "Vuelo de llegada", tripulacion, destinoVuelo, pistaDeAterrizaje, fecha, tiempo, "1");
+
+                            controllerAgenda.createFlightAgenda(AgendarVuelo);
+
+                            Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                            JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una agenda de vuelo!!!", "Agenda realizada satisfactoriamente", WIDTH, m);
+                            
+                            clsFlightRequirements  FlightDelete = new clsFlightRequirements(0, codigoVuelo, "modelo avion", "Tipo vuelo", "clase vuelo", "capacidad carga", "tripulacion", "fecha", "hora", "Destino");
+                            controller.deleteFlight(FlightDelete);
+                            
+                            fillDataTable();
+                            showFlightList();
+                            cleanscheduleQuestionnaire();
+                        }
+                    }
+                }
+
+                //--------------------------------------------------------------
+
+                if (tipovueloC==true && vueloS==true && !"".equals(codigo)) {
+
+                    String codigoVuelo = tfCodigoVuelo.getText();
+                    String destinoVuelo = comboBoxDestino.getSelectedItem().toString();
+                    String pistaDeDespegue = comboBoxPistaDespegue.getSelectedItem().toString();
+                    String pistaDeAterrizaje = comboBoxPistaAterrizaje.getSelectedItem().toString();
+                    String anioVuelo = comboBoxYear.getSelectedItem().toString();
+                    String mesVuelo = comboBoxMonth.getSelectedItem().toString();
+                    String diaVuelo = comboBoxDay.getSelectedItem().toString();
+                    String horaVuelo = comboBoxHour.getSelectedItem().toString();
+                    String minutoVuelo = comboBoxMinutes.getSelectedItem().toString();
+                    String mesNumber = "";
+
+                    if(mesVuelo.equals("January")){
+                        mesNumber = "1";
+                    }
+                    if(mesVuelo.equals("February")){
+                        mesNumber = "2";
+                    }
+                    if(mesVuelo.equals("March")){
+                        mesNumber = "3";
+                    }
+                    if(mesVuelo.equals("April")){
+                        mesNumber = "4";
+                    }
+                    if(mesVuelo.equals("may")){
+                        mesNumber = "5";
+                    }
+                    if(mesVuelo.equals("June")){
+                        mesNumber = "6";
+                    }
+                    if(mesVuelo.equals("July")){
+                        mesNumber = "7";
+                    }
+                    if(mesVuelo.equals("August")){
+                        mesNumber = "8";
+                    }
+                    if(mesVuelo.equals("September")){
+                        mesNumber = "9";
+                    }
+                    if(mesVuelo.equals("October")){
+                        mesNumber = "10";
+                    }
+                    if(mesVuelo.equals("November")){
+                        mesNumber = "11";
+                    }
+                    if(mesVuelo.equals("December")){
+                        mesNumber = "12";
+                    }
+                    String fecha = anioVuelo + "-" + mesNumber + "-" + diaVuelo;
+                    String tiempo = horaVuelo + ":" + minutoVuelo + ":" + "00";
+
+                    //----------
+                    clsFlightAgenda FlightRequirementsSearch = controllerAgenda.readFlightAgenda(codigoVuelo);
+
+                    if (FlightRequirementsSearch != null) {
+                        JOptionPane.showMessageDialog(this, "¡Ya existe un vuelo agendado con este codigo!");
+
+                        if (FlightRequirementsSearch.getClaseVuelo().equals("Vuelo de salida") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de pasajeros")) {
+
+                            chboxVueloPasajeros.setSelected(true);
+                            chboxVueloSalida.setSelected(true);
+                            chboxVueloLlegada.setSelected(false);
+                            chboxVueloCarga.setSelected(false);
+
+                            comboBoxPistaDespegue.setSelectedItem(FlightRequirementsSearch.getPista());
+
+                            comboBoxDestino.setSelectedItem(FlightRequirementsSearch.getDestino());
+                        }
+
+                        if (FlightRequirementsSearch.getClaseVuelo().equals("Vuelo de llegada") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de carga")) {
+
+                            chboxVueloCarga.setSelected(true);
+                            chboxVueloLlegada.setSelected(true);
+                            chboxVueloSalida.setSelected(false);
+                            chboxVueloPasajeros.setSelected(false);
+
+                            comboBoxPistaAterrizaje.setSelectedItem(FlightRequirementsSearch.getPista());
+
+                            comboBoxDestino.setSelectedItem(FlightRequirementsSearch.getDestino());
+                        }
+
+                        if (FlightRequirementsSearch.getClaseVuelo().equals("Vuelo de llegada") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de pasajeros")) {
+
+                            chboxVueloLlegada.setSelected(true);
+                            chboxVueloPasajeros.setSelected(true);
+                            chboxVueloCarga.setSelected(false);
+                            chboxVueloSalida.setSelected(false);
+
+                            comboBoxPistaAterrizaje.setSelectedItem(FlightRequirementsSearch.getPista());
+
+                            comboBoxDestino.setSelectedItem(FlightRequirementsSearch.getDestino());
+                        }
+
+                        if (FlightRequirementsSearch.getClaseVuelo().equals("Vuelo de salida") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de carga")) {
+
+                            chboxVueloCarga.setSelected(true);
+                            chboxVueloSalida.setSelected(true);
+                            chboxVueloPasajeros.setSelected(false);
+                            chboxVueloLlegada.setSelected(false);
+
+                            comboBoxPistaDespegue.setSelectedItem(FlightRequirementsSearch.getPista());
+
+                            comboBoxDestino.setSelectedItem(FlightRequirementsSearch.getDestino());
+                        }
+
+                    }
+                    //----------
+
+                    else{
+                        if(pistaDeDespegue.equals("Seleccione pista")){
+                            JOptionPane.showMessageDialog(this, "¡Debe seleccionar una pista de despegue para el avión!");
+                        }
+                        if (Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) < currentDate.getMonthValue()) {
+                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                        }
+                        else if(Integer.parseInt(anioVuelo) < currentDate.getYear()){
+                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                        }
+                        else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) < currentDate.getDayOfMonth()){
+                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                        }
+                        else if (Integer.parseInt(anioVuelo) >= currentDate.getYear() ){
+
+                            String tripulacion = tripulacion();
+
+                            clsFlightAgenda AgendarVuelo = new clsFlightAgenda
+                            (0, codigoVuelo, "Vuelo de carga", "Vuelo de salida", tripulacion, destinoVuelo, pistaDeDespegue, fecha, tiempo, "1");
+
+                            controllerAgenda.createFlightAgenda(AgendarVuelo);
+
+                            Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                            JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una agenda de vuelo!!!", "Agenda realizada satisfactoriamente", WIDTH, m);
+                            
+                            clsFlightRequirements  FlightDelete = new clsFlightRequirements(0, codigoVuelo, "modelo avion", "Tipo vuelo", "clase vuelo", "capacidad carga", "tripulacion", "fecha", "hora", "Destino");
+                            controller.deleteFlight(FlightDelete);
+                            
+                            fillDataTable();
+                            showFlightList();
+                            cleanscheduleQuestionnaire();
+                        }
+                        else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) > currentDate.getDayOfMonth()){
+
+                            String tripulacion = tripulacion();
+
+                            clsFlightAgenda AgendarVuelo = new clsFlightAgenda
+                            (0, codigoVuelo, "Vuelo de carga", "Vuelo de salida", tripulacion, destinoVuelo, pistaDeDespegue, fecha, tiempo, "1");
+
+                            controllerAgenda.createFlightAgenda(AgendarVuelo);
+
+                            Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                            JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una agenda de vuelo!!!", "Agenda realizada satisfactoriamente", WIDTH, m);
+                            
+                            clsFlightRequirements  FlightDelete = new clsFlightRequirements(0, codigoVuelo, "modelo avion", "Tipo vuelo", "clase vuelo", "capacidad carga", "tripulacion", "fecha", "hora", "Destino");
+                            controller.deleteFlight(FlightDelete);
+                            
+                            fillDataTable();
+                            showFlightList();
+                            cleanscheduleQuestionnaire();
+                        }
+                    }
+                }
+
+            }
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_btAgendarActionPerformed
 
+    //--------------------------------------------------------------------------
+    
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        
+        chboxVueloCarga.setSelected(false);
+        chboxVueloPasajeros.setSelected(false);
+        chboxVueloLlegada.setSelected(false);
+        chboxVueloSalida.setSelected(false);
+        comboBoxAgenda.setSelectedIndex(0);
+        comboBoxPistaAterrizaje.setSelectedIndex(0);
+        comboBoxPistaDespegue.setSelectedIndex(0);
+        comboBoxDestino.setSelectedIndex(0);
+        comboBoxYear.setSelectedIndex(0);
+        comboBoxMonth.setSelectedIndex(0);
+        comboBoxDay.setSelectedIndex(0);
+        comboBoxHour.setSelectedIndex(0);
+        comboBoxMinutes.setSelectedIndex(0);
+        tfCodigoVuelo.setText("");
+        tfCodigoVuelo.setEditable(true);
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    //--------------------------------------------------------------------------
+    
+    private void cleanscheduleQuestionnaire(){
+        chboxVueloCarga.setSelected(false);
+        chboxVueloPasajeros.setSelected(false);
+        chboxVueloLlegada.setSelected(false);
+        chboxVueloSalida.setSelected(false);
+        comboBoxAgenda.setSelectedIndex(0);
+        comboBoxPistaAterrizaje.setSelectedIndex(0);
+        comboBoxPistaDespegue.setSelectedIndex(0);
+        comboBoxDestino.setSelectedIndex(0);
+        comboBoxYear.setSelectedIndex(0);
+        comboBoxMonth.setSelectedIndex(0);
+        comboBoxDay.setSelectedIndex(0);
+        comboBoxHour.setSelectedIndex(0);
+        comboBoxMinutes.setSelectedIndex(0);
+        tfCodigoVuelo.setText("");
+        tfCodigoVuelo.setEditable(true);
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    private void showFlightList(){
+        FlightAgendaObjectList = controllerAgenda.listFlightAgenda();
+        
+        DefaultListModel model = new DefaultListModel();
+        int index = 0;
+        
+        for (clsFlightAgenda vuelos : FlightAgendaObjectList) {
+            String data = "CODIGO VUELO: " + vuelos.getCodigoVueloAgenda() + " - " + " TIPO VUELO: " + vuelos.getTipoVuelo()+ " - " +
+                          " CLASE VUELO: " +vuelos.getClaseVuelo() + " - " + " - " + "PISTA: " + vuelos.getPista()  + " FECHA VUELO: " + vuelos.getFecha()+ " - " + 
+                          " HORA VUELO: " + vuelos.getTiempo() + " - " + " DESTINO: " + vuelos.getDestino();
+            model.add(index, data);
+            index++;
+        }
+    }
+    
     //--------------------------------------------------------------------------
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1324,7 +1289,7 @@ public class pnlScheduleFlight extends javax.swing.JPanel {
     private javax.swing.JLabel lbPistaD1;
     private javax.swing.JLabel lbTipoV;
     private javax.swing.JLabel lbVueloS;
-    private javax.swing.JTable tblCustomers;
+    private javax.swing.JTable tblSolicitudes;
     private javax.swing.JTextField tfCodigoVuelo;
     // End of variables declaration//GEN-END:variables
 }

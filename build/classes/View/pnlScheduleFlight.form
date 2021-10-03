@@ -30,23 +30,41 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="tblCustomers">
+        <Component class="javax.swing.JTable" name="tblSolicitudes">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="12" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="6" rowCount="16">
+              <Table columnCount="9" rowCount="16">
                 <Column editable="false" title="Codigo" type="java.lang.String"/>
                 <Column editable="false" title="Tipo" type="java.lang.String"/>
                 <Column editable="false" title="Clase" type="java.lang.String"/>
                 <Column editable="false" title="Destino" type="java.lang.String"/>
                 <Column editable="false" title="Fecha" type="java.lang.String"/>
                 <Column editable="false" title="Hora" type="java.lang.String"/>
+                <Column editable="false" title="Capacidad avi&#xf3;n" type="java.lang.Object"/>
+                <Column editable="true" title="null" type="java.lang.Object"/>
+                <Column editable="false" title="null" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-              <TableColumnModel selectionModel="1">
+              <TableColumnModel selectionModel="0">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
                   <Title/>
                   <Editor/>
@@ -79,13 +97,12 @@
                 </Column>
               </TableColumnModel>
             </Property>
-            <Property name="columnSelectionAllowed" type="boolean" value="true"/>
             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblCustomersMouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblSolicitudesMouseClicked"/>
           </Events>
         </Component>
       </SubComponents>
@@ -334,8 +351,67 @@
           <Font name="Tahoma" size="14" style="1"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="1">
+          <StringArray count="60">
             <StringItem index="0" value="Seleccione Destino"/>
+            <StringItem index="1" value="Afganist&#xe1;n - Kabul - Asia"/>
+            <StringItem index="2" value="Albania - Tirana - Europa"/>
+            <StringItem index="3" value="Alemania - Berl&#xed;n - Europa"/>
+            <StringItem index="4" value="Andorra - Andorra la Vieja - Europa"/>
+            <StringItem index="5" value="Angola - Luanda - &#xc1;frica"/>
+            <StringItem index="6" value="Antigua y Barbuda - Saint John - Am&#xe9;rica"/>
+            <StringItem index="7" value="Arabia Saudita - Riad - Asia"/>
+            <StringItem index="8" value="Argelia - Argel - &#xc1;frica"/>
+            <StringItem index="9" value="Argentina - Buenos Aires - Am&#xe9;rica"/>
+            <StringItem index="10" value="Armenia - Erev&#xe1;n - Asia"/>
+            <StringItem index="11" value="Australia - Canberra - Ocean&#xed;a"/>
+            <StringItem index="12" value="Austria - Viena - Europa"/>
+            <StringItem index="13" value="Azerbaiy&#xe1;n - Bak&#xfa; - Asia"/>
+            <StringItem index="14" value="Bahamas - Nas&#xe1;u - Am&#xe9;rica"/>
+            <StringItem index="15" value="Banglad&#xe9;s - Daca - Asia"/>
+            <StringItem index="16" value="Barbados - Bridgetown - Am&#xe9;rica"/>
+            <StringItem index="17" value="Bar&#xe9;in - Manama - Asia"/>
+            <StringItem index="18" value="B&#xe9;lgica - Bruselas - Europa"/>
+            <StringItem index="19" value="Belice - Belmop&#xe1;n - Am&#xe9;rica"/>
+            <StringItem index="20" value="Ben&#xed;n - Porto - Novo - &#xc1;frica"/>
+            <StringItem index="21" value="Bielorrusia - Minsk - Europa"/>
+            <StringItem index="22" value="Birmania - Naipyid&#xf3; - Asia"/>
+            <StringItem index="23" value="Bolivia - Sucre - Am&#xe9;rica"/>
+            <StringItem index="24" value="Bosnia - Herzegovina - Sarajevo - Europa"/>
+            <StringItem index="25" value="Botsuana - Gaborone - &#xc1;frica"/>
+            <StringItem index="26" value="Brasil - Brasilia - Am&#xe9;rica"/>
+            <StringItem index="27" value="Brun&#xe9;i - Bandar Seri Begawan - Asia"/>
+            <StringItem index="28" value="Bulgaria - Sof&#xed;a - Europa"/>
+            <StringItem index="29" value="Burkina Faso - Uagadug&#xfa; - &#xc1;frica"/>
+            <StringItem index="30" value="Burundi - Buyumbura - &#xc1;frica"/>
+            <StringItem index="31" value="But&#xe1;n - Thimphu - Asia"/>
+            <StringItem index="32" value="Cabo Verde - Praia - &#xc1;frica"/>
+            <StringItem index="33" value="Camboya - Nom Pen - Asia"/>
+            <StringItem index="34" value="Camer&#xfa;n - Yaund&#xe9; - &#xc1;frica"/>
+            <StringItem index="35" value="Canad&#xe1; - Ottawa - Am&#xe9;rica"/>
+            <StringItem index="36" value="Catar - Doha - Asia"/>
+            <StringItem index="37" value="Chad - Yamena - &#xc1;frica"/>
+            <StringItem index="38" value="Chile - Santiago - Am&#xe9;rica"/>
+            <StringItem index="39" value="China - Pek&#xed;n - Asia"/>
+            <StringItem index="40" value="Chipre - Nicosia - Europa"/>
+            <StringItem index="41" value="Colombia - Bogot&#xe1; - Am&#xe9;rica"/>
+            <StringItem index="42" value="Comoras - Moroni - &#xc1;frica"/>
+            <StringItem index="43" value="Congo - Brazzaville - &#xc1;frica"/>
+            <StringItem index="44" value="Corea del Norte - Pionyang - Asia"/>
+            <StringItem index="45" value="Corea del Sur - Se&#xfa;l - Asia"/>
+            <StringItem index="46" value="Costa de Marfil - Yamusukro - &#xc1;frica"/>
+            <StringItem index="47" value="Costa Rica - San Jos&#xe9; - Am&#xe9;rica"/>
+            <StringItem index="48" value="Croacia - Zagreb - Europa"/>
+            <StringItem index="49" value="Cuba - La Habana - Am&#xe9;rica"/>
+            <StringItem index="50" value="Dinamarca - Copenhague - Europa"/>
+            <StringItem index="51" value="Dominica - Roseau - Am&#xe9;rica"/>
+            <StringItem index="52" value="Ecuador - Quito - Am&#xe9;rica"/>
+            <StringItem index="53" value="Egipto - El Cairo - &#xc1;frica"/>
+            <StringItem index="54" value="El Salvador - San Salvador - Am&#xe9;rica"/>
+            <StringItem index="55" value="Emiratos &#xc1;rabes Unidos - Abu Dabi - Asia"/>
+            <StringItem index="56" value="Eritrea - Asmara - &#xc1;frica"/>
+            <StringItem index="57" value="Eslovaquia - Bratislava - Europa"/>
+            <StringItem index="58" value="Eslovenia - Liubliana - Europa"/>
+            <StringItem index="59" value="Espa&#xf1;a - Madrid - Europa"/>
           </StringArray>
         </Property>
       </Properties>
@@ -721,6 +797,9 @@
           <Image iconType="3" name="/Media/Limpiar_max.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLimpiarActionPerformed"/>
+      </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="810" y="630" width="330" height="120"/>
