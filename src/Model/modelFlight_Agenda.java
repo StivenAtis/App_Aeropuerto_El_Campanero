@@ -2,6 +2,7 @@ package Model;
 
 import Classes.clsDeniedFlights;
 import Classes.clsFlightAgenda;
+import Classes.clsFlightAgendaReprogramation;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -51,6 +52,37 @@ public class modelFlight_Agenda {
             return false;
         }
     }
+    
+    //--------------------------------------------------------------------------
+    
+    public boolean createFlightAgendaReprogramation (clsFlightAgendaReprogramation FlightAgenda){
+        try(Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())){
+            String query = "INSERT INTO `tb_flight_reprogramation`(`code_flight`, `type_flight`, `flight_selection`, `crew_plane`, `destination`, `runway`, `date_flight`, `time_flight`, `description`, `id_airline`) VALUES (?,?,?,?,?,?,?,?,?,'1')";
+            PreparedStatement preparedStatement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, FlightAgenda.getCodigoVueloAgenda());
+            preparedStatement.setString(2, FlightAgenda.getTipoVuelo());
+            preparedStatement.setString(3, FlightAgenda.getClaseVuelo());
+            preparedStatement.setString(4, FlightAgenda.getTripulación());
+            preparedStatement.setString(5, FlightAgenda.getDestino());
+            preparedStatement.setString(6, FlightAgenda.getPista());
+            preparedStatement.setString(7, FlightAgenda.getFecha());
+            preparedStatement.setString(8, FlightAgenda.getTiempo());
+            preparedStatement.setString(9, FlightAgenda.getDescripcion());
+
+            
+            int AffectedRows = preparedStatement.executeUpdate();
+            
+            if(AffectedRows>0){
+                System.out.println("Flight registered.");
+            }
+            return false;
+        }
+        catch (Exception e) {
+            System.out.println("Error saving: " + e.getMessage());
+            return false;
+        }
+    }
+    
     //--------------------------------------------------------------------------
     
     public clsFlightAgenda readFlightAgenda(String id){
@@ -115,6 +147,29 @@ public class modelFlight_Agenda {
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
             return null;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    public boolean updateFlightAgenda(clsFlightAgenda vuelo) {
+        
+        try(Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
+            
+            String query = "UPDATE `tb_flight` SET `runway`= ?,`date_flight`= ?,`time_flight`= ? WHERE code_flight = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            
+            preparedStatement.setString(1, vuelo.getPista());
+            preparedStatement.setString(2, vuelo.getFecha());
+            preparedStatement.setString(3, vuelo.getTiempo());
+            preparedStatement.setString(4, vuelo.getCodigoVueloAgenda());
+            
+            preparedStatement.executeUpdate();
+            
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return false;
         }
     }
     
