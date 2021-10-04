@@ -1,13 +1,26 @@
 package View;
 
+import Classes.clsFlightAgenda;
+import Classes.clsFlightCancelationAgenda;
+import Controller.ctlFlightAgenda;
+import java.util.LinkedList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import utils.Constants;
+
 /**
  *
  * @author Booh
  */
 public class pnlCancelFlightAirport extends javax.swing.JPanel {
 
+    private ctlFlightAgenda controller = null;
+    private LinkedList<clsFlightAgenda> list;
+    
     public pnlCancelFlightAirport() {
         initComponents();
+        controller = new ctlFlightAgenda();
+        fillDataTable();
     }
 
     @SuppressWarnings("unchecked")
@@ -131,119 +144,92 @@ public class pnlCancelFlightAirport extends javax.swing.JPanel {
 
     }//GEN-LAST:event_tblCancelarMouseClicked
 
+    //--------------------------------------------------------------------------
+    
+    private void fillDataTable() {
+         
+        list = controller.listFlightAgenda();
+        String datos[][] = new String[list.size()][7];
+        
+        if(list.size() > 0) {
+            for (int i = 0; i < list.size(); i++) {
+                datos[i][Constants.CODE_FLIGHT_AGENDA] = list.get(i).getCodigoVueloAgenda();
+                datos[i][Constants.TYPE_FLIGHT_AGENDA] = list.get(i).getTipoVuelo();
+                datos[i][Constants.CLASS_FLIGHT_AGENDA] = list.get(i).getClaseVuelo();
+                datos[i][Constants.DATE_FLIGHT_AGENDA] = list.get(i).getFecha();
+                datos[i][Constants.TIME_FLIGHT_AGENDA] = list.get(i).getTiempo();
+                datos[i][Constants.DESTINATION_AGENDA] = list.get(i).getDestino();
+                datos[i][Constants.PISTA_AGENDA] = list.get(i).getPista();
+            }        
+        }        
+        String[] columns = {
+            "CODIGO", "TIPO", "CLASE", "FECHA", "HORA", "DESTINO", "PISTA DE AVIÓN"
+        };
+        DefaultTableModel model = new DefaultTableModel(datos, columns);
+        int[] columnSize = {30, 50, 50, 50, 50, 50, 50};
+        for(int x=0; x<columnSize.length;x++)
+            tblCancelar.getColumnModel().getColumn(x).setPreferredWidth(columnSize[x]);
+        tblCancelar.setRowHeight(30);
+        tblCancelar.setModel(model);
+    } 
+    
+    //--------------------------------------------------------------------------
+    
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
 
-//        if(btnVuelosAgendados.isSelected() == false && btnVuelosSolicitados.isSelected() == false){
-//            JOptionPane.showMessageDialog(this, "¡Debe seleccionar un tipo vuelo para poderlo cancelar!");
-//        }
-//
-//        else{
-//            if(tblCancelar.getSelectedRow() == -1){
-//                JOptionPane.showMessageDialog(this, "¡Debe seleccionar un vuelo para poderlo cancelar!");
-//            }
-//
-//            else{
-//
-//                if(tblCancelar.getSelectedRow() != -1){
-//
-//                    int fila = tblCancelar.getSelectedRow();
-//                    String valor = tblCancelar.getValueAt(fila, 0).toString();
-//
-//                    if(btnVuelosSolicitados.isSelected() == true ){
-//
-//                        clsFlightRequirements  FlightCancel = new clsFlightRequirements(0, valor, "modelo avion", "Tipo vuelo", "clase vuelo", "capacidad carga", "tripulacion", "fecha", "hora", "Destino");
-//
-//                        if(!"".equals(txtAreaCancelacion.getText())){
-//
-//                            if(!"".equals(txtAreaCancelacion.getText())){
-//
-//                                int respuesta = JOptionPane.showConfirmDialog(this, "¿Está seguro que desea cancelar el vuelo?");
-//                                if (respuesta == JOptionPane.OK_OPTION) {
-//
-//                                    clsFlightRequirements read = controller.readFlightRequirements(valor);
-//
-//                                    String tipo = read.getTipoVuelo();
-//                                    String clase = read.getSalidaLlegada();
-//                                    String capacidad = read.getCapacidadCarga();
-//                                    String fecha = read.getFecha();
-//                                    String hora = read.getHora();
-//                                    String destino = read.getDestino();
-//                                    String tripulación = read.getTripulación();
-//                                    String modeloA = read.getModeloAvion();
-//                                    String descripcion = txtAreaCancelacion.getText();
-//                                    String descripcionCancelacion = "Vuelo cancelado por aerolinea" + "\n" + "\n" + txtAreaCancelacion.getText();
-//
-//                                    clsFlightCancelationAirline flightCanceled = new clsFlightCancelationAirline(0, valor, modeloA, tipo, clase, capacidad, tripulación, fecha, hora, destino, descripcionCancelacion, "1");
-//                                    controller.createFlightCanceled(flightCanceled);
-//
-//                                    if (controller.deleteFlight(FlightCancel)) {
-//                                        JOptionPane.showMessageDialog(this, "Vuelo cancelado con éxito.");
-//                                        btnVuelosSolicitados.setSelected(false);
-//                                        fillDataTable();
-//                                        txtAreaCancelacion.setText("");
-//                                    }
-//                                }
-//                                else {
-//                                    JOptionPane.showMessageDialog(this, "Ocurrió un error al cancelar, por favor verifique los datos");
-//                                }
-//                            }
-//                        }
-//                        else{
-//                            JOptionPane.showMessageDialog(this, "¡Debe especificar las razones para cancelar un vuelo!");
-//                        }
-//                    }
-//                    else {
-//
-//                        if(btnVuelosAgendados.isSelected() == true){
-//
-//                            clsFlightAgenda flightAgendaCancel = new clsFlightAgenda(0, valor, "", "", "", "", "", "", "", "");
-//
-//                            if(!"".equals(txtAreaCancelacion.getText())){
-//
-//                                int respuesta = JOptionPane.showConfirmDialog(this, "¿Está seguro que desea cancelar el vuelo?");
-//
-//                                if (respuesta == JOptionPane.OK_OPTION) {
-//
-//                                    clsFlightAgenda read = controllerA.readFlightAgenda(valor);
-//
-//                                    String tipo = read.getTipoVuelo();
-//                                    String clase = read.getClaseVuelo();
-//                                    String fecha = read.getFecha();
-//                                    String hora = read.getTiempo();
-//                                    String destino = read.getDestino();
-//                                    String tripulación = read.getTripulación();
-//                                    String pista = read.getPista();
-//                                    String descripcion = txtAreaCancelacion.getText();
-//                                    String descripcionCancelacion = "Vuelo cancelado por aerolinea" + "\n" + "\n" + txtAreaCancelacion.getText();
-//
-//                                    clsFlightCancelationAgenda flightCanceled = new clsFlightCancelationAgenda(0, valor, tipo, clase, tripulación, destino, pista, fecha, hora, descripcionCancelacion, "1");
-//                                    controllerA.createFlightAgendaCancelation(flightCanceled);
-//
-//                                    if (controllerA.deleteFlight(flightAgendaCancel)) {
-//                                        JOptionPane.showMessageDialog(this, "Vuelo cancelado con éxito.");
-//                                        btnVuelosAgendados.setSelected(false);
-//                                        btnVuelosSolicitados.setSelected(true);
-//                                        fillDataTable();
-//                                        txtAreaCancelacion.setText("");
-//                                    }
-//                                }
-//                                else {
-//                                    JOptionPane.showMessageDialog(this, "Ocurrió un error al cancelar, por favor verifique los datos");
-//
-//                                }
-//                            }
-//                            else{
-//                                JOptionPane.showMessageDialog(this, "¡Debe especificar las razones para cancelar un vuelo!");
-//                            }
-//
-//                        }
-//                    }
-//                }
-//                else{
-//                    JOptionPane.showMessageDialog(this, "error");
-//                }
-//            }
-//        }
+            if(tblCancelar.getSelectedRow() == -1){
+                JOptionPane.showMessageDialog(this, "¡Debe seleccionar un vuelo para poderlo cancelar!");
+            }
+
+            else{
+
+                if(tblCancelar.getSelectedRow() != -1){
+
+                    int fila = tblCancelar.getSelectedRow();
+                    String valor = tblCancelar.getValueAt(fila, 0).toString();
+
+                        clsFlightAgenda flightAgendaCancel = new clsFlightAgenda(0, valor, "", "", "", "", "", "", "", "");
+                            
+                            if(!"".equals(txtAreaCancelacion.getText())){
+                                
+                                int respuesta = JOptionPane.showConfirmDialog(this, "¿Está seguro que desea cancelar el vuelo?");
+    
+                                if (respuesta == JOptionPane.OK_OPTION) {
+                                    
+                                    clsFlightAgenda read = controller.readFlightAgenda(valor);
+                            
+                                    String tipo = read.getTipoVuelo();
+                                    String clase = read.getClaseVuelo();
+                                    String fecha = read.getFecha();
+                                    String hora = read.getTiempo();
+                                    String destino = read.getDestino();
+                                    String tripulación = read.getTripulación();
+                                    String pista = read.getPista();
+                                    String descripcion = txtAreaCancelacion.getText();
+                                    String descripcionCancelacion = "Vuelo cancelado por aeropuerto" + "\n" + "\n" + txtAreaCancelacion.getText();
+
+                                    clsFlightCancelationAgenda flightCanceled = new clsFlightCancelationAgenda(0, valor, tipo, clase, tripulación, destino, pista, fecha, hora, descripcionCancelacion, "1");
+                                    controller.createFlightAgendaCancelation(flightCanceled);
+
+                                    if (controller.deleteFlight(flightAgendaCancel)) {
+                                        JOptionPane.showMessageDialog(this, "Vuelo cancelado con éxito.");
+                                        fillDataTable();
+                                        txtAreaCancelacion.setText("");
+                                    }
+                                } 
+                                else {
+                                    JOptionPane.showMessageDialog(this, "Ocurrió un error al cancelar, por favor verifique los datos");
+
+                                }
+                            }
+                            else{
+                                JOptionPane.showMessageDialog(this, "¡Debe especificar las razones para cancelar un vuelo!");
+                            }
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "error");
+                }
+            }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
