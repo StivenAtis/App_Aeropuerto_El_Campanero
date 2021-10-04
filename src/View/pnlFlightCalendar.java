@@ -49,32 +49,32 @@ public class pnlFlightCalendar extends javax.swing.JPanel {
         tblCustomers.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tblCustomers.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Fecha", "Hora", "Pista Despegue", "Pista Aterrizaje"
+                "Codigo", "Fecha", "Hora", "Pista Despegue", "Pista Aterrizaje"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -85,19 +85,18 @@ public class pnlFlightCalendar extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblCustomers.setColumnSelectionAllowed(true);
         tblCustomers.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblCustomersMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tblCustomers);
-        tblCustomers.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         if (tblCustomers.getColumnModel().getColumnCount() > 0) {
             tblCustomers.getColumnModel().getColumn(0).setResizable(false);
             tblCustomers.getColumnModel().getColumn(1).setResizable(false);
             tblCustomers.getColumnModel().getColumn(2).setResizable(false);
             tblCustomers.getColumnModel().getColumn(3).setResizable(false);
+            tblCustomers.getColumnModel().getColumn(4).setResizable(false);
         }
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 1160, 170));

@@ -5,6 +5,7 @@ import Classes.clsFlightAgenda;
 import Classes.clsFlightAgendaReprogramation;
 import Classes.clsFlightCancelationAgenda;
 import Classes.clsFlightCancelationAirline;
+import Classes.clsTimeTable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -107,6 +108,31 @@ public class modelFlight_Agenda {
             
             if(AffectedRows>0){
                 System.out.println("Flight registered.");
+            }
+            return false;
+        }
+        catch (Exception e) {
+            System.out.println("Error saving: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    public boolean createFlightAgendaTable (clsTimeTable FlightAgenda){
+        try(Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())){
+            String query = "INSERT INTO `tb_timetable`(`codigo`,`date`, `time`, `runway_takeoff`, `runway_landing`) VALUES (?,?,?,?,?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, FlightAgenda.getCodigo());
+            preparedStatement.setString(2, FlightAgenda.getDate());
+            preparedStatement.setString(3, FlightAgenda.getTime());
+            preparedStatement.setString(4, FlightAgenda.getRunway_takeoff());
+            preparedStatement.setString(5, FlightAgenda.getRunway_landing());
+            
+            int AffectedRows = preparedStatement.executeUpdate();
+            
+            if(AffectedRows>0){
+                System.out.println("Agenda item registered.");
             }
             return false;
         }
@@ -287,6 +313,34 @@ public class modelFlight_Agenda {
     
     //--------------------------------------------------------------------------
     
+    public clsTimeTable readAgendaTable(String id){
+        try (Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
+            String query ="SELECT `id`, `codigo`, `date`, `time`, `runway_takeoff`, `runway_landing` FROM `tb_timetable` WHERE codigo = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            
+            preparedStatement.setString(1, id);
+            
+            ResultSet rs = preparedStatement.executeQuery();
+            
+            if(rs.next()){
+                clsTimeTable Flight_obtained = new clsTimeTable(
+                rs.getInt("id"),
+                rs.getString("codigo"),
+                rs.getString("date"),
+                rs.getString("time"),
+                rs.getString("runway_takeoff"),
+                rs.getString("runway_landing"));
+                return Flight_obtained;
+            }
+            return null;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
     public boolean updateFlightAgenda(clsFlightAgenda vuelo) {
         
         try(Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
@@ -315,6 +369,21 @@ public class modelFlight_Agenda {
             String query = "DELETE FROM `tb_flight` WHERE code_flight = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, Flight.getCodigoVueloAgenda());
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    public boolean deleteAgendaTable(clsTimeTable Flight) {
+        try(Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
+            String query = "DELETE FROM `tb_timetable` WHERE codigo = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, Flight.getCodigo());
             preparedStatement.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -450,6 +519,35 @@ public class modelFlight_Agenda {
                 rs.getString("destination"),
                 rs.getString("description"),
                 rs.getString("id_airline"));
+                
+                FlightDenied.add(FRAgenda);
+            }
+            return FlightDenied;
+        } catch (Exception e) {
+            System.out.println("Error querying: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    public LinkedList<clsTimeTable> TimeTableList(){
+        
+        LinkedList<clsTimeTable> FlightDenied = new LinkedList<>();
+        
+        try (Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
+            String query = "SELECT `id`, `codigo`, `date`, `time`, `runway_takeoff`, `runway_landing` FROM `tb_timetable`";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet rs = preparedStatement.executeQuery();
+            
+            while (rs.next()) {
+                clsTimeTable FRAgenda = new clsTimeTable(
+                rs.getInt("id"),
+                rs.getString("codigo"),
+                rs.getString("date"),
+                rs.getString("time"),
+                rs.getString("runway_takeoff"),
+                rs.getString("runway_landing"));
                 
                 FlightDenied.add(FRAgenda);
             }

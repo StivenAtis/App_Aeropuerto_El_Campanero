@@ -5,6 +5,7 @@ import Classes.clsFlightAgenda;
 import Classes.clsFlightAgendaReprogramation;
 import Classes.clsFlightCancelationAgenda;
 import Classes.clsFlightCancelationAirline;
+import Classes.clsTimeTable;
 import Model.modelFlight_Agenda;
 import java.util.LinkedList;
 
@@ -45,6 +46,13 @@ public class ctlFlightAgenda {
     
     //--------------------------------------------------------------------------
     
+    public void createTimeTale(clsTimeTable FlightAgenda){
+        
+            modeloAgendaVuelo.createFlightAgendaTable((clsTimeTable) FlightAgenda);
+    }
+    
+    //--------------------------------------------------------------------------
+    
     public clsFlightAgenda readFlightAgenda(String codeFlight){
         
         return modeloAgendaVuelo.readFlightAgenda(codeFlight);       
@@ -80,6 +88,13 @@ public class ctlFlightAgenda {
     
     //--------------------------------------------------------------------------
     
+    public clsTimeTable readTimeTable(String codeFlight){
+        
+        return modeloAgendaVuelo.readAgendaTable(codeFlight);       
+    }
+    
+    //--------------------------------------------------------------------------
+    
     public boolean updateFlightResquest(clsFlightAgenda codeFlight){
         
             return modeloAgendaVuelo.updateFlightAgenda((clsFlightAgenda) codeFlight);
@@ -90,6 +105,13 @@ public class ctlFlightAgenda {
     public boolean deleteFlight(clsFlightAgenda Flight){
         
         return modeloAgendaVuelo.deleteFlight((clsFlightAgenda) Flight);
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    public boolean deleteTimeTable(clsTimeTable Flight){
+        
+        return modeloAgendaVuelo.deleteAgendaTable((clsTimeTable) Flight);
     }
     
     //--------------------------------------------------------------------------
@@ -114,6 +136,12 @@ public class ctlFlightAgenda {
     
     public LinkedList<clsFlightCancelationAirline> listCancelationAirline(){
         return modeloAgendaVuelo.FlightCancelationAirlineList();
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    public LinkedList<clsTimeTable> listTimeTable(){
+        return modeloAgendaVuelo.TimeTableList();
     }
     
     //--------------------------------------------------------------------------
