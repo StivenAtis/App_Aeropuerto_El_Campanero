@@ -12,15 +12,21 @@ import utils.Constants;
  */
 public class pnlFlightsRequiredAirline extends javax.swing.JPanel {
     
+    //--------------------------------------------------------------------------
+    
     private ctlFlightRequirement controller = null;
     private LinkedList<clsFlightRequirements> list;
 
+    //--------------------------------------------------------------------------
+    
     public pnlFlightsRequiredAirline() {
         initComponents();
         controller = new ctlFlightRequirement();
         fillDataTable();
     }
 
+    //--------------------------------------------------------------------------
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -116,7 +122,9 @@ public class pnlFlightsRequiredAirline extends javax.swing.JPanel {
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 790));
     }// </editor-fold>//GEN-END:initComponents
 
-     private void fillDataTable() {
+    //--------------------------------------------------------------------------
+    
+    private void fillDataTable() {
          
         list = controller.listFlight();
         String datos[][] = new String[list.size()][9];
@@ -144,8 +152,9 @@ public class pnlFlightsRequiredAirline extends javax.swing.JPanel {
         tblSolicitudes.setRowHeight(30);
         tblSolicitudes.setModel(model);
         tblSolicitudes.setEnabled(false);
-     }
+    }
     
+    //--------------------------------------------------------------------------
     
     private void tblSolicitudesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSolicitudesMouseClicked
 

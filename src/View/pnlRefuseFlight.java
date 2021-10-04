@@ -1,15 +1,34 @@
 package View;
 
+import Classes.clsDeniedFlights;
+import Classes.clsFlightRequirements;
+import Controller.ctlFlightRequirement;
+import java.util.LinkedList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import utils.Constants;
+
 /**
  *
  * @author Booh
  */
 public class pnlRefuseFlight extends javax.swing.JPanel {
 
+    //--------------------------------------------------------------------------
+    
+    private ctlFlightRequirement controller = null;
+    private LinkedList<clsFlightRequirements> list;
+    
+    //--------------------------------------------------------------------------
+    
     public pnlRefuseFlight() {
         initComponents();
+        controller = new ctlFlightRequirement();
+        fillDataTable();
     }
 
+    //--------------------------------------------------------------------------
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -17,10 +36,10 @@ public class pnlRefuseFlight extends javax.swing.JPanel {
         lbVueloS = new javax.swing.JLabel();
         btnLimpiar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblCustomers = new javax.swing.JTable();
+        tblSolicitudes = new javax.swing.JTable();
         lbVueloS8 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        txtAreaReprogramacion = new javax.swing.JTextArea();
+        txtAreaRechazo = new javax.swing.JTextArea();
         btnCancelar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -39,31 +58,36 @@ public class pnlRefuseFlight extends javax.swing.JPanel {
         btnLimpiar.setContentAreaFilled(false);
         btnLimpiar.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Limpiar_min.png"))); // NOI18N
         btnLimpiar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Limpiar_max.png"))); // NOI18N
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
         add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 630, 330, 120));
 
-        tblCustomers.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tblCustomers.setModel(new javax.swing.table.DefaultTableModel(
+        tblSolicitudes.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tblSolicitudes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Codigo", "Tipo", "Clase", "Fecha", "Hora"
+                "Codigo", "Tipo", "Clase", "Fecha", "Hora", "null", "null", "null", "null"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -74,14 +98,23 @@ public class pnlRefuseFlight extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblCustomers.setColumnSelectionAllowed(true);
-        tblCustomers.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblSolicitudes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblCustomersMouseClicked(evt);
+                tblSolicitudesMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tblCustomers);
-        tblCustomers.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        jScrollPane1.setViewportView(tblSolicitudes);
+        if (tblSolicitudes.getColumnModel().getColumnCount() > 0) {
+            tblSolicitudes.getColumnModel().getColumn(0).setResizable(false);
+            tblSolicitudes.getColumnModel().getColumn(1).setResizable(false);
+            tblSolicitudes.getColumnModel().getColumn(2).setResizable(false);
+            tblSolicitudes.getColumnModel().getColumn(3).setResizable(false);
+            tblSolicitudes.getColumnModel().getColumn(4).setResizable(false);
+            tblSolicitudes.getColumnModel().getColumn(5).setResizable(false);
+            tblSolicitudes.getColumnModel().getColumn(6).setResizable(false);
+            tblSolicitudes.getColumnModel().getColumn(7).setResizable(false);
+            tblSolicitudes.getColumnModel().getColumn(8).setResizable(false);
+        }
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 1160, 190));
 
@@ -92,9 +125,9 @@ public class pnlRefuseFlight extends javax.swing.JPanel {
         lbVueloS8.setToolTipText("");
         add(lbVueloS8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 390, 1160, 40));
 
-        txtAreaReprogramacion.setColumns(20);
-        txtAreaReprogramacion.setRows(5);
-        jScrollPane2.setViewportView(txtAreaReprogramacion);
+        txtAreaRechazo.setColumns(20);
+        txtAreaRechazo.setRows(5);
+        jScrollPane2.setViewportView(txtAreaRechazo);
 
         add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 440, 1160, 160));
 
@@ -102,6 +135,11 @@ public class pnlRefuseFlight extends javax.swing.JPanel {
         btnCancelar.setContentAreaFilled(false);
         btnCancelar.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/rechazar_min.png"))); // NOI18N
         btnCancelar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/rechazar_max.png"))); // NOI18N
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
         add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 630, 330, 120));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 58)); // NOI18N
@@ -117,22 +155,107 @@ public class pnlRefuseFlight extends javax.swing.JPanel {
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 790));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tblCustomersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCustomersMouseClicked
-        int row = tblCustomers.getSelectedRow();
-        String id = tblCustomers.getValueAt(row, 0).toString();
+    //--------------------------------------------------------------------------
+    
+    private void fillDataTable() {
+         
+        list = controller.listFlight();
+        String datos[][] = new String[list.size()][9];
+        
+        if(list.size() > 0) {
+            for (int i = 0; i < list.size(); i++) {
+                datos[i][Constants.CODE_FLIGHT] = list.get(i).getCodigoVuelo();
+                datos[i][Constants.TYPE_FLIGHT] = list.get(i).getTipoVuelo();
+                datos[i][Constants.CLASS_FLIGHT] = list.get(i).getSalidaLlegada();
+                datos[i][Constants.DATE_FLIGHT] = list.get(i).getFecha();
+                datos[i][Constants.TIME_FLIGHT] = list.get(i).getHora();
+                datos[i][Constants.MODEL_PLANE_FLIGHT] = list.get(i).getModeloAvion();
+                datos[i][Constants.CAPACITY_PLANE_FLIGHT] = list.get(i).getCapacidadCarga();
+                datos[i][Constants.CREW_PLANE_FLIGHT] = list.get(i).getTripulación();
+                datos[i][Constants.DESTINATION_PLANE_FLIGHT] = list.get(i).getDestino();
+            }        
+        }        
+        String[] columns = {
+            "CODIGO", "TIPO", "CLASE", "FECHA", "HORA", "MODELO A.", "CAPACIDAD A.", "TRIPULACION", "DESTINO"
+        };
+        DefaultTableModel model = new DefaultTableModel(datos, columns);
+        int[] columnSize = {30, 50, 50, 50, 50, 50, 50, 50, 50};
+        for(int x=0; x<columnSize.length;x++)
+            tblSolicitudes.getColumnModel().getColumn(x).setPreferredWidth(columnSize[x]);
+        tblSolicitudes.setRowHeight(30);
+        tblSolicitudes.setModel(model);
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    private void tblSolicitudesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSolicitudesMouseClicked
+        int row = tblSolicitudes.getSelectedRow();
+        String id = tblSolicitudes.getValueAt(row, 0).toString();
+    }//GEN-LAST:event_tblSolicitudesMouseClicked
 
-        //        CustomerVO customer = controller.read(Integer.parseInt(id));
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        
+        if(tblSolicitudes.getSelectedRow() == -1){
+                JOptionPane.showMessageDialog(this, "¡Debe seleccionar un vuelo para poderlo rechazar!");
+        }
+        else{
+                
+            if(tblSolicitudes.getSelectedRow() != -1){
 
-        //        if(customer.getId() > 0) {
-            //            txtCustomerID.setText(String.valueOf(customer.getId()));
-            //            txtName.setText(customer.getName());
-            //            txtLastname.setText(customer.getLastname());
-            //            txtAddress.setText(customer.getAddress());
-            //            txtPhone.setText(customer.getPhone());
-            //            txtEmail.setText(customer.getEmail());
-            //        }
-    }//GEN-LAST:event_tblCustomersMouseClicked
+                int fila = tblSolicitudes.getSelectedRow();
+                String valor = tblSolicitudes.getValueAt(fila, 0).toString();
 
+                clsFlightRequirements  FlightCancel = new clsFlightRequirements(0, valor, "modelo avion", "Tipo vuelo", "clase vuelo", "capacidad carga", "tripulacion", "fecha", "hora", "Destino");
+
+                if(!"".equals(txtAreaRechazo.getText())){
+
+                    if(!"".equals(txtAreaRechazo.getText())){
+
+                        int respuesta = JOptionPane.showConfirmDialog(this, "¿Está seguro que desea rechazar el vuelo?");
+                        if (respuesta == JOptionPane.OK_OPTION) {
+                            
+                            clsFlightRequirements read = controller.readFlightRequirements(valor);
+                            
+                            String tipo = read.getTipoVuelo();
+                            String clase = read.getSalidaLlegada();
+                            String capacidad = read.getCapacidadCarga();
+                            String fecha = read.getFecha();
+                            String hora = read.getHora();
+                            String destino = read.getDestino();
+                            String tripulación = read.getTripulación();
+                            String modeloA = read.getModeloAvion();
+                            String descripcion = txtAreaRechazo.getText();
+
+                            clsDeniedFlights flightDeined = new clsDeniedFlights(0, valor, tipo, clase, fecha, hora, modeloA, capacidad, tripulación, destino, descripcion, "1");
+                            controller.createFlightDenied(flightDeined);
+                                
+                            if (controller.deleteFlight(FlightCancel)) {
+                                
+                                JOptionPane.showMessageDialog(this, "Vuelo rechazado con éxito.");
+                                fillDataTable();
+                                txtAreaRechazo.setText("");
+                            }
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(this, "Ocurrió un error al rechazar, por favor verifique los datos");
+                        }
+                    }
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "¡Debe especificar las razones para rechazar un vuelo!");
+                }
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "error");
+            }
+        }
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        txtAreaRechazo.setText("");
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    //--------------------------------------------------------------------------
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
@@ -144,7 +267,7 @@ public class pnlRefuseFlight extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbVueloS;
     private javax.swing.JLabel lbVueloS8;
-    private javax.swing.JTable tblCustomers;
-    private javax.swing.JTextArea txtAreaReprogramacion;
+    private javax.swing.JTable tblSolicitudes;
+    private javax.swing.JTextArea txtAreaRechazo;
     // End of variables declaration//GEN-END:variables
 }

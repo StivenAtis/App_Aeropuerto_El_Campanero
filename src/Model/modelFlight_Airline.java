@@ -1,5 +1,6 @@
 package Model;
 
+import Classes.clsDeniedFlights;
 import Classes.clsFlightRequirements;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -40,6 +41,37 @@ public class modelFlight_Airline {
             
             if(AffectedRows>0){
                 System.out.println("FlightRequirements registered.");
+            }
+            return false;
+        }
+        catch (Exception e) {
+            System.out.println("Error saving: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    public boolean createFlightDeined(clsDeniedFlights FlightRequirement){
+        try(Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())){
+            String query = "INSERT INTO `tb_flight_declined`(`code_flight`, `Type_flight`, `flight_selection`, `date_flight`, `time_flight`, `model_plane`, `capacity_plane`, "
+                           + "`crew_plane`, `destiny`, `description`, `id_airline`) VALUES (?,?,?,?,?,?,?,?,?,?,'1')";
+            PreparedStatement preparedStatement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, FlightRequirement.getCodigoVueloAgenda());
+            preparedStatement.setString(2, FlightRequirement.getTipoVuelo());
+            preparedStatement.setString(3, FlightRequirement.getLlegadaSalida());
+            preparedStatement.setString(4, FlightRequirement.getFecha());
+            preparedStatement.setString(5, FlightRequirement.getHora());
+            preparedStatement.setString(6, FlightRequirement.getModeloAvion());
+            preparedStatement.setString(7, FlightRequirement.getCapacidadAvion());
+            preparedStatement.setString(8, FlightRequirement.getTripulación());
+            preparedStatement.setString(9, FlightRequirement.getDestino());
+            preparedStatement.setString(10, FlightRequirement.getDespricion());
+            
+            int AffectedRows = preparedStatement.executeUpdate();
+            
+            if(AffectedRows>0){
+                System.out.println("FlightDeined registered.");
             }
             return false;
         }
