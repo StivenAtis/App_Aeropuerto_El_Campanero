@@ -467,45 +467,56 @@ public class pnlFlightCalendar extends javax.swing.JPanel {
                     String fechaTable = fecha + " : " + fechaSecond;
                     String horaTable = tiempo + " - " + tiempoSecond;
 
-                    if(cbPistaDespegue.isSelected()==true && cbPistaAterrizaje.isSelected()==true){
-
-                        clsTimeTable AgendaTable = new clsTimeTable(0, codigo, fechaTable, horaTable, "Disponible pista despegue", "Disponible pista aterrizaje");
-                        controller.createTimeTale(AgendaTable);
-                        Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
-                        JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n horario de vuelo!!!", "Agenda creada satisfactoriamente", WIDTH, m);
-                        fillDataTable();
+                    clsTimeTable codeTimeTableSearch = controller.readTimeTable(codigo);
+                    
+                    if(codeTimeTableSearch != null){
+                        JOptionPane.showMessageDialog(this, "¡Ya existe una agenda con este codigo!");
                         cleanAgendaTableQuestionnaire();
                     }
-                    else if(cbPistaDespegue.isSelected()==true && cbPistaAterrizaje.isSelected()==false){
+                    else{
+                        
+                        if(cbPistaDespegue.isSelected()==true && cbPistaAterrizaje.isSelected()==true){
 
-                        clsTimeTable AgendaTable = new clsTimeTable(0, codigo, fechaTable, horaTable, "Disponible pista despegue", "No disponible pista aterrizaje");
-                        controller.createTimeTale(AgendaTable);
-                        Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
-                        JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n horario de vuelo!!!", "Agenda creada satisfactoriamente", WIDTH, m);
-                        fillDataTable();
-                        cleanAgendaTableQuestionnaire();
+                            clsTimeTable AgendaTable = new clsTimeTable(0, codigo, fechaTable, horaTable, "Disponible pista despegue", "Disponible pista aterrizaje");
+                            controller.createTimeTale(AgendaTable);
+                            Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                            JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n horario de vuelo!!!", "Agenda creada satisfactoriamente", WIDTH, m);
+                            fillDataTable();
+                            cleanAgendaTableQuestionnaire();
+                        }
+                        else if(cbPistaDespegue.isSelected()==true && cbPistaAterrizaje.isSelected()==false){
+
+                            clsTimeTable AgendaTable = new clsTimeTable(0, codigo, fechaTable, horaTable, "Disponible pista despegue", "No disponible pista aterrizaje");
+                            controller.createTimeTale(AgendaTable);
+                            Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                            JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n horario de vuelo!!!", "Agenda creada satisfactoriamente", WIDTH, m);
+                            fillDataTable();
+                            cleanAgendaTableQuestionnaire();
+                        }
+                        else if(cbPistaDespegue.isSelected()==false && cbPistaAterrizaje.isSelected()==true){
+
+                            clsTimeTable AgendaTable = new clsTimeTable(0, codigo, fechaTable, horaTable, "No disponible pista despegue", "Disponible pista aterrizaje");
+                            controller.createTimeTale(AgendaTable);
+                            Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                            JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n horario de vuelo!!!", "Agenda creada satisfactoriamente", WIDTH, m);
+                            fillDataTable();
+                            cleanAgendaTableQuestionnaire();
+                        }
+                        else if(cbPistaDespegue.isSelected()==false && cbPistaAterrizaje.isSelected()==false){
+
+                            clsTimeTable AgendaTable = new clsTimeTable(0, codigo, fechaTable, horaTable, "No disponible pista despegue", "No disponible pista aterrizaje");
+                            controller.createTimeTale(AgendaTable);
+                            Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                            JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n horario de vuelo!!!", "Agenda creada satisfactoriamente", WIDTH, m);
+                            fillDataTable();
+                            cleanAgendaTableQuestionnaire();
+                        }
                     }
-                    else if(cbPistaDespegue.isSelected()==false && cbPistaAterrizaje.isSelected()==true){
-
-                        clsTimeTable AgendaTable = new clsTimeTable(0, codigo, fechaTable, horaTable, "No disponible pista despegue", "Disponible pista aterrizaje");
-                        controller.createTimeTale(AgendaTable);
-                        Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
-                        JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n horario de vuelo!!!", "Agenda creada satisfactoriamente", WIDTH, m);
-                        fillDataTable();
-                        cleanAgendaTableQuestionnaire();
+                }
+                else{
+                    if(codigo.equals("")){
+                        JOptionPane.showMessageDialog(this, "Debe ingresar un codigo valido!");
                     }
-                    else if(cbPistaDespegue.isSelected()==false && cbPistaAterrizaje.isSelected()==false){
-
-                        clsTimeTable AgendaTable = new clsTimeTable(0, codigo, fechaTable, horaTable, "No disponible pista despegue", "No disponible pista aterrizaje");
-                        controller.createTimeTale(AgendaTable);
-                        Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
-                        JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n horario de vuelo!!!", "Agenda creada satisfactoriamente", WIDTH, m);
-                        fillDataTable();
-                        cleanAgendaTableQuestionnaire();
-                    }
-
-
-
                 }
 
 
@@ -520,42 +531,57 @@ public class pnlFlightCalendar extends javax.swing.JPanel {
                     String fechaTable = fecha + " : " + fechaSecond;
                     String horaTable = tiempo + " - " + tiempoSecond;
 
-                    if(cbPistaDespegue.isSelected()==true && cbPistaAterrizaje.isSelected()==true){
-
-                        clsTimeTable AgendaTable = new clsTimeTable(0, codigo, fechaTable, horaTable, "Disponible pista despegue", "Disponible pista aterrizaje");
-                        controller.createTimeTale(AgendaTable);
-                        Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
-                        JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n horario de vuelo!!!", "Agenda creada satisfactoriamente", WIDTH, m);
-                        fillDataTable();
+                    clsTimeTable codeTimeTableSearch = controller.readTimeTable(codigo);
+                    
+                    if(codeTimeTableSearch != null){
+                        JOptionPane.showMessageDialog(this, "¡Ya existe una agenda con este codigo!");
                         cleanAgendaTableQuestionnaire();
                     }
-                    else if(cbPistaDespegue.isSelected()==true && cbPistaAterrizaje.isSelected()==false){
+                    else{
+                        
+                        if(cbPistaDespegue.isSelected()==true && cbPistaAterrizaje.isSelected()==true){
 
-                        clsTimeTable AgendaTable = new clsTimeTable(0, codigo, fechaTable, horaTable, "Disponible pista despegue", "No disponible pista aterrizaje");
-                        controller.createTimeTale(AgendaTable);
-                        Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
-                        JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n horario de vuelo!!!", "Agenda creada satisfactoriamente", WIDTH, m);
-                        fillDataTable();
-                        cleanAgendaTableQuestionnaire();
+                            clsTimeTable AgendaTable = new clsTimeTable(0, codigo, fechaTable, horaTable, "Disponible pista despegue", "Disponible pista aterrizaje");
+                            controller.createTimeTale(AgendaTable);
+                            Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                            JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n horario de vuelo!!!", "Agenda creada satisfactoriamente", WIDTH, m);
+                            fillDataTable();
+                            cleanAgendaTableQuestionnaire();
+                        }
+                        else if(cbPistaDespegue.isSelected()==true && cbPistaAterrizaje.isSelected()==false){
+
+                            clsTimeTable AgendaTable = new clsTimeTable(0, codigo, fechaTable, horaTable, "Disponible pista despegue", "No disponible pista aterrizaje");
+                            controller.createTimeTale(AgendaTable);
+                            Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                            JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n horario de vuelo!!!", "Agenda creada satisfactoriamente", WIDTH, m);
+                            fillDataTable();
+                            cleanAgendaTableQuestionnaire();
+                        }
+                        else if(cbPistaDespegue.isSelected()==false && cbPistaAterrizaje.isSelected()==true){
+
+                            clsTimeTable AgendaTable = new clsTimeTable(0, codigo, fechaTable, horaTable, "No disponible pista despegue", "Disponible pista aterrizaje");
+                            controller.createTimeTale(AgendaTable);
+                            Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                            JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n horario de vuelo!!!", "Agenda creada satisfactoriamente", WIDTH, m);
+                            fillDataTable();
+                            cleanAgendaTableQuestionnaire();
+                        }
+                        else if(cbPistaDespegue.isSelected()==false && cbPistaAterrizaje.isSelected()==false){
+
+                            clsTimeTable AgendaTable = new clsTimeTable(0, codigo, fechaTable, horaTable, "No disponible pista despegue", "No disponible pista aterrizaje");
+                            controller.createTimeTale(AgendaTable);
+                            Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                            JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n horario de vuelo!!!", "Agenda creada satisfactoriamente", WIDTH, m);
+                            fillDataTable();
+                            cleanAgendaTableQuestionnaire();
+                        } 
                     }
-                    else if(cbPistaDespegue.isSelected()==false && cbPistaAterrizaje.isSelected()==true){
-
-                        clsTimeTable AgendaTable = new clsTimeTable(0, codigo, fechaTable, horaTable, "No disponible pista despegue", "Disponible pista aterrizaje");
-                        controller.createTimeTale(AgendaTable);
-                        Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
-                        JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n horario de vuelo!!!", "Agenda creada satisfactoriamente", WIDTH, m);
-                        fillDataTable();
-                        cleanAgendaTableQuestionnaire();
+                     
+                }
+                else{
+                    if(codigo.equals("")){
+                        JOptionPane.showMessageDialog(this, "Debe ingresar un codigo valido!");
                     }
-                    else if(cbPistaDespegue.isSelected()==false && cbPistaAterrizaje.isSelected()==false){
-
-                        clsTimeTable AgendaTable = new clsTimeTable(0, codigo, fechaTable, horaTable, "No disponible pista despegue", "No disponible pista aterrizaje");
-                        controller.createTimeTale(AgendaTable);
-                        Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
-                        JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n horario de vuelo!!!", "Agenda creada satisfactoriamente", WIDTH, m);
-                        fillDataTable();
-                        cleanAgendaTableQuestionnaire();
-                    }  
                 }
             }       
         }
@@ -577,6 +603,7 @@ public class pnlFlightCalendar extends javax.swing.JPanel {
         comboBoxMinutesSecond.setSelectedIndex(0);
         cbPistaAterrizaje.setSelected(false);
         cbPistaDespegue.setSelected(false);
+        tfCodigoAgenda.setText("");
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     //--------------------------------------------------------------------------
@@ -628,6 +655,7 @@ public class pnlFlightCalendar extends javax.swing.JPanel {
         comboBoxMinutesSecond.setSelectedIndex(0);
         cbPistaAterrizaje.setSelected(false);
         cbPistaDespegue.setSelected(false);
+        tfCodigoAgenda.setText("");
     }
     
     //--------------------------------------------------------------------------
