@@ -97,4 +97,10 @@ public class ctlFlightAgenda {
     }
     
     //--------------------------------------------------------------------------
+    
+    public LinkedList<clsFlightCancelationAgenda> listCancelationAgenda(){
+        return modeloAgendaVuelo.FlightCancelationList();
+    }
+    
+    //--------------------------------------------------------------------------
 }

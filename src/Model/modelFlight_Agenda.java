@@ -357,4 +357,38 @@ public class modelFlight_Agenda {
     }
     
     //--------------------------------------------------------------------------
+    
+    public LinkedList<clsFlightCancelationAgenda> FlightCancelationList(){
+        
+        LinkedList<clsFlightCancelationAgenda> FlightDenied = new LinkedList<>();
+        
+        try (Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
+            String query = "SELECT `id`, `code_flight`, `type_flight`, `flight_selection`, `crew_plane`, `destination`, `runway`, `date_flight`, `time_flight`, `description`, `id_airline` FROM `tb_flight_cancelation_agenda`";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet rs = preparedStatement.executeQuery();
+            
+            while (rs.next()) {
+                clsFlightCancelationAgenda FRAgenda = new clsFlightCancelationAgenda(
+                rs.getInt("id"),
+                rs.getString("code_flight"),
+                rs.getString("Type_flight"),
+                rs.getString("flight_selection"),
+                rs.getString("crew_plane"),
+                rs.getString("destination"),
+                rs.getString("runway"),
+                rs.getString("date_flight"),
+                rs.getString("time_flight"),
+                rs.getString("description"),
+                rs.getString("id_airline"));
+                
+                FlightDenied.add(FRAgenda);
+            }
+            return FlightDenied;
+        } catch (Exception e) {
+            System.out.println("Error querying: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
 }

@@ -59,6 +59,13 @@ public class ctlFlightRequirement {
     
     //--------------------------------------------------------------------------
     
+    public clsFlightCancelation readFlightCancelation(String codeFlight){
+        
+        return modeloRequerimientoVuelo.readFlightCancelation(codeFlight);       
+    }
+    
+    //--------------------------------------------------------------------------
+    
     public boolean updateFlightResquest (clsFlightRequirements Payment){
         
             return modeloRequerimientoVuelo.updateFlightResquest((clsFlightRequirements) Payment);
@@ -82,6 +89,12 @@ public class ctlFlightRequirement {
     
     public LinkedList<clsFlightRequirements> listFlight(){
         return modeloRequerimientoVuelo.FlightList();
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    public LinkedList<clsFlightCancelation> listFlightCancelation(){
+        return modeloRequerimientoVuelo.FlightListCancelation();
     }
     
     //--------------------------------------------------------------------------

@@ -183,6 +183,41 @@ public class modelFlight_Airline {
     
     //--------------------------------------------------------------------------
     
+     public clsFlightCancelation readFlightCancelation(String id){
+        try (Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
+            String query ="SELECT `id`, `code_flight`, `model_plane`, `type_flight`, `flight_selection`, `capacity`, "
+                          + "`crew_plane`, `date_flight`, `time_flight`, `destination`, `description`, `id_airline` FROM `tb_flight_cancelation` WHERE code_flight = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            
+            preparedStatement.setString(1, id);
+            
+            ResultSet rs = preparedStatement.executeQuery();
+            
+            if(rs.next()){
+                clsFlightCancelation Flight_obtained = new clsFlightCancelation(
+                rs.getInt("id"),
+                rs.getString("code_flight"),
+                rs.getString("model_plane"),
+                rs.getString("Type_flight"),
+                rs.getString("flight_selection"),
+                rs.getString("capacity"),
+                rs.getString("crew_plane"),
+                rs.getString("date_flight"),
+                rs.getString("time_flight"),
+                rs.getString("destination"),
+                rs.getString("description"),
+                rs.getString("id_airline"));
+                return Flight_obtained;
+            }
+            return null;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
     public boolean updateFlightResquest(clsFlightRequirements vuelo) {
         
         try(Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
@@ -269,6 +304,41 @@ public class modelFlight_Airline {
                 rs.getString("date_flight"),
                 rs.getString("time_flight"),
                 rs.getString("destination"));
+                
+                FlightRequirements.add(FRequirements);
+            }
+            return FlightRequirements;
+        } catch (Exception e) {
+            System.out.println("Error querying: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    public LinkedList<clsFlightCancelation> FlightListCancelation(){
+        
+        LinkedList<clsFlightCancelation> FlightRequirements = new LinkedList<>();
+        
+        try (Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
+            String query = "SELECT `id`, `code_flight`, `model_plane`, `type_flight`, `flight_selection`, `capacity`, `crew_plane`, `date_flight`, `time_flight`, `destination`, `description`, `id_airline` FROM `tb_flight_cancelation`";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet rs = preparedStatement.executeQuery();
+            
+            while (rs.next()) {
+                clsFlightCancelation FRequirements = new clsFlightCancelation(
+                rs.getInt("id"),
+                rs.getString("code_flight"),
+                rs.getString("model_plane"),
+                rs.getString("Type_flight"),
+                rs.getString("flight_selection"),
+                rs.getString("capacity"),
+                rs.getString("crew_plane"),
+                rs.getString("date_flight"),
+                rs.getString("time_flight"),
+                rs.getString("destination"),
+                rs.getString("description"),
+                rs.getString("id_airline"));
                 
                 FlightRequirements.add(FRequirements);
             }

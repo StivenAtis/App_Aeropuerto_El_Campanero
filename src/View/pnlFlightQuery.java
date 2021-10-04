@@ -2,6 +2,8 @@ package View;
 
 import Classes.clsDeniedFlights;
 import Classes.clsFlightAgenda;
+import Classes.clsFlightCancelation;
+import Classes.clsFlightCancelationAgenda;
 import Classes.clsFlightRequirements;
 import Controller.ctlFlightAgenda;
 import Controller.ctlFlightRequirement;
@@ -38,6 +40,7 @@ public class pnlFlightQuery extends javax.swing.JPanel {
         lbCdigoVuelo3 = new javax.swing.JLabel();
         lbCdigoVuelo2 = new javax.swing.JLabel();
         lbCdigoVuelo4 = new javax.swing.JLabel();
+        btnVuelosCancelados = new javax.swing.JRadioButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         txtAInfoAdicional = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -73,6 +76,16 @@ public class pnlFlightQuery extends javax.swing.JPanel {
         lbCdigoVuelo4.setText("Información sobre solicitud");
         lbCdigoVuelo4.setToolTipText("");
         add(lbCdigoVuelo4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 540, 270, 40));
+
+        btnVuelosCancelados.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnVuelosCancelados.setForeground(new java.awt.Color(255, 255, 255));
+        btnVuelosCancelados.setText("Vuelos cancelados");
+        btnVuelosCancelados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVuelosCanceladosActionPerformed(evt);
+            }
+        });
+        add(btnVuelosCancelados, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 200, -1, -1));
 
         txtAInfoAdicional.setColumns(20);
         txtAInfoAdicional.setFont(new java.awt.Font("Monospaced", 1, 13)); // NOI18N
@@ -144,84 +157,135 @@ public class pnlFlightQuery extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Debe diligenciar el codigo para poder realizar la consulta.");
         }
         else{
-            clsFlightRequirements FlightRequirementsSearch = controlFlightRequirement.readFlightRequirements(codigoVueloEncontrado);
-            clsDeniedFlights FlightDeniedSearch = controlFlightRequirement.readFlightDenied(codigoVueloEncontrado);
-            clsFlightAgenda FlightRequirementsSearchAgenda = controlFlightAgenda.readFlightAgenda(codigoVueloEncontrado);
             
-            if (FlightRequirementsSearch == null && FlightRequirementsSearchAgenda == null && FlightDeniedSearch == null) {
-                JOptionPane.showMessageDialog(this, "¡No existe datos para el vuelo con codigo: " + codigoVueloEncontrado + "!");
-                cleanRegisterQuestionnaire();
-            } else {
-
-                if(FlightRequirementsSearch != null){
+            if(btnVuelosCancelados.isSelected()==false){
                 
-                if (FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de pasajeros")) {
-                    
-                    txtAInfoAdicional.setText("DATOS DE VUELO:" + "\n" +
-                                    "\n" +
-                                    "Codigo del vuelo: " + FlightRequirementsSearch.getCodigoVuelo() + "\n" +
-                                    "Tipo de vuelo: " + FlightRequirementsSearch.getTipoVuelo() + "\n" + 
-                                    "Clase de vuelo: " + FlightRequirementsSearch.getSalidaLlegada() + "\n" + 
-                                    "Modelo de avión: " + FlightRequirementsSearch.getModeloAvion() + "\n" + 
-                                    "Capacidad de almacenaje del avión: " + FlightRequirementsSearch.getCapacidadCarga() + " pasajeros" + "\n" + 
-                                    "Tripulación del avión: " + FlightRequirementsSearch.getTripulación() + "\n" + 
-                                    "Feca de vuelo: " + FlightRequirementsSearch.getFecha() + "\n" + 
-                                    "Hora de vuelo: " + FlightRequirementsSearch.getHora() + "\n" + 
-                                    "Destino del vuelo: " + FlightRequirementsSearch.getDestino());
-                    
-                    txtAInfoSolicitud.setText("El vuelo ha sido solicitado al aeropuerto y aun no se tiene una respuesta sobre su agendamiento.");
-                }
-                
-                if (FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de carga")) {
+                clsFlightRequirements FlightRequirementsSearch = controlFlightRequirement.readFlightRequirements(codigoVueloEncontrado);
+                clsDeniedFlights FlightDeniedSearch = controlFlightRequirement.readFlightDenied(codigoVueloEncontrado);
+                clsFlightAgenda FlightRequirementsSearchAgenda = controlFlightAgenda.readFlightAgenda(codigoVueloEncontrado);
 
-                    txtAInfoAdicional.setText("DATOS DE VUELO:" + "\n" +
-                                    "\n" +
-                                    "Codigo del vuelo: " + FlightRequirementsSearch.getCodigoVuelo() + "\n" +
-                                    "Tipo de vuelo: " + FlightRequirementsSearch.getTipoVuelo() + "\n" + 
-                                    "Clase de vuelo: " + FlightRequirementsSearch.getSalidaLlegada() + "\n" + 
-                                    "Modelo de avión: " + FlightRequirementsSearch.getModeloAvion() + "\n" + 
-                                    "Capacidad de almacenaje del avión: " + FlightRequirementsSearch.getCapacidadCarga() + " toneladas" + "\n" + 
-                                    "Tripulación del avión: " + FlightRequirementsSearch.getTripulación() + "\n" + 
-                                    "Feca de vuelo: " + FlightRequirementsSearch.getFecha() + "\n" + 
-                                    "Hora de vuelo: " + FlightRequirementsSearch.getHora() + "\n" + 
-                                    "Destino del vuelo: " + FlightRequirementsSearch.getDestino());
-                    
-                    txtAInfoSolicitud.setText("El vuelo ha sido solicitado al aeropuerto y aun no se tiene una respuesta sobre su agendamiento.");
-                }
-                
-                } 
-                else if (FlightRequirementsSearch == null && FlightRequirementsSearchAgenda != null){
+                if (FlightRequirementsSearch == null && FlightRequirementsSearchAgenda == null && FlightDeniedSearch == null) {
+                    JOptionPane.showMessageDialog(this, "¡No existe datos para el vuelo con codigo: " + codigoVueloEncontrado + "!");
+                    cleanRegisterQuestionnaire();
+                } else {
 
-                    
-                            txtAInfoAdicional.setText("Datos de agenda de vuelo:" + "\n" +
+                    if(FlightRequirementsSearch != null){
+
+                        if (FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de pasajeros")) {
+
+                            txtAInfoAdicional.setText("DATOS DE VUELO:" + "\n" +
                                             "\n" +
-                                            "Codigo del vuelo: " + FlightRequirementsSearchAgenda.getCodigoVueloAgenda()+ "\n" +
-                                            "Tipo de vuelo: " + FlightRequirementsSearchAgenda.getTipoVuelo() + "\n" + 
-                                            "Clase de vuelo: " + FlightRequirementsSearchAgenda.getClaseVuelo()+ "\n" +
-                                            "Tripulación del avión: " + FlightRequirementsSearchAgenda.getTripulación() + "\n" + 
-                                            "Pista de vuelo" + FlightRequirementsSearchAgenda.getPista() + "\n" + 
-                                            "Feca de vuelo: " + FlightRequirementsSearchAgenda.getFecha() + "\n" + 
-                                            "Hora de vuelo: " + FlightRequirementsSearchAgenda.getTiempo()+ "\n" + 
-                                            "Destino del vuelo: " + FlightRequirementsSearchAgenda.getDestino());
-                            
-                            txtAInfoSolicitud.setText("El vuelo ha sido agendado exitosamente por el aeropuerto.");
-                }
-                else if (FlightRequirementsSearch == null && FlightRequirementsSearchAgenda == null && FlightDeniedSearch != null){
-                    
-                    txtAInfoAdicional.setText("Datos de agenda de vuelo:" + "\n" +
-                                            "\n" +
-                                            "Codigo del vuelo: " + FlightDeniedSearch.getCodigoVueloAgenda()+ "\n" +
-                                            "Tipo de vuelo: " + FlightDeniedSearch.getTipoVuelo() + "\n" + 
-                                            "Clase de vuelo: " + FlightDeniedSearch.getLlegadaSalida()+ "\n" +
-                                            "Tripulación del avión: " + FlightDeniedSearch.getTripulación() + "\n" + 
-                                            "Modelo de Avión: " + FlightDeniedSearch.getModeloAvion()+ "\n" + 
-                                            "Feca de vuelo: " + FlightDeniedSearch.getFecha() + "\n" + 
-                                            "Hora de vuelo: " + FlightDeniedSearch.getHora()+ "\n" + 
-                                            "Destino del vuelo: " + FlightDeniedSearch.getDestino());
+                                            "Codigo del vuelo: " + FlightRequirementsSearch.getCodigoVuelo() + "\n" +
+                                            "Tipo de vuelo: " + FlightRequirementsSearch.getTipoVuelo() + "\n" + 
+                                            "Clase de vuelo: " + FlightRequirementsSearch.getSalidaLlegada() + "\n" + 
+                                            "Modelo de avión: " + FlightRequirementsSearch.getModeloAvion() + "\n" + 
+                                            "Capacidad de almacenaje del avión: " + FlightRequirementsSearch.getCapacidadCarga() + " pasajeros" + "\n" + 
+                                            "Tripulación del avión: " + FlightRequirementsSearch.getTripulación() + "\n" + 
+                                            "Feca de vuelo: " + FlightRequirementsSearch.getFecha() + "\n" + 
+                                            "Hora de vuelo: " + FlightRequirementsSearch.getHora() + "\n" + 
+                                            "Destino del vuelo: " + FlightRequirementsSearch.getDestino());
 
-                    txtAInfoSolicitud.setText(FlightDeniedSearch.getDespricion());
+                            txtAInfoSolicitud.setText("El vuelo ha sido solicitado al aeropuerto y aun no se tiene una respuesta sobre su agendamiento.");
+                        }
+
+                        if (FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de carga")) {
+
+                            txtAInfoAdicional.setText("DATOS DE VUELO:" + "\n" +
+                                            "\n" +
+                                            "Codigo del vuelo: " + FlightRequirementsSearch.getCodigoVuelo() + "\n" +
+                                            "Tipo de vuelo: " + FlightRequirementsSearch.getTipoVuelo() + "\n" + 
+                                            "Clase de vuelo: " + FlightRequirementsSearch.getSalidaLlegada() + "\n" + 
+                                            "Modelo de avión: " + FlightRequirementsSearch.getModeloAvion() + "\n" + 
+                                            "Capacidad de almacenaje del avión: " + FlightRequirementsSearch.getCapacidadCarga() + " toneladas" + "\n" + 
+                                            "Tripulación del avión: " + FlightRequirementsSearch.getTripulación() + "\n" + 
+                                            "Feca de vuelo: " + FlightRequirementsSearch.getFecha() + "\n" + 
+                                            "Hora de vuelo: " + FlightRequirementsSearch.getHora() + "\n" + 
+                                            "Destino del vuelo: " + FlightRequirementsSearch.getDestino());
+
+                            txtAInfoSolicitud.setText("El vuelo ha sido solicitado al aeropuerto y aun no se tiene una respuesta sobre su agendamiento.");
+                        }
+
+                    } 
+                    else if (FlightRequirementsSearch == null && FlightRequirementsSearchAgenda != null){
+
+
+                        txtAInfoAdicional.setText("Datos de agenda de vuelo:" + "\n" +
+                                        "\n" +
+                                        "Codigo del vuelo: " + FlightRequirementsSearchAgenda.getCodigoVueloAgenda()+ "\n" +
+                                        "Tipo de vuelo: " + FlightRequirementsSearchAgenda.getTipoVuelo() + "\n" + 
+                                        "Clase de vuelo: " + FlightRequirementsSearchAgenda.getClaseVuelo()+ "\n" +
+                                        "Tripulación del avión: " + FlightRequirementsSearchAgenda.getTripulación() + "\n" + 
+                                        "Pista de vuelo" + FlightRequirementsSearchAgenda.getPista() + "\n" + 
+                                        "Feca de vuelo: " + FlightRequirementsSearchAgenda.getFecha() + "\n" + 
+                                        "Hora de vuelo: " + FlightRequirementsSearchAgenda.getTiempo()+ "\n" + 
+                                        "Destino del vuelo: " + FlightRequirementsSearchAgenda.getDestino());
+
+                        txtAInfoSolicitud.setText("El vuelo ha sido agendado exitosamente por el aeropuerto.");
+                    }
+                    else if (FlightRequirementsSearch == null && FlightRequirementsSearchAgenda == null && FlightDeniedSearch != null){
+
+                        txtAInfoAdicional.setText("Datos de agenda de vuelo:" + "\n" +
+                                                "\n" +
+                                                "Codigo del vuelo: " + FlightDeniedSearch.getCodigoVueloAgenda()+ "\n" +
+                                                "Tipo de vuelo: " + FlightDeniedSearch.getTipoVuelo() + "\n" + 
+                                                "Clase de vuelo: " + FlightDeniedSearch.getLlegadaSalida()+ "\n" +
+                                                "Tripulación del avión: " + FlightDeniedSearch.getTripulación() + "\n" + 
+                                                "Modelo de Avión: " + FlightDeniedSearch.getModeloAvion()+ "\n" + 
+                                                "Feca de vuelo: " + FlightDeniedSearch.getFecha() + "\n" + 
+                                                "Hora de vuelo: " + FlightDeniedSearch.getHora()+ "\n" + 
+                                                "Destino del vuelo: " + FlightDeniedSearch.getDestino());
+
+                        txtAInfoSolicitud.setText(FlightDeniedSearch.getDespricion());
+                    }
+
                 }
+            }
+            else if(btnVuelosCancelados.isSelected() == true){
                 
+                clsFlightCancelation FlightRequirementsSearch = controlFlightRequirement.readFlightCancelation(codigoVueloEncontrado);
+                clsFlightCancelationAgenda FlightRequirementsSearchAgenda = controlFlightAgenda.readFlightAgendaCancelation(codigoVueloEncontrado);
+                
+                if (FlightRequirementsSearchAgenda == null ) {
+                    JOptionPane.showMessageDialog(this, "¡No existe datos para el vuelo con codigo: " + codigoVueloEncontrado + "!");
+                    cleanRegisterQuestionnaire();
+                } else {
+                    
+                    
+                    if(FlightRequirementsSearch != null){
+                        
+                        txtAInfoAdicional.setText("Datos de agenda de vuelo:" + "\n" +
+                                                "\n" +
+                                                "Codigo del vuelo: " + FlightRequirementsSearch.getCodigoVuelo()+ "\n" +
+                                                "Tipo de vuelo: " + FlightRequirementsSearch.getTipoVuelo() + "\n" + 
+                                                "Clase de vuelo: " + FlightRequirementsSearch.getSalidaLlegada()+ "\n" +
+                                                "Tripulación del avión: " + FlightRequirementsSearch.getTripulación() + "\n" + 
+                                                "Modelo de Avión: " + FlightRequirementsSearch.getModeloAvion()+ "\n" + 
+                                                "Feca de vuelo: " + FlightRequirementsSearch.getFecha() + "\n" + 
+                                                "Hora de vuelo: " + FlightRequirementsSearch.getHora()+ "\n" + 
+                                                "Destino del vuelo: " + FlightRequirementsSearch.getDestino());
+                                                String descrp = "VUELO SOLICITADO:" + "\n" + FlightRequirementsSearch.getDescripcion();
+
+                        txtAInfoSolicitud.setText(descrp);
+                    }
+                    
+                    else if (FlightRequirementsSearch == null && FlightRequirementsSearchAgenda != null){
+
+
+                        txtAInfoAdicional.setText("Datos de agenda de vuelo:" + "\n" +
+                                        "\n" +
+                                        "Codigo del vuelo: " + FlightRequirementsSearchAgenda.getCodigoVueloAgenda()+ "\n" +
+                                        "Tipo de vuelo: " + FlightRequirementsSearchAgenda.getTipoVuelo() + "\n" + 
+                                        "Clase de vuelo: " + FlightRequirementsSearchAgenda.getClaseVuelo()+ "\n" +
+                                        "Tripulación del avión: " + FlightRequirementsSearchAgenda.getTripulación() + "\n" + 
+                                        "Pista de vuelo" + FlightRequirementsSearchAgenda.getPista() + "\n" + 
+                                        "Feca de vuelo: " + FlightRequirementsSearchAgenda.getFecha() + "\n" + 
+                                        "Hora de vuelo: " + FlightRequirementsSearchAgenda.getTiempo()+ "\n" + 
+                                        "Destino del vuelo: " + FlightRequirementsSearchAgenda.getDestino());
+                                        String descrp = "VUELO AGENDADO:" + "\n" + FlightRequirementsSearchAgenda.getDescripcion();
+                                        
+                        txtAInfoSolicitud.setText(descrp);
+                    }
+                }
             }
         }
     }//GEN-LAST:event_btnConsultarActionPerformed
@@ -245,11 +309,26 @@ public class pnlFlightQuery extends javax.swing.JPanel {
         
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
+    private void btnVuelosCanceladosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVuelosCanceladosActionPerformed
+
+        if(btnVuelosCancelados.isSelected() == false){
+            txtAInfoAdicional.setText("");
+            txtAInfoSolicitud.setText("");
+        }
+        else{
+            if(btnVuelosCancelados.isSelected() == true){
+                txtAInfoAdicional.setText("");
+                txtAInfoSolicitud.setText("");
+            }
+        }
+    }//GEN-LAST:event_btnVuelosCanceladosActionPerformed
+
     //--------------------------------------------------------------------------
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConsultar;
     private javax.swing.JButton btnLimpiar;
+    private javax.swing.JRadioButton btnVuelosCancelados;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
