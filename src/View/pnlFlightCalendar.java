@@ -2,8 +2,11 @@ package View;
 
 import Classes.clsTimeTable;
 import Controller.ctlFlightAgenda;
+import static java.awt.image.ImageObserver.WIDTH;
 import java.time.LocalDate;
 import java.util.LinkedList;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import utils.Constants;
@@ -55,12 +58,14 @@ public class pnlFlightCalendar extends javax.swing.JPanel {
         btnCrearAgenda = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
         btnBorrarAgenda = new javax.swing.JButton();
+        tfCodigoAgenda = new javax.swing.JTextField();
         lbVueloS8 = new javax.swing.JLabel();
         lbVueloS7 = new javax.swing.JLabel();
         lbVueloS3 = new javax.swing.JLabel();
         lbVueloS4 = new javax.swing.JLabel();
         lbVueloS5 = new javax.swing.JLabel();
         lbVueloS6 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -226,6 +231,9 @@ public class pnlFlightCalendar extends javax.swing.JPanel {
         });
         add(btnBorrarAgenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 620, 330, 130));
 
+        tfCodigoAgenda.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        add(tfCodigoAgenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 550, 190, 40));
+
         lbVueloS8.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         lbVueloS8.setForeground(new java.awt.Color(255, 255, 255));
         lbVueloS8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -267,6 +275,11 @@ public class pnlFlightCalendar extends javax.swing.JPanel {
         lbVueloS6.setText("a");
         lbVueloS6.setToolTipText("");
         add(lbVueloS6, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 410, 70, 40));
+
+        jLabel1.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Codigo A");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 560, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 58)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -326,63 +339,226 @@ public class pnlFlightCalendar extends javax.swing.JPanel {
         String minutoVuelo = comboBoxMinutesFirst.getSelectedItem().toString();
         String mesNumberFirst = "";
         
-        if(mesVuelo.equals("January")){
-            mesNumberFirst = "1";
+        if(anioVuelo.equals("Year") || mesVuelo.equals("Month") || diaVuelo.equals("Day") || horaVuelo.equals("Hour") || minutoVuelo.equals("Minutes")){
+            JOptionPane.showMessageDialog(this, "Debe ingresar una fecha y hora");
         }
-        if(mesVuelo.equals("February")){
-            mesNumberFirst = "2";
-        }
-        if(mesVuelo.equals("March")){
-            mesNumberFirst = "3";
-        }
-        if(mesVuelo.equals("April")){
-            mesNumberFirst = "4";
-        }
-        if(mesVuelo.equals("may")){
-            mesNumberFirst = "5";
-        }
-        if(mesVuelo.equals("June")){
-            mesNumberFirst = "6";
-        }
-        if(mesVuelo.equals("July")){
-            mesNumberFirst = "7";
-        }
-        if(mesVuelo.equals("August")){
-            mesNumberFirst = "8";
-        }
-        if(mesVuelo.equals("September")){
-            mesNumberFirst = "9";
-        }
-        if(mesVuelo.equals("October")){
-            mesNumberFirst = "10";
-        }
-        if(mesVuelo.equals("November")){
-            mesNumberFirst = "11";
-        }
-        if(mesVuelo.equals("December")){
-            mesNumberFirst = "12";
-        }
-
-        String fecha = anioVuelo + "-" + mesNumberFirst + "-" + diaVuelo;
-        String tiempo = horaVuelo + ":" + minutoVuelo + ":" + "00";
-
-
-        if (Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumberFirst) < currentDate.getMonthValue()) {
-            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
-        }
-        else if(Integer.parseInt(anioVuelo) < currentDate.getYear()){
-            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
-        }
-        else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumberFirst) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) < currentDate.getDayOfMonth()){
-            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
-        }
-        else if (Integer.parseInt(anioVuelo) >= currentDate.getYear() ){
-
-        }
-        else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumberFirst) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) > currentDate.getDayOfMonth()){
+        else{
             
-        }
+            if(mesVuelo.equals("January")){
+            mesNumberFirst = "1";
+            }
+            if(mesVuelo.equals("February")){
+                mesNumberFirst = "2";
+            }
+            if(mesVuelo.equals("March")){
+                mesNumberFirst = "3";
+            }
+            if(mesVuelo.equals("April")){
+                mesNumberFirst = "4";
+            }
+            if(mesVuelo.equals("may")){
+                mesNumberFirst = "5";
+            }
+            if(mesVuelo.equals("June")){
+                mesNumberFirst = "6";
+            }
+            if(mesVuelo.equals("July")){
+                mesNumberFirst = "7";
+            }
+            if(mesVuelo.equals("August")){
+                mesNumberFirst = "8";
+            }
+            if(mesVuelo.equals("September")){
+                mesNumberFirst = "9";
+            }
+            if(mesVuelo.equals("October")){
+                mesNumberFirst = "10";
+            }
+            if(mesVuelo.equals("November")){
+                mesNumberFirst = "11";
+            }
+            if(mesVuelo.equals("December")){
+                mesNumberFirst = "12";
+            }
 
+            String fecha = anioVuelo + "-" + mesNumberFirst + "-" + diaVuelo;
+            String tiempo = horaVuelo + ":" + minutoVuelo + ":" + "00";
+
+            //----------------------------------------------------------------------
+
+            String anioVueloSecond = comboBoxYearSecond.getSelectedItem().toString();
+            String mesVueloSecond = comboBoxMonthSecond.getSelectedItem().toString();
+            String diaVueloSecond = comboBoxDaySecond.getSelectedItem().toString();
+            String horaVueloSecond = comboBoxHourSecond.getSelectedItem().toString();
+            String minutoVueloSecond = comboBoxMinutesSecond.getSelectedItem().toString();
+            String mesNumberSecond = "";
+
+            if(mesVueloSecond.equals("January")){
+                mesNumberSecond = "1";
+            }
+            if(mesVueloSecond.equals("February")){
+                mesNumberSecond = "2";
+            }
+            if(mesVueloSecond.equals("March")){
+                mesNumberSecond = "3";
+            }
+            if(mesVueloSecond.equals("April")){
+                mesNumberSecond = "4";
+            }
+            if(mesVueloSecond.equals("may")){
+                mesNumberSecond = "5";
+            }
+            if(mesVueloSecond.equals("June")){
+                mesNumberSecond = "6";
+            }
+            if(mesVueloSecond.equals("July")){
+                mesNumberSecond = "7";
+            }
+            if(mesVueloSecond.equals("August")){
+                mesNumberSecond = "8";
+            }
+            if(mesVueloSecond.equals("September")){
+                mesNumberSecond = "9";
+            }
+            if(mesVueloSecond.equals("October")){
+                mesNumberSecond = "10";
+            }
+            if(mesVueloSecond.equals("November")){
+                mesNumberSecond = "11";
+            }
+            if(mesVueloSecond.equals("December")){
+                mesNumberSecond = "12";
+            }
+
+            String fechaSecond = anioVueloSecond + "-" + mesNumberSecond + "-" + diaVueloSecond;
+            String tiempoSecond = horaVueloSecond + ":" + minutoVueloSecond + ":" + "00";
+
+            //----------------------------------------------------------------------
+
+            boolean AnioAct = Integer.parseInt(anioVuelo) == currentDate.getYear();
+            boolean AnioAct2 = Integer.parseInt(anioVueloSecond) == currentDate.getYear();
+            boolean AnioPas = Integer.parseInt(anioVuelo) < currentDate.getYear();
+            boolean AnioPas2 = Integer.parseInt(anioVueloSecond) < currentDate.getYear();
+            boolean mesPas = Integer.parseInt(mesNumberFirst) < currentDate.getMonthValue();
+            boolean mesPas2 = Integer.parseInt(mesNumberSecond) < currentDate.getMonthValue();
+            boolean mesAct = Integer.parseInt(mesNumberFirst) == currentDate.getMonthValue();
+            boolean mesAct2 = Integer.parseInt(mesNumberSecond) == currentDate.getMonthValue();
+            boolean diaPas = Integer.parseInt(diaVuelo) < currentDate.getDayOfMonth() ;
+            boolean diaPas2 = Integer.parseInt(diaVueloSecond) < currentDate.getDayOfMonth() ;
+
+            if (AnioAct == true && mesPas== true) {
+                JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+            }
+            else if(AnioAct2 == true && mesPas2 == true){
+                JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+            }
+            else if(AnioPas == true || AnioPas2 == true){
+                JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+            }
+            else if(AnioAct == true &&  mesAct == true && diaPas == true || AnioAct2 == true && mesAct2 == true && diaPas2 == true){
+                JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+            }
+            else if (Integer.parseInt(anioVuelo) >= currentDate.getYear() && Integer.parseInt(anioVueloSecond) >= currentDate.getYear() ){
+
+                String codigo = tfCodigoAgenda.getText();
+
+                if(!"".equals(codigo)){
+
+                    String fechaTable = fecha + " : " + fechaSecond;
+                    String horaTable = tiempo + " - " + tiempoSecond;
+
+                    if(cbPistaDespegue.isSelected()==true && cbPistaAterrizaje.isSelected()==true){
+
+                        clsTimeTable AgendaTable = new clsTimeTable(0, codigo, fechaTable, horaTable, "Disponible pista despegue", "Disponible pista aterrizaje");
+                        controller.createTimeTale(AgendaTable);
+                        Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                        JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n horario de vuelo!!!", "Agenda creada satisfactoriamente", WIDTH, m);
+                        fillDataTable();
+                        cleanAgendaTableQuestionnaire();
+                    }
+                    else if(cbPistaDespegue.isSelected()==true && cbPistaAterrizaje.isSelected()==false){
+
+                        clsTimeTable AgendaTable = new clsTimeTable(0, codigo, fechaTable, horaTable, "Disponible pista despegue", "No disponible pista aterrizaje");
+                        controller.createTimeTale(AgendaTable);
+                        Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                        JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n horario de vuelo!!!", "Agenda creada satisfactoriamente", WIDTH, m);
+                        fillDataTable();
+                        cleanAgendaTableQuestionnaire();
+                    }
+                    else if(cbPistaDespegue.isSelected()==false && cbPistaAterrizaje.isSelected()==true){
+
+                        clsTimeTable AgendaTable = new clsTimeTable(0, codigo, fechaTable, horaTable, "No disponible pista despegue", "Disponible pista aterrizaje");
+                        controller.createTimeTale(AgendaTable);
+                        Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                        JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n horario de vuelo!!!", "Agenda creada satisfactoriamente", WIDTH, m);
+                        fillDataTable();
+                        cleanAgendaTableQuestionnaire();
+                    }
+                    else if(cbPistaDespegue.isSelected()==false && cbPistaAterrizaje.isSelected()==false){
+
+                        clsTimeTable AgendaTable = new clsTimeTable(0, codigo, fechaTable, horaTable, "No disponible pista despegue", "No disponible pista aterrizaje");
+                        controller.createTimeTale(AgendaTable);
+                        Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                        JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n horario de vuelo!!!", "Agenda creada satisfactoriamente", WIDTH, m);
+                        fillDataTable();
+                        cleanAgendaTableQuestionnaire();
+                    }
+
+
+
+                }
+
+
+            }
+            else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumberFirst) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) > currentDate.getDayOfMonth()
+                    && Integer.parseInt(anioVueloSecond) == currentDate.getYear() && Integer.parseInt(mesNumberSecond) == currentDate.getMonthValue() && Integer.parseInt(diaVueloSecond) > currentDate.getDayOfMonth()){
+
+                String codigo = tfCodigoAgenda.getText();
+
+                if(!"".equals(codigo)){
+
+                    String fechaTable = fecha + " : " + fechaSecond;
+                    String horaTable = tiempo + " - " + tiempoSecond;
+
+                    if(cbPistaDespegue.isSelected()==true && cbPistaAterrizaje.isSelected()==true){
+
+                        clsTimeTable AgendaTable = new clsTimeTable(0, codigo, fechaTable, horaTable, "Disponible pista despegue", "Disponible pista aterrizaje");
+                        controller.createTimeTale(AgendaTable);
+                        Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                        JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n horario de vuelo!!!", "Agenda creada satisfactoriamente", WIDTH, m);
+                        fillDataTable();
+                        cleanAgendaTableQuestionnaire();
+                    }
+                    else if(cbPistaDespegue.isSelected()==true && cbPistaAterrizaje.isSelected()==false){
+
+                        clsTimeTable AgendaTable = new clsTimeTable(0, codigo, fechaTable, horaTable, "Disponible pista despegue", "No disponible pista aterrizaje");
+                        controller.createTimeTale(AgendaTable);
+                        Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                        JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n horario de vuelo!!!", "Agenda creada satisfactoriamente", WIDTH, m);
+                        fillDataTable();
+                        cleanAgendaTableQuestionnaire();
+                    }
+                    else if(cbPistaDespegue.isSelected()==false && cbPistaAterrizaje.isSelected()==true){
+
+                        clsTimeTable AgendaTable = new clsTimeTable(0, codigo, fechaTable, horaTable, "No disponible pista despegue", "Disponible pista aterrizaje");
+                        controller.createTimeTale(AgendaTable);
+                        Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                        JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n horario de vuelo!!!", "Agenda creada satisfactoriamente", WIDTH, m);
+                        fillDataTable();
+                        cleanAgendaTableQuestionnaire();
+                    }
+                    else if(cbPistaDespegue.isSelected()==false && cbPistaAterrizaje.isSelected()==false){
+
+                        clsTimeTable AgendaTable = new clsTimeTable(0, codigo, fechaTable, horaTable, "No disponible pista despegue", "No disponible pista aterrizaje");
+                        controller.createTimeTale(AgendaTable);
+                        Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                        JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n horario de vuelo!!!", "Agenda creada satisfactoriamente", WIDTH, m);
+                        fillDataTable();
+                        cleanAgendaTableQuestionnaire();
+                    }  
+                }
+            }       
+        }
     }//GEN-LAST:event_btnCrearAgendaActionPerformed
 
     //--------------------------------------------------------------------------
@@ -472,6 +648,7 @@ public class pnlFlightCalendar extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> comboBoxMonthSecond;
     private javax.swing.JComboBox<String> comboBoxYearFirst;
     private javax.swing.JComboBox<String> comboBoxYearSecond;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -486,5 +663,6 @@ public class pnlFlightCalendar extends javax.swing.JPanel {
     private javax.swing.JLabel lbVueloS7;
     private javax.swing.JLabel lbVueloS8;
     private javax.swing.JTable tblAgenda;
+    private javax.swing.JTextField tfCodigoAgenda;
     // End of variables declaration//GEN-END:variables
 }
