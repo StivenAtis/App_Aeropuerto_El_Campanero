@@ -1,8 +1,8 @@
 package View;
 
 import Classes.clsDeniedFlights;
-import Classes.clsFlightCancelation;
 import Classes.clsFlightCancelationAgenda;
+import Classes.clsFlightCancelationAirline;
 import Controller.ctlFlightAgenda;
 import Controller.ctlFlightRequirement;
 import java.util.LinkedList;
@@ -21,7 +21,7 @@ public class pnlDeclinedFlights extends javax.swing.JPanel {
     private ctlFlightRequirement controllerCancelation = null;
     private LinkedList<clsDeniedFlights> list;
     private LinkedList<clsFlightCancelationAgenda> list_cancel_Agenda;
-    private LinkedList<clsFlightCancelation> list_cancel;
+    private LinkedList<clsFlightCancelationAirline> list_cancel;
 
     //--------------------------------------------------------------------------
     
@@ -30,6 +30,7 @@ public class pnlDeclinedFlights extends javax.swing.JPanel {
         controller = new ctlFlightAgenda();
         controllerCancelation = new ctlFlightRequirement();
         fillDataTable();
+        btnVuelosCanAerolinea.setVisible(false);
     }
 
     //--------------------------------------------------------------------------
@@ -43,6 +44,7 @@ public class pnlDeclinedFlights extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         txtAInfoSolicitud = new javax.swing.JTextArea();
         btnVuelosCancelados = new javax.swing.JRadioButton();
+        btnVuelosCanAerolinea = new javax.swing.JRadioButton();
         lbCdigoVuelo4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -113,7 +115,17 @@ public class pnlDeclinedFlights extends javax.swing.JPanel {
                 btnVuelosCanceladosActionPerformed(evt);
             }
         });
-        add(btnVuelosCancelados, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 90, -1, -1));
+        add(btnVuelosCancelados, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 90, -1, -1));
+
+        btnVuelosCanAerolinea.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnVuelosCanAerolinea.setForeground(new java.awt.Color(255, 255, 255));
+        btnVuelosCanAerolinea.setText("Vuelos cancelados A.");
+        btnVuelosCanAerolinea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVuelosCanAerolineaActionPerformed(evt);
+            }
+        });
+        add(btnVuelosCanAerolinea, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 50, -1, -1));
 
         lbCdigoVuelo4.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         lbCdigoVuelo4.setForeground(new java.awt.Color(255, 255, 255));
@@ -149,16 +161,24 @@ public class pnlDeclinedFlights extends javax.swing.JPanel {
             txtAInfoSolicitud.setText(info);
         }
         
-        else{
-            if(btnVuelosCancelados.isSelected() == true){
+        else if(btnVuelosCancelados.isSelected() == true && btnVuelosCanAerolinea.isSelected()==false){
+            
                 
                 clsFlightCancelationAgenda FlightRequirementsSearch = controller.readFlightAgendaCancelation(id);
         
                 String info = "VUELO AGENDADO:" + "\n" + "\n" + FlightRequirementsSearch.getDescripcion();
         
                 txtAInfoSolicitud.setText(info);
-            }
         }
+        
+        else if(btnVuelosCanAerolinea.isSelected()==true){
+                
+                clsFlightCancelationAirline FlightRequirementsSearchAirline = controller.readFlightAirlineCancelation(id);
+                
+                String info = "VUELO SOLICITADO:" + "\n" + "\n" + FlightRequirementsSearchAirline.getDescripcion();
+        
+                txtAInfoSolicitud.setText(info);
+            }  
         
         
     }//GEN-LAST:event_tblVuelosDenegadosMouseClicked
@@ -168,13 +188,28 @@ public class pnlDeclinedFlights extends javax.swing.JPanel {
         if(btnVuelosCancelados.isSelected()==true){
             fillDataTableCanceled();
             txtAInfoSolicitud.setText("");
+            btnVuelosCanAerolinea.setVisible(true);
         }
         else{
             fillDataTable();
             txtAInfoSolicitud.setText("");
+            btnVuelosCanAerolinea.setVisible(false);
         }
         
     }//GEN-LAST:event_btnVuelosCanceladosActionPerformed
+
+    private void btnVuelosCanAerolineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVuelosCanAerolineaActionPerformed
+        
+        if(btnVuelosCanAerolinea.isSelected()==true){
+            fillDataTableCanceledAirport();
+            txtAInfoSolicitud.setText("");
+        }
+        else{
+            fillDataTableCanceled();
+            btnVuelosCancelados.setSelected(true);
+            txtAInfoSolicitud.setText("");
+        }
+    }//GEN-LAST:event_btnVuelosCanAerolineaActionPerformed
 
     //--------------------------------------------------------------------------
     
@@ -238,8 +273,39 @@ public class pnlDeclinedFlights extends javax.swing.JPanel {
     } 
     
     //--------------------------------------------------------------------------
+    
+    private void fillDataTableCanceledAirport() {
+         
+        list_cancel = controller.listCancelationAirline();
+        String datos[][] = new String[list.size()][8];
+        
+        if(list_cancel.size() > 0) {
+            for (int i = 0; i < list_cancel.size(); i++) {
+                datos[i][Constants.CODE_FLIGHT_CANCELED] = list_cancel.get(i).getCodigoVuelo();
+                datos[i][Constants.TYPE_FLIGHT_CANCELED] = list_cancel.get(i).getTipoVuelo();
+                datos[i][Constants.CLASS_FLIGHT_CANCELED] = list_cancel.get(i).getSalidaLlegada();
+                datos[i][Constants.DATE_FLIGHT_CANCELED] = list_cancel.get(i).getFecha();
+                datos[i][Constants.TIME_FLIGHT_CANCELED] = list_cancel.get(i).getHora();
+                datos[i][Constants.CREW_FLIGHT_CANCELED] = list_cancel.get(i).getTripulación();
+                datos[i][Constants.DESTINY_FLIGHT_CANCELED] = list_cancel.get(i).getDestino();
+                datos[i][Constants.RUNWAY_FLIGHT_CANCELED] = list_cancel.get(i).getModeloAvion();
+            }        
+        }        
+        String[] columns = {
+            "CODIGO", "TIPO", "CLASE", "FECHA", "HORA", "TRIPULACION", "DESTINO", "MODELO AVION"
+        };
+        DefaultTableModel model = new DefaultTableModel(datos, columns);
+        int[] columnSize = {30, 50, 50, 50, 50, 50, 50, 50};
+        for(int x=0; x<columnSize.length;x++)
+            tblVuelosDenegados.getColumnModel().getColumn(x).setPreferredWidth(columnSize[x]);
+        tblVuelosDenegados.setRowHeight(30);
+        tblVuelosDenegados.setModel(model);
+    } 
+    
+    //--------------------------------------------------------------------------
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton btnVuelosCanAerolinea;
     private javax.swing.JRadioButton btnVuelosCancelados;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

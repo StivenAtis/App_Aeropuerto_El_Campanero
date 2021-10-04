@@ -1,7 +1,7 @@
 package Model;
 
 import Classes.clsDeniedFlights;
-import Classes.clsFlightCancelation;
+import Classes.clsFlightCancelationAirline;
 import Classes.clsFlightRequirements;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -84,7 +84,7 @@ public class modelFlight_Airline {
     
     //--------------------------------------------------------------------------
     
-    public boolean createFlightCanceled(clsFlightCancelation FlightRequirement){
+    public boolean createFlightCanceled(clsFlightCancelationAirline FlightRequirement){
         try(Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())){
             String query = "INSERT INTO `tb_flight_cancelation`(`code_flight`, `model_plane`, `type_flight`, `flight_selection`, `capacity`, `crew_plane`, "
                           + "`date_flight`, `time_flight`, `destination`, `description`, `id_airline`) VALUES (?,?,?,?,?,?,?,?,?,?,'1')";
@@ -183,7 +183,7 @@ public class modelFlight_Airline {
     
     //--------------------------------------------------------------------------
     
-     public clsFlightCancelation readFlightCancelation(String id){
+     public clsFlightCancelationAirline readFlightCancelation(String id){
         try (Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
             String query ="SELECT `id`, `code_flight`, `model_plane`, `type_flight`, `flight_selection`, `capacity`, "
                           + "`crew_plane`, `date_flight`, `time_flight`, `destination`, `description`, `id_airline` FROM `tb_flight_cancelation` WHERE code_flight = ?";
@@ -194,7 +194,7 @@ public class modelFlight_Airline {
             ResultSet rs = preparedStatement.executeQuery();
             
             if(rs.next()){
-                clsFlightCancelation Flight_obtained = new clsFlightCancelation(
+                clsFlightCancelationAirline Flight_obtained = new clsFlightCancelationAirline(
                 rs.getInt("id"),
                 rs.getString("code_flight"),
                 rs.getString("model_plane"),
@@ -316,9 +316,9 @@ public class modelFlight_Airline {
     
     //--------------------------------------------------------------------------
     
-    public LinkedList<clsFlightCancelation> FlightListCancelation(){
+    public LinkedList<clsFlightCancelationAirline> FlightListCancelation(){
         
-        LinkedList<clsFlightCancelation> FlightRequirements = new LinkedList<>();
+        LinkedList<clsFlightCancelationAirline> FlightRequirements = new LinkedList<>();
         
         try (Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
             String query = "SELECT `id`, `code_flight`, `model_plane`, `type_flight`, `flight_selection`, `capacity`, `crew_plane`, `date_flight`, `time_flight`, `destination`, `description`, `id_airline` FROM `tb_flight_cancelation`";
@@ -326,7 +326,7 @@ public class modelFlight_Airline {
             ResultSet rs = preparedStatement.executeQuery();
             
             while (rs.next()) {
-                clsFlightCancelation FRequirements = new clsFlightCancelation(
+                clsFlightCancelationAirline FRequirements = new clsFlightCancelationAirline(
                 rs.getInt("id"),
                 rs.getString("code_flight"),
                 rs.getString("model_plane"),

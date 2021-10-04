@@ -1,7 +1,7 @@
 package Controller;
 
 import Classes.clsDeniedFlights;
-import Classes.clsFlightCancelation;
+import Classes.clsFlightCancelationAirline;
 import Classes.clsFlightRequirements;
 import Model.modelFlight_Airline;
 import java.util.LinkedList;
@@ -38,9 +38,9 @@ public class ctlFlightRequirement {
     
     //--------------------------------------------------------------------------
     
-    public void createFlightCanceled(clsFlightCancelation FlightDenied){
+    public void createFlightCanceled(clsFlightCancelationAirline FlightDenied){
         
-            modeloRequerimientoVuelo.createFlightCanceled((clsFlightCancelation) FlightDenied);
+            modeloRequerimientoVuelo.createFlightCanceled((clsFlightCancelationAirline) FlightDenied);
     }
     
     //--------------------------------------------------------------------------
@@ -59,7 +59,7 @@ public class ctlFlightRequirement {
     
     //--------------------------------------------------------------------------
     
-    public clsFlightCancelation readFlightCancelation(String codeFlight){
+    public clsFlightCancelationAirline readFlightCancelation(String codeFlight){
         
         return modeloRequerimientoVuelo.readFlightCancelation(codeFlight);       
     }
@@ -93,7 +93,7 @@ public class ctlFlightRequirement {
     
     //--------------------------------------------------------------------------
     
-    public LinkedList<clsFlightCancelation> listFlightCancelation(){
+    public LinkedList<clsFlightCancelationAirline> listFlightCancelation(){
         return modeloRequerimientoVuelo.FlightListCancelation();
     }
     

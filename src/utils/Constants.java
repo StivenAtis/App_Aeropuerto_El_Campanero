@@ -70,6 +70,9 @@ public class Constants {
     public static final int TIME_FLIGHT_CANCELED = 7;
     public static final int ID_AIRLINE_CANCELED = 8;
     
+    //constans jTable flights canceled - Airline - Airport
+    public static final int CODE_FLIGHT_CANCELED_AIRLINE = 1;
+    
     //Constants jTable consultas
     public static final int CODE_FLIGHT_REQUEST = 0;
     public static final int TYPE_FLIGHT_REQUEST = 1;

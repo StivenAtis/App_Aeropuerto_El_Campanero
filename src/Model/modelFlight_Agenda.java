@@ -4,6 +4,7 @@ import Classes.clsDeniedFlights;
 import Classes.clsFlightAgenda;
 import Classes.clsFlightAgendaReprogramation;
 import Classes.clsFlightCancelationAgenda;
+import Classes.clsFlightCancelationAirline;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -252,6 +253,40 @@ public class modelFlight_Agenda {
     
     //--------------------------------------------------------------------------
     
+    public clsFlightCancelationAirline readFlightCancelationAirline(String id){
+        try (Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
+            String query ="SELECT `id`, `code_flight`, `model_plane`, `Type_flight`, `flight_selection`, `capacity_plane`, `crew_plane`, `date_flight`, `time_flight`, `destination`, `description`, `id_airline` FROM `tb_flight_cancelation_airline` WHERE code_flight = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            
+            preparedStatement.setString(1, id);
+            
+            ResultSet rs = preparedStatement.executeQuery();
+            
+            if(rs.next()){
+                clsFlightCancelationAirline Flight_obtained = new clsFlightCancelationAirline(
+                rs.getInt("id"),
+                rs.getString("code_flight"),
+                rs.getString("model_plane"),
+                rs.getString("Type_flight"),
+                rs.getString("flight_selection"),
+                rs.getString("capacity_plane"),
+                rs.getString("crew_plane"),
+                rs.getString("date_flight"),
+                rs.getString("time_flight"),
+                rs.getString("destination"),
+                rs.getString("description"),
+                rs.getString("id_airline"));
+                return Flight_obtained;
+            }
+            return null;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
     public boolean updateFlightAgenda(clsFlightAgenda vuelo) {
         
         try(Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
@@ -378,6 +413,41 @@ public class modelFlight_Agenda {
                 rs.getString("runway"),
                 rs.getString("date_flight"),
                 rs.getString("time_flight"),
+                rs.getString("description"),
+                rs.getString("id_airline"));
+                
+                FlightDenied.add(FRAgenda);
+            }
+            return FlightDenied;
+        } catch (Exception e) {
+            System.out.println("Error querying: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    public LinkedList<clsFlightCancelationAirline> FlightCancelationAirlineList(){
+        
+        LinkedList<clsFlightCancelationAirline> FlightDenied = new LinkedList<>();
+        
+        try (Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
+            String query = "SELECT `id`, `code_flight`, `model_plane`, `Type_flight`, `flight_selection`, `capacity_plane`, `crew_plane`, `date_flight`, `time_flight`, `destination`, `description`, `id_airline` FROM `tb_flight_cancelation_airline`";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet rs = preparedStatement.executeQuery();
+            
+            while (rs.next()) {
+                clsFlightCancelationAirline FRAgenda = new clsFlightCancelationAirline(
+                rs.getInt("id"),
+                rs.getString("code_flight"),
+                rs.getString("model_plane"),
+                rs.getString("Type_flight"),
+                rs.getString("flight_selection"),
+                rs.getString("capacity_plane"),
+                rs.getString("crew_plane"),
+                rs.getString("date_flight"),
+                rs.getString("time_flight"),
+                rs.getString("destination"),
                 rs.getString("description"),
                 rs.getString("id_airline"));
                 

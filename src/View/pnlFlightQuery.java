@@ -2,16 +2,14 @@ package View;
 
 import Classes.clsDeniedFlights;
 import Classes.clsFlightAgenda;
-import Classes.clsFlightCancelation;
 import Classes.clsFlightCancelationAgenda;
+import Classes.clsFlightCancelationAirline;
 import Classes.clsFlightRequirements;
 import Controller.ctlFlightAgenda;
 import Controller.ctlFlightRequirement;
-import java.util.LinkedList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import utils.Constants;
+
 
 /**
  *
@@ -242,7 +240,7 @@ public class pnlFlightQuery extends javax.swing.JPanel {
             }
             else if(btnVuelosCancelados.isSelected() == true){
                 
-                clsFlightCancelation FlightRequirementsSearch = controlFlightRequirement.readFlightCancelation(codigoVueloEncontrado);
+                clsFlightCancelationAirline FlightRequirementsSearch = controlFlightAgenda.readFlightAirlineCancelation(codigoVueloEncontrado);
                 clsFlightCancelationAgenda FlightRequirementsSearchAgenda = controlFlightAgenda.readFlightAgendaCancelation(codigoVueloEncontrado);
                 
                 if (FlightRequirementsSearchAgenda == null ) {

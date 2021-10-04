@@ -1,8 +1,8 @@
 package View;
 
 import Classes.clsFlightAgenda;
-import Classes.clsFlightCancelation;
 import Classes.clsFlightCancelationAgenda;
+import Classes.clsFlightCancelationAirline;
 import Classes.clsFlightRequirements;
 import Controller.ctlFlightAgenda;
 import Controller.ctlFlightRequirement;
@@ -305,7 +305,7 @@ public class pnlAbortFlightAirline extends javax.swing.JPanel {
                                     String descripcion = txtAreaCancelacion.getText();
                                     String descripcionCancelacion = "Vuelo cancelado por aerolinea" + "\n" + "\n" + txtAreaCancelacion.getText();
 
-                                    clsFlightCancelation flightCanceled = new clsFlightCancelation(0, valor, modeloA, tipo, clase, capacidad, tripulación, fecha, hora, destino, descripcionCancelacion, "1");
+                                    clsFlightCancelationAirline flightCanceled = new clsFlightCancelationAirline(0, valor, modeloA, tipo, clase, capacidad, tripulación, fecha, hora, destino, descripcionCancelacion, "1");
                                     controller.createFlightCanceled(flightCanceled);
                                     
                                     if (controller.deleteFlight(FlightCancel)) {
