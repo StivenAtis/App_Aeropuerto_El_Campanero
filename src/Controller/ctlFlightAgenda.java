@@ -50,7 +50,7 @@ public class ctlFlightAgenda {
     
     //--------------------------------------------------------------------------
     
-    public boolean updateFlightResquest (clsFlightAgenda codeFlight){
+    public boolean updateFlightResquest(clsFlightAgenda codeFlight){
         
             return modeloAgendaVuelo.updateFlightAgenda((clsFlightAgenda) codeFlight);
     }

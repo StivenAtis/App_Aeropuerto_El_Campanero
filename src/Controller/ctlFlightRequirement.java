@@ -1,6 +1,7 @@
 package Controller;
 
 import Classes.clsDeniedFlights;
+import Classes.clsFlightCancelation;
 import Classes.clsFlightRequirements;
 import Model.modelFlight_Airline;
 import java.util.LinkedList;
@@ -33,6 +34,13 @@ public class ctlFlightRequirement {
     public void createFlightDenied(clsDeniedFlights FlightDenied){
         
             modeloRequerimientoVuelo.createFlightDeined((clsDeniedFlights) FlightDenied);
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    public void createFlightCanceled(clsFlightCancelation FlightDenied){
+        
+            modeloRequerimientoVuelo.createFlightCanceled((clsFlightCancelation) FlightDenied);
     }
     
     //--------------------------------------------------------------------------

@@ -1,6 +1,7 @@
 package Model;
 
 import Classes.clsDeniedFlights;
+import Classes.clsFlightCancelation;
 import Classes.clsFlightRequirements;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -67,6 +68,37 @@ public class modelFlight_Airline {
             preparedStatement.setString(8, FlightRequirement.getTripulación());
             preparedStatement.setString(9, FlightRequirement.getDestino());
             preparedStatement.setString(10, FlightRequirement.getDespricion());
+            
+            int AffectedRows = preparedStatement.executeUpdate();
+            
+            if(AffectedRows>0){
+                System.out.println("FlightDeined registered.");
+            }
+            return false;
+        }
+        catch (Exception e) {
+            System.out.println("Error saving: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    public boolean createFlightCanceled(clsFlightCancelation FlightRequirement){
+        try(Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())){
+            String query = "INSERT INTO `tb_flight_cancelation`(`code_flight`, `model_plane`, `type_flight`, `flight_selection`, `capacity`, `crew_plane`, "
+                          + "`date_flight`, `time_flight`, `destination`, `description`, `id_airline`) VALUES (?,?,?,?,?,?,?,?,?,?,'1')";
+            PreparedStatement preparedStatement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, FlightRequirement.getCodigoVuelo());
+            preparedStatement.setString(6, FlightRequirement.getModeloAvion());
+            preparedStatement.setString(2, FlightRequirement.getTipoVuelo());
+            preparedStatement.setString(3, FlightRequirement.getSalidaLlegada());
+            preparedStatement.setString(7, FlightRequirement.getCapacidadCarga());
+            preparedStatement.setString(8, FlightRequirement.getTripulación());
+            preparedStatement.setString(4, FlightRequirement.getFecha());
+            preparedStatement.setString(5, FlightRequirement.getHora());
+            preparedStatement.setString(9, FlightRequirement.getDestino());
+            preparedStatement.setString(10, FlightRequirement.getDescripcion());
             
             int AffectedRows = preparedStatement.executeUpdate();
             
