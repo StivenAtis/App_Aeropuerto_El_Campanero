@@ -152,6 +152,40 @@ public class modelFlight_Agenda {
     
     //--------------------------------------------------------------------------
     
+    public clsFlightAgendaReprogramation readFlightAgendaReprogramation(String id){
+        try (Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
+            String query ="SELECT `id`, `code_flight`, `type_flight`, `flight_selection`, `crew_plane`, `destination`, `runway`, `date_flight`, "
+                          + "`time_flight`, `description`, `id_airline` FROM `tb_flight_reprogramation` WHERE code_flight = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            
+            preparedStatement.setString(1, id);
+            
+            ResultSet rs = preparedStatement.executeQuery();
+            
+            if(rs.next()){
+                clsFlightAgendaReprogramation Flight_obtained = new clsFlightAgendaReprogramation(
+                rs.getInt("id"),
+                rs.getString("code_flight"),
+                rs.getString("Type_flight"),
+                rs.getString("flight_selection"),
+                rs.getString("crew_plane"),
+                rs.getString("destination"),
+                rs.getString("runway"),
+                rs.getString("date_flight"),
+                rs.getString("time_flight"),
+                rs.getString("description"),
+                rs.getString("id_airline"));
+                return Flight_obtained;
+            }
+            return null;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
     public boolean updateFlightAgenda(clsFlightAgenda vuelo) {
         
         try(Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {

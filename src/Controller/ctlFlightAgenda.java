@@ -50,6 +50,13 @@ public class ctlFlightAgenda {
     
     //--------------------------------------------------------------------------
     
+    public clsFlightAgendaReprogramation readFlightAgendaReprogramation(String codeFlight){
+        
+        return modeloAgendaVuelo.readFlightAgendaReprogramation(codeFlight);       
+    }
+    
+    //--------------------------------------------------------------------------
+    
     public boolean updateFlightResquest(clsFlightAgenda codeFlight){
         
             return modeloAgendaVuelo.updateFlightAgenda((clsFlightAgenda) codeFlight);
