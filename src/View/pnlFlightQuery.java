@@ -243,7 +243,7 @@ public class pnlFlightQuery extends javax.swing.JPanel {
                 clsFlightCancelationAirline FlightRequirementsSearch = controlFlightAgenda.readFlightAirlineCancelation(codigoVueloEncontrado);
                 clsFlightCancelationAgenda FlightRequirementsSearchAgenda = controlFlightAgenda.readFlightAgendaCancelation(codigoVueloEncontrado);
                 
-                if (FlightRequirementsSearchAgenda == null ) {
+                if (FlightRequirementsSearchAgenda == null && FlightRequirementsSearch == null) {
                     JOptionPane.showMessageDialog(this, "¡No existe datos para el vuelo con codigo: " + codigoVueloEncontrado + "!");
                     cleanRegisterQuestionnaire();
                 } else {
