@@ -289,7 +289,11 @@ public class pnlRescheduleFlight extends javax.swing.JPanel {
         comboBoxMinutesFirst.setSelectedIndex(0);
         comboBoxPistaAterrizaje.setSelectedIndex(0);
         comboBoxPistaDespegue.setSelectedIndex(0);
+        comboBoxPistaDespegue.setEnabled(false);
+        comboBoxPistaAterrizaje.setEnabled(false);
         txtAreaReprogramacion.setText("");
+        btnAterrizaje.setSelected(false);
+        btnDespegue.setSelected(false);
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     //--------------------------------------------------------------------------
@@ -310,14 +314,14 @@ public class pnlRescheduleFlight extends javax.swing.JPanel {
             String hora = comboBoxHourFirst.getSelectedItem().toString();
             String minuto = comboBoxMinutesFirst.getSelectedItem().toString();
 
-            if(anio.equals("Year") || mes.equals("Month") || dia.equals("Day")){
-                JOptionPane.showMessageDialog(this, "¡Debe seleccionar una fecha valida!");
-            }
-            if(hora.equals("Hour") || minuto.equals("Minutes")){
-                JOptionPane.showMessageDialog(this, "¡Debe ingresar una hora valida del vuelo!");
+            if(anio.equals("Year") || mes.equals("Month") || dia.equals("Day") || hora.equals("Hour") || minuto.equals("Minutes")){
+                JOptionPane.showMessageDialog(this, "¡Debe seleccionar una fecha y hora valida!");
             }
             if(txtAreaReprogramacion.getText().equals("")){
                 JOptionPane.showMessageDialog(this, "¡Debe añadir un motivo para la reprogramación del vuelo!");
+            }
+            if(btnAterrizaje.isSelected()==false && btnDespegue.isSelected()==false){
+                    JOptionPane.showMessageDialog(this, "¡Debe seleccionar una pista para el vuelo!");
             }
 
             else{   
@@ -379,14 +383,18 @@ public class pnlRescheduleFlight extends javax.swing.JPanel {
                 else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) < currentDate.getDayOfMonth()){
                     JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
                 }
-
+                
+                
                 else if (Integer.parseInt(anioVuelo) >= currentDate.getYear() ){
-                    
-                    clsFlightAgenda FlightRequirementsSearch = controller.readFlightAgenda(codigo);
-                    
-                    if(!"Sleccione pista".equals(pistaDespegue)){
 
-                        clsFlightAgenda FlightRequirements_update = new clsFlightAgenda(0, codigo, "", "", "", "", pistaDespegue, fecha, tiempo, "");
+                    if(btnDespegue.isSelected()==true){
+                        
+                        clsFlightAgenda FlightRequirementsSearch = controller.readFlightAgenda(codigo);
+                        //comboBoxPistaDespegue.setSelectedItem(FlightRequirementsSearch.getPista());
+                        comboBoxPistaAterrizaje.setSelectedIndex(0);
+                        
+                        String pistaVueloDespegue = comboBoxPistaDespegue.getSelectedItem().toString();
+                        clsFlightAgenda FlightRequirements_update = new clsFlightAgenda(0, codigo, "", "", "", "", pistaVueloDespegue, fecha, tiempo, "");
                         
                         if(controller.updateFlightResquest(FlightRequirements_update)){
                             Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
@@ -400,7 +408,7 @@ public class pnlRescheduleFlight extends javax.swing.JPanel {
                             String destino = flightSearched.getDestino();
                             String descripcion = txtAreaReprogramacion.getText();
                             
-                            clsFlightAgendaReprogramation FlightRepr_create = new clsFlightAgendaReprogramation(0, codigo, tipoVuelo, claseVuelo, tripulacion, destino, pistaDespegue, fecha, tiempo, descripcion, "");
+                            clsFlightAgendaReprogramation FlightRepr_create = new clsFlightAgendaReprogramation(0, codigo, tipoVuelo, claseVuelo, tripulacion, destino, pistaVueloDespegue, fecha, tiempo, descripcion, "");
                             controller.createFlightAgendaRepr(FlightRepr_create);
                             
                             cleanRegisterQuestionnaire();
@@ -411,9 +419,14 @@ public class pnlRescheduleFlight extends javax.swing.JPanel {
                           JOptionPane.showMessageDialog(this, "¡An error occurred while updating!");  
                         }
                     }
-                    else if(!"Sleccione pista".equals(pistaAterrizaje)) {
-
-                        clsFlightAgenda FlightRequirements_update = new clsFlightAgenda(0, codigo, "", "", "", "", pistaAterrizaje, fecha, tiempo, "");
+                    else if(btnAterrizaje.isSelected()==true) {
+                        
+                        clsFlightAgenda FlightRequirementsSearch = controller.readFlightAgenda(codigo);
+                        //comboBoxPistaAterrizaje.setSelectedItem(FlightRequirementsSearch.getPista());
+                        comboBoxPistaDespegue.setSelectedIndex(0);
+                        
+                        String pistaVueloAterrizaje = comboBoxPistaAterrizaje.getSelectedItem().toString();
+                        clsFlightAgenda FlightRequirements_update = new clsFlightAgenda(0, codigo, "", "", "", "", pistaVueloAterrizaje, fecha, tiempo, "");
 
                         if(controller.updateFlightResquest(FlightRequirements_update)){
                             Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
@@ -427,7 +440,7 @@ public class pnlRescheduleFlight extends javax.swing.JPanel {
                             String destino = flightSearched.getDestino();
                             String descripcion = txtAreaReprogramacion.getText();
                             
-                            clsFlightAgendaReprogramation FlightRepr_create = new clsFlightAgendaReprogramation(0, codigo, tipoVuelo, claseVuelo, tripulacion, destino, pistaAterrizaje, fecha, tiempo, descripcion, "");
+                            clsFlightAgendaReprogramation FlightRepr_create = new clsFlightAgendaReprogramation(0, codigo, tipoVuelo, claseVuelo, tripulacion, destino, pistaVueloAterrizaje, fecha, tiempo, descripcion, "");
                             controller.createFlightAgendaRepr(FlightRepr_create);
                             
                             cleanRegisterQuestionnaire();
@@ -436,14 +449,17 @@ public class pnlRescheduleFlight extends javax.swing.JPanel {
                           JOptionPane.showMessageDialog(this, "¡An error occurred while updating!");  
                         }
                     }
-
-
                 }
                 else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) > currentDate.getDayOfMonth()){
 
-                    if(!"Sleccione pista".equals(pistaDespegue)){
-
-                        clsFlightAgenda FlightRequirements_update = new clsFlightAgenda(0, codigo, "", "", "", "", pistaDespegue, fecha, tiempo, "");
+                    if(btnDespegue.isSelected()==true){
+                        
+                        clsFlightAgenda FlightRequirementsSearch = controller.readFlightAgenda(codigo);
+                        //comboBoxPistaDespegue.setSelectedItem(FlightRequirementsSearch.getPista());
+                        comboBoxPistaAterrizaje.setSelectedIndex(0);
+                        
+                        String pistaVueloDespegue = comboBoxPistaDespegue.getSelectedItem().toString();
+                        clsFlightAgenda FlightRequirements_update = new clsFlightAgenda(0, codigo, "", "", "", "", pistaVueloDespegue, fecha, tiempo, "");
 
                         if(controller.updateFlightResquest(FlightRequirements_update)){
                             Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
@@ -457,7 +473,7 @@ public class pnlRescheduleFlight extends javax.swing.JPanel {
                             String destino = flightSearched.getDestino();
                             String descripcion = txtAreaReprogramacion.getText();
                             
-                            clsFlightAgendaReprogramation FlightRepr_create = new clsFlightAgendaReprogramation(0, codigo, tipoVuelo, claseVuelo, tripulacion, destino, pistaDespegue, fecha, tiempo, descripcion, "");
+                            clsFlightAgendaReprogramation FlightRepr_create = new clsFlightAgendaReprogramation(0, codigo, tipoVuelo, claseVuelo, tripulacion, destino, pistaVueloDespegue, fecha, tiempo, descripcion, "");
                             controller.createFlightAgendaRepr(FlightRepr_create);
                             
                             cleanRegisterQuestionnaire();
@@ -466,9 +482,14 @@ public class pnlRescheduleFlight extends javax.swing.JPanel {
                           JOptionPane.showMessageDialog(this, "¡An error occurred while updating!");  
                         }
                     }
-                    else if(!"Sleccione pista".equals(pistaAterrizaje)) {
-
-                        clsFlightAgenda FlightRequirements_update = new clsFlightAgenda(0, codigo, "", "", "", "", pistaAterrizaje, fecha, tiempo, "");
+                    else if(btnAterrizaje.isSelected()==true) {
+                        
+                        clsFlightAgenda FlightRequirementsSearch = controller.readFlightAgenda(codigo);
+                        //comboBoxPistaAterrizaje.setSelectedItem(FlightRequirementsSearch.getPista());
+                        comboBoxPistaDespegue.setSelectedIndex(0);
+                        
+                        String pistaVueloAterrizaje = comboBoxPistaAterrizaje.getSelectedItem().toString();
+                        clsFlightAgenda FlightRequirements_update = new clsFlightAgenda(0, codigo, "", "", "", "", pistaVueloAterrizaje, fecha, tiempo, "");
 
                         if(controller.updateFlightResquest(FlightRequirements_update)){
                             Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
@@ -482,7 +503,7 @@ public class pnlRescheduleFlight extends javax.swing.JPanel {
                             String destino = flightSearched.getDestino();
                             String descripcion = txtAreaReprogramacion.getText();
                             
-                            clsFlightAgendaReprogramation FlightRepr_create = new clsFlightAgendaReprogramation(0, codigo, tipoVuelo, claseVuelo, tripulacion, destino, pistaAterrizaje, fecha, tiempo, descripcion, "");
+                            clsFlightAgendaReprogramation FlightRepr_create = new clsFlightAgendaReprogramation(0, codigo, tipoVuelo, claseVuelo, tripulacion, destino, pistaVueloAterrizaje, fecha, tiempo, descripcion, "");
                             controller.createFlightAgendaRepr(FlightRepr_create);
                             
                             cleanRegisterQuestionnaire();
@@ -503,12 +524,10 @@ public class pnlRescheduleFlight extends javax.swing.JPanel {
         if(btnAterrizaje.isSelected()==true){
             btnDespegue.setSelected(false);
             comboBoxPistaAterrizaje.setEnabled(true);
-            comboBoxPistaAterrizaje.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{ "Seleccione pista","pista - 01A","pista - 03A","pista - 06A","pista - 09A","pista - 012A"}));
-            comboBoxPistaDespegue.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{ "Seleccione pista"}));
+            comboBoxPistaDespegue.setSelectedIndex(0);
+            comboBoxPistaDespegue.setEnabled(false);
         }
         else{
-            comboBoxPistaAterrizaje.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{ "Seleccione pista"}));
-            comboBoxPistaDespegue.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{ "Seleccione pista"}));
             comboBoxPistaAterrizaje.setEnabled(false);
         }
     }//GEN-LAST:event_btnAterrizajeActionPerformed
@@ -518,12 +537,11 @@ public class pnlRescheduleFlight extends javax.swing.JPanel {
         if(btnDespegue.isSelected()==true){
             btnAterrizaje.setSelected(false);
             comboBoxPistaDespegue.setEnabled(true);
-            comboBoxPistaDespegue.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione pista", "pista - 01B","pista - 03B","pista - 06B","pista - 09B","pista - 012B"}));
-            comboBoxPistaAterrizaje.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{ "Seleccione pista"}));
+            comboBoxPistaAterrizaje.setSelectedIndex(0);
+            comboBoxPistaAterrizaje.setEnabled(false);
+            
         }
         else{
-            comboBoxPistaAterrizaje.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{ "Seleccione pista"}));
-            comboBoxPistaDespegue.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{ "Seleccione pista"}));
             comboBoxPistaDespegue.setEnabled(false);
         }
     }//GEN-LAST:event_btnDespegueActionPerformed
@@ -538,9 +556,15 @@ public class pnlRescheduleFlight extends javax.swing.JPanel {
         comboBoxHourFirst.setSelectedIndex(0);
         comboBoxMinutesFirst.setSelectedIndex(0);
         comboBoxPistaAterrizaje.setSelectedIndex(0);
+        comboBoxPistaAterrizaje.setEnabled(false);
         comboBoxPistaDespegue.setSelectedIndex(0);
+        comboBoxPistaDespegue.setEnabled(false);
         txtAreaReprogramacion.setText("");
+        btnAterrizaje.setSelected(false);
+        btnDespegue.setSelected(false);
     }
+    
+    //--------------------------------------------------------------------------
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton btnAterrizaje;
