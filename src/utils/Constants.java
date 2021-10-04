@@ -100,6 +100,7 @@ public class Constants {
     public static final String PANEL_CANCELFLIGHT = "pnlCancelFlight";
     public static final String PANEL_REFUSEFLIGHT = "pnlRefuseFlight";
     public static final String PANEL_REPORTS = "pnlReports";
+    public static final String PANEL_CANCEL_FLIGHT_AIRPORT = "pnlCancelFlightAirport";
     
     public static final String PANEL_SCHUDELEDFLIGHTSAIRLINE = "pnlScheduledFlightsAirline";
     public static final String PANEL_FLIGHTSREQUIREDAIRLINE = "pnlFlightsRequiredAirline";

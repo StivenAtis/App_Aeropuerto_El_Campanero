@@ -41,6 +41,7 @@ public class frmAirport extends javax.swing.JFrame {
     private pnlRescheduleFlight pnlRescheduleFlight;
     private pnlQueryFlight_Airport pnlCancelFlight;
     private pnlRefuseFlight pnlRefuseFlight;
+    private pnlCancelFlightAirport pnlCancelFlightAirport;
     private pnlReports pnlReports;
 
     //--------------------------------------------------------------------------
@@ -859,7 +860,12 @@ public class frmAirport extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarVueloMouseExited
 
     private void btnCancelarVueloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarVueloActionPerformed
-        // TODO add your handling code here:
+        
+        pnlCancelFlightAirport = new pnlCancelFlightAirport();
+        this.loadPanel(pnlCancelFlightAirport);
+        setMyPanelActive(Constants.PANEL_CANCEL_FLIGHT_AIRPORT);
+        changeIconSubtitleBar(Constants.TITLE_ABORTFLIGHTS, Constants.ICON_CANCELFLIGHT);
+        btnHome.setVisible(true);
     }//GEN-LAST:event_btnCancelarVueloActionPerformed
 
     //--------------------------------------------------------------------------
