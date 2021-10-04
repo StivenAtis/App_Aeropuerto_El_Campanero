@@ -3,6 +3,7 @@ package Controller;
 import Classes.clsDeniedFlights;
 import Classes.clsFlightAgenda;
 import Classes.clsFlightAgendaReprogramation;
+import Classes.clsFlightCancelationAgenda;
 import Model.modelFlight_Agenda;
 import java.util.LinkedList;
 
@@ -36,6 +37,13 @@ public class ctlFlightAgenda {
     
     //--------------------------------------------------------------------------
     
+    public void createFlightAgendaCancelation(clsFlightCancelationAgenda FlightAgenda){
+        
+            modeloAgendaVuelo.createFlightAgendaCancelation((clsFlightCancelationAgenda) FlightAgenda);
+    }
+    
+    //--------------------------------------------------------------------------
+    
     public clsFlightAgenda readFlightAgenda(String codeFlight){
         
         return modeloAgendaVuelo.readFlightAgenda(codeFlight);       
@@ -53,6 +61,13 @@ public class ctlFlightAgenda {
     public clsFlightAgendaReprogramation readFlightAgendaReprogramation(String codeFlight){
         
         return modeloAgendaVuelo.readFlightAgendaReprogramation(codeFlight);       
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    public clsFlightCancelationAgenda readFlightAgendaCancelation(String codeFlight){
+        
+        return modeloAgendaVuelo.readFlightAgendaCancelatio(codeFlight);       
     }
     
     //--------------------------------------------------------------------------

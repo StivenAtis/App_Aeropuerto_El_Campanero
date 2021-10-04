@@ -90,13 +90,13 @@ public class modelFlight_Airline {
                           + "`date_flight`, `time_flight`, `destination`, `description`, `id_airline`) VALUES (?,?,?,?,?,?,?,?,?,?,'1')";
             PreparedStatement preparedStatement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, FlightRequirement.getCodigoVuelo());
-            preparedStatement.setString(6, FlightRequirement.getModeloAvion());
-            preparedStatement.setString(2, FlightRequirement.getTipoVuelo());
-            preparedStatement.setString(3, FlightRequirement.getSalidaLlegada());
-            preparedStatement.setString(7, FlightRequirement.getCapacidadCarga());
-            preparedStatement.setString(8, FlightRequirement.getTripulación());
-            preparedStatement.setString(4, FlightRequirement.getFecha());
-            preparedStatement.setString(5, FlightRequirement.getHora());
+            preparedStatement.setString(2, FlightRequirement.getModeloAvion());
+            preparedStatement.setString(3, FlightRequirement.getTipoVuelo());
+            preparedStatement.setString(4, FlightRequirement.getSalidaLlegada());
+            preparedStatement.setString(5, FlightRequirement.getCapacidadCarga());
+            preparedStatement.setString(6, FlightRequirement.getTripulación());
+            preparedStatement.setString(7, FlightRequirement.getFecha());
+            preparedStatement.setString(8, FlightRequirement.getHora());
             preparedStatement.setString(9, FlightRequirement.getDestino());
             preparedStatement.setString(10, FlightRequirement.getDescripcion());
             
