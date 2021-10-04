@@ -116,6 +116,41 @@ public class modelFlight_Airline {
     
     //--------------------------------------------------------------------------
     
+    public clsDeniedFlights readFlightDenied(String id){
+        try (Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
+            String query ="SELECT `id`, `code_flight`, `Type_flight`, `flight_selection`, `date_flight`, `time_flight`, `model_plane`, `capacity_plane`, "
+                          + "`crew_plane`, `destiny`, `description`, `id_airline` FROM `tb_flight_declined` WHERE code_flight = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            
+            preparedStatement.setString(1, id);
+            
+            ResultSet rs = preparedStatement.executeQuery();
+            
+            if(rs.next()){
+                clsDeniedFlights Flight_obtained = new clsDeniedFlights(
+                rs.getInt("id"),
+                rs.getString("code_flight"),
+                rs.getString("Type_flight"),
+                rs.getString("flight_selection"),
+                rs.getString("date_flight"),
+                rs.getString("time_flight"),
+                rs.getString("model_plane"),
+                rs.getString("capacity_plane"),
+                rs.getString("crew_plane"),
+                rs.getString("destiny"),
+                rs.getString("description"),
+                rs.getString("id_airline"));
+                return Flight_obtained;
+            }
+            return null;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
     public boolean updateFlightResquest(clsFlightRequirements vuelo) {
         
         try(Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {

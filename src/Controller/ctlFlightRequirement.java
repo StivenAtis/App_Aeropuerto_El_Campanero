@@ -44,6 +44,13 @@ public class ctlFlightRequirement {
     
     //--------------------------------------------------------------------------
     
+    public clsDeniedFlights readFlightDenied(String codeFlight){
+        
+        return modeloRequerimientoVuelo.readFlightDenied(codeFlight);       
+    }
+    
+    //--------------------------------------------------------------------------
+    
     public boolean updateFlightResquest (clsFlightRequirements Payment){
         
             return modeloRequerimientoVuelo.updateFlightResquest((clsFlightRequirements) Payment);
