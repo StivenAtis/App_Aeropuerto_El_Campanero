@@ -203,7 +203,6 @@ public class pnlScheduleFlight extends javax.swing.JPanel {
         lbPistaD.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbPistaD.setText("Seleccione");
         lbPistaD.setToolTipText("");
-        lbPistaD.setEnabled(false);
         add(lbPistaD, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 610, 360, 50));
 
         lbPistaA.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
