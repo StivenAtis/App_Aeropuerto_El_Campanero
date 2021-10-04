@@ -1,21 +1,42 @@
 package View;
 
+import Classes.clsTimeTable;
+import Controller.ctlFlightAgenda;
+import java.time.LocalDate;
+import java.util.LinkedList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import utils.Constants;
+
 /**
  *
  * @author Booh
  */
 public class pnlFlightCalendar extends javax.swing.JPanel {
 
+    //--------------------------------------------------------------------------
+    
+    private ctlFlightAgenda controller = null;
+    private LinkedList<clsTimeTable> list;
+    
+    LocalDate currentDate = LocalDate.now();
+    
+    //--------------------------------------------------------------------------
+    
     public pnlFlightCalendar() {
         initComponents();
+        controller = new ctlFlightAgenda();
+        fillDataTable();
     }
 
+    //--------------------------------------------------------------------------
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblCustomers = new javax.swing.JTable();
+        tblAgenda = new javax.swing.JTable();
         lbVueloS = new javax.swing.JLabel();
         lbVueloS2 = new javax.swing.JLabel();
         lbVueloS1 = new javax.swing.JLabel();
@@ -46,8 +67,8 @@ public class pnlFlightCalendar extends javax.swing.JPanel {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tblCustomers.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tblCustomers.setModel(new javax.swing.table.DefaultTableModel(
+        tblAgenda.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tblAgenda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -85,18 +106,18 @@ public class pnlFlightCalendar extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblCustomers.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblAgenda.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblCustomersMouseClicked(evt);
+                tblAgendaMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tblCustomers);
-        if (tblCustomers.getColumnModel().getColumnCount() > 0) {
-            tblCustomers.getColumnModel().getColumn(0).setResizable(false);
-            tblCustomers.getColumnModel().getColumn(1).setResizable(false);
-            tblCustomers.getColumnModel().getColumn(2).setResizable(false);
-            tblCustomers.getColumnModel().getColumn(3).setResizable(false);
-            tblCustomers.getColumnModel().getColumn(4).setResizable(false);
+        jScrollPane1.setViewportView(tblAgenda);
+        if (tblAgenda.getColumnModel().getColumnCount() > 0) {
+            tblAgenda.getColumnModel().getColumn(0).setResizable(false);
+            tblAgenda.getColumnModel().getColumn(1).setResizable(false);
+            tblAgenda.getColumnModel().getColumn(2).setResizable(false);
+            tblAgenda.getColumnModel().getColumn(3).setResizable(false);
+            tblAgenda.getColumnModel().getColumn(4).setResizable(false);
         }
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 1160, 170));
@@ -176,18 +197,33 @@ public class pnlFlightCalendar extends javax.swing.JPanel {
         btnCrearAgenda.setContentAreaFilled(false);
         btnCrearAgenda.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/agenda_crear_min.png"))); // NOI18N
         btnCrearAgenda.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/agenda_crear_max.png"))); // NOI18N
+        btnCrearAgenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearAgendaActionPerformed(evt);
+            }
+        });
         add(btnCrearAgenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 620, 330, 130));
 
         btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Limpiar_min.png"))); // NOI18N
         btnLimpiar.setContentAreaFilled(false);
         btnLimpiar.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Limpiar_min.png"))); // NOI18N
         btnLimpiar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Limpiar_max.png"))); // NOI18N
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
         add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 620, 330, 130));
 
         btnBorrarAgenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/agenda_borrar_min.png"))); // NOI18N
         btnBorrarAgenda.setContentAreaFilled(false);
         btnBorrarAgenda.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/agenda_borrar_min.png"))); // NOI18N
         btnBorrarAgenda.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/agenda_borrar_min (1).png"))); // NOI18N
+        btnBorrarAgenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarAgendaActionPerformed(evt);
+            }
+        });
         add(btnBorrarAgenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 620, 330, 130));
 
         lbVueloS8.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
@@ -245,22 +281,180 @@ public class pnlFlightCalendar extends javax.swing.JPanel {
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 790));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tblCustomersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCustomersMouseClicked
-        int row = tblCustomers.getSelectedRow();
-        String id = tblCustomers.getValueAt(row, 0).toString();
+    //--------------------------------------------------------------------------
+    
+    private void fillDataTable() {
+         
+        list = controller.listTimeTable();
+        String datos[][] = new String[list.size()][5];
+        
+        if(list.size() > 0) {
+            for (int i = 0; i < list.size(); i++) {
+                datos[i][Constants.CODE_TIME_TABLE] = list.get(i).getCodigo();
+                datos[i][Constants.DATE_TIME_TABLE] = list.get(i).getDate();
+                datos[i][Constants.TIME_TIME_TABLE] = list.get(i).getTime();
+                datos[i][Constants.RUNWAY_TAKEOFF_TIME_TABLE] = list.get(i).getRunway_takeoff();
+                datos[i][Constants.RUNWAY_LANDING_TIME_TABLE] = list.get(i).getRunway_landing();
+            }        
+        }        
+        String[] columns = {
+            "CODIGO", "FECHA", "HORA", "PISTA ATERRIZAJE", "PISTA DESPEGUE"
+        };
+        DefaultTableModel model = new DefaultTableModel(datos, columns);
+        int[] columnSize = {30, 50, 50, 50, 50};
+        for(int x=0; x<columnSize.length;x++)
+            tblAgenda.getColumnModel().getColumn(x).setPreferredWidth(columnSize[x]);
+        tblAgenda.setRowHeight(30);
+        tblAgenda.setModel(model);
+    } 
+    
+    //--------------------------------------------------------------------------
+    
+    private void tblAgendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAgendaMouseClicked
+        int row = tblAgenda.getSelectedRow();
+        String id = tblAgenda.getValueAt(row, 0).toString();
+    }//GEN-LAST:event_tblAgendaMouseClicked
 
-        //        CustomerVO customer = controller.read(Integer.parseInt(id));
+    //--------------------------------------------------------------------------
+    
+    private void btnCrearAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearAgendaActionPerformed
+        
+        String anioVuelo = comboBoxYearFirst.getSelectedItem().toString();
+        String mesVuelo = comboBoxMonthFirst.getSelectedItem().toString();
+        String diaVuelo = comboBoxDayFirst.getSelectedItem().toString();
+        String horaVuelo = comboBoxHourFirst.getSelectedItem().toString();
+        String minutoVuelo = comboBoxMinutesFirst.getSelectedItem().toString();
+        String mesNumberFirst = "";
+        
+        if(mesVuelo.equals("January")){
+            mesNumberFirst = "1";
+        }
+        if(mesVuelo.equals("February")){
+            mesNumberFirst = "2";
+        }
+        if(mesVuelo.equals("March")){
+            mesNumberFirst = "3";
+        }
+        if(mesVuelo.equals("April")){
+            mesNumberFirst = "4";
+        }
+        if(mesVuelo.equals("may")){
+            mesNumberFirst = "5";
+        }
+        if(mesVuelo.equals("June")){
+            mesNumberFirst = "6";
+        }
+        if(mesVuelo.equals("July")){
+            mesNumberFirst = "7";
+        }
+        if(mesVuelo.equals("August")){
+            mesNumberFirst = "8";
+        }
+        if(mesVuelo.equals("September")){
+            mesNumberFirst = "9";
+        }
+        if(mesVuelo.equals("October")){
+            mesNumberFirst = "10";
+        }
+        if(mesVuelo.equals("November")){
+            mesNumberFirst = "11";
+        }
+        if(mesVuelo.equals("December")){
+            mesNumberFirst = "12";
+        }
 
-        //        if(customer.getId() > 0) {
-            //            txtCustomerID.setText(String.valueOf(customer.getId()));
-            //            txtName.setText(customer.getName());
-            //            txtLastname.setText(customer.getLastname());
-            //            txtAddress.setText(customer.getAddress());
-            //            txtPhone.setText(customer.getPhone());
-            //            txtEmail.setText(customer.getEmail());
-            //        }
-    }//GEN-LAST:event_tblCustomersMouseClicked
+        String fecha = anioVuelo + "-" + mesNumberFirst + "-" + diaVuelo;
+        String tiempo = horaVuelo + ":" + minutoVuelo + ":" + "00";
 
+
+        if (Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumberFirst) < currentDate.getMonthValue()) {
+            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+        }
+        else if(Integer.parseInt(anioVuelo) < currentDate.getYear()){
+            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+        }
+        else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumberFirst) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) < currentDate.getDayOfMonth()){
+            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+        }
+        else if (Integer.parseInt(anioVuelo) >= currentDate.getYear() ){
+
+        }
+        else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumberFirst) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) > currentDate.getDayOfMonth()){
+            
+        }
+
+    }//GEN-LAST:event_btnCrearAgendaActionPerformed
+
+    //--------------------------------------------------------------------------
+    
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        
+        comboBoxDayFirst.setSelectedIndex(0);
+        comboBoxDaySecond.setSelectedIndex(0);
+        comboBoxMonthFirst.setSelectedIndex(0);
+        comboBoxMonthSecond.setSelectedIndex(0);
+        comboBoxYearFirst.setSelectedIndex(0);
+        comboBoxYearSecond.setSelectedIndex(0);
+        comboBoxHourFirst.setSelectedIndex(0);
+        comboBoxHourSecond.setSelectedIndex(0);
+        comboBoxMinutesFirst.setSelectedIndex(0);
+        comboBoxMinutesSecond.setSelectedIndex(0);
+        cbPistaAterrizaje.setSelected(false);
+        cbPistaDespegue.setSelected(false);
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    //--------------------------------------------------------------------------
+    
+    private void btnBorrarAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarAgendaActionPerformed
+        
+        if(tblAgenda.getSelectedRow() == -1){
+                JOptionPane.showMessageDialog(this, "¡Debe seleccionar un vuelo para poderlo cancelar!");
+            }
+            
+            else{
+                
+                if(tblAgenda.getSelectedRow() != -1){
+                    
+                    int fila = tblAgenda.getSelectedRow();
+                    String valor = tblAgenda.getValueAt(fila, 0).toString();
+                    
+                    clsTimeTable agendaCancel = new clsTimeTable(0, valor, "", "", "", "");
+                    
+                    int respuesta = JOptionPane.showConfirmDialog(this, "¿Está seguro que desea cancelar la agenda?");    
+                    if (respuesta == JOptionPane.OK_OPTION) {
+
+                        if (controller.deleteTimeTable(agendaCancel)) {
+
+                            JOptionPane.showMessageDialog(this, "Agenda cancelada con éxito.");
+                            fillDataTable();
+                        }
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(this, "Ocurrió un error al cancelar, por favor verifique los datos");
+                    }
+                }
+        }
+    }//GEN-LAST:event_btnBorrarAgendaActionPerformed
+
+    //--------------------------------------------------------------------------
+    
+    private void cleanAgendaTableQuestionnaire(){
+        
+        comboBoxDayFirst.setSelectedIndex(0);
+        comboBoxDaySecond.setSelectedIndex(0);
+        comboBoxMonthFirst.setSelectedIndex(0);
+        comboBoxMonthSecond.setSelectedIndex(0);
+        comboBoxYearFirst.setSelectedIndex(0);
+        comboBoxYearSecond.setSelectedIndex(0);
+        comboBoxHourFirst.setSelectedIndex(0);
+        comboBoxHourSecond.setSelectedIndex(0);
+        comboBoxMinutesFirst.setSelectedIndex(0);
+        comboBoxMinutesSecond.setSelectedIndex(0);
+        cbPistaAterrizaje.setSelected(false);
+        cbPistaDespegue.setSelected(false);
+    }
+    
+    //--------------------------------------------------------------------------
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBorrarAgenda;
@@ -291,6 +485,6 @@ public class pnlFlightCalendar extends javax.swing.JPanel {
     private javax.swing.JLabel lbVueloS6;
     private javax.swing.JLabel lbVueloS7;
     private javax.swing.JLabel lbVueloS8;
-    private javax.swing.JTable tblCustomers;
+    private javax.swing.JTable tblAgenda;
     // End of variables declaration//GEN-END:variables
 }

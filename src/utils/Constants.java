@@ -81,6 +81,15 @@ public class Constants {
     public static final int TIME_FLIGHT_REQUEST = 4;
     public static final int DESTINATION_FLIGHT_REQUEST = 5;
     public static final int STATE_FLIGHT_REQUEST = 6;
+    
+    //Constants jTable timeTable
+    public static final int CODE_TIME_TABLE = 0;
+    public static final int DATE_TIME_TABLE = 1;
+    public static final int TIME_TIME_TABLE = 2;
+    public static final int RUNWAY_TAKEOFF_TIME_TABLE = 3;
+    public static final int RUNWAY_LANDING_TIME_TABLE = 4;
+    
+    
     //Constants jTable Plans
     public static final int ID_PLAN = 0;
     public static final int CODE_PLAN = 1;
