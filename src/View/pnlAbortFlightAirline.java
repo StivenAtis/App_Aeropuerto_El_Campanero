@@ -41,7 +41,7 @@ public class pnlAbortFlightAirline extends javax.swing.JPanel {
         btnLimpiar = new javax.swing.JButton();
         btnVuelosAgendados = new javax.swing.JRadioButton();
         btnVuelosSolicitados = new javax.swing.JRadioButton();
-        lbVueloS = new javax.swing.JLabel();
+        lbVueloTITLE = new javax.swing.JLabel();
         lbVueloS8 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtAreaCancelacion = new javax.swing.JTextArea();
@@ -67,7 +67,7 @@ public class pnlAbortFlightAirline extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Codigo", "Tipo", "Clase", "Fecha", "Hora", "null", "null", "Destino", "Pista de avión"
+                "Codigo", "Tipo", "Clase", "Fecha", "Hora", "Modelo A.", "Capacidad A.", "Destino", "Pista de avión"
             }
         ) {
             Class[] types = new Class [] {
@@ -129,12 +129,12 @@ public class pnlAbortFlightAirline extends javax.swing.JPanel {
         });
         add(btnVuelosSolicitados, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, -1, -1));
 
-        lbVueloS.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        lbVueloS.setForeground(new java.awt.Color(255, 255, 255));
-        lbVueloS.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbVueloS.setText("Vuelos Agendados");
-        lbVueloS.setToolTipText("");
-        add(lbVueloS, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 160, 40));
+        lbVueloTITLE.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        lbVueloTITLE.setForeground(new java.awt.Color(255, 255, 255));
+        lbVueloTITLE.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbVueloTITLE.setText("Vuelos");
+        lbVueloTITLE.setToolTipText("");
+        add(lbVueloTITLE, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 160, 40));
 
         lbVueloS8.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         lbVueloS8.setForeground(new java.awt.Color(255, 255, 255));
@@ -245,7 +245,26 @@ public class pnlAbortFlightAirline extends javax.swing.JPanel {
         if(btnVuelosSolicitados.isSelected() == true){
             btnVuelosAgendados.setSelected(false);
             
+            lbVueloTITLE.setText("Vuelos solicitados");
+            
             fillDataTable();
+        }
+        else{
+            
+            if(btnVuelosSolicitados.isSelected() == false && btnVuelosAgendados.isSelected()==false){
+                String[] columns = {
+                "CODIGO", "TIPO", "CLASE", "TRIPULACIÓN", "DESTINO", "FECHA", "HORA", "PISTA DE AVIÓN", "ID AEROLINEA"
+                };
+                DefaultTableModel model = new DefaultTableModel(null, columns);
+                int[] columnSize = {30, 50, 50, 50, 50, 50, 50, 50, 50};
+                for(int x=0; x<columnSize.length;x++)
+                    tblCancelar.getColumnModel().getColumn(x).setPreferredWidth(columnSize[x]);
+                tblCancelar.setRowHeight(30);
+                tblCancelar.setModel(model);
+
+                lbVueloTITLE.setText("Vuelos");
+            
+            } 
         }
     }//GEN-LAST:event_btnVuelosSolicitadosActionPerformed
 
@@ -254,7 +273,27 @@ public class pnlAbortFlightAirline extends javax.swing.JPanel {
         if(btnVuelosAgendados.isSelected() == true){
             btnVuelosSolicitados.setSelected(false);
             
+            lbVueloTITLE.setText("Vuelos agendados");
+            
             fillDataTableAgenda();
+        }
+        
+        else{
+            
+            if(btnVuelosSolicitados.isSelected() == false && btnVuelosAgendados.isSelected()==false){
+                String[] columns = {
+                "CODIGO", "TIPO", "CLASE", "TRIPULACIÓN", "DESTINO", "FECHA", "HORA", "PISTA DE AVIÓN", "ID AEROLINEA"
+                };
+                DefaultTableModel model = new DefaultTableModel(null, columns);
+                int[] columnSize = {30, 50, 50, 50, 50, 50, 50, 50, 50};
+                for(int x=0; x<columnSize.length;x++)
+                    tblCancelar.getColumnModel().getColumn(x).setPreferredWidth(columnSize[x]);
+                tblCancelar.setRowHeight(30);
+                tblCancelar.setModel(model);
+
+                lbVueloTITLE.setText("Vuelos");
+            
+            } 
         }
     }//GEN-LAST:event_btnVuelosAgendadosActionPerformed
 
@@ -389,8 +428,8 @@ public class pnlAbortFlightAirline extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel lbVueloS;
     private javax.swing.JLabel lbVueloS8;
+    private javax.swing.JLabel lbVueloTITLE;
     private javax.swing.JTable tblCancelar;
     private javax.swing.JTextArea txtAreaCancelacion;
     // End of variables declaration//GEN-END:variables

@@ -42,8 +42,8 @@
                 <Column editable="false" title="Clase" type="java.lang.String"/>
                 <Column editable="false" title="Fecha" type="java.lang.String"/>
                 <Column editable="false" title="Hora" type="java.lang.String"/>
-                <Column editable="false" title="null" type="java.lang.Object"/>
-                <Column editable="false" title="null" type="java.lang.Object"/>
+                <Column editable="false" title="Modelo A." type="java.lang.Object"/>
+                <Column editable="false" title="Capacidad A." type="java.lang.Object"/>
                 <Column editable="false" title="Destino" type="java.lang.String"/>
                 <Column editable="false" title="Pista de avi&#xf3;n" type="java.lang.String"/>
               </Table>
@@ -167,7 +167,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="lbVueloS">
+    <Component class="javax.swing.JLabel" name="lbVueloTITLE">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Comic Sans MS" size="18" style="1"/>
@@ -176,7 +176,7 @@
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Vuelos Agendados"/>
+        <Property name="text" type="java.lang.String" value="Vuelos"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
       <Constraints>
