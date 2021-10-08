@@ -36,11 +36,12 @@ Implantar el sistema de gestionar y agendar vuelos, que le permita a la aerolín
 
 ---
 
+## <p align=center>Implementación:
+
 [Segunda implementación funcional del software ](https://github.com/StivenAtis/App_Aeropuerto_El_Campanero/releases/tag/Sprint)
 
----
 
-[Prueva en tiempo real de bocetos ](https://n9.cl/appcampanero)
+[Prueba en tiempo real de bocetos ](https://n9.cl/appcampanero)
 
 ---
 
