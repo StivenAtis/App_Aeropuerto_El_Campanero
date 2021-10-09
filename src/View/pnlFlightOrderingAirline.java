@@ -433,488 +433,501 @@ public class pnlFlightOrderingAirline extends javax.swing.JPanel {
                 if(codigo.equals("")){
                     JOptionPane.showMessageDialog(this, "¡Debe ingresar el codigo del vuelo!");
                 }
-                if(modeloAvion.equals("Modelo de avión")){
-                    JOptionPane.showMessageDialog(this, "¡Debe seleccionar un modelo de avión!");
-                }
-                if (tipovueloC == false && tipovueloP == false) {
-                    JOptionPane.showMessageDialog(this, "¡Debe seleccionar un tipo de vuelo!");
-                }
-                if (vueloS == false && vueloLl == false) {
-                    JOptionPane.showMessageDialog(this, "¡Debe seleccionar la clase de vuelo!");
-                }
-                if (capacidadAvion.equals("Capacidad de avión")) {
-                    JOptionPane.showMessageDialog(this, "¡Debe seleccionar la capacidad del avión!");
-                }
-                if(tripulacionVuelo.equals("Tripulación de vuelo")){
-                    JOptionPane.showMessageDialog(this, "¡Debe seleccionar una la tripulación para el vuelo!");
-                }
-                if(anio.equals("Year") || mes.equals("Month") || dia.equals("Day")){
-                    JOptionPane.showMessageDialog(this, "¡Debe seleccionar una fecha valida!");
-                }
-                if(hora.equals("Hour") || minuto.equals("Minutes")){
-                    JOptionPane.showMessageDialog(this, "¡Debe ingresar una hora valida del vuelo!");
-                }
-                if(destino.equals("Seleccione Destino")){
-                    JOptionPane.showMessageDialog(this, "¡Debe seleccionar un destino para el vuelo!");
-                }
                 else{
-                    if(tipovueloP==true && vueloS==true && !"".equals(codigo)){
-
-                        String codigoVuelo1 = tfCodigoVuelo.getText();
-                        String destinoVuelo = comboBoxDestino.getSelectedItem().toString();
-                        String modelAvion = comboboxModeloAvion.getSelectedItem().toString();
-                        String capacidadDeAvion = comboBoxCapacidadAvion.getSelectedItem().toString();
-                        String tripulacionDeAvion = comboBoxTripulacionVuelo.getSelectedItem().toString();
-                        String anioVuelo = comboBoxYear.getSelectedItem().toString();
-                        String mesVuelo = comboBoxMonth.getSelectedItem().toString();
-                        String diaVuelo = comboBoxDay.getSelectedItem().toString();
-                        String horaVuelo = comboBoxHour.getSelectedItem().toString();
-                        String minutoVuelo = comboBoxMinutes.getSelectedItem().toString();
-                        String mesNumber = "";
-
-                        if(mesVuelo.equals("January")){
-                            mesNumber = "1";
-                        }
-                        if(mesVuelo.equals("February")){
-                            mesNumber = "2";
-                        }
-                        if(mesVuelo.equals("March")){
-                            mesNumber = "3";
-                        }
-                        if(mesVuelo.equals("April")){
-                            mesNumber = "4";
-                        }
-                        if(mesVuelo.equals("may")){
-                            mesNumber = "5";
-                        }
-                        if(mesVuelo.equals("June")){
-                            mesNumber = "6";
-                        }
-                        if(mesVuelo.equals("July")){
-                            mesNumber = "7";
-                        }
-                        if(mesVuelo.equals("August")){
-                            mesNumber = "8";
-                        }
-                        if(mesVuelo.equals("September")){
-                            mesNumber = "9";
-                        }
-                        if(mesVuelo.equals("October")){
-                            mesNumber = "10";
-                        }
-                        if(mesVuelo.equals("November")){
-                            mesNumber = "11";
-                        }
-                        if(mesVuelo.equals("December")){
-                            mesNumber = "12";
-                        }
-
-                        String fecha = anioVuelo + "-" + mesNumber + "-" + diaVuelo;
-                        String tiempo = horaVuelo + ":" + minutoVuelo + ":" + "00";
-
-
-                        if (Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) < currentDate.getMonthValue()) {
-                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
-                        }
-                        else if(Integer.parseInt(anioVuelo) < currentDate.getYear()){
-                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
-                        }
-                        else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) < currentDate.getDayOfMonth()){
-                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
-                        }
-                        else if (Integer.parseInt(anioVuelo) >= currentDate.getYear() ){
-
-                            clsFlightRequirements solicitarVuelo = new clsFlightRequirements
-                            (0, codigoVuelo, modelAvion, "Vuelo de pasajeros", "Vuelo de salida", capacidadDeAvion, tripulacionDeAvion, fecha, tiempo, destinoVuelo);
-
-                            controlFlightRequirement.createFlightRequirement(solicitarVuelo);
-
-                            DataFly.setText("Datos de vuelo:" + "\n" +
-                                            "\n" +
-                                            "Codigo del vuelo: " + codigoVuelo + "\n" +
-                                            "Tipo de vuelo: Vuelo de pasajeros" + "\n" + 
-                                            "Clase de vuelo: Vuelo de salida" + "\n" + 
-                                            "Modelo de avión: " + modelAvion + "\n" + 
-                                            "Capacidad de almacenaje del avión: " + capacidadDeAvion + " pasajeros" + "\n" + 
-                                            "Tripulación del avión: " + tripulacionDeAvion + "\n" + 
-                                            "Feca de vuelo: " + fecha + "\n" + 
-                                            "Hora de vuelo: " + tiempo + "\n" + 
-                                            "Destino del vuelo: " + destinoVuelo);
-
-                            Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
-                            JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una solicitud de vuelo!!!", "Solicitud realizada satisfactoriamente", WIDTH, m);
-                            showFlightList();
-                            cleanRegisterQuestionnaire();
-                        }
-                        else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) > currentDate.getDayOfMonth()){
-
-                            clsFlightRequirements solicitarVuelo = new clsFlightRequirements
-                            (0, codigoVuelo, modelAvion, "Vuelo de pasajeros", "Vuelo de salida", capacidadDeAvion, tripulacionDeAvion, fecha, tiempo, destinoVuelo);
-
-                            controlFlightRequirement.createFlightRequirement(solicitarVuelo);
-
-                            DataFly.setText("Datos de vuelo:" + "\n" +
-                                            "\n" +
-                                            "Codigo del vuelo: " + codigoVuelo + "\n" +
-                                            "Tipo de vuelo: Vuelo de pasajeros" + "\n" + 
-                                            "Clase de vuelo: Vuelo de salida" + "\n" + 
-                                            "Modelo de avión: " + modelAvion + "\n" + 
-                                            "Capacidad de almacenaje del avión: " + capacidadDeAvion + " pasajeros" + "\n" + 
-                                            "Tripulación del avión: " + tripulacionDeAvion + "\n" + 
-                                            "Feca de vuelo: " + fecha + "\n" + 
-                                            "Hora de vuelo: " + tiempo + "\n" + 
-                                            "Destino del vuelo: " + destinoVuelo);
-
-                            Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
-                            JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una solicitud de vuelo!!!", "Solicitud realizada satisfactoriamente", WIDTH, m);
-                            showFlightList();
-                            cleanRegisterQuestionnaire();
-                        }  
-                    }
                     
-                    
-                        //-----------------------------------------------------------------------------------
+                    if(modeloAvion.equals("Modelo de avión") || tipovueloC == false && tipovueloP == false || vueloS == false && vueloLl == false
+                        || capacidadAvion.equals("Capacidad de avión") || tripulacionVuelo.equals("Tripulación de vuelo") || 
+                        anio.equals("Year") || mes.equals("Month") || dia.equals("Day") || hora.equals("Hour") || minuto.equals("Minutes") || 
+                        destino.equals("Seleccione Destino")){
+                            JOptionPane.showMessageDialog(this, "¡Debe seleccionar todos los datos!");
+                    }
+                
+                
+    //                if(modeloAvion.equals("Modelo de avión")){
+    //                    JOptionPane.showMessageDialog(this, "¡Debe seleccionar un modelo de avión!");
+    //                }
+    //                if (tipovueloC == false && tipovueloP == false) {
+    //                    JOptionPane.showMessageDialog(this, "¡Debe seleccionar un tipo de vuelo!");
+    //                }
+    //                if (vueloS == false && vueloLl == false) {
+    //                    JOptionPane.showMessageDialog(this, "¡Debe seleccionar la clase de vuelo!");
+    //                }
+    //                if (capacidadAvion.equals("Capacidad de avión")) {
+    //                    JOptionPane.showMessageDialog(this, "¡Debe seleccionar la capacidad del avión!");
+    //                }
+    //                if(tripulacionVuelo.equals("Tripulación de vuelo")){
+    //                    JOptionPane.showMessageDialog(this, "¡Debe seleccionar una la tripulación para el vuelo!");
+    //                }
+    //                if(anio.equals("Year") || mes.equals("Month") || dia.equals("Day")){
+    //                    JOptionPane.showMessageDialog(this, "¡Debe seleccionar una fecha valida!");
+    //                }
+    //                if(hora.equals("Hour") || minuto.equals("Minutes")){
+    //                    JOptionPane.showMessageDialog(this, "¡Debe ingresar una hora valida del vuelo!");
+    //                }
+    //                if(destino.equals("Seleccione Destino")){
+    //                    JOptionPane.showMessageDialog(this, "¡Debe seleccionar un destino para el vuelo!");
+    //                }
+                    else{
+                        if(tipovueloP==true && vueloS==true && !"".equals(codigo)){
 
-                        if (tipovueloC==true && vueloLl==true && !"".equals(codigo)) {
+                            String codigoVuelo1 = tfCodigoVuelo.getText();
+                            String destinoVuelo = comboBoxDestino.getSelectedItem().toString();
+                            String modelAvion = comboboxModeloAvion.getSelectedItem().toString();
+                            String capacidadDeAvion = comboBoxCapacidadAvion.getSelectedItem().toString();
+                            String tripulacionDeAvion = comboBoxTripulacionVuelo.getSelectedItem().toString();
+                            String anioVuelo = comboBoxYear.getSelectedItem().toString();
+                            String mesVuelo = comboBoxMonth.getSelectedItem().toString();
+                            String diaVuelo = comboBoxDay.getSelectedItem().toString();
+                            String horaVuelo = comboBoxHour.getSelectedItem().toString();
+                            String minutoVuelo = comboBoxMinutes.getSelectedItem().toString();
+                            String mesNumber = "";
 
-                        String destinoVuelo = comboBoxDestino.getSelectedItem().toString();
-                        String modelAvion = comboboxModeloAvion.getSelectedItem().toString();
-                        String capacidadDeAvion = comboBoxCapacidadAvion.getSelectedItem().toString();
-                        String tripulacionDeAvion = comboBoxTripulacionVuelo.getSelectedItem().toString();
-                        String anioVuelo = comboBoxYear.getSelectedItem().toString();
-                        String mesVuelo = comboBoxMonth.getSelectedItem().toString();
-                        String diaVuelo = comboBoxDay.getSelectedItem().toString();
-                        String horaVuelo = comboBoxHour.getSelectedItem().toString();
-                        String minutoVuelo = comboBoxMinutes.getSelectedItem().toString();
-                        String mesNumber = "";
+                            if(mesVuelo.equals("January")){
+                                mesNumber = "1";
+                            }
+                            if(mesVuelo.equals("February")){
+                                mesNumber = "2";
+                            }
+                            if(mesVuelo.equals("March")){
+                                mesNumber = "3";
+                            }
+                            if(mesVuelo.equals("April")){
+                                mesNumber = "4";
+                            }
+                            if(mesVuelo.equals("may")){
+                                mesNumber = "5";
+                            }
+                            if(mesVuelo.equals("June")){
+                                mesNumber = "6";
+                            }
+                            if(mesVuelo.equals("July")){
+                                mesNumber = "7";
+                            }
+                            if(mesVuelo.equals("August")){
+                                mesNumber = "8";
+                            }
+                            if(mesVuelo.equals("September")){
+                                mesNumber = "9";
+                            }
+                            if(mesVuelo.equals("October")){
+                                mesNumber = "10";
+                            }
+                            if(mesVuelo.equals("November")){
+                                mesNumber = "11";
+                            }
+                            if(mesVuelo.equals("December")){
+                                mesNumber = "12";
+                            }
 
-                        if(mesVuelo.equals("January")){
-                            mesNumber = "1";
-                        }
-                        if(mesVuelo.equals("February")){
-                            mesNumber = "2";
-                        }
-                        if(mesVuelo.equals("March")){
-                            mesNumber = "3";
-                        }
-                        if(mesVuelo.equals("April")){
-                            mesNumber = "4";
-                        }
-                        if(mesVuelo.equals("may")){
-                            mesNumber = "5";
-                        }
-                        if(mesVuelo.equals("June")){
-                            mesNumber = "6";
-                        }
-                        if(mesVuelo.equals("July")){
-                            mesNumber = "7";
-                        }
-                        if(mesVuelo.equals("August")){
-                            mesNumber = "8";
-                        }
-                        if(mesVuelo.equals("September")){
-                            mesNumber = "9";
-                        }
-                        if(mesVuelo.equals("October")){
-                            mesNumber = "10";
-                        }
-                        if(mesVuelo.equals("November")){
-                            mesNumber = "11";
-                        }
-                        if(mesVuelo.equals("December")){
-                            mesNumber = "12";
+                            String fecha = anioVuelo + "-" + mesNumber + "-" + diaVuelo;
+                            String tiempo = horaVuelo + ":" + minutoVuelo + ":" + "00";
+
+
+                            if (Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) < currentDate.getMonthValue()) {
+                                JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                            }
+                            else if(Integer.parseInt(anioVuelo) < currentDate.getYear()){
+                                JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                            }
+                            else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) < currentDate.getDayOfMonth()){
+                                JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                            }
+                            else if (Integer.parseInt(anioVuelo) >= currentDate.getYear() ){
+
+                                clsFlightRequirements solicitarVuelo = new clsFlightRequirements
+                                (0, codigoVuelo, modelAvion, "Vuelo de pasajeros", "Vuelo de salida", capacidadDeAvion, tripulacionDeAvion, fecha, tiempo, destinoVuelo);
+
+                                controlFlightRequirement.createFlightRequirement(solicitarVuelo);
+
+                                DataFly.setText("Datos de vuelo:" + "\n" +
+                                                "\n" +
+                                                "Codigo del vuelo: " + codigoVuelo + "\n" +
+                                                "Tipo de vuelo: Vuelo de pasajeros" + "\n" + 
+                                                "Clase de vuelo: Vuelo de salida" + "\n" + 
+                                                "Modelo de avión: " + modelAvion + "\n" + 
+                                                "Capacidad de almacenaje del avión: " + capacidadDeAvion + " pasajeros" + "\n" + 
+                                                "Tripulación del avión: " + tripulacionDeAvion + "\n" + 
+                                                "Feca de vuelo: " + fecha + "\n" + 
+                                                "Hora de vuelo: " + tiempo + "\n" + 
+                                                "Destino del vuelo: " + destinoVuelo);
+
+                                Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                                JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una solicitud de vuelo!!!", "Solicitud realizada satisfactoriamente", WIDTH, m);
+                                showFlightList();
+                                cleanRegisterQuestionnaire();
+                            }
+                            else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) > currentDate.getDayOfMonth()){
+
+                                clsFlightRequirements solicitarVuelo = new clsFlightRequirements
+                                (0, codigoVuelo, modelAvion, "Vuelo de pasajeros", "Vuelo de salida", capacidadDeAvion, tripulacionDeAvion, fecha, tiempo, destinoVuelo);
+
+                                controlFlightRequirement.createFlightRequirement(solicitarVuelo);
+
+                                DataFly.setText("Datos de vuelo:" + "\n" +
+                                                "\n" +
+                                                "Codigo del vuelo: " + codigoVuelo + "\n" +
+                                                "Tipo de vuelo: Vuelo de pasajeros" + "\n" + 
+                                                "Clase de vuelo: Vuelo de salida" + "\n" + 
+                                                "Modelo de avión: " + modelAvion + "\n" + 
+                                                "Capacidad de almacenaje del avión: " + capacidadDeAvion + " pasajeros" + "\n" + 
+                                                "Tripulación del avión: " + tripulacionDeAvion + "\n" + 
+                                                "Feca de vuelo: " + fecha + "\n" + 
+                                                "Hora de vuelo: " + tiempo + "\n" + 
+                                                "Destino del vuelo: " + destinoVuelo);
+
+                                Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                                JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una solicitud de vuelo!!!", "Solicitud realizada satisfactoriamente", WIDTH, m);
+                                showFlightList();
+                                cleanRegisterQuestionnaire();
+                            }  
                         }
 
-                        String fecha = anioVuelo + "-" + mesNumber + "-" + diaVuelo;
-                        String tiempo = horaVuelo + ":" + minutoVuelo + ":" + "00";
 
-                        if (Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) < currentDate.getMonthValue()) {
-                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                            //-----------------------------------------------------------------------------------
+
+                            if (tipovueloC==true && vueloLl==true && !"".equals(codigo)) {
+
+                            String destinoVuelo = comboBoxDestino.getSelectedItem().toString();
+                            String modelAvion = comboboxModeloAvion.getSelectedItem().toString();
+                            String capacidadDeAvion = comboBoxCapacidadAvion.getSelectedItem().toString();
+                            String tripulacionDeAvion = comboBoxTripulacionVuelo.getSelectedItem().toString();
+                            String anioVuelo = comboBoxYear.getSelectedItem().toString();
+                            String mesVuelo = comboBoxMonth.getSelectedItem().toString();
+                            String diaVuelo = comboBoxDay.getSelectedItem().toString();
+                            String horaVuelo = comboBoxHour.getSelectedItem().toString();
+                            String minutoVuelo = comboBoxMinutes.getSelectedItem().toString();
+                            String mesNumber = "";
+
+                            if(mesVuelo.equals("January")){
+                                mesNumber = "1";
+                            }
+                            if(mesVuelo.equals("February")){
+                                mesNumber = "2";
+                            }
+                            if(mesVuelo.equals("March")){
+                                mesNumber = "3";
+                            }
+                            if(mesVuelo.equals("April")){
+                                mesNumber = "4";
+                            }
+                            if(mesVuelo.equals("may")){
+                                mesNumber = "5";
+                            }
+                            if(mesVuelo.equals("June")){
+                                mesNumber = "6";
+                            }
+                            if(mesVuelo.equals("July")){
+                                mesNumber = "7";
+                            }
+                            if(mesVuelo.equals("August")){
+                                mesNumber = "8";
+                            }
+                            if(mesVuelo.equals("September")){
+                                mesNumber = "9";
+                            }
+                            if(mesVuelo.equals("October")){
+                                mesNumber = "10";
+                            }
+                            if(mesVuelo.equals("November")){
+                                mesNumber = "11";
+                            }
+                            if(mesVuelo.equals("December")){
+                                mesNumber = "12";
+                            }
+
+                            String fecha = anioVuelo + "-" + mesNumber + "-" + diaVuelo;
+                            String tiempo = horaVuelo + ":" + minutoVuelo + ":" + "00";
+
+                            if (Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) < currentDate.getMonthValue()) {
+                                JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                            }
+                            else if(Integer.parseInt(anioVuelo) < currentDate.getYear()){
+                                JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                            }
+                            else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) < currentDate.getDayOfMonth()){
+                                JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                            }
+                            else if (Integer.parseInt(anioVuelo) >= currentDate.getYear() ){
+
+                                clsFlightRequirements solicitarVuelo = new clsFlightRequirements
+                                (0, codigoVuelo, modelAvion, "Vuelo de carga", "Vuelo de llegada", capacidadDeAvion, tripulacionDeAvion, fecha, tiempo, destinoVuelo);
+
+                                controlFlightRequirement.createFlightRequirement(solicitarVuelo);
+
+                                DataFly.setText("Datos de vuelo:" + "\n" +
+                                                "\n" +
+                                                "Codigo del vuelo: " + codigoVuelo + "\n" +
+                                                "Tipo de vuelo: Vuelo de pasajeros" + "\n" + 
+                                                "Clase de vuelo: Vuelo de salida" + "\n" + 
+                                                "Modelo de avión: " + modelAvion + "\n" + 
+                                                "Capacidad de almacenaje del avión: " + capacidadDeAvion + " toneladas" + "\n" + 
+                                                "Tripulación del avión: " + tripulacionDeAvion + "\n" + 
+                                                "Feca de vuelo: " + fecha + "\n" + 
+                                                "Hora de vuelo: " + tiempo + "\n" + 
+                                                "Destino del vuelo: " + destinoVuelo);
+
+                                Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                                JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una solicitud de vuelo!!!", "Solicitud realizada satisfactoriamente", WIDTH, m);
+                                showFlightList();
+                                cleanRegisterQuestionnaire();
+                            }
+                            else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) > currentDate.getDayOfMonth()){
+
+                                clsFlightRequirements solicitarVuelo = new clsFlightRequirements
+                                (0, codigoVuelo, modelAvion, "Vuelo de carga", "Vuelo de llegada", capacidadDeAvion, tripulacionDeAvion, fecha, tiempo, destinoVuelo);
+
+                                controlFlightRequirement.createFlightRequirement(solicitarVuelo);
+
+                                DataFly.setText("Datos de vuelo:" + "\n" +
+                                                "\n" +
+                                                "Codigo del vuelo: " + codigoVuelo + "\n" +
+                                                "Tipo de vuelo: Vuelo de pasajeros" + "\n" + 
+                                                "Clase de vuelo: Vuelo de salida" + "\n" + 
+                                                "Modelo de avión: " + modelAvion + "\n" + 
+                                                "Capacidad de almacenaje del avión: " + capacidadDeAvion + " toneladas" + "\n" + 
+                                                "Tripulación del avión: " + tripulacionDeAvion + "\n" + 
+                                                "Feca de vuelo: " + fecha + "\n" + 
+                                                "Hora de vuelo: " + tiempo + "\n" + 
+                                                "Destino del vuelo: " + destinoVuelo);
+
+                                Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                                JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una solicitud de vuelo!!!", "Solicitud realizada satisfactoriamente", WIDTH, m);
+                                showFlightList();
+                                cleanRegisterQuestionnaire();
+                            }
                         }
-                        else if(Integer.parseInt(anioVuelo) < currentDate.getYear()){
-                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                        //--------------------------------------------------------------
+
+                        if(tipovueloP==true && vueloLl==true && !"".equals(codigo)){
+
+                            String destinoVuelo = comboBoxDestino.getSelectedItem().toString();
+                            String modelAvion = comboboxModeloAvion.getSelectedItem().toString();
+                            String capacidadDeAvion = comboBoxCapacidadAvion.getSelectedItem().toString();
+                            String tripulacionDeAvion = comboBoxTripulacionVuelo.getSelectedItem().toString();
+                            String anioVuelo = comboBoxYear.getSelectedItem().toString();
+                            String mesVuelo = comboBoxMonth.getSelectedItem().toString();
+                            String diaVuelo = comboBoxDay.getSelectedItem().toString();
+                            String horaVuelo = comboBoxHour.getSelectedItem().toString();
+                            String minutoVuelo = comboBoxMinutes.getSelectedItem().toString();
+                            String mesNumber = "";
+
+                            if(mesVuelo.equals("January")){
+                                mesNumber = "1";
+                            }
+                            if(mesVuelo.equals("February")){
+                                mesNumber = "2";
+                            }
+                            if(mesVuelo.equals("March")){
+                                mesNumber = "3";
+                            }
+                            if(mesVuelo.equals("April")){
+                                mesNumber = "4";
+                            }
+                            if(mesVuelo.equals("may")){
+                                mesNumber = "5";
+                            }
+                            if(mesVuelo.equals("June")){
+                                mesNumber = "6";
+                            }
+                            if(mesVuelo.equals("July")){
+                                mesNumber = "7";
+                            }
+                            if(mesVuelo.equals("August")){
+                                mesNumber = "8";
+                            }
+                            if(mesVuelo.equals("September")){
+                                mesNumber = "9";
+                            }
+                            if(mesVuelo.equals("October")){
+                                mesNumber = "10";
+                            }
+                            if(mesVuelo.equals("November")){
+                                mesNumber = "11";
+                            }
+                            if(mesVuelo.equals("December")){
+                                mesNumber = "12";
+                            }
+                            String fecha = anioVuelo + "-" + mesNumber + "-" + diaVuelo;
+                            String tiempo = horaVuelo + ":" + minutoVuelo + ":" + "00";
+
+                            if (Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) < currentDate.getMonthValue()) {
+                                JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                            }
+                            else if(Integer.parseInt(anioVuelo) < currentDate.getYear()){
+                                JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                            }
+                            else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) < currentDate.getDayOfMonth()){
+                                JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                            }
+                            else if (Integer.parseInt(anioVuelo) >= currentDate.getYear() ){
+
+                                clsFlightRequirements solicitarVuelo = new clsFlightRequirements
+                                (0, codigoVuelo, modelAvion, "Vuelo de pasajeros", "Vuelo de llegada", capacidadDeAvion, tripulacionDeAvion, fecha, tiempo, destinoVuelo);
+
+                                controlFlightRequirement.createFlightRequirement(solicitarVuelo);
+
+                                DataFly.setText("Datos de vuelo:" + "\n" +
+                                                "\n" +
+                                                "Codigo del vuelo: " + codigoVuelo + "\n" +
+                                                "Tipo de vuelo: Vuelo de pasajeros" + "\n" + 
+                                                "Clase de vuelo: Vuelo de salida" + "\n" + 
+                                                "Modelo de avión: " + modelAvion + "\n" + 
+                                                "Capacidad de almacenaje del avión: " + capacidadDeAvion + " pasajeros" + "\n" + 
+                                                "Tripulación del avión: " + tripulacionDeAvion + "\n" + 
+                                                "Feca de vuelo: " + fecha + "\n" + 
+                                                "Hora de vuelo: " + tiempo + "\n" + 
+                                                "Destino del vuelo: " + destinoVuelo);
+
+                                Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                                JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una solicitud de vuelo!!!", "Solicitud realizada satisfactoriamente", WIDTH, m);
+                                showFlightList();
+                                cleanRegisterQuestionnaire();
+                            }
+                            else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) > currentDate.getDayOfMonth()){
+
+                                clsFlightRequirements solicitarVuelo = new clsFlightRequirements
+                                (0, codigoVuelo, modelAvion, "Vuelo de pasajeros", "Vuelo de llegada", capacidadDeAvion, tripulacionDeAvion, fecha, tiempo, destinoVuelo);
+
+                               controlFlightRequirement.createFlightRequirement(solicitarVuelo);
+
+                                DataFly.setText("Datos de vuelo:" + "\n" +
+                                                "\n" +
+                                                "Codigo del vuelo: " + codigoVuelo + "\n" +
+                                                "Tipo de vuelo: Vuelo de pasajeros" + "\n" + 
+                                                "Clase de vuelo: Vuelo de salida" + "\n" + 
+                                                "Modelo de avión: " + modelAvion + "\n" + 
+                                                "Capacidad de almacenaje del avión: " + capacidadDeAvion + " pasajeros" + "\n" + 
+                                                "Tripulación del avión: " + tripulacionDeAvion + "\n" + 
+                                                "Feca de vuelo: " + fecha + "\n" + 
+                                                "Hora de vuelo: " + tiempo + "\n" + 
+                                                "Destino del vuelo: " + destinoVuelo);
+
+                                Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                                JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una solicitud de vuelo!!!", "Solicitud realizada satisfactoriamente", WIDTH, m);
+                                showFlightList();
+                                cleanRegisterQuestionnaire(); 
+                            }
                         }
-                        else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) < currentDate.getDayOfMonth()){
-                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
-                        }
-                        else if (Integer.parseInt(anioVuelo) >= currentDate.getYear() ){
 
-                            clsFlightRequirements solicitarVuelo = new clsFlightRequirements
-                            (0, codigoVuelo, modelAvion, "Vuelo de carga", "Vuelo de llegada", capacidadDeAvion, tripulacionDeAvion, fecha, tiempo, destinoVuelo);
+                        //--------------------------------------------------------------
 
-                            controlFlightRequirement.createFlightRequirement(solicitarVuelo);
+                        if (tipovueloC==true && vueloS==true && !"".equals(codigo)) {
 
-                            DataFly.setText("Datos de vuelo:" + "\n" +
-                                            "\n" +
-                                            "Codigo del vuelo: " + codigoVuelo + "\n" +
-                                            "Tipo de vuelo: Vuelo de pasajeros" + "\n" + 
-                                            "Clase de vuelo: Vuelo de salida" + "\n" + 
-                                            "Modelo de avión: " + modelAvion + "\n" + 
-                                            "Capacidad de almacenaje del avión: " + capacidadDeAvion + " toneladas" + "\n" + 
-                                            "Tripulación del avión: " + tripulacionDeAvion + "\n" + 
-                                            "Feca de vuelo: " + fecha + "\n" + 
-                                            "Hora de vuelo: " + tiempo + "\n" + 
-                                            "Destino del vuelo: " + destinoVuelo);
+                            String destinoVuelo = comboBoxDestino.getSelectedItem().toString();
+                            String modelAvion = comboboxModeloAvion.getSelectedItem().toString();
+                            String capacidadDeAvion = comboBoxCapacidadAvion.getSelectedItem().toString();
+                            String tripulacionDeAvion = comboBoxTripulacionVuelo.getSelectedItem().toString();
+                            String anioVuelo = comboBoxYear.getSelectedItem().toString();
+                            String mesVuelo = comboBoxMonth.getSelectedItem().toString();
+                            String diaVuelo = comboBoxDay.getSelectedItem().toString();
+                            String horaVuelo = comboBoxHour.getSelectedItem().toString();
+                            String minutoVuelo = comboBoxMinutes.getSelectedItem().toString();
+                            String mesNumber = "";
 
-                            Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
-                            JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una solicitud de vuelo!!!", "Solicitud realizada satisfactoriamente", WIDTH, m);
-                            showFlightList();
-                            cleanRegisterQuestionnaire();
-                        }
-                        else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) > currentDate.getDayOfMonth()){
+                            if(mesVuelo.equals("January")){
+                                mesNumber = "1";
+                            }
+                            if(mesVuelo.equals("February")){
+                                mesNumber = "2";
+                            }
+                            if(mesVuelo.equals("March")){
+                                mesNumber = "3";
+                            }
+                            if(mesVuelo.equals("April")){
+                                mesNumber = "4";
+                            }
+                            if(mesVuelo.equals("may")){
+                                mesNumber = "5";
+                            }
+                            if(mesVuelo.equals("June")){
+                                mesNumber = "6";
+                            }
+                            if(mesVuelo.equals("July")){
+                                mesNumber = "7";
+                            }
+                            if(mesVuelo.equals("August")){
+                                mesNumber = "8";
+                            }
+                            if(mesVuelo.equals("September")){
+                                mesNumber = "9";
+                            }
+                            if(mesVuelo.equals("October")){
+                                mesNumber = "10";
+                            }
+                            if(mesVuelo.equals("November")){
+                                mesNumber = "11";
+                            }
+                            if(mesVuelo.equals("December")){
+                                mesNumber = "12";
+                            }
+                            String fecha = anioVuelo + "-" + mesNumber + "-" + diaVuelo;
+                            String tiempo = horaVuelo + ":" + minutoVuelo + ":" + "00";
 
-                            clsFlightRequirements solicitarVuelo = new clsFlightRequirements
-                            (0, codigoVuelo, modelAvion, "Vuelo de carga", "Vuelo de llegada", capacidadDeAvion, tripulacionDeAvion, fecha, tiempo, destinoVuelo);
 
-                            controlFlightRequirement.createFlightRequirement(solicitarVuelo);
+                            if (Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) < currentDate.getMonthValue()) {
+                                JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                            }
+                            else if(Integer.parseInt(anioVuelo) < currentDate.getYear()){
+                                JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                            }
+                            else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) < currentDate.getDayOfMonth()){
+                                JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
+                            }
+                            else if (Integer.parseInt(anioVuelo) >= currentDate.getYear() ){
 
-                            DataFly.setText("Datos de vuelo:" + "\n" +
-                                            "\n" +
-                                            "Codigo del vuelo: " + codigoVuelo + "\n" +
-                                            "Tipo de vuelo: Vuelo de pasajeros" + "\n" + 
-                                            "Clase de vuelo: Vuelo de salida" + "\n" + 
-                                            "Modelo de avión: " + modelAvion + "\n" + 
-                                            "Capacidad de almacenaje del avión: " + capacidadDeAvion + " toneladas" + "\n" + 
-                                            "Tripulación del avión: " + tripulacionDeAvion + "\n" + 
-                                            "Feca de vuelo: " + fecha + "\n" + 
-                                            "Hora de vuelo: " + tiempo + "\n" + 
-                                            "Destino del vuelo: " + destinoVuelo);
+                                clsFlightRequirements solicitarVuelo = new clsFlightRequirements
+                                (0, codigoVuelo, modelAvion, "Vuelo de carga", "Vuelo de salida", capacidadDeAvion, tripulacionDeAvion, fecha, tiempo, destinoVuelo);
 
-                            Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
-                            JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una solicitud de vuelo!!!", "Solicitud realizada satisfactoriamente", WIDTH, m);
-                            showFlightList();
-                            cleanRegisterQuestionnaire();
+                                controlFlightRequirement.createFlightRequirement(solicitarVuelo);
+
+                                DataFly.setText("Datos de vuelo:" + "\n" +
+                                                "\n" +
+                                                "Codigo del vuelo: " + codigoVuelo + "\n" +
+                                                "Tipo de vuelo: Vuelo de pasajeros" + "\n" + 
+                                                "Clase de vuelo: Vuelo de salida" + "\n" + 
+                                                "Modelo de avión: " + modelAvion + "\n" + 
+                                                "Capacidad de almacenaje del avión: " + capacidadDeAvion + " toneladas" + "\n" + 
+                                                "Tripulación del avión: " + tripulacionDeAvion + "\n" + 
+                                                "Feca de vuelo: " + fecha + "\n" + 
+                                                "Hora de vuelo: " + tiempo + "\n" + 
+                                                "Destino del vuelo: " + destinoVuelo);
+
+                                Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                                JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una solicitud de vuelo!!!", "Solicitud realizada satisfactoriamente", WIDTH, m);
+                                showFlightList();
+                                cleanRegisterQuestionnaire();
+                            }
+                            else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) > currentDate.getDayOfMonth()){
+
+                                clsFlightRequirements solicitarVuelo = new clsFlightRequirements
+                                (0, codigoVuelo, modelAvion, "Vuelo de carga", "Vuelo de salida", capacidadDeAvion, tripulacionDeAvion, fecha, tiempo, destinoVuelo);
+
+                                controlFlightRequirement.createFlightRequirement(solicitarVuelo);
+
+                                DataFly.setText("Datos de vuelo:" + "\n" +
+                                                "\n" +
+                                                "Codigo del vuelo: " + codigoVuelo + "\n" +
+                                                "Tipo de vuelo: Vuelo de pasajeros" + "\n" + 
+                                                "Clase de vuelo: Vuelo de salida" + "\n" + 
+                                                "Modelo de avión: " + modelAvion + "\n" + 
+                                                "Capacidad de almacenaje del avión: " + capacidadDeAvion + " toneladas" + "\n" + 
+                                                "Tripulación del avión: " + tripulacionDeAvion + "\n" + 
+                                                "Feca de vuelo: " + fecha + "\n" + 
+                                                "Hora de vuelo: " + tiempo + "\n" + 
+                                                "Destino del vuelo: " + destinoVuelo);
+
+                                Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                                JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una solicitud de vuelo!!!", "Solicitud realizada satisfactoriamente", WIDTH, m);
+                                showFlightList();
+                                cleanRegisterQuestionnaire();
+                            }
                         }
                     }
+
                     //--------------------------------------------------------------
-
-                    if(tipovueloP==true && vueloLl==true && !"".equals(codigo)){
-
-                        String destinoVuelo = comboBoxDestino.getSelectedItem().toString();
-                        String modelAvion = comboboxModeloAvion.getSelectedItem().toString();
-                        String capacidadDeAvion = comboBoxCapacidadAvion.getSelectedItem().toString();
-                        String tripulacionDeAvion = comboBoxTripulacionVuelo.getSelectedItem().toString();
-                        String anioVuelo = comboBoxYear.getSelectedItem().toString();
-                        String mesVuelo = comboBoxMonth.getSelectedItem().toString();
-                        String diaVuelo = comboBoxDay.getSelectedItem().toString();
-                        String horaVuelo = comboBoxHour.getSelectedItem().toString();
-                        String minutoVuelo = comboBoxMinutes.getSelectedItem().toString();
-                        String mesNumber = "";
-
-                        if(mesVuelo.equals("January")){
-                            mesNumber = "1";
-                        }
-                        if(mesVuelo.equals("February")){
-                            mesNumber = "2";
-                        }
-                        if(mesVuelo.equals("March")){
-                            mesNumber = "3";
-                        }
-                        if(mesVuelo.equals("April")){
-                            mesNumber = "4";
-                        }
-                        if(mesVuelo.equals("may")){
-                            mesNumber = "5";
-                        }
-                        if(mesVuelo.equals("June")){
-                            mesNumber = "6";
-                        }
-                        if(mesVuelo.equals("July")){
-                            mesNumber = "7";
-                        }
-                        if(mesVuelo.equals("August")){
-                            mesNumber = "8";
-                        }
-                        if(mesVuelo.equals("September")){
-                            mesNumber = "9";
-                        }
-                        if(mesVuelo.equals("October")){
-                            mesNumber = "10";
-                        }
-                        if(mesVuelo.equals("November")){
-                            mesNumber = "11";
-                        }
-                        if(mesVuelo.equals("December")){
-                            mesNumber = "12";
-                        }
-                        String fecha = anioVuelo + "-" + mesNumber + "-" + diaVuelo;
-                        String tiempo = horaVuelo + ":" + minutoVuelo + ":" + "00";
-
-                        if (Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) < currentDate.getMonthValue()) {
-                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
-                        }
-                        else if(Integer.parseInt(anioVuelo) < currentDate.getYear()){
-                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
-                        }
-                        else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) < currentDate.getDayOfMonth()){
-                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
-                        }
-                        else if (Integer.parseInt(anioVuelo) >= currentDate.getYear() ){
-
-                            clsFlightRequirements solicitarVuelo = new clsFlightRequirements
-                            (0, codigoVuelo, modelAvion, "Vuelo de pasajeros", "Vuelo de llegada", capacidadDeAvion, tripulacionDeAvion, fecha, tiempo, destinoVuelo);
-
-                            controlFlightRequirement.createFlightRequirement(solicitarVuelo);
-
-                            DataFly.setText("Datos de vuelo:" + "\n" +
-                                            "\n" +
-                                            "Codigo del vuelo: " + codigoVuelo + "\n" +
-                                            "Tipo de vuelo: Vuelo de pasajeros" + "\n" + 
-                                            "Clase de vuelo: Vuelo de salida" + "\n" + 
-                                            "Modelo de avión: " + modelAvion + "\n" + 
-                                            "Capacidad de almacenaje del avión: " + capacidadDeAvion + " pasajeros" + "\n" + 
-                                            "Tripulación del avión: " + tripulacionDeAvion + "\n" + 
-                                            "Feca de vuelo: " + fecha + "\n" + 
-                                            "Hora de vuelo: " + tiempo + "\n" + 
-                                            "Destino del vuelo: " + destinoVuelo);
-
-                            Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
-                            JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una solicitud de vuelo!!!", "Solicitud realizada satisfactoriamente", WIDTH, m);
-                            showFlightList();
-                            cleanRegisterQuestionnaire();
-                        }
-                        else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) > currentDate.getDayOfMonth()){
-
-                            clsFlightRequirements solicitarVuelo = new clsFlightRequirements
-                            (0, codigoVuelo, modelAvion, "Vuelo de pasajeros", "Vuelo de llegada", capacidadDeAvion, tripulacionDeAvion, fecha, tiempo, destinoVuelo);
-
-                           controlFlightRequirement.createFlightRequirement(solicitarVuelo);
-
-                            DataFly.setText("Datos de vuelo:" + "\n" +
-                                            "\n" +
-                                            "Codigo del vuelo: " + codigoVuelo + "\n" +
-                                            "Tipo de vuelo: Vuelo de pasajeros" + "\n" + 
-                                            "Clase de vuelo: Vuelo de salida" + "\n" + 
-                                            "Modelo de avión: " + modelAvion + "\n" + 
-                                            "Capacidad de almacenaje del avión: " + capacidadDeAvion + " pasajeros" + "\n" + 
-                                            "Tripulación del avión: " + tripulacionDeAvion + "\n" + 
-                                            "Feca de vuelo: " + fecha + "\n" + 
-                                            "Hora de vuelo: " + tiempo + "\n" + 
-                                            "Destino del vuelo: " + destinoVuelo);
-
-                            Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
-                            JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una solicitud de vuelo!!!", "Solicitud realizada satisfactoriamente", WIDTH, m);
-                            showFlightList();
-                            cleanRegisterQuestionnaire(); 
-                        }
-                    }
-
-                    //--------------------------------------------------------------
-
-                    if (tipovueloC==true && vueloS==true && !"".equals(codigo)) {
-
-                        String destinoVuelo = comboBoxDestino.getSelectedItem().toString();
-                        String modelAvion = comboboxModeloAvion.getSelectedItem().toString();
-                        String capacidadDeAvion = comboBoxCapacidadAvion.getSelectedItem().toString();
-                        String tripulacionDeAvion = comboBoxTripulacionVuelo.getSelectedItem().toString();
-                        String anioVuelo = comboBoxYear.getSelectedItem().toString();
-                        String mesVuelo = comboBoxMonth.getSelectedItem().toString();
-                        String diaVuelo = comboBoxDay.getSelectedItem().toString();
-                        String horaVuelo = comboBoxHour.getSelectedItem().toString();
-                        String minutoVuelo = comboBoxMinutes.getSelectedItem().toString();
-                        String mesNumber = "";
-
-                        if(mesVuelo.equals("January")){
-                            mesNumber = "1";
-                        }
-                        if(mesVuelo.equals("February")){
-                            mesNumber = "2";
-                        }
-                        if(mesVuelo.equals("March")){
-                            mesNumber = "3";
-                        }
-                        if(mesVuelo.equals("April")){
-                            mesNumber = "4";
-                        }
-                        if(mesVuelo.equals("may")){
-                            mesNumber = "5";
-                        }
-                        if(mesVuelo.equals("June")){
-                            mesNumber = "6";
-                        }
-                        if(mesVuelo.equals("July")){
-                            mesNumber = "7";
-                        }
-                        if(mesVuelo.equals("August")){
-                            mesNumber = "8";
-                        }
-                        if(mesVuelo.equals("September")){
-                            mesNumber = "9";
-                        }
-                        if(mesVuelo.equals("October")){
-                            mesNumber = "10";
-                        }
-                        if(mesVuelo.equals("November")){
-                            mesNumber = "11";
-                        }
-                        if(mesVuelo.equals("December")){
-                            mesNumber = "12";
-                        }
-                        String fecha = anioVuelo + "-" + mesNumber + "-" + diaVuelo;
-                        String tiempo = horaVuelo + ":" + minutoVuelo + ":" + "00";
-
-
-                        if (Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) < currentDate.getMonthValue()) {
-                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
-                        }
-                        else if(Integer.parseInt(anioVuelo) < currentDate.getYear()){
-                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
-                        }
-                        else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) < currentDate.getDayOfMonth()){
-                            JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
-                        }
-                        else if (Integer.parseInt(anioVuelo) >= currentDate.getYear() ){
-
-                            clsFlightRequirements solicitarVuelo = new clsFlightRequirements
-                            (0, codigoVuelo, modelAvion, "Vuelo de carga", "Vuelo de salida", capacidadDeAvion, tripulacionDeAvion, fecha, tiempo, destinoVuelo);
-
-                            controlFlightRequirement.createFlightRequirement(solicitarVuelo);
-
-                            DataFly.setText("Datos de vuelo:" + "\n" +
-                                            "\n" +
-                                            "Codigo del vuelo: " + codigoVuelo + "\n" +
-                                            "Tipo de vuelo: Vuelo de pasajeros" + "\n" + 
-                                            "Clase de vuelo: Vuelo de salida" + "\n" + 
-                                            "Modelo de avión: " + modelAvion + "\n" + 
-                                            "Capacidad de almacenaje del avión: " + capacidadDeAvion + " toneladas" + "\n" + 
-                                            "Tripulación del avión: " + tripulacionDeAvion + "\n" + 
-                                            "Feca de vuelo: " + fecha + "\n" + 
-                                            "Hora de vuelo: " + tiempo + "\n" + 
-                                            "Destino del vuelo: " + destinoVuelo);
-
-                            Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
-                            JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una solicitud de vuelo!!!", "Solicitud realizada satisfactoriamente", WIDTH, m);
-                            showFlightList();
-                            cleanRegisterQuestionnaire();
-                        }
-                        else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) > currentDate.getDayOfMonth()){
-
-                            clsFlightRequirements solicitarVuelo = new clsFlightRequirements
-                            (0, codigoVuelo, modelAvion, "Vuelo de carga", "Vuelo de salida", capacidadDeAvion, tripulacionDeAvion, fecha, tiempo, destinoVuelo);
-
-                            controlFlightRequirement.createFlightRequirement(solicitarVuelo);
-
-                            DataFly.setText("Datos de vuelo:" + "\n" +
-                                            "\n" +
-                                            "Codigo del vuelo: " + codigoVuelo + "\n" +
-                                            "Tipo de vuelo: Vuelo de pasajeros" + "\n" + 
-                                            "Clase de vuelo: Vuelo de salida" + "\n" + 
-                                            "Modelo de avión: " + modelAvion + "\n" + 
-                                            "Capacidad de almacenaje del avión: " + capacidadDeAvion + " toneladas" + "\n" + 
-                                            "Tripulación del avión: " + tripulacionDeAvion + "\n" + 
-                                            "Feca de vuelo: " + fecha + "\n" + 
-                                            "Hora de vuelo: " + tiempo + "\n" + 
-                                            "Destino del vuelo: " + destinoVuelo);
-
-                            Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
-                            JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una solicitud de vuelo!!!", "Solicitud realizada satisfactoriamente", WIDTH, m);
-                            showFlightList();
-                            cleanRegisterQuestionnaire();
-                        }
-                    }
                 }
+                
 
-                //--------------------------------------------------------------
                 
                 
             }
