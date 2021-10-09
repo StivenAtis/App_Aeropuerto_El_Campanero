@@ -77,13 +77,13 @@ public class pnlQueryFlight_Airport extends javax.swing.JPanel {
 
         btnReprogramacionVuelo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnReprogramacionVuelo.setForeground(new java.awt.Color(255, 255, 255));
-        btnReprogramacionVuelo.setText("Historia de reprogramación");
+        btnReprogramacionVuelo.setText("Ultimo registro de reprogramación");
         btnReprogramacionVuelo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReprogramacionVueloActionPerformed(evt);
             }
         });
-        add(btnReprogramacionVuelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 90, -1, -1));
+        add(btnReprogramacionVuelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 90, -1, -1));
 
         btnVuelosCancelados.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnVuelosCancelados.setForeground(new java.awt.Color(255, 255, 255));
@@ -93,7 +93,7 @@ public class pnlQueryFlight_Airport extends javax.swing.JPanel {
                 btnVuelosCanceladosActionPerformed(evt);
             }
         });
-        add(btnVuelosCancelados, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 50, -1, -1));
+        add(btnVuelosCancelados, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 50, -1, -1));
 
         txtAInfoAdicional.setColumns(20);
         txtAInfoAdicional.setFont(new java.awt.Font("Monospaced", 1, 13)); // NOI18N

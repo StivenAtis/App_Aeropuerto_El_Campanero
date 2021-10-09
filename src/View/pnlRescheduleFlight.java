@@ -317,9 +317,6 @@ public class pnlRescheduleFlight extends javax.swing.JPanel {
             if(anio.equals("Year") || mes.equals("Month") || dia.equals("Day") || hora.equals("Hour") || minuto.equals("Minutes")){
                 JOptionPane.showMessageDialog(this, "¡Debe seleccionar una fecha y hora valida!");
             }
-            if(txtAreaReprogramacion.getText().equals("")){
-                JOptionPane.showMessageDialog(this, "¡Debe añadir un motivo para la reprogramación del vuelo!");
-            }
             if(btnAterrizaje.isSelected()==false && btnDespegue.isSelected()==false){
                     JOptionPane.showMessageDialog(this, "¡Debe seleccionar una pista para el vuelo!");
             }
@@ -384,135 +381,144 @@ public class pnlRescheduleFlight extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(this, "¡Debe ingresar una fecha valida para el vuelo!");
                 }
                 
-                
-                else if (Integer.parseInt(anioVuelo) >= currentDate.getYear() ){
-
-                    if(btnDespegue.isSelected()==true){
-                        
-                        clsFlightAgenda FlightRequirementsSearch = controller.readFlightAgenda(codigo);
-                        //comboBoxPistaDespegue.setSelectedItem(FlightRequirementsSearch.getPista());
-                        comboBoxPistaAterrizaje.setSelectedIndex(0);
-                        
-                        String pistaVueloDespegue = comboBoxPistaDespegue.getSelectedItem().toString();
-                        clsFlightAgenda FlightRequirements_update = new clsFlightAgenda(0, codigo, "", "", "", "", pistaVueloDespegue, fecha, tiempo, "");
-                        
-                        if(controller.updateFlightResquest(FlightRequirements_update)){
-                            Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
-                            JOptionPane.showMessageDialog(this, "¡¡¡Se ha reprogramado \n un vuelo agendado!!!", "Vuelo reprogramado satisfactoriamente", WIDTH, m);
-                            fillDataTable();
-                            
-                            clsFlightAgenda flightSearched = controller.readFlightAgenda(codigo);
-                            String tipoVuelo = flightSearched.getTipoVuelo();
-                            String claseVuelo = flightSearched.getClaseVuelo();
-                            String tripulacion = flightSearched.getTripulación();
-                            String destino = flightSearched.getDestino();
-                            String descripcion = txtAreaReprogramacion.getText();
-                            
-                            clsFlightAgendaReprogramation FlightRepr_create = new clsFlightAgendaReprogramation(0, codigo, tipoVuelo, claseVuelo, tripulacion, destino, pistaVueloDespegue, fecha, tiempo, descripcion, "");
-                            controller.createFlightAgendaRepr(FlightRepr_create);
-                            
-                            cleanRegisterQuestionnaire();
-                            
-                            
-                        }
-                        else {
-                          JOptionPane.showMessageDialog(this, "¡An error occurred while updating!");  
-                        }
-                    }
-                    else if(btnAterrizaje.isSelected()==true) {
-                        
-                        clsFlightAgenda FlightRequirementsSearch = controller.readFlightAgenda(codigo);
-                        //comboBoxPistaAterrizaje.setSelectedItem(FlightRequirementsSearch.getPista());
-                        comboBoxPistaDespegue.setSelectedIndex(0);
-                        
-                        String pistaVueloAterrizaje = comboBoxPistaAterrizaje.getSelectedItem().toString();
-                        clsFlightAgenda FlightRequirements_update = new clsFlightAgenda(0, codigo, "", "", "", "", pistaVueloAterrizaje, fecha, tiempo, "");
-
-                        if(controller.updateFlightResquest(FlightRequirements_update)){
-                            Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
-                            JOptionPane.showMessageDialog(this, "¡¡¡Se ha reprogramado \n un vuelo agendado!!!", "Vuelo reprogramado satisfactoriamente", WIDTH, m);
-                            fillDataTable();
-                            
-                            clsFlightAgenda flightSearched = controller.readFlightAgenda(codigo);
-                            String tipoVuelo = flightSearched.getTipoVuelo();
-                            String claseVuelo = flightSearched.getClaseVuelo();
-                            String tripulacion = flightSearched.getTripulación();
-                            String destino = flightSearched.getDestino();
-                            String descripcion = txtAreaReprogramacion.getText();
-                            
-                            clsFlightAgendaReprogramation FlightRepr_create = new clsFlightAgendaReprogramation(0, codigo, tipoVuelo, claseVuelo, tripulacion, destino, pistaVueloAterrizaje, fecha, tiempo, descripcion, "");
-                            controller.createFlightAgendaRepr(FlightRepr_create);
-                            
-                            cleanRegisterQuestionnaire();
-                        }
-                        else {
-                          JOptionPane.showMessageDialog(this, "¡An error occurred while updating!");  
-                        }
-                    }
+                if(txtAreaReprogramacion.getText().equals("")){
+                    JOptionPane.showMessageDialog(this, "¡Debe añadir un motivo para la reprogramación del vuelo!");
                 }
-                else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) > currentDate.getDayOfMonth()){
+                
+                else {
+                    
+                    if (Integer.parseInt(anioVuelo) >= currentDate.getYear() ){
 
-                    if(btnDespegue.isSelected()==true){
-                        
-                        clsFlightAgenda FlightRequirementsSearch = controller.readFlightAgenda(codigo);
-                        //comboBoxPistaDespegue.setSelectedItem(FlightRequirementsSearch.getPista());
-                        comboBoxPistaAterrizaje.setSelectedIndex(0);
-                        
-                        String pistaVueloDespegue = comboBoxPistaDespegue.getSelectedItem().toString();
-                        clsFlightAgenda FlightRequirements_update = new clsFlightAgenda(0, codigo, "", "", "", "", pistaVueloDespegue, fecha, tiempo, "");
+                        if(btnDespegue.isSelected()==true){
 
-                        if(controller.updateFlightResquest(FlightRequirements_update)){
-                            Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
-                            JOptionPane.showMessageDialog(this, "¡¡¡Se ha reprogramado \n un vuelo agendado!!!", "Vuelo reprogramado satisfactoriamente", WIDTH, m);
-                            fillDataTable();
-                            
-                            clsFlightAgenda flightSearched = controller.readFlightAgenda(codigo);
-                            String tipoVuelo = flightSearched.getTipoVuelo();
-                            String claseVuelo = flightSearched.getClaseVuelo();
-                            String tripulacion = flightSearched.getTripulación();
-                            String destino = flightSearched.getDestino();
-                            String descripcion = txtAreaReprogramacion.getText();
-                            
-                            clsFlightAgendaReprogramation FlightRepr_create = new clsFlightAgendaReprogramation(0, codigo, tipoVuelo, claseVuelo, tripulacion, destino, pistaVueloDespegue, fecha, tiempo, descripcion, "");
-                            controller.createFlightAgendaRepr(FlightRepr_create);
-                            
-                            cleanRegisterQuestionnaire();
+                            clsFlightAgenda FlightRequirementsSearch = controller.readFlightAgenda(codigo);
+                            //comboBoxPistaDespegue.setSelectedItem(FlightRequirementsSearch.getPista());
+                            comboBoxPistaAterrizaje.setSelectedIndex(0);
+
+                            String pistaVueloDespegue = comboBoxPistaDespegue.getSelectedItem().toString();
+                            clsFlightAgenda FlightRequirements_update = new clsFlightAgenda(0, codigo, "", "", "", "", pistaVueloDespegue, fecha, tiempo, "");
+
+                            if(controller.updateFlightResquest(FlightRequirements_update)){
+                                Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                                JOptionPane.showMessageDialog(this, "¡¡¡Se ha reprogramado \n un vuelo agendado!!!", "Vuelo reprogramado satisfactoriamente", WIDTH, m);
+                                fillDataTable();
+
+                                clsFlightAgenda flightSearched = controller.readFlightAgenda(codigo);
+                                String tipoVuelo = flightSearched.getTipoVuelo();
+                                String claseVuelo = flightSearched.getClaseVuelo();
+                                String tripulacion = flightSearched.getTripulación();
+                                String destino = flightSearched.getDestino();
+                                String descripcion = txtAreaReprogramacion.getText();
+
+                                clsFlightAgendaReprogramation FlightRepr_create = new clsFlightAgendaReprogramation(0, codigo, tipoVuelo, claseVuelo, tripulacion, destino, pistaVueloDespegue, fecha, tiempo, descripcion, "");
+                                controller.createFlightAgendaRepr(FlightRepr_create);
+
+                                cleanRegisterQuestionnaire();
+
+
+                            }
+                            else {
+                              JOptionPane.showMessageDialog(this, "¡An error occurred while updating!");  
+                            }
                         }
-                        else {
-                          JOptionPane.showMessageDialog(this, "¡An error occurred while updating!");  
+                        else if(btnAterrizaje.isSelected()==true) {
+
+                            clsFlightAgenda FlightRequirementsSearch = controller.readFlightAgenda(codigo);
+                            //comboBoxPistaAterrizaje.setSelectedItem(FlightRequirementsSearch.getPista());
+                            comboBoxPistaDespegue.setSelectedIndex(0);
+
+                            String pistaVueloAterrizaje = comboBoxPistaAterrizaje.getSelectedItem().toString();
+                            clsFlightAgenda FlightRequirements_update = new clsFlightAgenda(0, codigo, "", "", "", "", pistaVueloAterrizaje, fecha, tiempo, "");
+
+                            if(controller.updateFlightResquest(FlightRequirements_update)){
+                                Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                                JOptionPane.showMessageDialog(this, "¡¡¡Se ha reprogramado \n un vuelo agendado!!!", "Vuelo reprogramado satisfactoriamente", WIDTH, m);
+                                fillDataTable();
+
+                                clsFlightAgenda flightSearched = controller.readFlightAgenda(codigo);
+                                String tipoVuelo = flightSearched.getTipoVuelo();
+                                String claseVuelo = flightSearched.getClaseVuelo();
+                                String tripulacion = flightSearched.getTripulación();
+                                String destino = flightSearched.getDestino();
+                                String descripcion = txtAreaReprogramacion.getText();
+
+                                clsFlightAgendaReprogramation FlightRepr_create = new clsFlightAgendaReprogramation(0, codigo, tipoVuelo, claseVuelo, tripulacion, destino, pistaVueloAterrizaje, fecha, tiempo, descripcion, "");
+                                controller.createFlightAgendaRepr(FlightRepr_create);
+
+                                cleanRegisterQuestionnaire();
+                            }
+                            else {
+                              JOptionPane.showMessageDialog(this, "¡An error occurred while updating!");  
+                            }
                         }
                     }
-                    else if(btnAterrizaje.isSelected()==true) {
-                        
-                        clsFlightAgenda FlightRequirementsSearch = controller.readFlightAgenda(codigo);
-                        //comboBoxPistaAterrizaje.setSelectedItem(FlightRequirementsSearch.getPista());
-                        comboBoxPistaDespegue.setSelectedIndex(0);
-                        
-                        String pistaVueloAterrizaje = comboBoxPistaAterrizaje.getSelectedItem().toString();
-                        clsFlightAgenda FlightRequirements_update = new clsFlightAgenda(0, codigo, "", "", "", "", pistaVueloAterrizaje, fecha, tiempo, "");
+                    else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) > currentDate.getDayOfMonth()){
 
-                        if(controller.updateFlightResquest(FlightRequirements_update)){
-                            Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
-                            JOptionPane.showMessageDialog(this, "¡¡¡Se ha reprogramado \n un vuelo agendado!!!", "Vuelo reprogramado satisfactoriamente", WIDTH, m);
-                            fillDataTable();
-                            
-                            clsFlightAgenda flightSearched = controller.readFlightAgenda(codigo);
-                            String tipoVuelo = flightSearched.getTipoVuelo();
-                            String claseVuelo = flightSearched.getClaseVuelo();
-                            String tripulacion = flightSearched.getTripulación();
-                            String destino = flightSearched.getDestino();
-                            String descripcion = txtAreaReprogramacion.getText();
-                            
-                            clsFlightAgendaReprogramation FlightRepr_create = new clsFlightAgendaReprogramation(0, codigo, tipoVuelo, claseVuelo, tripulacion, destino, pistaVueloAterrizaje, fecha, tiempo, descripcion, "");
-                            controller.createFlightAgendaRepr(FlightRepr_create);
-                            
-                            cleanRegisterQuestionnaire();
+                        if(btnDespegue.isSelected()==true){
+
+                            clsFlightAgenda FlightRequirementsSearch = controller.readFlightAgenda(codigo);
+                            //comboBoxPistaDespegue.setSelectedItem(FlightRequirementsSearch.getPista());
+                            comboBoxPistaAterrizaje.setSelectedIndex(0);
+
+                            String pistaVueloDespegue = comboBoxPistaDespegue.getSelectedItem().toString();
+                            clsFlightAgenda FlightRequirements_update = new clsFlightAgenda(0, codigo, "", "", "", "", pistaVueloDespegue, fecha, tiempo, "");
+
+                            if(controller.updateFlightResquest(FlightRequirements_update)){
+                                Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                                JOptionPane.showMessageDialog(this, "¡¡¡Se ha reprogramado \n un vuelo agendado!!!", "Vuelo reprogramado satisfactoriamente", WIDTH, m);
+                                fillDataTable();
+
+                                clsFlightAgenda flightSearched = controller.readFlightAgenda(codigo);
+                                String tipoVuelo = flightSearched.getTipoVuelo();
+                                String claseVuelo = flightSearched.getClaseVuelo();
+                                String tripulacion = flightSearched.getTripulación();
+                                String destino = flightSearched.getDestino();
+                                String descripcion = txtAreaReprogramacion.getText();
+
+                                clsFlightAgendaReprogramation FlightRepr_create = new clsFlightAgendaReprogramation(0, codigo, tipoVuelo, claseVuelo, tripulacion, destino, pistaVueloDespegue, fecha, tiempo, descripcion, "");
+                                controller.createFlightAgendaRepr(FlightRepr_create);
+
+                                cleanRegisterQuestionnaire();
+                            }
+                            else {
+                              JOptionPane.showMessageDialog(this, "¡An error occurred while updating!");  
+                            }
                         }
-                        else {
-                          JOptionPane.showMessageDialog(this, "¡An error occurred while updating!");  
+                        else if(btnAterrizaje.isSelected()==true) {
+
+                            clsFlightAgenda FlightRequirementsSearch = controller.readFlightAgenda(codigo);
+                            //comboBoxPistaAterrizaje.setSelectedItem(FlightRequirementsSearch.getPista());
+                            comboBoxPistaDespegue.setSelectedIndex(0);
+
+                            String pistaVueloAterrizaje = comboBoxPistaAterrizaje.getSelectedItem().toString();
+                            clsFlightAgenda FlightRequirements_update = new clsFlightAgenda(0, codigo, "", "", "", "", pistaVueloAterrizaje, fecha, tiempo, "");
+
+                            if(controller.updateFlightResquest(FlightRequirements_update)){
+                                Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
+                                JOptionPane.showMessageDialog(this, "¡¡¡Se ha reprogramado \n un vuelo agendado!!!", "Vuelo reprogramado satisfactoriamente", WIDTH, m);
+                                fillDataTable();
+
+                                clsFlightAgenda flightSearched = controller.readFlightAgenda(codigo);
+                                String tipoVuelo = flightSearched.getTipoVuelo();
+                                String claseVuelo = flightSearched.getClaseVuelo();
+                                String tripulacion = flightSearched.getTripulación();
+                                String destino = flightSearched.getDestino();
+                                String descripcion = txtAreaReprogramacion.getText();
+
+                                clsFlightAgendaReprogramation FlightRepr_create = new clsFlightAgendaReprogramation(0, codigo, tipoVuelo, claseVuelo, tripulacion, destino, pistaVueloAterrizaje, fecha, tiempo, descripcion, "");
+                                controller.createFlightAgendaRepr(FlightRepr_create);
+
+                                cleanRegisterQuestionnaire();
+                            }
+                            else {
+                              JOptionPane.showMessageDialog(this, "¡An error occurred while updating!");  
+                            }
                         }
-                    }
-                }  
+                    }  
+                }
+                
+                
+                
             }
         }
     }//GEN-LAST:event_btnReprogramarActionPerformed
