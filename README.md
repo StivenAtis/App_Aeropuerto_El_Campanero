@@ -66,3 +66,9 @@ Universidad de Nariño**
 </p>
 
 ---
+
+<p align="center">
+  <img src="https://github.com/StivenAtis/Aplicativo-Aeropuerto-El-Campanero/blob/main/media/logo_1.jpg" />
+</p>
+
+---
