@@ -345,6 +345,8 @@ public class pnlFlightQuery extends javax.swing.JPanel {
         tfCodigoVuelo.setText("");
         txtAInfoAdicional.setText("");
         txtAInfoSolicitud.setText("");
+        btnVuelosCancelados.setSelected(false);
+        btnVuelosReprogramacion.setSelected(false);
         
     }//GEN-LAST:event_btnLimpiarActionPerformed
 

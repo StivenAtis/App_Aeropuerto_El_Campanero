@@ -325,6 +325,8 @@ public class pnlQueryFlight_Airport extends javax.swing.JPanel {
         tfCodigoVuelo.setText("");
         txtAInfoAdicional.setText("");
         txtAInfoSolicitud.setText("");
+        btnReprogramacionVuelo.setSelected(false);
+        btnVuelosCancelados.setSelected(false);
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     //--------------------------------------------------------------------------
@@ -332,13 +334,23 @@ public class pnlQueryFlight_Airport extends javax.swing.JPanel {
     private void btnReprogramacionVueloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReprogramacionVueloActionPerformed
         
         if(btnReprogramacionVuelo.isSelected() == false){
-            txtAInfoAdicional.setText("");
-            txtAInfoSolicitud.setText("");
+            if( !"".equals(txtAInfoAdicional.getText())){
+                txtAInfoAdicional.setText("");
+                txtAInfoSolicitud.setText("");
+                tfCodigoVuelo.setText("");
+            }
+            else{
+                txtAInfoAdicional.setText("");
+                txtAInfoSolicitud.setText("");
+            }
         }
         else{
             if(btnReprogramacionVuelo.isSelected() == true){
-                txtAInfoAdicional.setText("");
-                txtAInfoSolicitud.setText("");
+                if( !"".equals(txtAInfoAdicional.getText())){
+                    txtAInfoAdicional.setText("");
+                    txtAInfoSolicitud.setText("");
+                    tfCodigoVuelo.setText("");
+                }
                 btnVuelosCancelados.setSelected(false);
             }
         }
@@ -347,13 +359,23 @@ public class pnlQueryFlight_Airport extends javax.swing.JPanel {
     private void btnVuelosCanceladosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVuelosCanceladosActionPerformed
 
         if(btnVuelosCancelados.isSelected() == false){
-            txtAInfoAdicional.setText("");
-            txtAInfoSolicitud.setText("");
+            if( !"".equals(txtAInfoAdicional.getText())){
+                txtAInfoAdicional.setText("");
+                txtAInfoSolicitud.setText("");
+                tfCodigoVuelo.setText("");
+            }
+            else{
+                txtAInfoAdicional.setText("");
+                txtAInfoSolicitud.setText("");
+            }
         }
         else{
             if(btnVuelosCancelados.isSelected() == true){
-                txtAInfoAdicional.setText("");
-                txtAInfoSolicitud.setText("");
+                if( !"".equals(txtAInfoAdicional.getText())){
+                    txtAInfoAdicional.setText("");
+                    txtAInfoSolicitud.setText("");
+                    tfCodigoVuelo.setText("");
+                }
                 btnReprogramacionVuelo.setSelected(false);
             }
         }
