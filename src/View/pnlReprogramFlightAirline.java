@@ -1,5 +1,6 @@
 package View;
 
+import Classes.clsFlightRequerimentsReprogramation;
 import Classes.clsFlightRequirements;
 import Controller.ctlFlightRequirement;
 import static java.awt.image.ImageObserver.WIDTH;
@@ -538,7 +539,24 @@ public class pnlReprogramFlightAirline extends javax.swing.JPanel {
                         else if (Integer.parseInt(anioVuelo) >= currentDate.getYear() ){
 
                             clsFlightRequirements FlightRequirements_update = new clsFlightRequirements(0, codigo, "", "", "", "", "", fecha, tiempo, "");
+                            
+                            
+                            clsFlightRequirements read = controller.readFlightRequirements(codigo);
+                            
+                            String tipo = read.getTipoVuelo();
+                            String clase = read.getSalidaLlegada();
+                            String capacidad = read.getCapacidadCarga();
+                            String destino = read.getDestino();
+                            String tripulación = read.getTripulación();
+                            String modeloA = read.getModeloAvion();
+                            String descripcion = txtAreaReprogramacion.getText();
+                            String descripcionCancelacion = "Vuelo reprogramado por aerolinea" + "\n" + "\n" + txtAreaReprogramacion.getText();
 
+                            clsFlightRequerimentsReprogramation flightReprogramation = new clsFlightRequerimentsReprogramation
+                                    (0, codigo, tipo, clase, tripulación, destino, capacidad, modeloA, fecha, tiempo, descripcionCancelacion, "1");
+                            controller.createFlightReprogramation(flightReprogramation);
+                            
+                            
                             if(controller.updateFlightResquest(FlightRequirements_update)){
                                 Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
                                 JOptionPane.showMessageDialog(this, "¡¡¡Se ha reprogramado \n una solicitud de vuelo!!!", "Solicitud reprogramada satisfactoriamente", WIDTH, m);
@@ -554,6 +572,23 @@ public class pnlReprogramFlightAirline extends javax.swing.JPanel {
 
                             clsFlightRequirements FlightRequirements_update = new clsFlightRequirements(0, codigo, "", "", "", "", "", fecha, tiempo, "");
 
+                            
+                            clsFlightRequirements read = controller.readFlightRequirements(codigo);
+                            
+                            String tipo = read.getTipoVuelo();
+                            String clase = read.getSalidaLlegada();
+                            String capacidad = read.getCapacidadCarga();
+                            String destino = read.getDestino();
+                            String tripulación = read.getTripulación();
+                            String modeloA = read.getModeloAvion();
+                            String descripcion = txtAreaReprogramacion.getText();
+                            String descripcionCancelacion = "Vuelo reprogramado por aerolinea" + "\n" + "\n" + txtAreaReprogramacion.getText();
+
+                            clsFlightRequerimentsReprogramation flightReprogramation = new clsFlightRequerimentsReprogramation
+                                    (0, codigo, tipo, clase, tripulación, destino, capacidad, modeloA, fecha, tiempo, descripcionCancelacion, "1");
+                            controller.createFlightReprogramation(flightReprogramation);
+                            
+                            
                             if(controller.updateFlightResquest(FlightRequirements_update)){
                                 Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
                                 JOptionPane.showMessageDialog(this, "¡¡¡Se ha reprogramado \n una solicitud de vuelo!!!", "Solicitud reprogramada satisfactoriamente", WIDTH, m);
@@ -674,6 +709,14 @@ public class pnlReprogramFlightAirline extends javax.swing.JPanel {
 
                                 clsFlightRequirements FlightRequirements_update = new clsFlightRequirements(0, codigo, modelo, "Vuelo de pasajeros", "Vuelo de salida", capacidad, tripulacion, fecha, tiempo, destino);
 
+                               
+                                String descripcionCancelacion = "Vuelo reprogramado por aerolinea" + "\n" + "\n" + txtAreaReprogramacion.getText();
+
+                                clsFlightRequerimentsReprogramation flightReprogramation = new clsFlightRequerimentsReprogramation
+                                        (0, codigo, "Vuelo de pasajeros", "Vuelo de salida", tripulacion, destino, capacidad, modelo, fecha, tiempo, descripcionCancelacion, "1");
+                                controller.createFlightReprogramation(flightReprogramation);
+                                
+                                
                                 if(controller.updateFlightResquestComplete(FlightRequirements_update)){
                                     Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
                                     JOptionPane.showMessageDialog(this, "¡¡¡Se ha reprogramado \n una solicitud de vuelo!!!", "Solicitud reprogramada satisfactoriamente", WIDTH, m);
@@ -689,6 +732,14 @@ public class pnlReprogramFlightAirline extends javax.swing.JPanel {
 
                             clsFlightRequirements FlightRequirements_update = new clsFlightRequirements(0, codigo, modelo, "Vuelo de pasajeros", "Vuelo de salida", capacidad, tripulacion, fecha, tiempo, destino);
 
+                            
+                            String descripcionCancelacion = "Vuelo reprogramado por aerolinea" + "\n" + "\n" + txtAreaReprogramacion.getText();
+
+                            clsFlightRequerimentsReprogramation flightReprogramation = new clsFlightRequerimentsReprogramation
+                                    (0, codigo, "Vuelo de pasajeros", "Vuelo de salida", tripulacion, destino, capacidad, modelo, fecha, tiempo, descripcionCancelacion, "1");
+                            controller.createFlightReprogramation(flightReprogramation);
+                                
+                                
                                 if(controller.updateFlightResquestComplete(FlightRequirements_update)){
                                     Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
                                     JOptionPane.showMessageDialog(this, "¡¡¡Se ha reprogramado \n una solicitud de vuelo!!!", "Solicitud reprogramada satisfactoriamente", WIDTH, m);
@@ -722,6 +773,16 @@ public class pnlReprogramFlightAirline extends javax.swing.JPanel {
 
                                 clsFlightRequirements FlightRequirements_update = new clsFlightRequirements(0, codigo, modelo, "Vuelo de pasajeros", "Vuelo de llegada", capacidad, tripulacion, fecha, tiempo, destino);
 
+                                
+                                
+                                String descripcionCancelacion = "Vuelo reprogramado por aerolinea" + "\n" + "\n" + txtAreaReprogramacion.getText();
+
+                                clsFlightRequerimentsReprogramation flightReprogramation = new clsFlightRequerimentsReprogramation
+                                        (0, codigo, "Vuelo de pasajeros", "Vuelo de llegada", tripulacion, destino, capacidad, modelo, fecha, tiempo, descripcionCancelacion, "1");
+                                controller.createFlightReprogramation(flightReprogramation);
+                                
+                                
+                                
                                 if(controller.updateFlightResquestComplete(FlightRequirements_update)){
                                     Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
                                     JOptionPane.showMessageDialog(this, "¡¡¡Se ha reprogramado \n una solicitud de vuelo!!!", "Solicitud reprogramada satisfactoriamente", WIDTH, m);
@@ -737,6 +798,14 @@ public class pnlReprogramFlightAirline extends javax.swing.JPanel {
 
                                 clsFlightRequirements FlightRequirements_update = new clsFlightRequirements(0, codigo, modelo, "Vuelo de pasajeros", "Vuelo de llegada", capacidad, tripulacion, fecha, tiempo, destino);
 
+                                
+                                String descripcionCancelacion = "Vuelo reprogramado por aerolinea" + "\n" + "\n" + txtAreaReprogramacion.getText();
+
+                                clsFlightRequerimentsReprogramation flightReprogramation = new clsFlightRequerimentsReprogramation
+                                        (0, codigo, "Vuelo de pasajeros", "Vuelo de llegada", tripulacion, destino, capacidad, modelo, fecha, tiempo, descripcionCancelacion, "1");
+                                controller.createFlightReprogramation(flightReprogramation);
+                                
+                                
                                 if(controller.updateFlightResquestComplete(FlightRequirements_update)){
                                     Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
                                     JOptionPane.showMessageDialog(this, "¡¡¡Se ha reprogramado \n una solicitud de vuelo!!!", "Solicitud reprogramada satisfactoriamente", WIDTH, m);
@@ -770,6 +839,14 @@ public class pnlReprogramFlightAirline extends javax.swing.JPanel {
 
                                 clsFlightRequirements FlightRequirements_update = new clsFlightRequirements(0, codigo, modelo, "Vuelo de carga", "Vuelo de llegada", capacidad, tripulacion, fecha, tiempo, destino);
 
+                                
+                                String descripcionCancelacion = "Vuelo reprogramado por aerolinea" + "\n" + "\n" + txtAreaReprogramacion.getText();
+
+                                clsFlightRequerimentsReprogramation flightReprogramation = new clsFlightRequerimentsReprogramation
+                                        (0, codigo, "Vuelo de carga", "Vuelo de llegada", tripulacion, destino, capacidad, modelo, fecha, tiempo, descripcionCancelacion, "1");
+                                controller.createFlightReprogramation(flightReprogramation);
+                                
+                                
                                 if(controller.updateFlightResquestComplete(FlightRequirements_update)){
                                     Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
                                     JOptionPane.showMessageDialog(this, "¡¡¡Se ha reprogramado \n una solicitud de vuelo!!!", "Solicitud reprogramada satisfactoriamente", WIDTH, m);
@@ -785,6 +862,15 @@ public class pnlReprogramFlightAirline extends javax.swing.JPanel {
 
                                 clsFlightRequirements FlightRequirements_update = new clsFlightRequirements(0, codigo, modelo, "Vuelo de carga", "Vuelo de llegada", capacidad, tripulacion, fecha, tiempo, destino);
 
+                                
+                                String descripcionCancelacion = "Vuelo reprogramado por aerolinea" + "\n" + "\n" + txtAreaReprogramacion.getText();
+
+                                clsFlightRequerimentsReprogramation flightReprogramation = new clsFlightRequerimentsReprogramation
+                                        (0, codigo, "Vuelo de carga", "Vuelo de llegada", tripulacion, destino, capacidad, modelo, fecha, tiempo, descripcionCancelacion, "1");
+                                controller.createFlightReprogramation(flightReprogramation);
+                                
+                                
+                                
                                 if(controller.updateFlightResquestComplete(FlightRequirements_update)){
                                     Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
                                     JOptionPane.showMessageDialog(this, "¡¡¡Se ha reprogramado \n una solicitud de vuelo!!!", "Solicitud reprogramada satisfactoriamente", WIDTH, m);
@@ -818,6 +904,14 @@ public class pnlReprogramFlightAirline extends javax.swing.JPanel {
 
                                 clsFlightRequirements FlightRequirements_update = new clsFlightRequirements(0, codigo, modelo, "Vuelo de carga", "Vuelo de salida", capacidad, tripulacion, fecha, tiempo, destino);
 
+                                
+                                String descripcionCancelacion = "Vuelo reprogramado por aerolinea" + "\n" + "\n" + txtAreaReprogramacion.getText();
+
+                                clsFlightRequerimentsReprogramation flightReprogramation = new clsFlightRequerimentsReprogramation
+                                        (0, codigo, "Vuelo de carga", "Vuelo de salida", tripulacion, destino, capacidad, modelo, fecha, tiempo, descripcionCancelacion, "1");
+                                controller.createFlightReprogramation(flightReprogramation);
+                                
+                                
                                 if(controller.updateFlightResquestComplete(FlightRequirements_update)){
                                     Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
                                     JOptionPane.showMessageDialog(this, "¡¡¡Se ha reprogramado \n una solicitud de vuelo!!!", "Solicitud reprogramada satisfactoriamente", WIDTH, m);
@@ -833,6 +927,14 @@ public class pnlReprogramFlightAirline extends javax.swing.JPanel {
 
                                 clsFlightRequirements FlightRequirements_update = new clsFlightRequirements(0, codigo, modelo, "Vuelo de carga", "Vuelo de salida", capacidad, tripulacion, fecha, tiempo, destino);
 
+                                
+                                String descripcionCancelacion = "Vuelo reprogramado por aerolinea" + "\n" + "\n" + txtAreaReprogramacion.getText();
+
+                                clsFlightRequerimentsReprogramation flightReprogramation = new clsFlightRequerimentsReprogramation
+                                        (0, codigo, "Vuelo de carga", "Vuelo de salida", tripulacion, destino, capacidad, modelo, fecha, tiempo, descripcionCancelacion, "1");
+                                controller.createFlightReprogramation(flightReprogramation);
+                                
+                                
                                 if(controller.updateFlightResquestComplete(FlightRequirements_update)){
                                     Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
                                     JOptionPane.showMessageDialog(this, "¡¡¡Se ha reprogramado \n una solicitud de vuelo!!!", "Solicitud reprogramada satisfactoriamente", WIDTH, m);

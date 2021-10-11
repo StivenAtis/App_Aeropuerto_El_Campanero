@@ -4,6 +4,7 @@ import Classes.clsDeniedFlights;
 import Classes.clsFlightAgenda;
 import Classes.clsFlightCancelationAgenda;
 import Classes.clsFlightCancelationAirline;
+import Classes.clsFlightRequerimentsReprogramation;
 import Classes.clsFlightRequirements;
 import Controller.ctlFlightAgenda;
 import Controller.ctlFlightRequirement;
@@ -38,6 +39,7 @@ public class pnlFlightQuery extends javax.swing.JPanel {
         lbCdigoVuelo3 = new javax.swing.JLabel();
         lbCdigoVuelo2 = new javax.swing.JLabel();
         lbCdigoVuelo4 = new javax.swing.JLabel();
+        btnVuelosReprogramacion = new javax.swing.JRadioButton();
         btnVuelosCancelados = new javax.swing.JRadioButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         txtAInfoAdicional = new javax.swing.JTextArea();
@@ -75,6 +77,16 @@ public class pnlFlightQuery extends javax.swing.JPanel {
         lbCdigoVuelo4.setToolTipText("");
         add(lbCdigoVuelo4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 540, 270, 40));
 
+        btnVuelosReprogramacion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnVuelosReprogramacion.setForeground(new java.awt.Color(255, 255, 255));
+        btnVuelosReprogramacion.setText("Registro de reprogramación");
+        btnVuelosReprogramacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVuelosReprogramacionActionPerformed(evt);
+            }
+        });
+        add(btnVuelosReprogramacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 200, -1, -1));
+
         btnVuelosCancelados.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnVuelosCancelados.setForeground(new java.awt.Color(255, 255, 255));
         btnVuelosCancelados.setText("Vuelos cancelados");
@@ -83,7 +95,7 @@ public class pnlFlightQuery extends javax.swing.JPanel {
                 btnVuelosCanceladosActionPerformed(evt);
             }
         });
-        add(btnVuelosCancelados, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 200, -1, -1));
+        add(btnVuelosCancelados, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, -1, -1));
 
         txtAInfoAdicional.setColumns(20);
         txtAInfoAdicional.setFont(new java.awt.Font("Monospaced", 1, 13)); // NOI18N
@@ -110,7 +122,7 @@ public class pnlFlightQuery extends javax.swing.JPanel {
                 btnConsultarActionPerformed(evt);
             }
         });
-        add(btnConsultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 110, 330, 120));
+        add(btnConsultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 110, 330, 120));
 
         btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Limpiar_min.png"))); // NOI18N
         btnLimpiar.setContentAreaFilled(false);
@@ -156,7 +168,7 @@ public class pnlFlightQuery extends javax.swing.JPanel {
         }
         else{
             
-            if(btnVuelosCancelados.isSelected()==false){
+            if(btnVuelosCancelados.isSelected()==false && btnVuelosReprogramacion.isSelected()==false){
                 
                 clsFlightRequirements FlightRequirementsSearch = controlFlightRequirement.readFlightRequirements(codigoVueloEncontrado);
                 clsDeniedFlights FlightDeniedSearch = controlFlightRequirement.readFlightDenied(codigoVueloEncontrado);
@@ -285,6 +297,35 @@ public class pnlFlightQuery extends javax.swing.JPanel {
                     }
                 }
             }
+            
+            else if(btnVuelosReprogramacion.isSelected() == true){
+                
+                clsFlightRequerimentsReprogramation FlightRequirementsSearch  = controlFlightRequirement.readFlightReprogramation(codigoVueloEncontrado);
+                
+                if (FlightRequirementsSearch == null) {
+                    JOptionPane.showMessageDialog(this, "¡No existe datos para el vuelo con codigo: " + codigoVueloEncontrado + "!");
+                    cleanRegisterQuestionnaire();
+                } else {
+                    
+                    
+                    if(FlightRequirementsSearch != null){
+                        
+                        txtAInfoAdicional.setText("Datos de agenda de vuelo:" + "\n" +
+                                                "\n" +
+                                                "Codigo del vuelo: " + FlightRequirementsSearch.getCodigoVuelo()+ "\n" +
+                                                "Tipo de vuelo: " + FlightRequirementsSearch.getTipoVuelo() + "\n" + 
+                                                "Clase de vuelo: " + FlightRequirementsSearch.getSalidaLlegada()+ "\n" +
+                                                "Tripulación del avión: " + FlightRequirementsSearch.getTripulación() + "\n" + 
+                                                "Modelo de Avión: " + FlightRequirementsSearch.getModeloAvion()+ "\n" + 
+                                                "Feca de vuelo: " + FlightRequirementsSearch.getFecha() + "\n" + 
+                                                "Hora de vuelo: " + FlightRequirementsSearch.getHora()+ "\n" + 
+                                                "Destino del vuelo: " + FlightRequirementsSearch.getDestino());
+                                                String descrp = "VUELO SOLICITADO:" + "\n" + FlightRequirementsSearch.getDescripcion();
+
+                        txtAInfoSolicitud.setText(descrp);
+                    }
+                }
+            }
         }
     }//GEN-LAST:event_btnConsultarActionPerformed
 
@@ -310,16 +351,53 @@ public class pnlFlightQuery extends javax.swing.JPanel {
     private void btnVuelosCanceladosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVuelosCanceladosActionPerformed
 
         if(btnVuelosCancelados.isSelected() == false){
-            txtAInfoAdicional.setText("");
-            txtAInfoSolicitud.setText("");
-        }
-        else{
-            if(btnVuelosCancelados.isSelected() == true){
+            if( !"".equals(txtAInfoAdicional.getText())){
+                txtAInfoAdicional.setText("");
+                txtAInfoSolicitud.setText("");
+                tfCodigoVuelo.setText("");
+            }
+            else{
                 txtAInfoAdicional.setText("");
                 txtAInfoSolicitud.setText("");
             }
+            
+            
+        }
+        else{
+            if(btnVuelosCancelados.isSelected() == true){
+                 if( !"".equals(txtAInfoAdicional.getText())){
+                    txtAInfoAdicional.setText("");
+                    txtAInfoSolicitud.setText("");
+                    tfCodigoVuelo.setText("");
+                 }
+                
+                btnVuelosReprogramacion.setSelected(false);
+            }
         }
     }//GEN-LAST:event_btnVuelosCanceladosActionPerformed
+
+    private void btnVuelosReprogramacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVuelosReprogramacionActionPerformed
+        if(btnVuelosReprogramacion.isSelected() == false){
+             if( !"".equals(txtAInfoAdicional.getText())){
+                txtAInfoAdicional.setText("");
+                txtAInfoSolicitud.setText("");
+                tfCodigoVuelo.setText("");
+             }
+            
+            
+        }
+        else{
+            if(btnVuelosReprogramacion.isSelected() == true){
+                if( !"".equals(txtAInfoAdicional.getText())){
+                    txtAInfoAdicional.setText("");
+                    txtAInfoSolicitud.setText("");
+                    tfCodigoVuelo.setText("");
+                }
+                
+                btnVuelosCancelados.setSelected(false);
+            }
+        }
+    }//GEN-LAST:event_btnVuelosReprogramacionActionPerformed
 
     //--------------------------------------------------------------------------
     
@@ -327,6 +405,7 @@ public class pnlFlightQuery extends javax.swing.JPanel {
     private javax.swing.JButton btnConsultar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JRadioButton btnVuelosCancelados;
+    private javax.swing.JRadioButton btnVuelosReprogramacion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

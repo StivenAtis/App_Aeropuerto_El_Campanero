@@ -218,7 +218,7 @@ public class pnlCancelFlightAirport extends javax.swing.JPanel {
                                     }
                                 } 
                                 else {
-                                    JOptionPane.showMessageDialog(this, "Ocurrió un error al cancelar, por favor verifique los datos");
+                                    JOptionPane.showMessageDialog(this, "Se cancelo la operación");
 
                                 }
                             }

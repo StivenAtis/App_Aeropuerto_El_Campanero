@@ -5,17 +5,10 @@
         <group>
             <file>file:/D:/Documents/Archivos/Archivos/NetBeansProjects/Aeropuerto_El_Campanero_Sprint_2/src/View/frmAeropuerto.java</file>
             <file>file:/D:/Documents/Archivos/Archivos/NetBeansProjects/Aeropuerto_El_Campanero_Sprint_2/build.xml</file>
-            <file>file:/D:/Documents/Archivos/Archivos/NetBeansProjects/Aeropuerto_El_Campanero_Sprint_2/src/View/pnlFlightCalendar.java</file>
-            <file>file:/D:/Documents/Archivos/Archivos/NetBeansProjects/Aeropuerto_El_Campanero_Sprint_2/src/View/pnlAbortFlightAirline.java</file>
-            <file>file:/D:/Documents/Archivos/Archivos/NetBeansProjects/Aeropuerto_El_Campanero_Sprint_2/src/View/pnlFlightQuery.java</file>
-            <file>file:/D:/Documents/Archivos/Archivos/NetBeansProjects/Aeropuerto_El_Campanero_Sprint_2/src/Model/modelFlight_Agenda.java</file>
-            <file>file:/D:/Documents/Archivos/Archivos/NetBeansProjects/Aeropuerto_El_Campanero_Sprint_2/src/Controller/ctlFlightAgenda.java</file>
             <file>file:/D:/Documents/Archivos/Archivos/NetBeansProjects/Aeropuerto_El_Campanero_Sprint_2/src/View/frmAirport.java</file>
-            <file>file:/D:/Documents/Archivos/Archivos/NetBeansProjects/Aeropuerto_El_Campanero_Sprint_2/src/View/pnlScheduleFlight.java</file>
-            <file>file:/D:/Documents/Archivos/Archivos/NetBeansProjects/Aeropuerto_El_Campanero_Sprint_2/src/View/frmLogin.java</file>
             <file>file:/D:/Documents/Archivos/Archivos/NetBeansProjects/Aeropuerto_El_Campanero_Sprint_2/src/utils/Constants.java</file>
+            <file>file:/D:/Documents/Archivos/Archivos/NetBeansProjects/Aeropuerto_El_Campanero_Sprint_2/src/View/pnlCancelFlightAirport.java</file>
             <file>file:/D:/Documents/Archivos/Archivos/NetBeansProjects/Aeropuerto_El_Campanero_Sprint_2/src/View/frmAirline.java</file>
-            <file>file:/D:/Documents/Archivos/Archivos/NetBeansProjects/Aeropuerto_El_Campanero_Sprint_2/src/View/pnlFlightOrderingAirline.java</file>
         </group>
     </open-files>
 </project-private>
