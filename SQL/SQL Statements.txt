@@ -1,0 +1,239 @@
+CREATE TABLE tb_airport (
+ 
+    id int AUTO_INCREMENT PRIMARY KEY,
+    name varchar(255) NOT NULL,
+    address varchar(250) NOT NULL
+)
+
+CREATE TABLE tb_airline (
+ 
+    id int AUTO_INCREMENT PRIMARY KEY,
+    code_airline varchar(50) NOT NULL,
+    name varchar(100) NOT NULL,
+    address varchar(250) NOT NULL,
+    id_airport int NOT NULL,
+    
+	FOREIGN KEY (id_airport) REFERENCES tb_airport(id)
+)
+
+CREATE TABLE tb_Airport_staff (
+ 
+    id int AUTO_INCREMENT PRIMARY KEY,
+    id_Airport_staff varchar(15) NOT NULL,
+    name varchar(255) NOT NULL,
+    last_name varchar(255) NOT NULL,
+    phone varchar(20) NOT NULL,
+    email varchar(60) NOT NULL,
+    user_staff varchar(60) BINARY NOT NULL,
+    password_staff varchar(200) NOT NULL, 
+    id_airport int NOT NULL,
+	
+    FOREIGN KEY (id_airport) REFERENCES tb_airport(id)
+)
+
+CREATE TABLE tb_airline_staff (
+ 
+    id int AUTO_INCREMENT PRIMARY KEY,
+    id_airline_staff varchar(15) NOT NULL,
+    name varchar(255) NOT NULL,
+    last_name varchar(255) NOT NULL,
+    phone varchar(20) NOT NULL,
+    email varchar(60) NOT NULL,
+    user_staff varchar(60) BINARY NOT NULL,
+    password_staff varchar(200) NOT NULL, 
+    id_airline int NOT NULL,
+	
+    FOREIGN KEY (id_airline) REFERENCES tb_airline(id)
+)
+
+CREATE TABLE tb_plane (
+ 
+    id int AUTO_INCREMENT PRIMARY KEY,
+    code_plane varchar(15) NOT NULL,
+    model varchar(100) NOT NULL,
+    capacity varchar(255) NOT NULL,
+    storage_type varchar(60) NOT NULL,
+    id_airport int NOT NULL,
+    
+	FOREIGN KEY (id_airport) REFERENCES tb_airport(id)
+)
+
+CREATE TABLE tb_flight (
+ 
+    id int AUTO_INCREMENT PRIMARY KEY,
+    code_flight varchar(15) NOT NULL,
+    date_flight date DEFAULT NULL,
+	time_flight time DEFAULT NULL,
+    runway varchar(50) DEFAULT NULL,
+    id_airline int NOT NULL,
+	
+    FOREIGN KEY (id_airline) REFERENCES tb_airline(id)
+)
+
+CREATE TABLE tb_pilots (
+ 
+    id int AUTO_INCREMENT PRIMARY KEY,
+    id_pilot varchar(15) NOT NULL,
+    name varchar(255) NOT NULL,
+    last_name varchar(255) NOT NULL,
+    phone varchar(20) NOT NULL,
+    email varchar(60) NOT NULL,
+    experience varchar(200) NOT NULL,
+	medical_checkup varchar(200) NOT NULL, 
+    id_flight int NOT NULL,
+	
+    FOREIGN KEY (id_flight) REFERENCES tb_flight(id)
+)
+
+CREATE TABLE tb_freight  (
+ 
+    id int AUTO_INCREMENT PRIMARY KEY,
+    code_freight varchar(15) NOT NULL,
+    supported_weight double NOT NULL,
+    id_plane int NOT NULL,
+    
+	FOREIGN KEY (id_plane) REFERENCES tb_plane(id)
+)
+
+CREATE TABLE tb_passengers  (
+ 
+    id int AUTO_INCREMENT PRIMARY KEY,
+    code_passenger varchar(15) NOT NULL,
+    supported_passengers int NOT NULL,
+    id_plane int NOT NULL,
+    
+	FOREIGN KEY (id_plane) REFERENCES tb_plane(id)
+)
+
+CREATE TABLE tb_departure  (
+ 
+    id int AUTO_INCREMENT PRIMARY KEY,
+    code_departure varchar(15) NOT NULL,
+    id_flight int NOT NULL,
+    
+	FOREIGN KEY (id_flight) REFERENCES tb_flight(id)
+)
+
+CREATE TABLE tb_arrival  (
+ 
+    id int AUTO_INCREMENT PRIMARY KEY,
+    code_arrival varchar(15) NOT NULL,
+    id_flight int NOT NULL,
+    
+	FOREIGN KEY (id_flight) REFERENCES tb_flight(id)
+)
+
+CREATE TABLE tb_flight_requeriment_airline (
+ 
+    id int AUTO_INCREMENT PRIMARY KEY,
+    code_flight varchar(15) NOT NULL,
+    model_plane varchar(50) NOT NULL,
+    Type_flight varchar(50) NOT NULL,
+    flight_selection varchar(50) NOT NULL,
+    capacity_plane varchar(50) NOT NULL,
+    crew_plane varchar(50) NOT NULL,
+    date_flight date DEFAULT NULL,
+	time_flight time DEFAULT NULL,
+    id_airline int NOT NULL,
+	
+    FOREIGN KEY (id_airline) REFERENCES tb_airline(id)
+)
+
+CREATE TABLE tb_flight_declined (
+ 
+    id int AUTO_INCREMENT PRIMARY KEY,
+    code_flight varchar(15) NOT NULL,
+    Type_flight varchar(50) NOT NULL,
+    flight_selection varchar(50) NOT NULL,
+    date_flight date DEFAULT NULL,
+	time_flight time DEFAULT NULL,
+    model_plane varchar(50) NOT NULL,
+    capacity_plane varchar(50) NOT NULL,
+    crew_plane varchar(50) NOT NULL,
+    destiny varchar(50) NOT NULL,
+    description_ varchar(700) NOT NULL,
+    id_airline int NOT NULL,
+	
+    FOREIGN KEY (id_airline) REFERENCES tb_airline(id)
+)
+
+CREATE TABLE tb_flight_reprogramation (
+ 
+    id int AUTO_INCREMENT PRIMARY KEY,
+    code_flight varchar(20) NOT NULL,
+	type_flight varchar(50) NOT NULL,
+	flight_selection varchar(50) NOT NULL,
+	crew_plane varchar(50) NOT NULL,
+	destination varchar(200) NOT NULL,
+    runway varchar(50) DEFAULT NULL,
+    date_flight date DEFAULT NULL,
+	time_flight time DEFAULT NULL,
+	description varchar(700) DEFAULT NULL,
+    id_airline int NOT NULL,
+	
+    FOREIGN KEY (id_airline) REFERENCES tb_airline(id)
+)
+
+CREATE TABLE tb_flight_cancelation (
+ 
+    id int AUTO_INCREMENT PRIMARY KEY,
+    code_flight varchar(20) NOT NULL,
+	model_plane varchar(100) NOT NULL,
+	type_flight varchar(50) NOT NULL,
+	flight_selection varchar(50) NOT NULL,
+	capacity varchar(255) NOT NULL,
+	crew_plane varchar(50) NOT NULL,
+	date_flight date DEFAULT NULL,
+	time_flight time DEFAULT NULL,
+	destination varchar(200) NOT NULL,	
+	description varchar(700) DEFAULT NULL,
+    id_airline int NOT NULL,
+	
+    FOREIGN KEY (id_airline) REFERENCES tb_airline(id)
+)
+
+CREATE TABLE tb_flight_cancelation_agenda (
+ 
+    id int AUTO_INCREMENT PRIMARY KEY,
+    code_flight varchar(20) NOT NULL,
+	type_flight varchar(50) NOT NULL,
+	flight_selection varchar(50) NOT NULL,
+	crew_plane varchar(50) NOT NULL,
+	destination varchar(200) NOT NULL,
+    runway varchar(50) DEFAULT NULL,
+    date_flight date DEFAULT NULL,
+	time_flight time DEFAULT NULL,
+	description varchar(700) DEFAULT NULL,
+    id_airline int NOT NULL,
+	
+    FOREIGN KEY (id_airline) REFERENCES tb_airline(id)
+)
+
+CREATE TABLE tb_flight_cancelation_airline (
+ 
+    id int AUTO_INCREMENT PRIMARY KEY,
+    code_flight varchar(15) NOT NULL,
+    model_plane varchar(50) NOT NULL,
+    Type_flight varchar(50) NOT NULL,
+    flight_selection varchar(50) NOT NULL,
+    capacity_plane varchar(50) NOT NULL,
+    crew_plane varchar(50) NOT NULL,
+    date_flight date DEFAULT NULL,
+	time_flight time DEFAULT NULL,
+	destination varchar(200) NOT NULL,
+    description varchar(700) DEFAULT NULL,
+    id_airline int NOT NULL,
+	
+    FOREIGN KEY (id_airline) REFERENCES tb_airline(id)
+)
+
+
+CREATE TABLE tb_Timetable (
+ 
+    id int AUTO_INCREMENT PRIMARY KEY,
+    date varchar(100) NOT NULL,
+    time varchar(100) NOT NULL,
+	runway_takeoff varchar(50) DEFAULT NULL,
+	runway_landing varchar(50) DEFAULT NULL
+
+)
