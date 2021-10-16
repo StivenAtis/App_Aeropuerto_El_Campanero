@@ -146,9 +146,7 @@ public class frmAdministrationAirline extends javax.swing.JFrame {
         pnlGrafVuelosCancelados = new javax.swing.JPanel();
         acercaDE5 = new javax.swing.JButton();
         lblIcon10 = new javax.swing.JLabel();
-        pnlGrafVuelosRechazados = new javax.swing.JPanel();
-        ReprogramarVUelo = new javax.swing.JButton();
-        lblIcon6 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
         pnlFirstTopBar = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
         lblIcon = new javax.swing.JLabel();
@@ -156,6 +154,7 @@ public class frmAdministrationAirline extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         pnlRechazerVuelo = new javax.swing.JPanel();
         btnHome = new javax.swing.JButton();
+        jLabel15 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Administración Aerolínea");
@@ -229,7 +228,7 @@ public class frmAdministrationAirline extends javax.swing.JFrame {
 
         btnCancelarVuelo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnCancelarVuelo.setForeground(new java.awt.Color(204, 204, 204));
-        btnCancelarVuelo.setText("Grafica vuelos solicitados");
+        btnCancelarVuelo.setText("Cancelados y Rechazados");
         btnCancelarVuelo.setBorderPainted(false);
         btnCancelarVuelo.setContentAreaFilled(false);
         btnCancelarVuelo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -382,7 +381,7 @@ public class frmAdministrationAirline extends javax.swing.JFrame {
 
         ReprogramarVUelo1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         ReprogramarVUelo1.setForeground(new java.awt.Color(204, 204, 204));
-        ReprogramarVUelo1.setText("Grafica vuelos agendados");
+        ReprogramarVUelo1.setText("Agendados y Solicitados");
         ReprogramarVUelo1.setBorderPainted(false);
         ReprogramarVUelo1.setContentAreaFilled(false);
         ReprogramarVUelo1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -411,7 +410,7 @@ public class frmAdministrationAirline extends javax.swing.JFrame {
 
         acercaDE5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         acercaDE5.setForeground(new java.awt.Color(204, 204, 204));
-        acercaDE5.setText("Grafica vuelos cancelados");
+        acercaDE5.setText("Total de Vuelos");
         acercaDE5.setBorderPainted(false);
         acercaDE5.setContentAreaFilled(false);
         acercaDE5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -435,34 +434,9 @@ public class frmAdministrationAirline extends javax.swing.JFrame {
         lblIcon10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/administration_30px.png"))); // NOI18N
         pnlGrafVuelosCancelados.add(lblIcon10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 42));
 
-        pnlGrafVuelosRechazados.setBackground(new java.awt.Color(28, 31, 52));
-        pnlGrafVuelosRechazados.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        ReprogramarVUelo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        ReprogramarVUelo.setForeground(new java.awt.Color(204, 204, 204));
-        ReprogramarVUelo.setText("Grafica vuelos Rechazados");
-        ReprogramarVUelo.setBorderPainted(false);
-        ReprogramarVUelo.setContentAreaFilled(false);
-        ReprogramarVUelo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        ReprogramarVUelo.setFocusPainted(false);
-        ReprogramarVUelo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        ReprogramarVUelo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                ReprogramarVUeloMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                ReprogramarVUeloMouseExited(evt);
-            }
-        });
-        ReprogramarVUelo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ReprogramarVUeloActionPerformed(evt);
-            }
-        });
-        pnlGrafVuelosRechazados.add(ReprogramarVUelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 200, 50));
-
-        lblIcon6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/reprogram_30px.png"))); // NOI18N
-        pnlGrafVuelosRechazados.add(lblIcon6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 42));
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel16.setText("Graficas de vuelos");
 
         javax.swing.GroupLayout pnlSideBarLayout = new javax.swing.GroupLayout(pnlSideBar);
         pnlSideBar.setLayout(pnlSideBarLayout);
@@ -471,18 +445,6 @@ public class frmAdministrationAirline extends javax.swing.JFrame {
             .addGroup(pnlSideBarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlSideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSideBarLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(pnlSideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSideBarLayout.createSequentialGroup()
-                                .addComponent(jLabel23)
-                                .addGap(39, 39, 39))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSideBarLayout.createSequentialGroup()
-                                .addComponent(pnlGrafVuelosCancelados, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())))
-                    .addGroup(pnlSideBarLayout.createSequentialGroup()
-                        .addComponent(pnlGrafVuelopsAgendados, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(pnlSideBarLayout.createSequentialGroup()
                         .addGroup(pnlSideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(pnlLoginMenu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -498,13 +460,24 @@ public class frmAdministrationAirline extends javax.swing.JFrame {
                                     .addComponent(pnlReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(pnlRechazados, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(pnlSettingsMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSideBarLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(pnlSideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(pnlGrafVuelosSolicitados, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(pnlGrafVuelosRechazados, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap())))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSideBarLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel23)
+                        .addGap(39, 39, 39))
+                    .addGroup(pnlSideBarLayout.createSequentialGroup()
+                        .addGroup(pnlSideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pnlGrafVuelopsAgendados, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlSideBarLayout.createSequentialGroup()
+                                .addGap(39, 39, 39)
+                                .addComponent(jLabel16)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pnlSideBarLayout.createSequentialGroup()
+                        .addGroup(pnlSideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pnlGrafVuelosSolicitados, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pnlGrafVuelosCancelados, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         pnlSideBarLayout.setVerticalGroup(
             pnlSideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -525,15 +498,15 @@ public class frmAdministrationAirline extends javax.swing.JFrame {
                 .addComponent(pnlRechazados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addGap(26, 26, 26)
+                .addComponent(jLabel16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(pnlGrafVuelopsAgendados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(pnlGrafVuelosSolicitados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(pnlGrafVuelosCancelados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(pnlGrafVuelosRechazados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGap(35, 35, 35)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
                 .addComponent(pnlReportes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -595,6 +568,11 @@ public class frmAdministrationAirline extends javax.swing.JFrame {
         pnlRechazerVuelo.add(btnHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 50));
 
         pnlFirstTopBar.add(pnlRechazerVuelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 50, 110, 50));
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel15.setText("Aeropuerto El Campanero");
+        pnlFirstTopBar.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
 
         getContentPane().add(pnlFirstTopBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1600, 100));
 
@@ -739,23 +717,6 @@ public class frmAdministrationAirline extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_acercaDE5ActionPerformed
 
-    private void ReprogramarVUeloMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReprogramarVUeloMouseEntered
-        changeColorMenu(pnlGrafVuelosRechazados);
-    }//GEN-LAST:event_ReprogramarVUeloMouseEntered
-
-    private void ReprogramarVUeloMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReprogramarVUeloMouseExited
-        resetColorMenu(pnlGrafVuelosRechazados);
-    }//GEN-LAST:event_ReprogramarVUeloMouseExited
-
-    private void ReprogramarVUeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReprogramarVUeloActionPerformed
-
-        //        pnlReprogramFlightAirline = new pnlReprogramFlightAirline();
-        //        this.loadPanel(pnlReprogramFlightAirline);
-        //        setMyPanelActive(Constants.PANEL_REPROGRAMFLIGHTS);
-        //        changeIconSubtitleBar(Constants.TITLE_REPROGRAMFLIGHTS, Constants.ICON_REPROGRAMFLIGHTS);
-        btnHome.setVisible(true);
-    }//GEN-LAST:event_ReprogramarVUeloActionPerformed
-
     private void btnHomeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMouseEntered
         changeColorMenu(pnlRechazerVuelo);
     }//GEN-LAST:event_btnHomeMouseEntered
@@ -803,7 +764,6 @@ public class frmAdministrationAirline extends javax.swing.JFrame {
     //--------------------------------------------------------------------------
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ReprogramarVUelo;
     private javax.swing.JButton ReprogramarVUelo1;
     private javax.swing.JButton acercaDE5;
     private javax.swing.JButton btnCancelarVuelo;
@@ -815,6 +775,8 @@ public class frmAdministrationAirline extends javax.swing.JFrame {
     private javax.swing.JButton btnVuelosRechazados;
     private javax.swing.JButton btnVuelosSolicitados;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
@@ -829,7 +791,6 @@ public class frmAdministrationAirline extends javax.swing.JFrame {
     private javax.swing.JLabel lblIcon12;
     private javax.swing.JLabel lblIcon3;
     private javax.swing.JLabel lblIcon4;
-    private javax.swing.JLabel lblIcon6;
     private javax.swing.JLabel lblIcon7;
     private javax.swing.JLabel lblIcon8;
     private javax.swing.JLabel lblIcon9;
@@ -837,7 +798,6 @@ public class frmAdministrationAirline extends javax.swing.JFrame {
     private javax.swing.JPanel pnlFirstTopBar;
     private javax.swing.JPanel pnlGrafVuelopsAgendados;
     private javax.swing.JPanel pnlGrafVuelosCancelados;
-    private javax.swing.JPanel pnlGrafVuelosRechazados;
     private javax.swing.JPanel pnlGrafVuelosSolicitados;
     private javax.swing.JPanel pnlLoginMenu;
     private javax.swing.JPanel pnlRechazados;

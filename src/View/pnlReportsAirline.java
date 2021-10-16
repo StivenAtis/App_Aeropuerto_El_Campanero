@@ -31,7 +31,6 @@ public class pnlReportsAirline extends javax.swing.JPanel {
         lbVueloS3 = new javax.swing.JLabel();
         lbVueloS4 = new javax.swing.JLabel();
         comboBReportesIndividual1 = new javax.swing.JComboBox<>();
-        comboBReportesIndividual2 = new javax.swing.JComboBox<>();
         comboBReportes = new javax.swing.JComboBox<>();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator1 = new javax.swing.JSeparator();
@@ -39,6 +38,7 @@ public class pnlReportsAirline extends javax.swing.JPanel {
         jSeparator3 = new javax.swing.JSeparator();
         btnReporteUnitario = new javax.swing.JButton();
         btnReporteParcial = new javax.swing.JButton();
+        tfCodigoVuelo = new javax.swing.JTextField();
         lbVueloS1 = new javax.swing.JLabel();
         lbVueloS2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -64,20 +64,16 @@ public class pnlReportsAirline extends javax.swing.JPanel {
         lbVueloS4.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         lbVueloS4.setForeground(new java.awt.Color(255, 255, 255));
         lbVueloS4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbVueloS4.setText("Seleccione");
+        lbVueloS4.setText("Digite codigo del vuelo");
         lbVueloS4.setToolTipText("");
         add(lbVueloS4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 350, 410, 40));
 
         comboBReportesIndividual1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        comboBReportesIndividual1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tipo de vuelo" }));
+        comboBReportesIndividual1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tipo de vuelo", "Vuelo solicitado", "Vuelo Agendado", "Vuelo Cancelado", "Vuelo Rechazado" }));
         add(comboBReportesIndividual1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 290, 410, 40));
 
-        comboBReportesIndividual2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        comboBReportesIndividual2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Codigo del vuelo" }));
-        add(comboBReportesIndividual2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 400, 410, 40));
-
         comboBReportes.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        comboBReportes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione una opción para reporte" }));
+        comboBReportes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione una opción para reporte", "Vuelos solicitados", "Vuelos agendados", "Vuelos cancelados", "Vuelos rechazados", "Historial de reprogramación" }));
         add(comboBReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 290, 410, 40));
         add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, 410, 50));
         add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 480, 410, 50));
@@ -95,6 +91,9 @@ public class pnlReportsAirline extends javax.swing.JPanel {
         btnReporteParcial.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/reporte_min.png"))); // NOI18N
         btnReporteParcial.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/reporte_max.png"))); // NOI18N
         add(btnReporteParcial, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 520, 330, 120));
+
+        tfCodigoVuelo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        add(tfCodigoVuelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 400, 410, 40));
 
         lbVueloS1.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         lbVueloS1.setForeground(new java.awt.Color(255, 255, 255));
@@ -129,7 +128,6 @@ public class pnlReportsAirline extends javax.swing.JPanel {
     private javax.swing.JButton btnReporteUnitario;
     private javax.swing.JComboBox<String> comboBReportes;
     private javax.swing.JComboBox<String> comboBReportesIndividual1;
-    private javax.swing.JComboBox<String> comboBReportesIndividual2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -142,5 +140,6 @@ public class pnlReportsAirline extends javax.swing.JPanel {
     private javax.swing.JLabel lbVueloS2;
     private javax.swing.JLabel lbVueloS3;
     private javax.swing.JLabel lbVueloS4;
+    private javax.swing.JTextField tfCodigoVuelo;
     // End of variables declaration//GEN-END:variables
 }
