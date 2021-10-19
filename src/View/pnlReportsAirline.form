@@ -24,14 +24,15 @@
           <Font name="Tahoma" size="14" style="1"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="7">
+          <StringArray count="8">
             <StringItem index="0" value="Selecione una opci&#xf3;n para reporte"/>
             <StringItem index="1" value="Vuelos solicitados"/>
             <StringItem index="2" value="Vuelos agendados"/>
-            <StringItem index="3" value="Vuelos cancelados"/>
-            <StringItem index="4" value="Vuelos rechazados"/>
-            <StringItem index="5" value="Historial de reprogramaci&#xf3;n"/>
-            <StringItem index="6" value="Reporte grupal"/>
+            <StringItem index="3" value="Vuelos en solicitudes cancelados"/>
+            <StringItem index="4" value="Vuelos en agenda cancelados"/>
+            <StringItem index="5" value="Vuelos rechazados"/>
+            <StringItem index="6" value="Historial de reprogramaci&#xf3;n"/>
+            <StringItem index="7" value="Reporte grupal"/>
           </StringArray>
         </Property>
       </Properties>
