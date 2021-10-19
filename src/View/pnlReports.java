@@ -3,7 +3,9 @@ package View;
 import Classes.clsDeniedFlights;
 import Classes.clsFlightAgenda;
 import Classes.clsFlightCancelationAgenda;
+import Classes.clsFlightRequirements;
 import Controller.ctlFlightAgenda;
+import Controller.ctlFlightRequirement;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -33,10 +35,13 @@ public class pnlReports extends javax.swing.JPanel {
     //--------------------------------------------------------------------------
     
     ctlFlightAgenda controlAgenda = new ctlFlightAgenda();
+    ctlFlightRequirement controlAirline = new ctlFlightRequirement();
 
     LinkedList<clsFlightAgenda> FlightAgendaObjectList = new LinkedList<>();
     LinkedList<clsFlightCancelationAgenda> FlightCancelationAgendaObjectList = new LinkedList<>();
     LinkedList<clsDeniedFlights> FlightDeniedAgendaObjectList = new LinkedList<>();
+    //TODO...
+    LinkedList<clsFlightRequirements> FlightRequerimentsObjectList = new LinkedList<>();
     
     LocalDate currentDate = LocalDate.now();
     
@@ -44,9 +49,10 @@ public class pnlReports extends javax.swing.JPanel {
     
     public pnlReports() {
         initComponents();
-         showFlightAgenda();
-         showFlightCancelationAgenda();
-         showFlightDeniedAgenda();
+        showFlightAgenda();
+        showFlightRequeriments();
+        showFlightCancelationAgenda();
+        showFlightDeniedAgenda();
     }
 
     //--------------------------------------------------------------------------
@@ -382,7 +388,83 @@ public class pnlReports extends javax.swing.JPanel {
         //======================================================================
         
         else if(agenda.equals("Vuelos solicitados")){
+            //Create book:
+            HSSFWorkbook book = new HSSFWorkbook();
             
+            //Create sheet(s) in book:
+            HSSFSheet sheet = book.createSheet();
+            
+            int width = 28; // Where width is number of caracters 
+            sheet.setDefaultColumnWidth(width);
+            
+            //HSSFSheet sheet_2 = book.createSheet();
+            book.setSheetName(0, "Vuelos solicitados por Aerolínea");
+            //book.setSheetName(1, "Vuelos solicitados - Aeropuerto");
+
+            //Create sheet styles:
+            CellStyle styleHeader = book.createCellStyle();
+            styleHeader.setFillForegroundColor(IndexedColors.LIGHT_CORNFLOWER_BLUE.getIndex());
+            //styleHeader.set
+            styleHeader.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+            HSSFFont font = book.createFont();
+            font.setBold(true);
+
+            styleHeader.setFont(font);
+
+            String[] headers = new String[]{"Codigo de vuelo", "Modelo avión", "Tipo de vuelo","Clase de vuelo", "Capacidad avión", "Tripulación", "Fecha de vuelo", "Hora de vuelo",    
+                                              "Destino"};
+
+            //Create rows on the sheets:
+            HSSFRow header = sheet.createRow(0);
+
+            for (int i = 0; i < headers.length; i++) {
+                HSSFCell cellHeader = header.createCell(i);
+                cellHeader.setCellValue(headers[i]);
+                cellHeader.setCellStyle(styleHeader);
+            }
+
+                for (int i = 0; i < FlightRequerimentsObjectList.size(); i++) {
+
+                    HSSFRow row = sheet.createRow(i + 1); 
+
+                                //Create cells in rows:     
+                                HSSFCell cell = row.createCell(0);
+                                cell.setCellValue(FlightRequerimentsObjectList.get(i).getCodigoVuelo());
+                                cell = row.createCell(1);
+                                cell.setCellValue(FlightRequerimentsObjectList.get(i).getModeloAvion());
+                                cell = row.createCell(2);
+                                cell.setCellValue(FlightRequerimentsObjectList.get(i).getTipoVuelo());
+                                cell = row.createCell(3);
+                                cell.setCellValue(FlightRequerimentsObjectList.get(i).getSalidaLlegada());
+                                cell = row.createCell(4);
+                                cell.setCellValue(FlightRequerimentsObjectList.get(i).getCapacidadCarga());
+                                cell = row.createCell(5);
+                                cell.setCellValue(FlightRequerimentsObjectList.get(i).getTripulación());
+                                cell = row.createCell(6);
+                                cell.setCellValue(FlightRequerimentsObjectList.get(i).getFecha());
+                                cell = row.createCell(7);
+                                cell.setCellValue(FlightRequerimentsObjectList.get(i).getHora());
+                                cell = row.createCell(8);
+                                cell.setCellValue(FlightRequerimentsObjectList.get(i).getDestino());
+                }
+
+            try {
+                LocalDateTime DateWithTime = LocalDateTime.now();
+                DateTimeFormatter DateFormat = DateTimeFormatter.ofPattern("dd_mm_yyyy_hh_mm_ss");
+                FileOutputStream file = new FileOutputStream("Reportes Aeropuerto/Reporte de vuelos solicitados - " + DateWithTime.format(DateFormat) + ".xls");
+                book.write(file);
+                file.close();
+                JOptionPane.showMessageDialog(this, "Reporte generado satisfactoriamente");
+
+            } catch (FileNotFoundException ex) {
+                System.out.println("Error leyendo el archivo: " + ex.getMessage());
+                JOptionPane.showMessageDialog(this, "Error generando el reporte!");
+                Logger.getLogger(pnlReprogramFlightAirline.class.getName()).log(Level.SEVERE, null, ex);
+
+            }catch (IOException ex){
+                System.out.println("Error escribiendo archivo: " + ex.getMessage());
+            }
         }
         
         //======================================================================
@@ -411,6 +493,22 @@ public class pnlReports extends javax.swing.JPanel {
     }
     
     //--------------------------------------------------------------------------
+    
+    private void showFlightRequeriments(){
+         
+        FlightRequerimentsObjectList = controlAirline.listFlight();
+         
+        DefaultListModel model = new DefaultListModel();
+        int index = 0;
+        
+        for (clsFlightRequirements Flight : FlightRequerimentsObjectList) {
+            String data = "CODIGO DE VUELO: " + Flight.getCodigoVuelo()+ " - " + "MODELO AVIÓN: " + Flight.getModeloAvion()+ " - " + "TIPO VUELO: " + Flight.getTipoVuelo()+ " - " +
+                          "CLASE VUELO: " + Flight.getSalidaLlegada()+ " - " + "CAPACIDAD AVIÓN: " + Flight.getCapacidadCarga()+ " - " + "TRIPULACIÓN: " + Flight.getTripulación()+ " - " + "FECHA DE VUELO: " + 
+                         Flight.getFecha() + " - " + "HORA DE VUELO: " + Flight.getHora()+ " - " + "DESTINO: " + Flight.getDestino();
+                    model.add(index, data);
+                    index++;
+        }
+    }
     
     private void showFlightCancelationAgenda(){
          
