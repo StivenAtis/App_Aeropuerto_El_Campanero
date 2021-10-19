@@ -3,6 +3,7 @@ package View;
 import Classes.clsDeniedFlights;
 import Classes.clsFlightAgenda;
 import Classes.clsFlightCancelationAgenda;
+import Classes.clsFlightCancelationAirline;
 import Controller.ctlFlightAgenda;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -35,6 +36,7 @@ public class pnlReportsAirline extends javax.swing.JPanel {
     ctlFlightAgenda controlAgenda = new ctlFlightAgenda();
 
     LinkedList<clsFlightAgenda> FlightAgendaObjectList = new LinkedList<>();
+    LinkedList<clsFlightCancelationAirline> FlightCancelationAirlineObjectList = new LinkedList<>();
     LinkedList<clsFlightCancelationAgenda> FlightCancelationAgendaObjectList = new LinkedList<>();
     LinkedList<clsDeniedFlights> FlightDeniedAgendaObjectList = new LinkedList<>();
     
@@ -47,6 +49,7 @@ public class pnlReportsAirline extends javax.swing.JPanel {
         showFlightAgenda();
         showFlightCancelationAgenda();
          showFlightDeniedAgenda();
+         showFlightCancelationAirline();
     }
 
     //--------------------------------------------------------------------------
@@ -197,6 +200,87 @@ public class pnlReportsAirline extends javax.swing.JPanel {
         
         else if(agenda.equals("Vuelos en solicitudes cancelados")){
             
+            //Create book:
+            HSSFWorkbook book = new HSSFWorkbook();
+            
+            //Create sheet(s) in book:
+            HSSFSheet sheet = book.createSheet();
+            
+            int width = 28; // Where width is number of caracters 
+            sheet.setDefaultColumnWidth(width);
+            
+            //HSSFSheet sheet_2 = book.createSheet();
+            book.setSheetName(0, "Vuelos en solicitudes cancelados - Aerolínea");
+            //book.setSheetName(1, "Vuelos solicitados - Aeropuerto");
+
+            //Create sheet styles:
+            CellStyle styleHeader = book.createCellStyle();
+            styleHeader.setFillForegroundColor(IndexedColors.LIGHT_CORNFLOWER_BLUE.getIndex());
+            //styleHeader.set
+            styleHeader.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+            HSSFFont font = book.createFont();
+            font.setBold(true);
+
+            styleHeader.setFont(font);
+
+            String[] headers = new String[]{"Codigo de vuelo","Modelo avión","Tipo de vuelo","Clase de vuelo","Capacidad avión","Tripulación",  
+                                             "Fecha de vuelo", "Hora de vuelo", "Destino", "ID Aerolínea", "Descripción",};
+
+            //Create rows on the sheets:
+            HSSFRow header = sheet.createRow(0);
+
+            for (int i = 0; i < headers.length; i++) {
+                HSSFCell cellHeader = header.createCell(i);
+                cellHeader.setCellValue(headers[i]);
+                cellHeader.setCellStyle(styleHeader);
+            }
+
+                for (int i = 0; i < FlightCancelationAirlineObjectList.size(); i++) {
+
+                    HSSFRow row = sheet.createRow(i + 1); 
+
+                                //Create cells in rows:     
+                                HSSFCell cell = row.createCell(0);
+                                cell.setCellValue(FlightCancelationAirlineObjectList.get(i).getCodigoVuelo());
+                                cell = row.createCell(1);
+                                cell.setCellValue(FlightCancelationAirlineObjectList.get(i).getModeloAvion());
+                                cell = row.createCell(2);
+                                cell.setCellValue(FlightCancelationAirlineObjectList.get(i).getTipoVuelo());
+                                cell = row.createCell(3);
+                                cell.setCellValue(FlightCancelationAirlineObjectList.get(i).getSalidaLlegada());
+                                cell = row.createCell(4);
+                                cell.setCellValue(FlightCancelationAirlineObjectList.get(i).getCapacidadCarga());
+                                cell = row.createCell(5);
+                                cell.setCellValue(FlightCancelationAirlineObjectList.get(i).getTripulación());
+                                cell = row.createCell(6);
+                                cell.setCellValue(FlightCancelationAirlineObjectList.get(i).getFecha());
+                                cell = row.createCell(7);
+                                cell.setCellValue(FlightCancelationAirlineObjectList.get(i).getHora());
+                                cell = row.createCell(8);
+                                cell.setCellValue(FlightCancelationAirlineObjectList.get(i).getDestino());
+                                cell = row.createCell(9);
+                                cell.setCellValue(FlightCancelationAirlineObjectList.get(i).getId_airline());
+                                cell = row.createCell(10);
+                                cell.setCellValue(FlightCancelationAirlineObjectList.get(i).getDescripcion());
+                }
+
+            try {
+                LocalDateTime DateWithTime = LocalDateTime.now();
+                DateTimeFormatter DateFormat = DateTimeFormatter.ofPattern("dd_mm_yyyy_hh_mm_ss");
+                FileOutputStream file = new FileOutputStream("Reportes Aerolínea/Reporte de vuelos en solicitudes cancelados - " + DateWithTime.format(DateFormat) + ".xls");
+                book.write(file);
+                file.close();
+                JOptionPane.showMessageDialog(this, "Reporte generado satisfactoriamente");
+
+            } catch (FileNotFoundException ex) {
+                System.out.println("Error leyendo el archivo: " + ex.getMessage());
+                JOptionPane.showMessageDialog(this, "Error generando el reporte!");
+                Logger.getLogger(pnlReprogramFlightAirline.class.getName()).log(Level.SEVERE, null, ex);
+
+            }catch (IOException ex){
+                System.out.println("Error escribiendo archivo: " + ex.getMessage());
+            }
         }
         
         //======================================================================
@@ -404,6 +488,25 @@ public class pnlReportsAirline extends javax.swing.JPanel {
             String data = "CODIGO DE VUELO: " + FlightAgenda.getCodigoVueloAgenda()+ " - " + "TIPO DE VUELO: " + FlightAgenda.getTipoVuelo()+ " - " + " CLASE DE VUELO: " + FlightAgenda.getClaseVuelo()+ " - " +
                           "TRIPULACIÓN: " + FlightAgenda.getTripulación() + " - " + "DESTINO: " + FlightAgenda.getDestino()+ " - " + "PISTA DE VUELO: " + FlightAgenda.getPista() + " - " + "FECHA DE VUELO: " + 
                          FlightAgenda.getFecha() + " - " + "HORA DE VUELO: " + FlightAgenda.getTiempo() + " - " + "ID AEROLÍNEA: " + FlightAgenda.getIdAerolinea();
+                    model.add(index, data);
+                    index++;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
+     private void showFlightCancelationAirline(){
+        
+        FlightCancelationAirlineObjectList = controlAgenda.listCancelationAirline();
+         
+        DefaultListModel model = new DefaultListModel();
+        int index = 0;
+        
+        for (clsFlightCancelationAirline CancelationAirline : FlightCancelationAirlineObjectList) {
+            String data = "CODIGO DE VUELO: " + CancelationAirline.getCodigoVuelo()+ " - " + "MODELO AVIÓN: " + CancelationAirline.getModeloAvion()+ " - " + " TIPO DE VUELO: " + CancelationAirline.getTipoVuelo()+ " - " +
+                          "CLASE DE VUELO: " + CancelationAirline.getSalidaLlegada()+ " - " + "CAPACIDAD AVIÓN: " + CancelationAirline.getCapacidadCarga()+ " - " + "TRIPULACIÓN: " + CancelationAirline.getTripulación()+ " - " +
+                          "FECHA DE VUELO: " + CancelationAirline.getFecha() + " - " + "HORA DE VUELO: " + CancelationAirline.getHora()+ " - " + "DESTINO: " + CancelationAirline.getDestino()+ " - " + 
+                         "ID AEROLÍNEA: " + CancelationAirline.getId_airline() + " - " +"DESCRIPCIÓN: " + CancelationAirline.getDescripcion();
                     model.add(index, data);
                     index++;
         }
