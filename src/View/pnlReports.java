@@ -2,7 +2,9 @@ package View;
 
 import Classes.clsDeniedFlights;
 import Classes.clsFlightAgenda;
+import Classes.clsFlightAgendaReprogramation;
 import Classes.clsFlightCancelationAgenda;
+import Classes.clsFlightRequerimentsReprogramation;
 import Classes.clsFlightRequirements;
 import Controller.ctlFlightAgenda;
 import Controller.ctlFlightRequirement;
@@ -40,7 +42,8 @@ public class pnlReports extends javax.swing.JPanel {
     LinkedList<clsFlightAgenda> FlightAgendaObjectList = new LinkedList<>();
     LinkedList<clsFlightCancelationAgenda> FlightCancelationAgendaObjectList = new LinkedList<>();
     LinkedList<clsDeniedFlights> FlightDeniedAgendaObjectList = new LinkedList<>();
-    //TODO...
+    LinkedList<clsFlightAgendaReprogramation> FlightReprogramationHistoryAgendaObjectList = new LinkedList<>();
+    LinkedList<clsFlightRequerimentsReprogramation> FlightReprogramationHistoryAirlineObjectList = new LinkedList<>();
     LinkedList<clsFlightRequirements> FlightRequerimentsObjectList = new LinkedList<>();
     
     LocalDate currentDate = LocalDate.now();
@@ -53,6 +56,8 @@ public class pnlReports extends javax.swing.JPanel {
         showFlightRequeriments();
         showFlightCancelationAgenda();
         showFlightDeniedAgenda();
+        showFlightReprogramationHistoryAgenda();
+        showFlightReprogramationHistoryAirline();
     }
 
     //--------------------------------------------------------------------------
@@ -383,6 +388,128 @@ public class pnlReports extends javax.swing.JPanel {
         
         else if(agenda.equals("Historial de reprogramación")){
             
+            //Create book:
+            HSSFWorkbook book = new HSSFWorkbook();
+            
+            //Create sheet(s) in book:
+            HSSFSheet sheet = book.createSheet();
+            HSSFSheet sheet1 = book.createSheet();
+            
+            int width = 28; // Where width is number of caracters 
+            sheet.setDefaultColumnWidth(width);
+            sheet1.setDefaultColumnWidth(width);
+            
+            //HSSFSheet sheet_2 = book.createSheet();
+            book.setSheetName(0, "Aeropuerto - Historial");
+            book.setSheetName(1, "Aerolínea - Historial");
+            //book.setSheetName(1, "Vuelos solicitados - Aeropuerto");
+
+            //Create sheet styles:
+            CellStyle styleHeader = book.createCellStyle();
+            styleHeader.setFillForegroundColor(IndexedColors.LIGHT_CORNFLOWER_BLUE.getIndex());
+            //styleHeader.set
+            styleHeader.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+            HSSFFont font = book.createFont();
+            font.setBold(true);
+
+            styleHeader.setFont(font);
+
+            String[] headers = new String[]{"Codigo de vuelo", "Tipo de vuelo", "Clase de vuelo", "Tripulación", "Destino", "Pista de vuelo", "Fecha de vuelo", "Hora de vuelo", "Id Aerolínea", "Descripción"};
+            String[] headers1 = new String[]{"Codigo de vuelo", "Tipo de vuelo", "Clase de vuelo", "Tripulación", "Destino", "Capacidad avión", "Modelo avión", "Fecha de vuelo", "Hora de vuelo", "Id Aerolínea", "DDescripción"};
+
+            //Create rows on the sheets:
+            HSSFRow header = sheet.createRow(0);
+            HSSFRow header1 = sheet1.createRow(0);
+
+            for (int i = 0; i < headers.length; i++) {
+                HSSFCell cellHeader = header.createCell(i);
+                cellHeader.setCellValue(headers[i]);
+                cellHeader.setCellStyle(styleHeader);
+            }
+
+                for (int i = 0; i < FlightReprogramationHistoryAgendaObjectList.size(); i++) {
+
+                    HSSFRow row = sheet.createRow(i + 1); 
+
+                                //Create cells in rows:     
+                                HSSFCell cell = row.createCell(0);
+                                cell.setCellValue(FlightReprogramationHistoryAgendaObjectList.get(i).getCodigoVueloAgenda());
+                                cell = row.createCell(1);
+                                cell.setCellValue(FlightReprogramationHistoryAgendaObjectList.get(i).getTipoVuelo());
+                                cell = row.createCell(2);
+                                cell.setCellValue(FlightReprogramationHistoryAgendaObjectList.get(i).getClaseVuelo());
+                                cell = row.createCell(3);
+                                cell.setCellValue(FlightReprogramationHistoryAgendaObjectList.get(i).getTripulación());
+                                cell = row.createCell(4);
+                                cell.setCellValue(FlightReprogramationHistoryAgendaObjectList.get(i).getDestino());
+                                cell = row.createCell(5);
+                                cell.setCellValue(FlightReprogramationHistoryAgendaObjectList.get(i).getPista());
+                                cell = row.createCell(6);
+                                cell.setCellValue(FlightReprogramationHistoryAgendaObjectList.get(i).getFecha());
+                                cell = row.createCell(7);
+                                cell.setCellValue(FlightReprogramationHistoryAgendaObjectList.get(i).getTiempo());
+                                cell = row.createCell(8);
+                                cell.setCellValue(FlightReprogramationHistoryAgendaObjectList.get(i).getIdAerolinea());
+                                cell = row.createCell(9);
+                                cell.setCellValue(FlightReprogramationHistoryAgendaObjectList.get(i).getDescripcion());
+                }
+                
+                //--------------------------------------------------------------
+                
+                for (int j = 0; j < headers1.length; j++) {
+                HSSFCell cellHeader1 = header1.createCell(j);
+                cellHeader1.setCellValue(headers1[j]);
+                cellHeader1.setCellStyle(styleHeader);
+            }
+
+                for (int i = 0; i < FlightReprogramationHistoryAirlineObjectList.size(); i++) {
+
+                    HSSFRow row = sheet1.createRow(i + 1); 
+
+                                //Create cells in rows:     
+                                HSSFCell cell = row.createCell(0);
+                                cell.setCellValue(FlightReprogramationHistoryAirlineObjectList.get(i).getCodigoVuelo());
+                                cell = row.createCell(1);
+                                cell.setCellValue(FlightReprogramationHistoryAirlineObjectList.get(i).getTipoVuelo());
+                                cell = row.createCell(2);
+                                cell.setCellValue(FlightReprogramationHistoryAirlineObjectList.get(i).getSalidaLlegada());
+                                cell = row.createCell(3);
+                                cell.setCellValue(FlightReprogramationHistoryAirlineObjectList.get(i).getTripulación());
+                                cell = row.createCell(4);
+                                cell.setCellValue(FlightReprogramationHistoryAirlineObjectList.get(i).getDestino());
+                                cell = row.createCell(5);
+                                cell.setCellValue(FlightReprogramationHistoryAirlineObjectList.get(i).getCapacidadCarga());
+                                cell = row.createCell(6);
+                                cell.setCellValue(FlightReprogramationHistoryAirlineObjectList.get(i).getModeloAvion());
+                                cell = row.createCell(7);
+                                cell.setCellValue(FlightReprogramationHistoryAirlineObjectList.get(i).getFecha());
+                                cell = row.createCell(8);
+                                cell.setCellValue(FlightReprogramationHistoryAirlineObjectList.get(i).getHora());
+                                cell = row.createCell(9);
+                                cell.setCellValue(FlightReprogramationHistoryAirlineObjectList.get(i).getId_airline());
+                                cell = row.createCell(10);
+                                cell.setCellValue(FlightReprogramationHistoryAirlineObjectList.get(i).getDescripcion());
+                }
+                
+                //--------------------------------------------------------------
+
+            try {
+                LocalDateTime DateWithTime = LocalDateTime.now();
+                DateTimeFormatter DateFormat = DateTimeFormatter.ofPattern("dd_mm_yyyy_hh_mm_ss");
+                FileOutputStream file = new FileOutputStream("Reportes Aeropuerto/Reporte de historia de reprogramación - " + DateWithTime.format(DateFormat) + ".xls");
+                book.write(file);
+                file.close();
+                JOptionPane.showMessageDialog(this, "Reporte generado satisfactoriamente");
+
+            } catch (FileNotFoundException ex) {
+                System.out.println("Error leyendo el archivo: " + ex.getMessage());
+                JOptionPane.showMessageDialog(this, "Error generando el reporte!");
+                Logger.getLogger(pnlReprogramFlightAirline.class.getName()).log(Level.SEVERE, null, ex);
+
+            }catch (IOException ex){
+                System.out.println("Error escribiendo archivo: " + ex.getMessage());
+            }
         }
         
         //======================================================================
@@ -494,6 +621,43 @@ public class pnlReports extends javax.swing.JPanel {
     
     //--------------------------------------------------------------------------
     
+    private void showFlightReprogramationHistoryAgenda(){
+         
+        FlightReprogramationHistoryAgendaObjectList = controlAirline.listFlightReprogramationHistory();
+         
+        DefaultListModel model = new DefaultListModel();
+        int index = 0;
+        
+        for (clsFlightAgendaReprogramation HistoryReprogramation : FlightReprogramationHistoryAgendaObjectList) {
+            String data = "CODIGO DE VUELO: " + HistoryReprogramation.getCodigoVueloAgenda()+ " - " + "TIPO DE VUELO: " + HistoryReprogramation.getTipoVuelo()+ " - " + " CLASE DE VUELO: " + HistoryReprogramation.getClaseVuelo()+ " - " +
+                          "TRIPULACIÓN: " + HistoryReprogramation.getTripulación()+ " - " + "DESTINO: " + HistoryReprogramation.getDestino()+ " - " + "PISTA: " + HistoryReprogramation.getPista()+ " - " +
+                    "FECHA: " + HistoryReprogramation.getFecha()+ " - " + "HORA: " + HistoryReprogramation.getTiempo()+ " - " + "DCESCRIPCIÓN: " + HistoryReprogramation.getDescripcion()+ " - " +  
+                    "ID AEROLÍNEA: " + HistoryReprogramation.getIdAerolinea();
+                    model.add(index, data);
+                    index++;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    private void showFlightReprogramationHistoryAirline(){
+         
+        FlightReprogramationHistoryAirlineObjectList = controlAirline.listFlightReprogramationHistoryAirline();
+         
+        DefaultListModel model = new DefaultListModel();
+        int index = 0;
+        
+        for (clsFlightRequerimentsReprogramation HistoryReprogramation : FlightReprogramationHistoryAirlineObjectList) {
+            String data = "CODIGO DE VUELO: " + HistoryReprogramation.getCodigoVuelo()+ " - " + "TIPO DE VUELO: " + HistoryReprogramation.getTipoVuelo()+ " - " + " CLASE DE VUELO: " + HistoryReprogramation.getSalidaLlegada()+ " - " +
+                          "TRIPULACIÓN: " + HistoryReprogramation.getTripulación()+ " - " + "DESTINO: " + HistoryReprogramation.getDestino()+ " - " + "CAPACIDAD AVIÓN: " + HistoryReprogramation.getCapacidadCarga()+ " - " +
+                          "MODELO AVIÓN: " + HistoryReprogramation.getModeloAvion() + " - " + "FECHA: " + HistoryReprogramation.getFecha()+ " - " + "HORA: " + HistoryReprogramation.getHora()+ " - " +  
+                          "DCESCRIPCIÓN: " + HistoryReprogramation.getDescripcion()+ " - " + "ID AEROLÍNEA: " + HistoryReprogramation.getId_airline();
+                    model.add(index, data);
+                    index++;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
     private void showFlightRequeriments(){
          
         FlightRequerimentsObjectList = controlAirline.listFlight();
@@ -509,6 +673,8 @@ public class pnlReports extends javax.swing.JPanel {
                     index++;
         }
     }
+    
+    //--------------------------------------------------------------------------
     
     private void showFlightCancelationAgenda(){
          

@@ -1,6 +1,7 @@
 package Model;
 
 import Classes.clsDeniedFlights;
+import Classes.clsFlightAgendaReprogramation;
 import Classes.clsFlightCancelationAirline;
 import Classes.clsFlightRequerimentsReprogramation;
 import Classes.clsFlightRequirements;
@@ -410,6 +411,77 @@ public class modelFlight_Airline {
                 rs.getString("id_airline"));
                 
                 FlightRequirements.add(FRequirements);
+            }
+            return FlightRequirements;
+        } catch (Exception e) {
+            System.out.println("Error querying: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    public LinkedList<clsFlightAgendaReprogramation> FlightListReprogramationHistory(){
+        
+        LinkedList<clsFlightAgendaReprogramation> FlightRequirements = new LinkedList<>();
+        
+        try (Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
+            String query = "SELECT `id`, `code_flight`, `type_flight`, `flight_selection`, `crew_plane`, `destination`, `runway`, `date_flight`, "
+                          + "`time_flight`, `description`, `id_airline` FROM `tb_flight_reprogramation`";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet rs = preparedStatement.executeQuery();
+            
+            while (rs.next()) {
+                clsFlightAgendaReprogramation ReprogramationHistory = new clsFlightAgendaReprogramation(
+                rs.getInt("id"),
+                rs.getString("code_flight"),
+                rs.getString("Type_flight"),
+                rs.getString("flight_selection"),
+                rs.getString("crew_plane"),
+                rs.getString("destination"),
+                rs.getString("runway"),
+                rs.getString("date_flight"),
+                rs.getString("time_flight"),
+                rs.getString("description"),
+                rs.getString("id_airline"));
+                
+                FlightRequirements.add(ReprogramationHistory);
+            }
+            return FlightRequirements;
+        } catch (Exception e) {
+            System.out.println("Error querying: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    public LinkedList<clsFlightRequerimentsReprogramation> FlightListReprogramationHistoryAirline(){
+        
+        LinkedList<clsFlightRequerimentsReprogramation> FlightRequirements = new LinkedList<>();
+        
+        try (Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
+            String query = "SELECT `id`, `code_flight`, `type_flight`, `flight_selection`, `crew_plane`, `destination`, "
+                    + "`capacity_plane`, `model_plane`, `date_flight`, `time_flight`, `description`, `id_airline` FROM `tb_flight_reprogramation_airline`";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet rs = preparedStatement.executeQuery();
+            
+            while (rs.next()) {
+                clsFlightRequerimentsReprogramation ReprogramationHistory = new clsFlightRequerimentsReprogramation(
+                rs.getInt("id"),
+                rs.getString("code_flight"),
+                rs.getString("type_flight"),
+                rs.getString("flight_selection"),
+                rs.getString("crew_plane"),
+                rs.getString("destination"),
+                rs.getString("capacity_plane"),
+                rs.getString("model_plane"),
+                rs.getString("date_flight"),
+                rs.getString("time_flight"),
+                rs.getString("description"),
+                rs.getString("id_airline"));
+                
+                FlightRequirements.add(ReprogramationHistory);
             }
             return FlightRequirements;
         } catch (Exception e) {

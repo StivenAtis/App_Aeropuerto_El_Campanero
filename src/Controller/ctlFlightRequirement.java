@@ -1,6 +1,7 @@
 package Controller;
 
 import Classes.clsDeniedFlights;
+import Classes.clsFlightAgendaReprogramation;
 import Classes.clsFlightCancelationAirline;
 import Classes.clsFlightRequerimentsReprogramation;
 import Classes.clsFlightRequirements;
@@ -110,6 +111,18 @@ public class ctlFlightRequirement {
     
     public LinkedList<clsFlightCancelationAirline> listFlightCancelation(){
         return modeloRequerimientoVuelo.FlightListCancelation();
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    public LinkedList<clsFlightAgendaReprogramation> listFlightReprogramationHistory(){
+        return modeloRequerimientoVuelo.FlightListReprogramationHistory();
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    public LinkedList<clsFlightRequerimentsReprogramation> listFlightReprogramationHistoryAirline(){
+        return modeloRequerimientoVuelo.FlightListReprogramationHistoryAirline();
     }
     
     //--------------------------------------------------------------------------
