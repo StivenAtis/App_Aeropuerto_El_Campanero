@@ -131,38 +131,43 @@ public class pnlReportsAirline extends javax.swing.JPanel {
         
         String agenda = comboBReportes.getSelectedItem().toString();
         
-        if(agenda.equals("Vuelos agendados")){
+        if(agenda.equals("Seleccione una opción para reporte")){
+            JOptionPane.showMessageDialog(this, "¡Debe seleccionar un tipo de reporte para generar un archivo!");
+        }
+        else{
             
-            //Create book:
-            HSSFWorkbook book = new HSSFWorkbook();
+            if(agenda.equals("Vuelos agendados")){
+            
+                //Create book:
+                HSSFWorkbook book = new HSSFWorkbook();
 
-            //Create sheet(s) in book:
-            HSSFSheet sheet = book.createSheet();
-            int width = 28; // Where width is number of caracters 
-            sheet.setDefaultColumnWidth(width);
-            book.setSheetName(0, "Vuelos agendados - Aerolinea");
+                //Create sheet(s) in book:
+                HSSFSheet sheet = book.createSheet();
+                int width = 28; // Where width is number of caracters 
+                sheet.setDefaultColumnWidth(width);
+                book.setSheetName(0, "Vuelos agendados - Aerolinea");
 
-            //Create sheet styles:
-            CellStyle styleHeader = book.createCellStyle();
-            styleHeader.setFillForegroundColor(IndexedColors.LIGHT_CORNFLOWER_BLUE.getIndex());
-            styleHeader.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+                //Create sheet styles:
+                CellStyle styleHeader = book.createCellStyle();
+                styleHeader.setFillForegroundColor(IndexedColors.LIGHT_CORNFLOWER_BLUE.getIndex());
+                styleHeader.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 
-            HSSFFont font = book.createFont();
-            font.setBold(true);
+                HSSFFont font = book.createFont();
+                font.setBold(true);
 
-            styleHeader.setFont(font);
+                styleHeader.setFont(font);
 
-            String[] headers = new String[]{"Codigo de vuelo","Tipo de vuelo","Clase de vuelo","Tripulación","Destino","Pista de vuelo",  
-                                             "Fecha de vuelo", "Hora de vuelo", "ID Aerolínea"};
+                String[] headers = new String[]{"Codigo de vuelo","Tipo de vuelo","Clase de vuelo","Tripulación","Destino","Pista de vuelo",  
+                                                 "Fecha de vuelo", "Hora de vuelo", "ID Aerolínea"};
 
-            //Create rows on the sheets:
-            HSSFRow header = sheet.createRow(0);
+                //Create rows on the sheets:
+                HSSFRow header = sheet.createRow(0);
 
-            for (int i = 0; i < headers.length; i++) {
-                HSSFCell cellHeader = header.createCell(i);
-                cellHeader.setCellValue(headers[i]);
-                cellHeader.setCellStyle(styleHeader);
-            }
+                for (int i = 0; i < headers.length; i++) {
+                    HSSFCell cellHeader = header.createCell(i);
+                    cellHeader.setCellValue(headers[i]);
+                    cellHeader.setCellStyle(styleHeader);
+                }
 
                 for (int i = 0; i < FlightAgendaObjectList.size(); i++) {
 
@@ -189,63 +194,63 @@ public class pnlReportsAirline extends javax.swing.JPanel {
                                 cell.setCellValue(FlightAgendaObjectList.get(i).getIdAerolinea());
                 }
 
-            try {
-                LocalDateTime DateWithTime = LocalDateTime.now();
-                DateTimeFormatter DateFormat = DateTimeFormatter.ofPattern("dd_mm_yyyy_hh_mm_ss");
-                FileOutputStream file = new FileOutputStream("Reportes Aerolínea/Reporte de vuelos agendados - Aerolínea - " + DateWithTime.format(DateFormat) + ".xls");
-                book.write(file);
-                file.close();
-                JOptionPane.showMessageDialog(this, "Reporte generado satisfactoriamente");
+                try {
+                    LocalDateTime DateWithTime = LocalDateTime.now();
+                    DateTimeFormatter DateFormat = DateTimeFormatter.ofPattern("dd_mm_yyyy_hh_mm_ss");
+                    FileOutputStream file = new FileOutputStream("Reportes Aerolínea/Reporte de vuelos agendados - Aerolínea - " + DateWithTime.format(DateFormat) + ".xls");
+                    book.write(file);
+                    file.close();
+                    JOptionPane.showMessageDialog(this, "Reporte generado satisfactoriamente");
 
-            } catch (FileNotFoundException ex) {
-                System.out.println("Error leyendo el archivo: " + ex.getMessage());
-                JOptionPane.showMessageDialog(this, "Error generando el reporte!");
-                Logger.getLogger(pnlReprogramFlightAirline.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (FileNotFoundException ex) {
+                    System.out.println("Error leyendo el archivo: " + ex.getMessage());
+                    JOptionPane.showMessageDialog(this, "Error generando el reporte!");
+                    Logger.getLogger(pnlReprogramFlightAirline.class.getName()).log(Level.SEVERE, null, ex);
 
-            }catch (IOException ex){
-                System.out.println("Error escribiendo archivo: " + ex.getMessage());
+                }catch (IOException ex){
+                    System.out.println("Error escribiendo archivo: " + ex.getMessage());
+                }
             }
-        }
-        
-        //======================================================================
-        
-        else if(agenda.equals("Vuelos en solicitudes cancelados")){
-            
-            //Create book:
-            HSSFWorkbook book = new HSSFWorkbook();
-            
-            //Create sheet(s) in book:
-            HSSFSheet sheet = book.createSheet();
-            
-            int width = 28; // Where width is number of caracters 
-            sheet.setDefaultColumnWidth(width);
-            
-            //HSSFSheet sheet_2 = book.createSheet();
-            book.setSheetName(0, "Vuelos en solicitudes cancelados - Aerolínea");
-            //book.setSheetName(1, "Vuelos solicitados - Aeropuerto");
 
-            //Create sheet styles:
-            CellStyle styleHeader = book.createCellStyle();
-            styleHeader.setFillForegroundColor(IndexedColors.LIGHT_CORNFLOWER_BLUE.getIndex());
-            //styleHeader.set
-            styleHeader.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            //======================================================================
 
-            HSSFFont font = book.createFont();
-            font.setBold(true);
+            else if(agenda.equals("Vuelos en solicitudes cancelados")){
 
-            styleHeader.setFont(font);
+                //Create book:
+                HSSFWorkbook book = new HSSFWorkbook();
 
-            String[] headers = new String[]{"Codigo de vuelo","Modelo avión","Tipo de vuelo","Clase de vuelo","Capacidad avión","Tripulación",  
-                                             "Fecha de vuelo", "Hora de vuelo", "Destino", "ID Aerolínea", "Descripción",};
+                //Create sheet(s) in book:
+                HSSFSheet sheet = book.createSheet();
 
-            //Create rows on the sheets:
-            HSSFRow header = sheet.createRow(0);
+                int width = 28; // Where width is number of caracters 
+                sheet.setDefaultColumnWidth(width);
 
-            for (int i = 0; i < headers.length; i++) {
-                HSSFCell cellHeader = header.createCell(i);
-                cellHeader.setCellValue(headers[i]);
-                cellHeader.setCellStyle(styleHeader);
-            }
+                //HSSFSheet sheet_2 = book.createSheet();
+                book.setSheetName(0, "Vuelos en solicitudes cancelados - Aerolínea");
+                //book.setSheetName(1, "Vuelos solicitados - Aeropuerto");
+
+                //Create sheet styles:
+                CellStyle styleHeader = book.createCellStyle();
+                styleHeader.setFillForegroundColor(IndexedColors.LIGHT_CORNFLOWER_BLUE.getIndex());
+                //styleHeader.set
+                styleHeader.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+                HSSFFont font = book.createFont();
+                font.setBold(true);
+
+                styleHeader.setFont(font);
+
+                String[] headers = new String[]{"Codigo de vuelo","Modelo avión","Tipo de vuelo","Clase de vuelo","Capacidad avión","Tripulación",  
+                                                 "Fecha de vuelo", "Hora de vuelo", "Destino", "ID Aerolínea", "Descripción"};
+
+                //Create rows on the sheets:
+                HSSFRow header = sheet.createRow(0);
+
+                for (int i = 0; i < headers.length; i++) {
+                    HSSFCell cellHeader = header.createCell(i);
+                    cellHeader.setCellValue(headers[i]);
+                    cellHeader.setCellStyle(styleHeader);
+                }
 
                 for (int i = 0; i < FlightCancelationAirlineObjectList.size(); i++) {
 
@@ -276,63 +281,63 @@ public class pnlReportsAirline extends javax.swing.JPanel {
                                 cell.setCellValue(FlightCancelationAirlineObjectList.get(i).getDescripcion());
                 }
 
-            try {
-                LocalDateTime DateWithTime = LocalDateTime.now();
-                DateTimeFormatter DateFormat = DateTimeFormatter.ofPattern("dd_mm_yyyy_hh_mm_ss");
-                FileOutputStream file = new FileOutputStream("Reportes Aerolínea/Reporte de vuelos en solicitudes cancelados - " + DateWithTime.format(DateFormat) + ".xls");
-                book.write(file);
-                file.close();
-                JOptionPane.showMessageDialog(this, "Reporte generado satisfactoriamente");
+                try {
+                    LocalDateTime DateWithTime = LocalDateTime.now();
+                    DateTimeFormatter DateFormat = DateTimeFormatter.ofPattern("dd_mm_yyyy_hh_mm_ss");
+                    FileOutputStream file = new FileOutputStream("Reportes Aerolínea/Reporte de vuelos en solicitudes cancelados - " + DateWithTime.format(DateFormat) + ".xls");
+                    book.write(file);
+                    file.close();
+                    JOptionPane.showMessageDialog(this, "Reporte generado satisfactoriamente");
 
-            } catch (FileNotFoundException ex) {
-                System.out.println("Error leyendo el archivo: " + ex.getMessage());
-                JOptionPane.showMessageDialog(this, "Error generando el reporte!");
-                Logger.getLogger(pnlReprogramFlightAirline.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (FileNotFoundException ex) {
+                    System.out.println("Error leyendo el archivo: " + ex.getMessage());
+                    JOptionPane.showMessageDialog(this, "Error generando el reporte!");
+                    Logger.getLogger(pnlReprogramFlightAirline.class.getName()).log(Level.SEVERE, null, ex);
 
-            }catch (IOException ex){
-                System.out.println("Error escribiendo archivo: " + ex.getMessage());
+                }catch (IOException ex){
+                    System.out.println("Error escribiendo archivo: " + ex.getMessage());
+                }
             }
-        }
-        
-        //======================================================================
-        
-        else if(agenda.equals("Vuelos en agenda cancelados")){
-            
-            //Create book:
-            HSSFWorkbook book = new HSSFWorkbook();
-            
-            //Create sheet(s) in book:
-            HSSFSheet sheet = book.createSheet();
-            
-            int width = 28; // Where width is number of caracters 
-            sheet.setDefaultColumnWidth(width);
-            
-            //HSSFSheet sheet_2 = book.createSheet();
-            book.setSheetName(0, "Vuelos en agenda cancelados - Aerolínea");
-            //book.setSheetName(1, "Vuelos solicitados - Aeropuerto");
 
-            //Create sheet styles:
-            CellStyle styleHeader = book.createCellStyle();
-            styleHeader.setFillForegroundColor(IndexedColors.LIGHT_CORNFLOWER_BLUE.getIndex());
-            //styleHeader.set
-            styleHeader.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            //======================================================================
 
-            HSSFFont font = book.createFont();
-            font.setBold(true);
+            else if(agenda.equals("Vuelos en agenda cancelados")){
 
-            styleHeader.setFont(font);
+                //Create book:
+                HSSFWorkbook book = new HSSFWorkbook();
 
-            String[] headers = new String[]{"Codigo de vuelo","Tipo de vuelo","Clase de vuelo","Tripulación","Destino","Pista de vuelo",  
-                                             "Fecha de vuelo", "Hora de vuelo", "ID Aerolínea", "Descripción",};
+                //Create sheet(s) in book:
+                HSSFSheet sheet = book.createSheet();
 
-            //Create rows on the sheets:
-            HSSFRow header = sheet.createRow(0);
+                int width = 28; // Where width is number of caracters 
+                sheet.setDefaultColumnWidth(width);
 
-            for (int i = 0; i < headers.length; i++) {
-                HSSFCell cellHeader = header.createCell(i);
-                cellHeader.setCellValue(headers[i]);
-                cellHeader.setCellStyle(styleHeader);
-            }
+                //HSSFSheet sheet_2 = book.createSheet();
+                book.setSheetName(0, "Vuelos en agenda cancelados - Aerolínea");
+                //book.setSheetName(1, "Vuelos solicitados - Aeropuerto");
+
+                //Create sheet styles:
+                CellStyle styleHeader = book.createCellStyle();
+                styleHeader.setFillForegroundColor(IndexedColors.LIGHT_CORNFLOWER_BLUE.getIndex());
+                //styleHeader.set
+                styleHeader.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+                HSSFFont font = book.createFont();
+                font.setBold(true);
+
+                styleHeader.setFont(font);
+
+                String[] headers = new String[]{"Codigo de vuelo","Tipo de vuelo","Clase de vuelo","Tripulación","Destino","Pista de vuelo",  
+                                                 "Fecha de vuelo", "Hora de vuelo", "ID Aerolínea", "Descripción",};
+
+                //Create rows on the sheets:
+                HSSFRow header = sheet.createRow(0);
+
+                for (int i = 0; i < headers.length; i++) {
+                    HSSFCell cellHeader = header.createCell(i);
+                    cellHeader.setCellValue(headers[i]);
+                    cellHeader.setCellStyle(styleHeader);
+                }
 
                 for (int i = 0; i < FlightCancelationAgendaObjectList.size(); i++) {
 
@@ -361,63 +366,63 @@ public class pnlReportsAirline extends javax.swing.JPanel {
                                 cell.setCellValue(FlightCancelationAgendaObjectList.get(i).getDescripcion());
                 }
 
-            try {
-                LocalDateTime DateWithTime = LocalDateTime.now();
-                DateTimeFormatter DateFormat = DateTimeFormatter.ofPattern("dd_mm_yyyy_hh_mm_ss");
-                FileOutputStream file = new FileOutputStream("Reportes Aerolínea/Reporte de vuelos en agenda cancelados - " + DateWithTime.format(DateFormat) + ".xls");
-                book.write(file);
-                file.close();
-                JOptionPane.showMessageDialog(this, "Reporte generado satisfactoriamente");
+                try {
+                    LocalDateTime DateWithTime = LocalDateTime.now();
+                    DateTimeFormatter DateFormat = DateTimeFormatter.ofPattern("dd_mm_yyyy_hh_mm_ss");
+                    FileOutputStream file = new FileOutputStream("Reportes Aerolínea/Reporte de vuelos en agenda cancelados - " + DateWithTime.format(DateFormat) + ".xls");
+                    book.write(file);
+                    file.close();
+                    JOptionPane.showMessageDialog(this, "Reporte generado satisfactoriamente");
 
-            } catch (FileNotFoundException ex) {
-                System.out.println("Error leyendo el archivo: " + ex.getMessage());
-                JOptionPane.showMessageDialog(this, "Error generando el reporte!");
-                Logger.getLogger(pnlReprogramFlightAirline.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (FileNotFoundException ex) {
+                    System.out.println("Error leyendo el archivo: " + ex.getMessage());
+                    JOptionPane.showMessageDialog(this, "Error generando el reporte!");
+                    Logger.getLogger(pnlReprogramFlightAirline.class.getName()).log(Level.SEVERE, null, ex);
 
-            }catch (IOException ex){
-                System.out.println("Error escribiendo archivo: " + ex.getMessage());
+                }catch (IOException ex){
+                    System.out.println("Error escribiendo archivo: " + ex.getMessage());
+                }
             }
-        }
-        
-        //======================================================================
-        
-        else if(agenda.equals("Vuelos rechazados")){
-            
-            //Create book:
-            HSSFWorkbook book = new HSSFWorkbook();
-            
-            //Create sheet(s) in book:
-            HSSFSheet sheet = book.createSheet();
-            
-            int width = 28; // Where width is number of caracters 
-            sheet.setDefaultColumnWidth(width);
-            
-            //HSSFSheet sheet_2 = book.createSheet();
-            book.setSheetName(0, "Vuelos rechazados - Aerolínea");
-            //book.setSheetName(1, "Vuelos solicitados - Aeropuerto");
 
-            //Create sheet styles:
-            CellStyle styleHeader = book.createCellStyle();
-            styleHeader.setFillForegroundColor(IndexedColors.LIGHT_CORNFLOWER_BLUE.getIndex());
-            //styleHeader.set
-            styleHeader.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            //======================================================================
 
-            HSSFFont font = book.createFont();
-            font.setBold(true);
+            else if(agenda.equals("Vuelos rechazados")){
 
-            styleHeader.setFont(font);
+                //Create book:
+                HSSFWorkbook book = new HSSFWorkbook();
 
-            String[] headers = new String[]{"Codigo de vuelo","Tipo de vuelo","Clase de vuelo", "Fecha de vuelo", "Hora de vuelo", "Modelo avión", "Capacidad avión", "Tripulación",  
-                                              "Destino", "ID Aerolínea", "Descripción",};
+                //Create sheet(s) in book:
+                HSSFSheet sheet = book.createSheet();
 
-            //Create rows on the sheets:
-            HSSFRow header = sheet.createRow(0);
+                int width = 28; // Where width is number of caracters 
+                sheet.setDefaultColumnWidth(width);
 
-            for (int i = 0; i < headers.length; i++) {
-                HSSFCell cellHeader = header.createCell(i);
-                cellHeader.setCellValue(headers[i]);
-                cellHeader.setCellStyle(styleHeader);
-            }
+                //HSSFSheet sheet_2 = book.createSheet();
+                book.setSheetName(0, "Vuelos rechazados - Aerolínea");
+                //book.setSheetName(1, "Vuelos solicitados - Aeropuerto");
+
+                //Create sheet styles:
+                CellStyle styleHeader = book.createCellStyle();
+                styleHeader.setFillForegroundColor(IndexedColors.LIGHT_CORNFLOWER_BLUE.getIndex());
+                //styleHeader.set
+                styleHeader.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+                HSSFFont font = book.createFont();
+                font.setBold(true);
+
+                styleHeader.setFont(font);
+
+                String[] headers = new String[]{"Codigo de vuelo","Tipo de vuelo","Clase de vuelo", "Fecha de vuelo", "Hora de vuelo", "Modelo avión", "Capacidad avión", "Tripulación",  
+                                                  "Destino", "ID Aerolínea", "Descripción",};
+
+                //Create rows on the sheets:
+                HSSFRow header = sheet.createRow(0);
+
+                for (int i = 0; i < headers.length; i++) {
+                    HSSFCell cellHeader = header.createCell(i);
+                    cellHeader.setCellValue(headers[i]);
+                    cellHeader.setCellStyle(styleHeader);
+                }
 
                 for (int i = 0; i < FlightDeniedAgendaObjectList.size(); i++) {
 
@@ -448,67 +453,67 @@ public class pnlReportsAirline extends javax.swing.JPanel {
                                 cell.setCellValue(FlightDeniedAgendaObjectList.get(i).getDespricion());
                 }
 
-            try {
-                LocalDateTime DateWithTime = LocalDateTime.now();
-                DateTimeFormatter DateFormat = DateTimeFormatter.ofPattern("dd_mm_yyyy_hh_mm_ss");
-                FileOutputStream file = new FileOutputStream("Reportes Aerolínea/Reporte de vuelos rechazados por Aeropuerto - " + DateWithTime.format(DateFormat) + ".xls");
-                book.write(file);
-                file.close();
-                JOptionPane.showMessageDialog(this, "Reporte generado satisfactoriamente");
+                try {
+                    LocalDateTime DateWithTime = LocalDateTime.now();
+                    DateTimeFormatter DateFormat = DateTimeFormatter.ofPattern("dd_mm_yyyy_hh_mm_ss");
+                    FileOutputStream file = new FileOutputStream("Reportes Aerolínea/Reporte de vuelos rechazados por Aeropuerto - " + DateWithTime.format(DateFormat) + ".xls");
+                    book.write(file);
+                    file.close();
+                    JOptionPane.showMessageDialog(this, "Reporte generado satisfactoriamente");
 
-            } catch (FileNotFoundException ex) {
-                System.out.println("Error leyendo el archivo: " + ex.getMessage());
-                JOptionPane.showMessageDialog(this, "Error generando el reporte!");
-                Logger.getLogger(pnlReprogramFlightAirline.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (FileNotFoundException ex) {
+                    System.out.println("Error leyendo el archivo: " + ex.getMessage());
+                    JOptionPane.showMessageDialog(this, "Error generando el reporte!");
+                    Logger.getLogger(pnlReprogramFlightAirline.class.getName()).log(Level.SEVERE, null, ex);
 
-            }catch (IOException ex){
-                System.out.println("Error escribiendo archivo: " + ex.getMessage());
+                }catch (IOException ex){
+                    System.out.println("Error escribiendo archivo: " + ex.getMessage());
+                }
             }
-        }
-        
-        //======================================================================
-        
-        else if(agenda.equals("Historial de reprogramación")){
-            
-            //Create book:
-            HSSFWorkbook book = new HSSFWorkbook();
-            
-            //Create sheet(s) in book:
-            HSSFSheet sheet = book.createSheet();
-            HSSFSheet sheet1 = book.createSheet();
-            
-            int width = 28; // Where width is number of caracters 
-            sheet.setDefaultColumnWidth(width);
-            sheet1.setDefaultColumnWidth(width);
-            
-            //HSSFSheet sheet_2 = book.createSheet();
-            book.setSheetName(0, "Aeropuerto - Historial");
-            book.setSheetName(1, "Aerolínea - Historial");
-            //book.setSheetName(1, "Vuelos solicitados - Aeropuerto");
 
-            //Create sheet styles:
-            CellStyle styleHeader = book.createCellStyle();
-            styleHeader.setFillForegroundColor(IndexedColors.LIGHT_CORNFLOWER_BLUE.getIndex());
-            //styleHeader.set
-            styleHeader.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            //======================================================================
 
-            HSSFFont font = book.createFont();
-            font.setBold(true);
+            else if(agenda.equals("Historial de reprogramación")){
 
-            styleHeader.setFont(font);
+                //Create book:
+                HSSFWorkbook book = new HSSFWorkbook();
 
-            String[] headers = new String[]{"Codigo de vuelo", "Tipo de vuelo", "Clase de vuelo", "Tripulación", "Destino", "Pista de vuelo", "Fecha de vuelo", "Hora de vuelo", "Id Aerolínea", "Descripción"};
-            String[] headers1 = new String[]{"Codigo de vuelo", "Tipo de vuelo", "Clase de vuelo", "Tripulación", "Destino", "Capacidad avión", "Modelo avión", "Fecha de vuelo", "Hora de vuelo", "Id Aerolínea", "Descripción"};
+                //Create sheet(s) in book:
+                HSSFSheet sheet = book.createSheet();
+                HSSFSheet sheet1 = book.createSheet();
 
-            //Create rows on the sheets:
-            HSSFRow header = sheet.createRow(0);
-            HSSFRow header1 = sheet1.createRow(0);
+                int width = 28; // Where width is number of caracters 
+                sheet.setDefaultColumnWidth(width);
+                sheet1.setDefaultColumnWidth(width);
 
-            for (int i = 0; i < headers.length; i++) {
-                HSSFCell cellHeader = header.createCell(i);
-                cellHeader.setCellValue(headers[i]);
-                cellHeader.setCellStyle(styleHeader);
-            }
+                //HSSFSheet sheet_2 = book.createSheet();
+                book.setSheetName(0, "Aeropuerto - Historial");
+                book.setSheetName(1, "Aerolínea - Historial");
+                //book.setSheetName(1, "Vuelos solicitados - Aeropuerto");
+
+                //Create sheet styles:
+                CellStyle styleHeader = book.createCellStyle();
+                styleHeader.setFillForegroundColor(IndexedColors.LIGHT_CORNFLOWER_BLUE.getIndex());
+                //styleHeader.set
+                styleHeader.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+                HSSFFont font = book.createFont();
+                font.setBold(true);
+
+                styleHeader.setFont(font);
+
+                String[] headers = new String[]{"Codigo de vuelo", "Tipo de vuelo", "Clase de vuelo", "Tripulación", "Destino", "Pista de vuelo", "Fecha de vuelo", "Hora de vuelo", "Id Aerolínea", "Descripción"};
+                String[] headers1 = new String[]{"Codigo de vuelo", "Tipo de vuelo", "Clase de vuelo", "Tripulación", "Destino", "Capacidad avión", "Modelo avión", "Fecha de vuelo", "Hora de vuelo", "Id Aerolínea", "Descripción"};
+
+                //Create rows on the sheets:
+                HSSFRow header = sheet.createRow(0);
+                HSSFRow header1 = sheet1.createRow(0);
+
+                for (int i = 0; i < headers.length; i++) {
+                    HSSFCell cellHeader = header.createCell(i);
+                    cellHeader.setCellValue(headers[i]);
+                    cellHeader.setCellStyle(styleHeader);
+                }
 
                 for (int i = 0; i < FlightReprogramationHistoryAgendaObjectList.size(); i++) {
 
@@ -535,15 +540,15 @@ public class pnlReportsAirline extends javax.swing.JPanel {
                                 cell.setCellValue(FlightReprogramationHistoryAgendaObjectList.get(i).getIdAerolinea());
                                 cell = row.createCell(9);
                                 cell.setCellValue(FlightReprogramationHistoryAgendaObjectList.get(i).getDescripcion());
-                }
-                
-                //--------------------------------------------------------------
-                
+                    }
+
+                    //--------------------------------------------------------------
+
                 for (int j = 0; j < headers1.length; j++) {
                 HSSFCell cellHeader1 = header1.createCell(j);
                 cellHeader1.setCellValue(headers1[j]);
                 cellHeader1.setCellStyle(styleHeader);
-            }
+                }
 
                 for (int i = 0; i < FlightReprogramationHistoryAirlineObjectList.size(); i++) {
 
@@ -572,67 +577,67 @@ public class pnlReportsAirline extends javax.swing.JPanel {
                                 cell.setCellValue(FlightReprogramationHistoryAirlineObjectList.get(i).getId_airline());
                                 cell = row.createCell(10);
                                 cell.setCellValue(FlightReprogramationHistoryAirlineObjectList.get(i).getDescripcion());
+                    }
+
+                    //--------------------------------------------------------------
+
+                try {
+                    LocalDateTime DateWithTime = LocalDateTime.now();
+                    DateTimeFormatter DateFormat = DateTimeFormatter.ofPattern("dd_mm_yyyy_hh_mm_ss");
+                    FileOutputStream file = new FileOutputStream("Reportes Aerolínea/Reporte de historia de reprogramación - " + DateWithTime.format(DateFormat) + ".xls");
+                    book.write(file);
+                    file.close();
+                    JOptionPane.showMessageDialog(this, "Reporte generado satisfactoriamente");
+
+                } catch (FileNotFoundException ex) {
+                    System.out.println("Error leyendo el archivo: " + ex.getMessage());
+                    JOptionPane.showMessageDialog(this, "Error generando el reporte!");
+                    Logger.getLogger(pnlReprogramFlightAirline.class.getName()).log(Level.SEVERE, null, ex);
+
+                }catch (IOException ex){
+                    System.out.println("Error escribiendo archivo: " + ex.getMessage());
                 }
-                
-                //--------------------------------------------------------------
-
-            try {
-                LocalDateTime DateWithTime = LocalDateTime.now();
-                DateTimeFormatter DateFormat = DateTimeFormatter.ofPattern("dd_mm_yyyy_hh_mm_ss");
-                FileOutputStream file = new FileOutputStream("Reportes Aerolínea/Reporte de historia de reprogramación - " + DateWithTime.format(DateFormat) + ".xls");
-                book.write(file);
-                file.close();
-                JOptionPane.showMessageDialog(this, "Reporte generado satisfactoriamente");
-
-            } catch (FileNotFoundException ex) {
-                System.out.println("Error leyendo el archivo: " + ex.getMessage());
-                JOptionPane.showMessageDialog(this, "Error generando el reporte!");
-                Logger.getLogger(pnlReprogramFlightAirline.class.getName()).log(Level.SEVERE, null, ex);
-
-            }catch (IOException ex){
-                System.out.println("Error escribiendo archivo: " + ex.getMessage());
             }
-        }
-        
-        //======================================================================
 
-        else if(agenda.equals("Vuelos solicitados")){
-            
-            //Create book:
-            HSSFWorkbook book = new HSSFWorkbook();
-            
-            //Create sheet(s) in book:
-            HSSFSheet sheet = book.createSheet();
-            
-            int width = 28; // Where width is number of caracters 
-            sheet.setDefaultColumnWidth(width);
-            
-            //HSSFSheet sheet_2 = book.createSheet();
-            book.setSheetName(0, "Vuelos solicitados - Aerolínea");
-            //book.setSheetName(1, "Vuelos solicitados - Aeropuerto");
+            //======================================================================
 
-            //Create sheet styles:
-            CellStyle styleHeader = book.createCellStyle();
-            styleHeader.setFillForegroundColor(IndexedColors.LIGHT_CORNFLOWER_BLUE.getIndex());
-            //styleHeader.set
-            styleHeader.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            else if(agenda.equals("Vuelos solicitados")){
 
-            HSSFFont font = book.createFont();
-            font.setBold(true);
+                //Create book:
+                HSSFWorkbook book = new HSSFWorkbook();
 
-            styleHeader.setFont(font);
+                //Create sheet(s) in book:
+                HSSFSheet sheet = book.createSheet();
 
-            String[] headers = new String[]{"Codigo de vuelo", "Modelo avión", "Tipo de vuelo","Clase de vuelo", "Capacidad avión", "Tripulación", "Fecha de vuelo", "Hora de vuelo",    
-                                              "Destino"};
+                int width = 28; // Where width is number of caracters 
+                sheet.setDefaultColumnWidth(width);
 
-            //Create rows on the sheets:
-            HSSFRow header = sheet.createRow(0);
+                //HSSFSheet sheet_2 = book.createSheet();
+                book.setSheetName(0, "Vuelos solicitados - Aerolínea");
+                //book.setSheetName(1, "Vuelos solicitados - Aeropuerto");
 
-            for (int i = 0; i < headers.length; i++) {
-                HSSFCell cellHeader = header.createCell(i);
-                cellHeader.setCellValue(headers[i]);
-                cellHeader.setCellStyle(styleHeader);
-            }
+                //Create sheet styles:
+                CellStyle styleHeader = book.createCellStyle();
+                styleHeader.setFillForegroundColor(IndexedColors.LIGHT_CORNFLOWER_BLUE.getIndex());
+                //styleHeader.set
+                styleHeader.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+                HSSFFont font = book.createFont();
+                font.setBold(true);
+
+                styleHeader.setFont(font);
+
+                String[] headers = new String[]{"Codigo de vuelo", "Modelo avión", "Tipo de vuelo","Clase de vuelo", "Capacidad avión", "Tripulación", "Fecha de vuelo", "Hora de vuelo",    
+                                                  "Destino"};
+
+                //Create rows on the sheets:
+                HSSFRow header = sheet.createRow(0);
+
+                for (int i = 0; i < headers.length; i++) {
+                    HSSFCell cellHeader = header.createCell(i);
+                    cellHeader.setCellValue(headers[i]);
+                    cellHeader.setCellStyle(styleHeader);
+                }
 
                 for (int i = 0; i < FlightRequerimentsObjectList.size(); i++) {
 
@@ -659,30 +664,339 @@ public class pnlReportsAirline extends javax.swing.JPanel {
                                 cell.setCellValue(FlightRequerimentsObjectList.get(i).getDestino());
                 }
 
-            try {
-                LocalDateTime DateWithTime = LocalDateTime.now();
-                DateTimeFormatter DateFormat = DateTimeFormatter.ofPattern("dd_mm_yyyy_hh_mm_ss");
-                FileOutputStream file = new FileOutputStream("Reportes Aerolínea/Reporte de vuelos solicitados - " + DateWithTime.format(DateFormat) + ".xls");
-                book.write(file);
-                file.close();
-                JOptionPane.showMessageDialog(this, "Reporte generado satisfactoriamente");
+                try {
+                    LocalDateTime DateWithTime = LocalDateTime.now();
+                    DateTimeFormatter DateFormat = DateTimeFormatter.ofPattern("dd_mm_yyyy_hh_mm_ss");
+                    FileOutputStream file = new FileOutputStream("Reportes Aerolínea/Reporte de vuelos solicitados - " + DateWithTime.format(DateFormat) + ".xls");
+                    book.write(file);
+                    file.close();
+                    JOptionPane.showMessageDialog(this, "Reporte generado satisfactoriamente");
 
-            } catch (FileNotFoundException ex) {
-                System.out.println("Error leyendo el archivo: " + ex.getMessage());
-                JOptionPane.showMessageDialog(this, "Error generando el reporte!");
-                Logger.getLogger(pnlReprogramFlightAirline.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (FileNotFoundException ex) {
+                    System.out.println("Error leyendo el archivo: " + ex.getMessage());
+                    JOptionPane.showMessageDialog(this, "Error generando el reporte!");
+                    Logger.getLogger(pnlReprogramFlightAirline.class.getName()).log(Level.SEVERE, null, ex);
 
-            }catch (IOException ex){
-                System.out.println("Error escribiendo archivo: " + ex.getMessage());
+                }catch (IOException ex){
+                    System.out.println("Error escribiendo archivo: " + ex.getMessage());
+                }
             }
-        }
-        
-        //======================================================================
-        
-        else if(agenda.equals("Reporte grupal")){
-            
-        }
-        
+
+            //======================================================================
+
+            else if(agenda.equals("Reporte grupal")){
+
+                //Create book:
+                    HSSFWorkbook book = new HSSFWorkbook();
+
+                    //Create sheet(s) in book:
+                    HSSFSheet sheet = book.createSheet();
+                    HSSFSheet sheet1 = book.createSheet();
+                    HSSFSheet sheet2 = book.createSheet();
+                    HSSFSheet sheet3 = book.createSheet();
+                    HSSFSheet sheet4 = book.createSheet();
+                    HSSFSheet sheet5 = book.createSheet();
+                    HSSFSheet sheet6 = book.createSheet();
+
+                    int width = 28; // Where width is number of caracters 
+                    sheet.setDefaultColumnWidth(width);
+                    sheet1.setDefaultColumnWidth(width);
+                    sheet2.setDefaultColumnWidth(width);
+                    sheet3.setDefaultColumnWidth(width);
+                    sheet4.setDefaultColumnWidth(width);
+                    sheet5.setDefaultColumnWidth(width);
+                    sheet6.setDefaultColumnWidth(width);
+
+                    //HSSFSheet sheet_2 = book.createSheet();
+                    book.setSheetName(0, "1 - Vuelos agendados");
+                    book.setSheetName(1, "2 - Vuelos en Agenda cancelados");
+                    book.setSheetName(2, "3 - Vuelos rechazados");
+                    book.setSheetName(3, "4 - Aeropuerto - Historial");
+                    book.setSheetName(4, "5 - Aerolinea - Historial");
+                    book.setSheetName(5, "6 - Vuelos solicitados");
+                    book.setSheetName(6, "7 - Vuelos cancelados en solicitudes");
+                    //book.setSheetName(1, "Vuelos solicitados - Aeropuerto");
+
+                    //Create sheet styles:
+                    CellStyle styleHeader = book.createCellStyle();
+                    styleHeader.setFillForegroundColor(IndexedColors.LIGHT_CORNFLOWER_BLUE.getIndex());
+                    //styleHeader.set
+                    styleHeader.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+                    HSSFFont font = book.createFont();
+                    font.setBold(true);
+
+                    styleHeader.setFont(font);
+
+                    String[] headers = new String[]{"Codigo de vuelo","Tipo de vuelo","Clase de vuelo","Tripulación","Destino","Pista de vuelo", "Fecha de vuelo", "Hora de vuelo", "ID Aerolínea"};
+                    String[] headers1 = new String[]{"Codigo de vuelo","Tipo de vuelo","Clase de vuelo","Tripulación","Destino","Pista de vuelo", "Fecha de vuelo", "Hora de vuelo", "ID Aerolínea", "Descripción",};
+                    String[] headers2 = new String[]{"Codigo de vuelo","Tipo de vuelo","Clase de vuelo", "Fecha de vuelo", "Hora de vuelo", "Modelo avión", "Capacidad avión", "Tripulación", "Destino", "ID Aerolínea", "Descripción",};
+                    String[] headers3 = new String[]{"Codigo de vuelo", "Tipo de vuelo", "Clase de vuelo", "Tripulación", "Destino", "Pista de vuelo", "Fecha de vuelo", "Hora de vuelo", "Id Aerolínea", "Descripción"};
+                    String[] headers4 = new String[]{"Codigo de vuelo", "Tipo de vuelo", "Clase de vuelo", "Tripulación", "Destino", "Capacidad avión", "Modelo avión", "Fecha de vuelo", "Hora de vuelo", "Id Aerolínea", "Descripción"};
+                    String[] headers5 = new String[]{"Codigo de vuelo", "Modelo avión", "Tipo de vuelo","Clase de vuelo", "Capacidad avión", "Tripulación", "Fecha de vuelo", "Hora de vuelo", "Destino"};
+                    String[] headers6 = new String[]{"Codigo de vuelo","Modelo avión","Tipo de vuelo","Clase de vuelo","Capacidad avión","Tripulación",  
+                                                 "Fecha de vuelo", "Hora de vuelo", "Destino", "ID Aerolínea", "Descripción"};
+
+                    //Create rows on the sheets:
+                    HSSFRow header = sheet.createRow(0);
+                    HSSFRow header1 = sheet1.createRow(0);
+                    HSSFRow header2 = sheet2.createRow(0);
+                    HSSFRow header3 = sheet3.createRow(0);
+                    HSSFRow header4 = sheet4.createRow(0);
+                    HSSFRow header5 = sheet5.createRow(0);
+                    HSSFRow header6 = sheet6.createRow(0);
+
+                    for (int i = 0; i < headers.length; i++) {
+                        HSSFCell cellHeader = header.createCell(i);
+                        cellHeader.setCellValue(headers[i]);
+                        cellHeader.setCellStyle(styleHeader);
+                    }
+
+                    for (int i = 0; i < FlightAgendaObjectList.size(); i++) {
+
+                        HSSFRow row = sheet.createRow(i + 1); 
+
+                                    //Create cells in rows:     
+                                    HSSFCell cell = row.createCell(0);
+                                    cell.setCellValue(FlightAgendaObjectList.get(i).getCodigoVueloAgenda());
+                                    cell = row.createCell(1);
+                                    cell.setCellValue(FlightAgendaObjectList.get(i).getTipoVuelo());
+                                    cell = row.createCell(2);
+                                    cell.setCellValue(FlightAgendaObjectList.get(i).getClaseVuelo());
+                                    cell = row.createCell(3);
+                                    cell.setCellValue(FlightAgendaObjectList.get(i).getTripulación());
+                                    cell = row.createCell(4);
+                                    cell.setCellValue(FlightAgendaObjectList.get(i).getDestino());
+                                    cell = row.createCell(5);
+                                    cell.setCellValue(FlightAgendaObjectList.get(i).getPista());
+                                    cell = row.createCell(6);
+                                    cell.setCellValue(FlightAgendaObjectList.get(i).getFecha());
+                                    cell = row.createCell(7);
+                                    cell.setCellValue(FlightAgendaObjectList.get(i).getTiempo());
+                                    cell = row.createCell(8);
+                                    cell.setCellValue(FlightAgendaObjectList.get(i).getIdAerolinea());
+                    }
+
+                    for (int j = 0; j < headers1.length; j++) {
+                        HSSFCell cellHeader1 = header1.createCell(j);
+                        cellHeader1.setCellValue(headers1[j]);
+                        cellHeader1.setCellStyle(styleHeader);
+                    }
+
+                    for (int i = 0; i < FlightCancelationAgendaObjectList.size(); i++) {
+
+                        HSSFRow row = sheet1.createRow(i + 1); 
+
+                                    //Create cells in rows:     
+                                    HSSFCell cell = row.createCell(0);
+                                    cell.setCellValue(FlightCancelationAgendaObjectList.get(i).getCodigoVueloAgenda());
+                                    cell = row.createCell(1);
+                                    cell.setCellValue(FlightCancelationAgendaObjectList.get(i).getTipoVuelo());
+                                    cell = row.createCell(2);
+                                    cell.setCellValue(FlightCancelationAgendaObjectList.get(i).getClaseVuelo());
+                                    cell = row.createCell(3);
+                                    cell.setCellValue(FlightCancelationAgendaObjectList.get(i).getTripulación());
+                                    cell = row.createCell(4);
+                                    cell.setCellValue(FlightCancelationAgendaObjectList.get(i).getDestino());
+                                    cell = row.createCell(5);
+                                    cell.setCellValue(FlightCancelationAgendaObjectList.get(i).getPista());
+                                    cell = row.createCell(6);
+                                    cell.setCellValue(FlightCancelationAgendaObjectList.get(i).getFecha());
+                                    cell = row.createCell(7);
+                                    cell.setCellValue(FlightCancelationAgendaObjectList.get(i).getTiempo());
+                                    cell = row.createCell(8);
+                                    cell.setCellValue(FlightCancelationAgendaObjectList.get(i).getIdAerolinea());
+                                    cell = row.createCell(9);
+                                    cell.setCellValue(FlightCancelationAgendaObjectList.get(i).getDescripcion());
+                    }
+
+                    for (int k = 0; k < headers2.length; k++) {
+                        HSSFCell cellHeader = header2.createCell(k);
+                        cellHeader.setCellValue(headers2[k]);
+                        cellHeader.setCellStyle(styleHeader);
+                    }
+
+                    for (int i = 0; i < FlightDeniedAgendaObjectList.size(); i++) {
+
+                        HSSFRow row = sheet2.createRow(i + 1); 
+
+                                    //Create cells in rows:     
+                                    HSSFCell cell = row.createCell(0);
+                                    cell.setCellValue(FlightDeniedAgendaObjectList.get(i).getCodigoVueloAgenda());
+                                    cell = row.createCell(1);
+                                    cell.setCellValue(FlightDeniedAgendaObjectList.get(i).getTipoVuelo());
+                                    cell = row.createCell(2);
+                                    cell.setCellValue(FlightDeniedAgendaObjectList.get(i).getLlegadaSalida());
+                                    cell = row.createCell(3);
+                                    cell.setCellValue(FlightDeniedAgendaObjectList.get(i).getFecha());
+                                    cell = row.createCell(4);
+                                    cell.setCellValue(FlightDeniedAgendaObjectList.get(i).getHora());
+                                    cell = row.createCell(5);
+                                    cell.setCellValue(FlightDeniedAgendaObjectList.get(i).getModeloAvion());
+                                    cell = row.createCell(6);
+                                    cell.setCellValue(FlightDeniedAgendaObjectList.get(i).getCapacidadAvion());
+                                    cell = row.createCell(7);
+                                    cell.setCellValue(FlightDeniedAgendaObjectList.get(i).getTripulación());
+                                    cell = row.createCell(8);
+                                    cell.setCellValue(FlightDeniedAgendaObjectList.get(i).getDestino());
+                                    cell = row.createCell(9);
+                                    cell.setCellValue(FlightDeniedAgendaObjectList.get(i).getIdAerolinea());
+                                    cell = row.createCell(10);
+                                    cell.setCellValue(FlightDeniedAgendaObjectList.get(i).getDespricion());
+                    }
+
+                    for (int l = 0; l < headers3.length; l++) {
+                        HSSFCell cellHeader = header3.createCell(l);
+                        cellHeader.setCellValue(headers3[l]);
+                        cellHeader.setCellStyle(styleHeader);
+                    }
+
+                    for (int i = 0; i < FlightReprogramationHistoryAgendaObjectList.size(); i++) {
+
+                        HSSFRow row = sheet3.createRow(i + 1); 
+
+                                    //Create cells in rows:     
+                                    HSSFCell cell = row.createCell(0);
+                                    cell.setCellValue(FlightReprogramationHistoryAgendaObjectList.get(i).getCodigoVueloAgenda());
+                                    cell = row.createCell(1);
+                                    cell.setCellValue(FlightReprogramationHistoryAgendaObjectList.get(i).getTipoVuelo());
+                                    cell = row.createCell(2);
+                                    cell.setCellValue(FlightReprogramationHistoryAgendaObjectList.get(i).getClaseVuelo());
+                                    cell = row.createCell(3);
+                                    cell.setCellValue(FlightReprogramationHistoryAgendaObjectList.get(i).getTripulación());
+                                    cell = row.createCell(4);
+                                    cell.setCellValue(FlightReprogramationHistoryAgendaObjectList.get(i).getDestino());
+                                    cell = row.createCell(5);
+                                    cell.setCellValue(FlightReprogramationHistoryAgendaObjectList.get(i).getPista());
+                                    cell = row.createCell(6);
+                                    cell.setCellValue(FlightReprogramationHistoryAgendaObjectList.get(i).getFecha());
+                                    cell = row.createCell(7);
+                                    cell.setCellValue(FlightReprogramationHistoryAgendaObjectList.get(i).getTiempo());
+                                    cell = row.createCell(8);
+                                    cell.setCellValue(FlightReprogramationHistoryAgendaObjectList.get(i).getIdAerolinea());
+                                    cell = row.createCell(9);
+                                    cell.setCellValue(FlightReprogramationHistoryAgendaObjectList.get(i).getDescripcion());
+                    }
+                    
+                    for (int m = 0; m < headers4.length; m++) {
+                        HSSFCell cellHeader1 = header4.createCell(m);
+                        cellHeader1.setCellValue(headers4[m]);
+                        cellHeader1.setCellStyle(styleHeader);
+                    }
+
+                    for (int i = 0; i < FlightReprogramationHistoryAirlineObjectList.size(); i++) {
+
+                        HSSFRow row = sheet4.createRow(i + 1); 
+
+                                    //Create cells in rows:     
+                                    HSSFCell cell = row.createCell(0);
+                                    cell.setCellValue(FlightReprogramationHistoryAirlineObjectList.get(i).getCodigoVuelo());
+                                    cell = row.createCell(1);
+                                    cell.setCellValue(FlightReprogramationHistoryAirlineObjectList.get(i).getTipoVuelo());
+                                    cell = row.createCell(2);
+                                    cell.setCellValue(FlightReprogramationHistoryAirlineObjectList.get(i).getSalidaLlegada());
+                                    cell = row.createCell(3);
+                                    cell.setCellValue(FlightReprogramationHistoryAirlineObjectList.get(i).getTripulación());
+                                    cell = row.createCell(4);
+                                    cell.setCellValue(FlightReprogramationHistoryAirlineObjectList.get(i).getDestino());
+                                    cell = row.createCell(5);
+                                    cell.setCellValue(FlightReprogramationHistoryAirlineObjectList.get(i).getCapacidadCarga());
+                                    cell = row.createCell(6);
+                                    cell.setCellValue(FlightReprogramationHistoryAirlineObjectList.get(i).getModeloAvion());
+                                    cell = row.createCell(7);
+                                    cell.setCellValue(FlightReprogramationHistoryAirlineObjectList.get(i).getFecha());
+                                    cell = row.createCell(8);
+                                    cell.setCellValue(FlightReprogramationHistoryAirlineObjectList.get(i).getHora());
+                                    cell = row.createCell(9);
+                                    cell.setCellValue(FlightReprogramationHistoryAirlineObjectList.get(i).getId_airline());
+                                    cell = row.createCell(10);
+                                    cell.setCellValue(FlightReprogramationHistoryAirlineObjectList.get(i).getDescripcion());
+                    }
+
+                    for (int n = 0; n < headers5.length; n++) {
+                        HSSFCell cellHeader = header5.createCell(n);
+                        cellHeader.setCellValue(headers5[n]);
+                        cellHeader.setCellStyle(styleHeader);
+                    }
+
+                    for (int i = 0; i < FlightRequerimentsObjectList.size(); i++) {
+
+                        HSSFRow row = sheet5.createRow(i + 1); 
+
+                                    //Create cells in rows:     
+                                    HSSFCell cell = row.createCell(0);
+                                    cell.setCellValue(FlightRequerimentsObjectList.get(i).getCodigoVuelo());
+                                    cell = row.createCell(1);
+                                    cell.setCellValue(FlightRequerimentsObjectList.get(i).getModeloAvion());
+                                    cell = row.createCell(2);
+                                    cell.setCellValue(FlightRequerimentsObjectList.get(i).getTipoVuelo());
+                                    cell = row.createCell(3);
+                                    cell.setCellValue(FlightRequerimentsObjectList.get(i).getSalidaLlegada());
+                                    cell = row.createCell(4);
+                                    cell.setCellValue(FlightRequerimentsObjectList.get(i).getCapacidadCarga());
+                                    cell = row.createCell(5);
+                                    cell.setCellValue(FlightRequerimentsObjectList.get(i).getTripulación());
+                                    cell = row.createCell(6);
+                                    cell.setCellValue(FlightRequerimentsObjectList.get(i).getFecha());
+                                    cell = row.createCell(7);
+                                    cell.setCellValue(FlightRequerimentsObjectList.get(i).getHora());
+                                    cell = row.createCell(8);
+                                    cell.setCellValue(FlightRequerimentsObjectList.get(i).getDestino());
+                    }
+
+                    for (int i = 0; i < headers6.length; i++) {
+                        HSSFCell cellHeader = header6.createCell(i);
+                        cellHeader.setCellValue(headers6[i]);
+                        cellHeader.setCellStyle(styleHeader);
+                    }
+
+                    for (int i = 0; i < FlightCancelationAirlineObjectList.size(); i++) {
+
+                        HSSFRow row = sheet6.createRow(i + 1); 
+
+                                    //Create cells in rows:     
+                                    HSSFCell cell = row.createCell(0);
+                                    cell.setCellValue(FlightCancelationAirlineObjectList.get(i).getCodigoVuelo());
+                                    cell = row.createCell(1);
+                                    cell.setCellValue(FlightCancelationAirlineObjectList.get(i).getModeloAvion());
+                                    cell = row.createCell(2);
+                                    cell.setCellValue(FlightCancelationAirlineObjectList.get(i).getTipoVuelo());
+                                    cell = row.createCell(3);
+                                    cell.setCellValue(FlightCancelationAirlineObjectList.get(i).getSalidaLlegada());
+                                    cell = row.createCell(4);
+                                    cell.setCellValue(FlightCancelationAirlineObjectList.get(i).getCapacidadCarga());
+                                    cell = row.createCell(5);
+                                    cell.setCellValue(FlightCancelationAirlineObjectList.get(i).getTripulación());
+                                    cell = row.createCell(6);
+                                    cell.setCellValue(FlightCancelationAirlineObjectList.get(i).getFecha());
+                                    cell = row.createCell(7);
+                                    cell.setCellValue(FlightCancelationAirlineObjectList.get(i).getHora());
+                                    cell = row.createCell(8);
+                                    cell.setCellValue(FlightCancelationAirlineObjectList.get(i).getDestino());
+                                    cell = row.createCell(9);
+                                    cell.setCellValue(FlightCancelationAirlineObjectList.get(i).getId_airline());
+                                    cell = row.createCell(10);
+                                    cell.setCellValue(FlightCancelationAirlineObjectList.get(i).getDescripcion());
+                    }
+
+                try {
+                    LocalDateTime DateWithTime = LocalDateTime.now();
+                    DateTimeFormatter DateFormat = DateTimeFormatter.ofPattern("dd_mm_yyyy_hh_mm_ss");
+                    FileOutputStream file = new FileOutputStream("Reportes Aerolínea/Reporte total - Aerolínea - " + DateWithTime.format(DateFormat) + ".xls");
+                    book.write(file);
+                    file.close();
+                    JOptionPane.showMessageDialog(this, "Reporte generado satisfactoriamente");
+
+                } catch (FileNotFoundException ex) {
+                    System.out.println("Error leyendo el archivo: " + ex.getMessage());
+                    JOptionPane.showMessageDialog(this, "Error generando el reporte!");
+                    Logger.getLogger(pnlReprogramFlightAirline.class.getName()).log(Level.SEVERE, null, ex);
+
+                }catch (IOException ex){
+                    System.out.println("Error escribiendo archivo: " + ex.getMessage());
+                }
+            }
+        }   
     }//GEN-LAST:event_btnReporteParcialActionPerformed
 
     //--------------------------------------------------------------------------
