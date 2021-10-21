@@ -25,7 +25,7 @@
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="7">
-            <StringItem index="0" value="Selecione una opci&#xf3;n para reporte"/>
+            <StringItem index="0" value="Seleccione una opci&#xf3;n para reporte"/>
             <StringItem index="1" value="Vuelos solicitados"/>
             <StringItem index="2" value="Vuelos agendados"/>
             <StringItem index="3" value="Vuelos en agenda cancelados"/>
