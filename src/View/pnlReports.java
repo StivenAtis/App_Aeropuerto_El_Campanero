@@ -416,7 +416,7 @@ public class pnlReports extends javax.swing.JPanel {
             styleHeader.setFont(font);
 
             String[] headers = new String[]{"Codigo de vuelo", "Tipo de vuelo", "Clase de vuelo", "Tripulación", "Destino", "Pista de vuelo", "Fecha de vuelo", "Hora de vuelo", "Id Aerolínea", "Descripción"};
-            String[] headers1 = new String[]{"Codigo de vuelo", "Tipo de vuelo", "Clase de vuelo", "Tripulación", "Destino", "Capacidad avión", "Modelo avión", "Fecha de vuelo", "Hora de vuelo", "Id Aerolínea", "DDescripción"};
+            String[] headers1 = new String[]{"Codigo de vuelo", "Tipo de vuelo", "Clase de vuelo", "Tripulación", "Destino", "Capacidad avión", "Modelo avión", "Fecha de vuelo", "Hora de vuelo", "Id Aerolínea", "Descripción"};
 
             //Create rows on the sheets:
             HSSFRow header = sheet.createRow(0);
@@ -658,6 +658,7 @@ public class pnlReports extends javax.swing.JPanel {
     }
     
     //--------------------------------------------------------------------------
+    
     private void showFlightRequeriments(){
          
         FlightRequerimentsObjectList = controlAirline.listFlight();
