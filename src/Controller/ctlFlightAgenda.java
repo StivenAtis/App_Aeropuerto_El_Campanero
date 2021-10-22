@@ -5,7 +5,9 @@ import Classes.clsFlightAgenda;
 import Classes.clsFlightAgendaReprogramation;
 import Classes.clsFlightCancelationAgenda;
 import Classes.clsFlightCancelationAirline;
+import Classes.clsGraphFlightsRequestedScheduled_Airport;
 import Classes.clsTimeTable;
+import Classes.clsType_Flight;
 import Model.modelFlight_Agenda;
 import java.util.LinkedList;
 
@@ -53,6 +55,13 @@ public class ctlFlightAgenda {
     
     //--------------------------------------------------------------------------
     
+    public void createType_flight(clsType_Flight Flight){
+        
+            modeloAgendaVuelo.createTypeFlight((clsType_Flight) Flight);
+    }
+    
+    //--------------------------------------------------------------------------
+    
     public clsFlightAgenda readFlightAgenda(String codeFlight){
         
         return modeloAgendaVuelo.readFlightAgenda(codeFlight);       
@@ -95,6 +104,13 @@ public class ctlFlightAgenda {
     
     //--------------------------------------------------------------------------
     
+    public clsType_Flight readTypeFlight(String codeFlight){
+        
+        return modeloAgendaVuelo.readTypeFlight(codeFlight);       
+    }
+    
+    //--------------------------------------------------------------------------
+    
     public boolean updateFlightResquest(clsFlightAgenda codeFlight){
         
             return modeloAgendaVuelo.updateFlightAgenda((clsFlightAgenda) codeFlight);
@@ -112,6 +128,13 @@ public class ctlFlightAgenda {
     public boolean deleteTimeTable(clsTimeTable Flight){
         
         return modeloAgendaVuelo.deleteAgendaTable((clsTimeTable) Flight);
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    public boolean deleteTypeFlight(clsType_Flight Flight){
+        
+        return modeloAgendaVuelo.deleteTypeFlight((clsType_Flight) Flight);
     }
     
     //--------------------------------------------------------------------------
@@ -143,6 +166,15 @@ public class ctlFlightAgenda {
     public LinkedList<clsTimeTable> listTimeTable(){
         return modeloAgendaVuelo.TimeTableList();
     }
+    
+    //--------------------------------------------------------------------------
+
+    //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    
+    public LinkedList<clsGraphFlightsRequestedScheduled_Airport> ChartOfFlight(){
+        return modeloAgendaVuelo.ChartOfFlight();
+    } 
     
     //--------------------------------------------------------------------------
 }

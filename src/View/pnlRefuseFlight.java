@@ -2,6 +2,8 @@ package View;
 
 import Classes.clsDeniedFlights;
 import Classes.clsFlightRequirements;
+import Classes.clsType_Flight;
+import Controller.ctlFlightAgenda;
 import Controller.ctlFlightRequirement;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
@@ -17,6 +19,7 @@ public class pnlRefuseFlight extends javax.swing.JPanel {
     //--------------------------------------------------------------------------
     
     private ctlFlightRequirement controller = null;
+    private ctlFlightAgenda controllerA = null;
     private LinkedList<clsFlightRequirements> list;
     
     //--------------------------------------------------------------------------
@@ -24,6 +27,7 @@ public class pnlRefuseFlight extends javax.swing.JPanel {
     public pnlRefuseFlight() {
         initComponents();
         controller = new ctlFlightRequirement();
+        controllerA = new ctlFlightAgenda();
         fillDataTable();
     }
 
@@ -226,6 +230,19 @@ public class pnlRefuseFlight extends javax.swing.JPanel {
                             String modeloA = read.getModeloAvion();
                             String descripcion = txtAreaRechazo.getText();
 
+                            clsType_Flight typeFlightD = controllerA.readTypeFlight(valor);
+                                    String Type = typeFlightD.getType();
+                                    String Code = typeFlightD.getCodeFlight();
+
+                                    if(Code.equals(valor) && Type.equals("Vuelo solicitado")){
+                                        controllerA.deleteTypeFlight(typeFlightD);
+                                    }
+                            
+                            clsType_Flight typeFlight = new clsType_Flight(0, valor, "Vuelo rechazado");
+                            
+                            controllerA.createType_flight(typeFlight);
+                                
+                                
                             clsDeniedFlights flightDeined = new clsDeniedFlights(0, valor, tipo, clase, fecha, hora, modeloA, capacidad, tripulación, destino, descripcion, "1");
                             controller.createFlightDenied(flightDeined);
                                 

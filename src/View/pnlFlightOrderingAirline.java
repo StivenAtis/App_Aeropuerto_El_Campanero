@@ -1,6 +1,8 @@
 package View;
 
 import Classes.clsFlightRequirements;
+import Classes.clsType_Flight;
+import Controller.ctlFlightAgenda;
 import Controller.ctlFlightRequirement;
 import static java.awt.image.ImageObserver.WIDTH;
 import java.time.LocalDate;
@@ -17,6 +19,7 @@ import javax.swing.JOptionPane;
 public class pnlFlightOrderingAirline extends javax.swing.JPanel {
     
     ctlFlightRequirement controlFlightRequirement = new ctlFlightRequirement();
+    ctlFlightAgenda controlFlightAgenda = new ctlFlightAgenda();
 
     LinkedList<clsFlightRequirements> FlightRequirementObjectList = new LinkedList<>();
     
@@ -538,6 +541,12 @@ public class pnlFlightOrderingAirline extends javax.swing.JPanel {
                                 (0, codigoVuelo, modelAvion, "Vuelo de pasajeros", "Vuelo de salida", capacidadDeAvion, tripulacionDeAvion, fecha, tiempo, destinoVuelo);
 
                                 controlFlightRequirement.createFlightRequirement(solicitarVuelo);
+                                
+                                
+                                clsType_Flight typeFlight = new clsType_Flight(0, codigoVuelo, "Vuelo solicitado");
+                            
+                                controlFlightAgenda.createType_flight(typeFlight);
+
 
                                 DataFly.setText("Datos de vuelo:" + "\n" +
                                                 "\n" +
@@ -558,6 +567,11 @@ public class pnlFlightOrderingAirline extends javax.swing.JPanel {
                             }
                             else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) > currentDate.getDayOfMonth()){
 
+                                clsType_Flight typeFlight = new clsType_Flight(0, codigoVuelo, "Vuelo solicitado");
+                            
+                                controlFlightAgenda.createType_flight(typeFlight);
+                                
+                                
                                 clsFlightRequirements solicitarVuelo = new clsFlightRequirements
                                 (0, codigoVuelo, modelAvion, "Vuelo de pasajeros", "Vuelo de salida", capacidadDeAvion, tripulacionDeAvion, fecha, tiempo, destinoVuelo);
 
@@ -649,6 +663,11 @@ public class pnlFlightOrderingAirline extends javax.swing.JPanel {
                             }
                             else if (Integer.parseInt(anioVuelo) >= currentDate.getYear() ){
 
+                                clsType_Flight typeFlight = new clsType_Flight(0, codigoVuelo, "Vuelo solicitado");
+                            
+                                controlFlightAgenda.createType_flight(typeFlight);
+                                
+                                
                                 clsFlightRequirements solicitarVuelo = new clsFlightRequirements
                                 (0, codigoVuelo, modelAvion, "Vuelo de carga", "Vuelo de llegada", capacidadDeAvion, tripulacionDeAvion, fecha, tiempo, destinoVuelo);
 
@@ -673,6 +692,11 @@ public class pnlFlightOrderingAirline extends javax.swing.JPanel {
                             }
                             else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) > currentDate.getDayOfMonth()){
 
+                                clsType_Flight typeFlight = new clsType_Flight(0, codigoVuelo, "Vuelo solicitado");
+                            
+                                controlFlightAgenda.createType_flight(typeFlight);
+                                
+                                
                                 clsFlightRequirements solicitarVuelo = new clsFlightRequirements
                                 (0, codigoVuelo, modelAvion, "Vuelo de carga", "Vuelo de llegada", capacidadDeAvion, tripulacionDeAvion, fecha, tiempo, destinoVuelo);
 
@@ -761,6 +785,11 @@ public class pnlFlightOrderingAirline extends javax.swing.JPanel {
                             }
                             else if (Integer.parseInt(anioVuelo) >= currentDate.getYear() ){
 
+                                clsType_Flight typeFlight = new clsType_Flight(0, codigoVuelo, "Vuelo solicitado");
+                            
+                                controlFlightAgenda.createType_flight(typeFlight);
+                                
+                                
                                 clsFlightRequirements solicitarVuelo = new clsFlightRequirements
                                 (0, codigoVuelo, modelAvion, "Vuelo de pasajeros", "Vuelo de llegada", capacidadDeAvion, tripulacionDeAvion, fecha, tiempo, destinoVuelo);
 
@@ -788,6 +817,11 @@ public class pnlFlightOrderingAirline extends javax.swing.JPanel {
                                 clsFlightRequirements solicitarVuelo = new clsFlightRequirements
                                 (0, codigoVuelo, modelAvion, "Vuelo de pasajeros", "Vuelo de llegada", capacidadDeAvion, tripulacionDeAvion, fecha, tiempo, destinoVuelo);
 
+                                clsType_Flight typeFlight = new clsType_Flight(0, codigoVuelo, "Vuelo solicitado");
+                            
+                                controlFlightAgenda.createType_flight(typeFlight);
+                                
+                                
                                controlFlightRequirement.createFlightRequirement(solicitarVuelo);
 
                                 DataFly.setText("Datos de vuelo:" + "\n" +
@@ -875,6 +909,11 @@ public class pnlFlightOrderingAirline extends javax.swing.JPanel {
                             }
                             else if (Integer.parseInt(anioVuelo) >= currentDate.getYear() ){
 
+                                clsType_Flight typeFlight = new clsType_Flight(0, codigoVuelo, "Vuelo solicitado");
+                            
+                                controlFlightAgenda.createType_flight(typeFlight);
+                                
+                                
                                 clsFlightRequirements solicitarVuelo = new clsFlightRequirements
                                 (0, codigoVuelo, modelAvion, "Vuelo de carga", "Vuelo de salida", capacidadDeAvion, tripulacionDeAvion, fecha, tiempo, destinoVuelo);
 
@@ -899,6 +938,11 @@ public class pnlFlightOrderingAirline extends javax.swing.JPanel {
                             }
                             else if(Integer.parseInt(anioVuelo) == currentDate.getYear() && Integer.parseInt(mesNumber) == currentDate.getMonthValue() && Integer.parseInt(diaVuelo) > currentDate.getDayOfMonth()){
 
+                                clsType_Flight typeFlight = new clsType_Flight(0, codigoVuelo, "Vuelo solicitado");
+                            
+                                controlFlightAgenda.createType_flight(typeFlight);
+                                
+                                
                                 clsFlightRequirements solicitarVuelo = new clsFlightRequirements
                                 (0, codigoVuelo, modelAvion, "Vuelo de carga", "Vuelo de salida", capacidadDeAvion, tripulacionDeAvion, fecha, tiempo, destinoVuelo);
 

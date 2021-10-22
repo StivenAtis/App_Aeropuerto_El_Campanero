@@ -4,6 +4,7 @@ import Classes.clsFlightAgenda;
 import Classes.clsFlightCancelationAgenda;
 import Classes.clsFlightCancelationAirline;
 import Classes.clsFlightRequirements;
+import Classes.clsType_Flight;
 import Controller.ctlFlightAgenda;
 import Controller.ctlFlightRequirement;
 import java.util.LinkedList;
@@ -344,14 +345,29 @@ public class pnlAbortFlightAirline extends javax.swing.JPanel {
                                     String descripcion = txtAreaCancelacion.getText();
                                     String descripcionCancelacion = "Vuelo cancelado por aerolinea" + "\n" + "\n" + txtAreaCancelacion.getText();
 
+                                    
+                                    clsType_Flight typeFlightD = controllerA.readTypeFlight(valor);
+                                    String Type = typeFlightD.getType();
+                                    String Code = typeFlightD.getCodeFlight();
+
+                                    if(Code.equals(valor) && Type.equals("Vuelo solicitado")){
+                                        controllerA.deleteTypeFlight(typeFlightD);
+                                    }
+                                    
+                                    clsType_Flight typeFlight = new clsType_Flight(0, valor, "Vuelo cancelado");
+                            
+                                    controllerA.createType_flight(typeFlight);
+                                        
+                                        
                                     clsFlightCancelationAirline flightCanceled = new clsFlightCancelationAirline(0, valor, modeloA, tipo, clase, capacidad, tripulación, fecha, hora, destino, descripcionCancelacion, "1");
                                     controller.createFlightCanceled(flightCanceled);
                                     
                                     if (controller.deleteFlight(FlightCancel)) {
-                                         JOptionPane.showMessageDialog(this, "Vuelo cancelado con éxito.");
-                                         btnVuelosSolicitados.setSelected(false);
-                                         fillDataTable();
-                                         txtAreaCancelacion.setText("");
+                                    
+                                        JOptionPane.showMessageDialog(this, "Vuelo cancelado con éxito.");
+                                        btnVuelosSolicitados.setSelected(false);
+                                        fillDataTable();
+                                        txtAreaCancelacion.setText("");
                                     }
                                 }
                                 else {
@@ -386,6 +402,18 @@ public class pnlAbortFlightAirline extends javax.swing.JPanel {
                                     String pista = read.getPista();
                                     String descripcion = txtAreaCancelacion.getText();
                                     String descripcionCancelacion = "Vuelo cancelado por aerolinea" + "\n" + "\n" + txtAreaCancelacion.getText();
+                                    
+                                    clsType_Flight typeFlightD = controllerA.readTypeFlight(valor);
+                                    String Type = typeFlightD.getType();
+                                    String Code = typeFlightD.getCodeFlight();
+
+                                    if(Code.equals(valor) && Type.equals("Vuelo agendado")){
+                                        controllerA.deleteTypeFlight(typeFlightD);
+                                    }
+                                    
+                                    clsType_Flight typeFlight = new clsType_Flight(0, valor, "Vuelo cancelado");
+                            
+                                    controllerA.createType_flight(typeFlight);
 
                                     clsFlightCancelationAgenda flightCanceled = new clsFlightCancelationAgenda(0, valor, tipo, clase, tripulación, destino, pista, fecha, hora, descripcionCancelacion, "1");
                                     controllerA.createFlightAgendaCancelation(flightCanceled);

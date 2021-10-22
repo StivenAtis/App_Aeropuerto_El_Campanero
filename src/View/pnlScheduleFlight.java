@@ -652,8 +652,21 @@ public class pnlScheduleFlight extends javax.swing.JPanel {
                             clsFlightAgenda agendarVuelo = new clsFlightAgenda(0, codigoVuelo, "Vuelo de pasajeros", "Vuelo de salida", tripulacion, destinoVuelo, pistaDeDespegue, fecha, tiempo, "1");
 
                             controllerAgenda.createFlightAgenda(agendarVuelo);
-
-
+                            
+                            
+                            
+                            
+                            clsType_Flight typeFlightD = controllerAgenda.readTypeFlight(codigoVuelo);
+                            String Type = typeFlightD.getType();
+                            String Code = typeFlightD.getCodeFlight();
+                            
+                            if(Code.equals(codigoVuelo) && Type.equals("Vuelo solicitado")){
+                                clsType_Flight typeFlightDel = new clsType_Flight(0, codigoVuelo, "");
+                                controllerAgenda.deleteTypeFlight(typeFlightD);
+                            }
+                            
+                            clsType_Flight typeFlight = new clsType_Flight(0, codigoVuelo, "Vuelo agendado");
+                            controllerAgenda.createType_flight(typeFlight);
 
                             Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
                             JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una agenda de vuelo!!!", "agenda realizada satisfactoriamente", WIDTH, m);
@@ -674,7 +687,21 @@ public class pnlScheduleFlight extends javax.swing.JPanel {
 
                             controllerAgenda.createFlightAgenda(AgendarVuelo);
 
-
+                            clsType_Flight typeFlightD = controllerAgenda.readTypeFlight(codigoVuelo);
+                            String Type = typeFlightD.getType();
+                            String Code = typeFlightD.getCodeFlight();
+                            
+                            if(Code.equals(codigoVuelo) && Type.equals("Vuelo solicitado")){
+                                clsType_Flight typeFlightDel = new clsType_Flight(0, codigoVuelo, "");
+                                controllerAgenda.deleteTypeFlight(typeFlightD);
+                            }
+                            
+                            clsType_Flight typeFlight = new clsType_Flight(0, codigoVuelo, "Vuelo agendado");
+                            
+                            controllerAgenda.createType_flight(typeFlight);
+                            
+                            
+                            
 
                             Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
                             JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una agenda de vuelo!!!", "agenda realizada satisfactoriamente", WIDTH, m);
@@ -830,8 +857,18 @@ public class pnlScheduleFlight extends javax.swing.JPanel {
                             (0, codigoVuelo, "Vuelo de carga", "Vuelo de llegada", tripulacion, destinoVuelo, pistaDeAterrizaje, fecha, tiempo, "1");
 
                             controllerAgenda.createFlightAgenda(AgendarVuelo);
-
-
+                            
+                            clsType_Flight typeFlightD = controllerAgenda.readTypeFlight(codigoVuelo);
+                            String Type = typeFlightD.getType();
+                            String Code = typeFlightD.getCodeFlight();
+                            
+                            if(Code.equals(codigoVuelo) && Type.equals("Vuelo solicitado")){
+                                clsType_Flight typeFlightDel = new clsType_Flight(0, codigoVuelo, "");
+                                controllerAgenda.deleteTypeFlight(typeFlightD);
+                            }
+                            
+                            clsType_Flight typeFlight = new clsType_Flight(0, codigoVuelo, "Vuelo agendado");
+                            controllerAgenda.createType_flight(typeFlight);
 
                             Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
                             JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una agenda de vuelo!!!", "Agenda realizada satisfactoriamente", WIDTH, m);
@@ -851,7 +888,22 @@ public class pnlScheduleFlight extends javax.swing.JPanel {
                             (0, codigoVuelo, "Vuelo de carga", "Vuelo de llegada", tripulacion, destinoVuelo, pistaDeAterrizaje, fecha, tiempo, "1");
 
                             controllerAgenda.createFlightAgenda(AgendarVuelo);
+                            
 
+                            clsType_Flight typeFlightD = controllerAgenda.readTypeFlight(codigoVuelo);
+                            String Type = typeFlightD.getType();
+                            String Code = typeFlightD.getCodeFlight();
+                            
+                            if(Code.equals(codigoVuelo) && Type.equals("Vuelo solicitado")){
+                                clsType_Flight typeFlightDel = new clsType_Flight(0, codigoVuelo, "");
+                                controllerAgenda.deleteTypeFlight(typeFlightD);
+                            }
+                            
+                            clsType_Flight typeFlight = new clsType_Flight(0, codigoVuelo, "Vuelo agendado");
+                            controllerAgenda.createType_flight(typeFlight);
+                            
+                            
+                            
                             Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
                             JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una agenda de vuelo!!!", "Agenda realizada satisfactoriamente", WIDTH, m);
                             
@@ -998,6 +1050,21 @@ public class pnlScheduleFlight extends javax.swing.JPanel {
 
                             controllerAgenda.createFlightAgenda(AgendarVuelo);
 
+                            
+                            
+                            clsType_Flight typeFlightD = controllerAgenda.readTypeFlight(codigoVuelo);
+                            String Type = typeFlightD.getType();
+                            String Code = typeFlightD.getCodeFlight();
+                            
+                            if(Code.equals(codigoVuelo) && Type.equals("Vuelo solicitado")){
+                                clsType_Flight typeFlightDel = new clsType_Flight(0, codigoVuelo, "");
+                                controllerAgenda.deleteTypeFlight(typeFlightD);
+                            }
+                            
+                            clsType_Flight typeFlight = new clsType_Flight(0, codigoVuelo, "Vuelo agendado");
+                            controllerAgenda.createType_flight(typeFlight);
+                            
+                            
                             Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
                             JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una agenda de vuelo!!!", "Agenda realizada satisfactoriamente", WIDTH, m);
                             
@@ -1017,6 +1084,21 @@ public class pnlScheduleFlight extends javax.swing.JPanel {
 
                             controllerAgenda.createFlightAgenda(AgendarVuelo);
 
+                            
+                            clsType_Flight typeFlightD = controllerAgenda.readTypeFlight(codigoVuelo);
+                            String Type = typeFlightD.getType();
+                            String Code = typeFlightD.getCodeFlight();
+                            
+                            if(Code.equals(codigoVuelo) && Type.equals("Vuelo solicitado")){
+                                clsType_Flight typeFlightDel = new clsType_Flight(0, codigoVuelo, "");
+                                controllerAgenda.deleteTypeFlight(typeFlightD);
+                            }
+                            
+                            clsType_Flight typeFlight = new clsType_Flight(0, codigoVuelo, "Vuelo agendado");
+                            controllerAgenda.createType_flight(typeFlight);
+                            
+                            
+                            
                             Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
                             JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una agenda de vuelo!!!", "Agenda realizada satisfactoriamente", WIDTH, m);
                             
@@ -1163,6 +1245,22 @@ public class pnlScheduleFlight extends javax.swing.JPanel {
 
                             controllerAgenda.createFlightAgenda(AgendarVuelo);
 
+                            
+                            clsType_Flight typeFlightD = controllerAgenda.readTypeFlight(codigoVuelo);
+                            String Type = typeFlightD.getType();
+                            String Code = typeFlightD.getCodeFlight();
+                            
+                            if(Code.equals(codigoVuelo) && Type.equals("Vuelo solicitado")){
+                                clsType_Flight typeFlightDel = new clsType_Flight(0, codigoVuelo, "");
+                                controllerAgenda.deleteTypeFlight(typeFlightD);
+                            }
+                            
+                            clsType_Flight typeFlight = new clsType_Flight(0, codigoVuelo, "Vuelo agendado");
+                            controllerAgenda.createType_flight(typeFlight);
+                            
+                            
+                            
+                            
                             Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
                             JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una agenda de vuelo!!!", "Agenda realizada satisfactoriamente", WIDTH, m);
                             
@@ -1182,6 +1280,21 @@ public class pnlScheduleFlight extends javax.swing.JPanel {
 
                             controllerAgenda.createFlightAgenda(AgendarVuelo);
 
+                            
+                            
+                            clsType_Flight typeFlightD = controllerAgenda.readTypeFlight(codigoVuelo);
+                            String Type = typeFlightD.getType();
+                            String Code = typeFlightD.getCodeFlight();
+                            
+                            if(Code.equals(codigoVuelo) && Type.equals("Vuelo solicitado")){
+                                //clsType_Flight typeFlightDel = new clsType_Flight(0, codigoVuelo, "");
+                                controllerAgenda.deleteTypeFlight(typeFlightD);
+                            }
+                            
+                            clsType_Flight typeFlight = new clsType_Flight(0, codigoVuelo, "Vuelo agendado");
+                            controllerAgenda.createType_flight(typeFlight);
+                            
+                            
                             Icon m = new ImageIcon(getClass().getResource("/Media/vueloRealizado.gif"));
                             JOptionPane.showMessageDialog(this, "¡¡¡Se ha registrado \n una agenda de vuelo!!!", "Agenda realizada satisfactoriamente", WIDTH, m);
                             

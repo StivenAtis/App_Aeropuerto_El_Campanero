@@ -5,7 +5,9 @@ import Classes.clsFlightAgenda;
 import Classes.clsFlightAgendaReprogramation;
 import Classes.clsFlightCancelationAgenda;
 import Classes.clsFlightCancelationAirline;
+import Classes.clsGraphFlightsRequestedScheduled_Airport;
 import Classes.clsTimeTable;
+import Classes.clsType_Flight;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -133,6 +135,28 @@ public class modelFlight_Agenda {
             
             if(AffectedRows>0){
                 System.out.println("Agenda item registered.");
+            }
+            return false;
+        }
+        catch (Exception e) {
+            System.out.println("Error saving: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    public boolean createTypeFlight (clsType_Flight Flight){
+        try(Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())){
+            String query = "INSERT INTO `tb_type_flight`(`code_flight`, `type_flight`) VALUES (?,?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, Flight.getCodeFlight());
+            preparedStatement.setString(2, Flight.getType());
+            
+            int AffectedRows = preparedStatement.executeUpdate();
+            
+            if(AffectedRows>0){
+                System.out.println("Flight item registered.");
             }
             return false;
         }
@@ -341,6 +365,31 @@ public class modelFlight_Agenda {
     
     //--------------------------------------------------------------------------
     
+    public clsType_Flight readTypeFlight(String id){
+        try (Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
+            String query ="SELECT `id`, `code_flight`, `type_flight` FROM `tb_type_flight` WHERE code_flight = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            
+            preparedStatement.setString(1, id);
+            
+            ResultSet rs = preparedStatement.executeQuery();
+            
+            if(rs.next()){
+                clsType_Flight Flight_obtained = new clsType_Flight(
+                rs.getInt("id"),
+                rs.getString("code_flight"),
+                rs.getString("type_flight"));
+                return Flight_obtained;
+            }
+            return null;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
     public boolean updateFlightAgenda(clsFlightAgenda vuelo) {
         
         try(Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
@@ -384,6 +433,21 @@ public class modelFlight_Agenda {
             String query = "DELETE FROM `tb_timetable` WHERE codigo = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, Flight.getCodigo());
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    public boolean deleteTypeFlight (clsType_Flight Flight) {
+        try(Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
+            String query = "DELETE FROM `tb_type_flight` WHERE code_flight = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, Flight.getCodeFlight());
             preparedStatement.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -552,6 +616,32 @@ public class modelFlight_Agenda {
                 FlightDenied.add(FRAgenda);
             }
             return FlightDenied;
+        } catch (Exception e) {
+            System.out.println("Error querying: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    //--------------------------------------------------------------------------
+    
+    public LinkedList<clsGraphFlightsRequestedScheduled_Airport> ChartOfFlight(){
+        
+        LinkedList<clsGraphFlightsRequestedScheduled_Airport> petsSpecies = new LinkedList<>();
+        
+        
+        try (Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
+            String query = "SELECT type_flight, COUNT(*) AS amount FROM `tb_type_flight` GROUP BY type_flight;";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet rs = preparedStatement.executeQuery();
+            
+            while (rs.next()) {
+                clsGraphFlightsRequestedScheduled_Airport petSpecies = new clsGraphFlightsRequestedScheduled_Airport("Tipo de vuelo: " + rs.getString("type_flight"), rs.getInt("amount"));
+                
+                petsSpecies.add(petSpecies);
+            }
+            return petsSpecies;
         } catch (Exception e) {
             System.out.println("Error querying: " + e.getMessage());
             return null;
