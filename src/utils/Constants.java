@@ -121,6 +121,7 @@ public class Constants {
     public static final String PANEL_REPORTSAIRLINE = "pnlReportsAirline";
     
     public static final String PANEL_UPDATEUSER_AIRPORT = "pnlUpdateUserAirport";
+    public static final String PANEL_UPDATEUSER_AIRLINE = "pnlUpdateUserAirline";
     
     public static final String PANEL_CHART_FLIGHT = "pnlgraphFlightsRequestedScheduled_Airport";
     public static final String PANEL_CHART_FLIGHT_A = "pnlgraphFlightsRequestedScheduled_Airline";

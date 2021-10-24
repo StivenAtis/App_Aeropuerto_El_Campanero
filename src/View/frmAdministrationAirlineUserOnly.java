@@ -37,6 +37,7 @@ public class frmAdministrationAirlineUserOnly extends javax.swing.JFrame {
     //--------------------------------------------------------------------------
     
     public final pnlHomeAirlineAdministration pnlHome;
+    private pnlUpdateUserAirline pnlUpdateUserAirline;
     public JScrollPane spContainer;
     
     //--------------------------------------------------------------------------
@@ -168,9 +169,9 @@ public class frmAdministrationAirlineUserOnly extends javax.swing.JFrame {
         pnlRechazerVuelo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnHome.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnHome.setForeground(new java.awt.Color(255, 255, 255));
+        btnHome.setForeground(new java.awt.Color(204, 204, 204));
         btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/home_30px.png"))); // NOI18N
-        btnHome.setText("Home");
+        btnHome.setText("HOME");
         btnHome.setContentAreaFilled(false);
         btnHome.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnHome.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -379,10 +380,10 @@ public class frmAdministrationAirlineUserOnly extends javax.swing.JFrame {
     
     private void btnVuelosAgendadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVuelosAgendadosActionPerformed
 
-        //        pnlScheduledFlightsAirline = new pnlScheduledFlightsAirline();
-        //        this.loadPanel(pnlScheduledFlightsAirline);
-        //        setMyPanelActive(Constants.PANEL_SCHUDELEDFLIGHTSAIRLINE);
-        //        changeIconSubtitleBar(Constants.TITLE_SCHUDELEDFLIGHTS, Constants.ICON_SCHUDELEDFLIGHTS);
+        pnlUpdateUserAirline = new pnlUpdateUserAirline();
+        this.loadPanel(pnlUpdateUserAirline);
+        setMyPanelActive(Constants.PANEL_UPDATEUSER_AIRLINE);
+        changeIconSubtitleBar(Constants.TITLE_UPDATE_USER, Constants.ICON_SCHUDELEDFLIGHTS);
         btnHome.setVisible(true);
     }//GEN-LAST:event_btnVuelosAgendadosActionPerformed
 
