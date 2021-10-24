@@ -1,5 +1,7 @@
 package View;
 
+import java.awt.Image;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 /**
@@ -7,6 +9,16 @@ import javax.swing.JFrame;
  * @author Booh
  */
 public class frmLoginAdmistrationAirline extends javax.swing.JFrame {
+    
+    //--------------------------------------------------------------------------
+    
+    @Override
+    public Image getIconImage() {
+    Image retValue = Toolkit.getDefaultToolkit().
+    getImage(ClassLoader.getSystemResource("Media/login_64px.png"));
+    
+    return retValue;
+    }
 
     //--------------------------------------------------------------------------
     
@@ -31,6 +43,8 @@ public class frmLoginAdmistrationAirline extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Autenticación administración");
+        setIconImage(getIconImage());
         setLocation(new java.awt.Point(156, 104));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

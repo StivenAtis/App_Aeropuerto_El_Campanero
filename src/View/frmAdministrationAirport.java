@@ -153,6 +153,7 @@ public class frmAdministrationAirport extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Administración Aeropuerto");
         setIconImage(getIconImage());
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnlFirstTopBar.setBackground(new java.awt.Color(28, 31, 52));
