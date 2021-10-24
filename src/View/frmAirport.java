@@ -848,7 +848,7 @@ public class frmAirport extends javax.swing.JFrame {
     //--------------------------------------------------------------------------
     
     private void acercaDE5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acercaDE5ActionPerformed
-        frmAdministrationAirport login = new  frmAdministrationAirport();
+        frmLoginAdmistrationAirport login = new  frmLoginAdmistrationAirport();
         login.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_acercaDE5ActionPerformed
