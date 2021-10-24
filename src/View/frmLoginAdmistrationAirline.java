@@ -37,7 +37,7 @@ public class frmLoginAdmistrationAirline extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         pswPasswordLogin = new javax.swing.JPasswordField();
         jcbMostrar = new javax.swing.JCheckBox();
-        btCancel1 = new javax.swing.JButton();
+        btIngresar = new javax.swing.JButton();
         btCancel = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -72,16 +72,16 @@ public class frmLoginAdmistrationAirline extends javax.swing.JFrame {
         });
         getContentPane().add(jcbMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 320, -1, -1));
 
-        btCancel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Ingresar_min.png"))); // NOI18N
-        btCancel1.setContentAreaFilled(false);
-        btCancel1.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Ingresar_min.png"))); // NOI18N
-        btCancel1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Ingresar_max.png"))); // NOI18N
-        btCancel1.addActionListener(new java.awt.event.ActionListener() {
+        btIngresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Ingresar_min.png"))); // NOI18N
+        btIngresar.setContentAreaFilled(false);
+        btIngresar.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Ingresar_min.png"))); // NOI18N
+        btIngresar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Ingresar_max.png"))); // NOI18N
+        btIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btCancel1ActionPerformed(evt);
+                btIngresarActionPerformed(evt);
             }
         });
-        getContentPane().add(btCancel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 400, 330, 120));
+        getContentPane().add(btIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 400, 330, 120));
 
         btCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/cancelar_min.png"))); // NOI18N
         btCancel.setContentAreaFilled(false);
@@ -116,15 +116,22 @@ public class frmLoginAdmistrationAirline extends javax.swing.JFrame {
 
     //--------------------------------------------------------------------------
     
-    private void btCancel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancel1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btCancel1ActionPerformed
+    private void btIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIngresarActionPerformed
+        
+        String password = pswPasswordLogin.getText();
+        
+        if(password.equals("")){
+            frmAdministrationAirlineUserOnly administrationAirline = new frmAdministrationAirlineUserOnly();
+            administrationAirline.setVisible(true);
+            this.setVisible(false);
+        }
+    }//GEN-LAST:event_btIngresarActionPerformed
 
     //--------------------------------------------------------------------------
     
     private void btCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelActionPerformed
-        frmAirline airport = new  frmAirline();
-        airport.setVisible(true);
+        frmAirline airline = new  frmAirline();
+        airline.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btCancelActionPerformed
 
@@ -160,7 +167,7 @@ public class frmLoginAdmistrationAirline extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCancel;
-    private javax.swing.JButton btCancel1;
+    private javax.swing.JButton btIngresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
