@@ -122,6 +122,7 @@ public class Constants {
     
     public static final String PANEL_UPDATEUSER_AIRPORT = "pnlUpdateUserAirport";
     public static final String PANEL_UPDATEUSER_AIRLINE = "pnlUpdateUserAirline";
+    public static final String PANEL_DELETEUSER_AIRLINE = "pnlDeleteUserAirport";
     
     public static final String PANEL_CHART_FLIGHT = "pnlgraphFlightsRequestedScheduled_Airport";
     public static final String PANEL_CHART_FLIGHT_A = "pnlgraphFlightsRequestedScheduled_Airline";
@@ -149,6 +150,7 @@ public class Constants {
     public static final String TITLE_ABORTFLIGHTS = "CANCELAR VUELOS";
     
     public static final String TITLE_UPDATE_USER = "ACTUALIZAR USUARIO";
+    public static final String TITLE_DELETE_USER = "ELIMINAR USUARIO";
     
     public static final String TITLE_CHART = "GRAFICA DE VUELOS";
     

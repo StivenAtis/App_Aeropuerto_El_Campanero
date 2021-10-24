@@ -37,6 +37,7 @@ public class frmAdministrationAirportUserOnly extends javax.swing.JFrame {
     
     public final pnlHomeAirportAdministration pnlHome;
     private pnlUpdateUserAirport pnlUpdateUserAirport;
+    private pnlDeleteUserAirport pnlDeleteUserAirport;
     public JScrollPane spContainer;
     
     //--------------------------------------------------------------------------
@@ -379,10 +380,10 @@ public class frmAdministrationAirportUserOnly extends javax.swing.JFrame {
     
     private void btnEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarUsuarioActionPerformed
 
-        //        pnlDeclinedFlights = new pnlDeclinedFlights();
-        //        this.loadPanel(pnlDeclinedFlights);
-        //        setMyPanelActive(Constants.PANEL_DECLINEFLIGHTS);
-        //        changeIconSubtitleBar(Constants.TITLE_DECLINEFLIGHTS, Constants.ICON_DECLINEFLIGHTS);
+        pnlDeleteUserAirport = new pnlDeleteUserAirport();
+        this.loadPanel(pnlDeleteUserAirport);
+        setMyPanelActive(Constants.PANEL_DELETEUSER_AIRLINE);
+        changeIconSubtitleBar(Constants.TITLE_DELETE_USER, Constants.ICON_DECLINEFLIGHTS);
         btnHome.setVisible(true);
     }//GEN-LAST:event_btnEliminarUsuarioActionPerformed
 
