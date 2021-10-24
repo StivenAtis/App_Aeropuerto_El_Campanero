@@ -766,7 +766,9 @@ public class frmAirline extends javax.swing.JFrame {
     //--------------------------------------------------------------------------
     
     private void acercaDE5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acercaDE5ActionPerformed
-        // TODO add your handling code here:
+        frmLoginAdmistrationAirline AdmAirline = new frmLoginAdmistrationAirline();
+        AdmAirline.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_acercaDE5ActionPerformed
 
     //--------------------------------------------------------------------------
