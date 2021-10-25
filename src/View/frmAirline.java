@@ -43,7 +43,7 @@ public class frmAirline extends javax.swing.JFrame {
     private pnlFlightQuery pnlFlightQuery;
     private pnlDeclinedFlights pnlDeclinedFlights;
     private pnlFlightOrderingAirline pnlFlightOrderingAirline;
-    private pnlAbortFlightAirline pnlAbortFlightAirline;
+    private pnlAbortFlightAirlinee pnlAbortFlightAirline;
     private pnlReportsAirline pnlReportsAirline;
 
     //--------------------------------------------------------------------------
@@ -721,7 +721,7 @@ public class frmAirline extends javax.swing.JFrame {
     
     private void btnCancelarVueloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarVueloActionPerformed
 
-        pnlAbortFlightAirline = new pnlAbortFlightAirline();
+        pnlAbortFlightAirline = new pnlAbortFlightAirlinee();
         this.loadPanel(pnlAbortFlightAirline);
         setMyPanelActive(Constants.PANEL_ABORTFLIGHTS);
         changeIconSubtitleBar(Constants.TITLE_ABORTFLIGHTS, Constants.ICON_CANCELFLIGHT);

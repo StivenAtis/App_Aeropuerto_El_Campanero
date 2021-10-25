@@ -382,7 +382,7 @@ public class frmAdministrationAirportUserOnly extends javax.swing.JFrame {
 
         pnlDeleteUserAirport = new pnlDeleteUserAirport();
         this.loadPanel(pnlDeleteUserAirport);
-        setMyPanelActive(Constants.PANEL_DELETEUSER_AIRLINE);
+        setMyPanelActive(Constants.PANEL_DELETEUSER_AIRPORT);
         changeIconSubtitleBar(Constants.TITLE_DELETE_USER, Constants.ICON_DECLINEFLIGHTS);
         btnHome.setVisible(true);
     }//GEN-LAST:event_btnEliminarUsuarioActionPerformed
