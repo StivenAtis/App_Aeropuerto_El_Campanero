@@ -2,6 +2,7 @@ package Controller;
 
 import Classes.clsAdmin;
 import Model.modelAdmin;
+import java.util.LinkedList;
 
 /**
  *
@@ -50,6 +51,27 @@ public class ctlAdmin {
     public boolean deleteAdminTable(){
         
         return modelAdmin.deleteAdminTable();
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    public boolean compareAdminAirline(){
+        
+        return modelAdmin.compareAdmin();
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    public boolean compareAdminAirport(){
+        
+        return modelAdmin.compareAdminAirport();
+    }
+    
+    //--------------------------------------------------------------------------
+    
+     public LinkedList<clsAdmin> listAdmin(){
+         
+        return modelAdmin.AdminList();
     }
     
     //--------------------------------------------------------------------------

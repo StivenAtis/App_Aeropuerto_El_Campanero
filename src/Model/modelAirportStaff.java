@@ -1,11 +1,13 @@
 package Model;
 
+import Classes.clsAdmin;
 import Classes.clsAirportStaff;
 import Classes.clsLogin;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.LinkedList;
 
 /**
  *
@@ -64,6 +66,37 @@ public class modelAirportStaff {
             return null;
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    public LinkedList<clsAirportStaff> AdminAirportList(){
+        
+        LinkedList<clsAirportStaff> Admin = new LinkedList<>();
+        
+        try (Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
+            String query = "SELECT ast.id, ast.id_Airport_staff, ast.name, ast.last_name, ast.phone, ast.email, ast.user_staff, ast.password_staff FROM `tb_airport_staff` AS ast INNER JOIN tb_admin AS ad WHERE ad.email_admin=ast.email";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet rs = preparedStatement.executeQuery();
+            
+            while (rs.next()) {
+                clsAirportStaff FRAdmin = new clsAirportStaff(
+                rs.getInt("id"),
+                rs.getString("id_Airport_staff"),
+                rs.getString("name"),
+                rs.getString("last_name"),
+                rs.getString("phone"),
+                rs.getString("email"),
+                rs.getString("user_staff"),
+                rs.getString("password_staff"));
+                
+                Admin.add(FRAdmin);
+            }
+            return Admin;
+        } catch (Exception e) {
+            System.out.println("Error querying: " + e.getMessage());
             return null;
         }
     }

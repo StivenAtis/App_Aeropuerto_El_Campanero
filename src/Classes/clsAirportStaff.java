@@ -7,18 +7,22 @@ package Classes;
 public class clsAirportStaff {
     
     private int Id;
+    private String identification;
     private String name;
     private String lastName;
+    private String phone;
     private String email;
     private String user;
     private String password;
     
     //--------------------------------------------------------------------------
 
-    public clsAirportStaff(int Id, String name, String lastName, String email, String user, String password) {
+    public clsAirportStaff(int Id, String identification, String name, String lastName, String phone, String email, String user, String password) {
         this.Id = Id;
+        this.identification = identification;
         this.name = name;
         this.lastName = lastName;
+        this.phone = phone;
         this.email = email;
         this.user = user;
         this.password = password;
@@ -72,6 +76,22 @@ public class clsAirportStaff {
 
     public void setId(int Id) {
         this.Id = Id;
+    }
+
+    public String getIdentification() {
+        return identification;
+    }
+
+    public void setIdentification(String identification) {
+        this.identification = identification;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
     
     //--------------------------------------------------------------------------

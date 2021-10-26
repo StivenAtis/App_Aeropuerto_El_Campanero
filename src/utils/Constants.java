@@ -89,13 +89,21 @@ public class Constants {
     public static final int RUNWAY_TAKEOFF_TIME_TABLE = 3;
     public static final int RUNWAY_LANDING_TIME_TABLE = 4;
     
-    
     //Constants jTable Plans
     public static final int ID_PLAN = 0;
     public static final int CODE_PLAN = 1;
     public static final int NAME_PLAN = 2;
     public static final int DESCRIPTION_PLAN = 3;
     public static final int PRICE_PLAN = 4;
+    
+    //Constants jTable Plans
+    public static final int EMAIL_ADMIN_ID = 0;
+    public static final int EMAIL_ADMIN_NAME = 1;
+    public static final int EMAIL_ADMIN_LASTNAME = 2;
+    public static final int EMAIL_ADMIN_PHONE = 3;
+    public static final int EMAIL_ADMIN_EMAIL = 4;
+    public static final int EMAIL_ADMIN_USER = 5;
+    public static final int EMAIL_ADMIN_PASSWORD = 6;
     
     //Constants jPanel
     public static final String PANEL_CUSTOMERS = "pnlCustomers";

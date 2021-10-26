@@ -1,11 +1,11 @@
 package Model;
 
 import Classes.clsAdmin;
-import Classes.clsFlightRequirements;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.LinkedList;
 
 /**
  *
@@ -111,6 +111,59 @@ public class modelAdmin {
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
             return false;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    public boolean compareAdmin() {
+        try(Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
+            String query = "SELECT * FROM `tb_airline_staff` AS ast INNER JOIN tb_admin AS ad WHERE ad.email_admin=ast.email";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    public boolean compareAdminAirport() {
+        try(Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
+            String query = "SELECT ast.id_Airport_staff, ast.name, ast.last_name, ast.phone, ast.email, ast.user_staff, ast.password_staff FROM `tb_airport_staff` AS ast INNER JOIN tb_admin AS ad WHERE ad.email_admin=ast.email";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            //preparedStatement.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    public LinkedList<clsAdmin> AdminList(){
+        
+        LinkedList<clsAdmin> Admin = new LinkedList<>();
+        
+        try (Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
+            String query = "SELECT `id`, `email_admin` FROM `tb_admin`";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet rs = preparedStatement.executeQuery();
+            
+            while (rs.next()) {
+                clsAdmin FRAdmin = new clsAdmin(
+                rs.getInt("id"),
+                rs.getString("email_admin"));
+                
+                Admin.add(FRAdmin);
+            }
+            return Admin;
+        } catch (Exception e) {
+            System.out.println("Error querying:" + e.getMessage());
+            return null;
         }
     }
     

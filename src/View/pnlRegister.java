@@ -357,7 +357,7 @@ public class pnlRegister extends javax.swing.JPanel {
                     }
                     else{
                         if(password.equals(Cpassword)){
-                            clsAirportStaff user = new clsAirportStaff(0, name, lastName, email_emp, user_emp, encryptedPassword);
+                            clsAirportStaff user = new clsAirportStaff(0, "0", name, lastName, "0", email_emp, user_emp, encryptedPassword);
 
                             Icon m = new ImageIcon(getClass().getResource("/Media/passed.png"));
                             JOptionPane.showMessageDialog(this, "¡¡¡Se ha creado correctamente\n uuna cuenta de aeropuerto!!!", "Cuenta creada", WIDTH, m);

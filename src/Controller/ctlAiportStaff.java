@@ -3,6 +3,7 @@ package Controller;
 import Classes.clsAirportStaff;
 import Classes.clsLogin;
 import Model.modelAirportStaff;
+import java.util.LinkedList;
 
 /**
  *
@@ -35,6 +36,10 @@ public class ctlAiportStaff {
     
     //--------------------------------------------------------------------------
     
+     public LinkedList<clsAirportStaff> listAdminA(){
+         
+        return modelStaff.AdminAirportList();
+    }
     
     //--------------------------------------------------------------------------
     

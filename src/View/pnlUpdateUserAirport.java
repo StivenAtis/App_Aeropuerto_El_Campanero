@@ -1,13 +1,38 @@
 package View;
 
+import Classes.clsAdmin;
+import Classes.clsAirportStaff;
+import Controller.ctlAdmin;
+import Controller.ctlAiportStaff;
+import java.util.LinkedList;
+import javax.swing.DefaultListModel;
+import javax.swing.table.DefaultTableModel;
+import utils.Constants;
+
 /**
  *
  * @author Booh
  */
 public class pnlUpdateUserAirport extends javax.swing.JPanel {
 
+    private ctlAdmin controlAdmin = null;
+    private ctlAiportStaff controlAdminAirport = null;
+    LinkedList<clsAirportStaff> list;
+    LinkedList<clsAdmin> AdminObjectList = new LinkedList<>();
+    
     public pnlUpdateUserAirport() {
+        
+        //--------------------------------------------------------------------------
+    
+        //ctlAdmin admin = new ctlAdmin();
+        
+        //--------------------------------------------------------------------------
+    
         initComponents();
+        controlAdmin = new ctlAdmin();
+        controlAdminAirport = new ctlAiportStaff();
+        fillDataTable();
+        showAdmin();
     }
 
     @SuppressWarnings("unchecked")
@@ -201,6 +226,38 @@ public class pnlUpdateUserAirport extends javax.swing.JPanel {
         add(lbBanner_pnl, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 790));
     }// </editor-fold>//GEN-END:initComponents
 
+    //--------------------------------------------------------------------------
+    
+    private void fillDataTable() {
+        
+        list = controlAdminAirport.listAdminA();
+        
+        controlAdmin.compareAdminAirport();
+            
+        String datos[][] = new String[list.size()][7];
+
+        if(list.size() > 0) {
+            for (int i = 0; i < list.size(); i++) {
+                datos[i][Constants.EMAIL_ADMIN_ID] = list.get(i).getIdentification();
+                datos[i][Constants.EMAIL_ADMIN_NAME] = list.get(i).getName();
+                datos[i][Constants.EMAIL_ADMIN_LASTNAME] = list.get(i).getLastName();
+                datos[i][Constants.EMAIL_ADMIN_PHONE] = list.get(i).getPhone();
+                datos[i][Constants.EMAIL_ADMIN_EMAIL] = list.get(i).getEmail();
+                datos[i][Constants.EMAIL_ADMIN_USER] = list.get(i).getUser();
+                datos[i][Constants.EMAIL_ADMIN_PASSWORD] = list.get(i).getPassword();
+            }        
+        }        
+        String[] columns = {
+            "NUMERO IDENTIFICACIÓN", "NOMBRES", "APELLIDOS", "TELEFONO", "EMAIL", "NOMBRE USUARIO", "CONTRASEÑA"};
+        DefaultTableModel model = new DefaultTableModel(datos, columns);
+        int[] columnSize = {30, 50, 50, 50, 50, 50, 50};
+        for(int x=0; x<columnSize.length;x++)
+            tblUsuario.getColumnModel().getColumn(x).setPreferredWidth(columnSize[x]);
+        tblUsuario.setRowHeight(30);
+        tblUsuario.setModel(model);
+    }
+    
+    //--------------------------------------------------------------------------
     private void tblUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUsuarioMouseClicked
         int row = tblUsuario.getSelectedRow();
         String id = tblUsuario.getValueAt(row, 0).toString();
@@ -286,6 +343,22 @@ public class pnlUpdateUserAirport extends javax.swing.JPanel {
         
     }//GEN-LAST:event_btActualizarActionPerformed
 
+    //--------------------------------------------------------------------------
+    
+    private void showAdmin(){
+        AdminObjectList = controlAdmin.listAdmin();
+        
+        DefaultListModel model = new DefaultListModel();
+        int index = 0;
+        
+        for (clsAdmin admin : AdminObjectList) {
+            String data = "CODIGO VUELO: " + admin.getEmail_admin();
+            model.add(index, data);
+            index++;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btActualizar;
