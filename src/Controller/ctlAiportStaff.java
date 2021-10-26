@@ -43,6 +43,13 @@ public class ctlAiportStaff {
     
     //--------------------------------------------------------------------------
     
+    public boolean updateUser (clsAirportStaff user){
+        
+            return modelStaff.updateAirportUser((clsAirportStaff) user);
+    }
+    
+    //--------------------------------------------------------------------------
+    
      public LinkedList<clsAirportStaff> listAdminA(){
          
         return modelStaff.AdminAirportList();

@@ -4,9 +4,19 @@ import Classes.clsAdmin;
 import Classes.clsAirportStaff;
 import Controller.ctlAdmin;
 import Controller.ctlAiportStaff;
+import static java.awt.image.ImageObserver.WIDTH;
+import java.security.MessageDigest;
+import java.util.Arrays;
 import java.util.LinkedList;
+import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 import javax.swing.DefaultListModel;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.apache.commons.codec.binary.Base64;
 import utils.Constants;
 
 /**
@@ -193,12 +203,22 @@ public class pnlUpdateUserAirport extends javax.swing.JPanel {
                 tfNombresMouseClicked(evt);
             }
         });
+        tfNombres.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfNombresKeyTyped(evt);
+            }
+        });
         add(tfNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 420, 390, 40));
 
         tfApellidos.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         tfApellidos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tfApellidosMouseClicked(evt);
+            }
+        });
+        tfApellidos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfApellidosKeyTyped(evt);
             }
         });
         add(tfApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 420, 390, 40));
@@ -215,11 +235,6 @@ public class pnlUpdateUserAirport extends javax.swing.JPanel {
         pswPassword.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 pswPasswordMouseClicked(evt);
-            }
-        });
-        pswPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pswPasswordActionPerformed(evt);
             }
         });
         add(pswPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 550, 390, 40));
@@ -259,6 +274,47 @@ public class pnlUpdateUserAirport extends javax.swing.JPanel {
         lbBanner_pnl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Banner_Airport_Administration_2.jpg"))); // NOI18N
         add(lbBanner_pnl, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 790));
     }// </editor-fold>//GEN-END:initComponents
+
+     //--------------------------------------------------------------------------
+    public String encode(String secretKey, String cadena) {
+        String encriptacion = "";
+        try {
+            MessageDigest md5 = MessageDigest.getInstance("MD5");
+            byte[] llavePassword = md5.digest(secretKey.getBytes("utf-8"));
+            byte[] BytesKey = Arrays.copyOf(llavePassword, 24);
+            SecretKey key = new SecretKeySpec(BytesKey, "DESede");
+            Cipher cifrado = Cipher.getInstance("DESede");
+            cifrado.init(Cipher.ENCRYPT_MODE, key);
+            byte[] plainTextBytes = cadena.getBytes("utf-8");
+            byte[] buf = cifrado.doFinal(plainTextBytes);
+            byte[] base64Bytes = Base64.encodeBase64(buf);
+            encriptacion = new String(base64Bytes);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Algo salió mal");
+        }
+        return encriptacion;
+    }
+    
+    //-------------------
+    
+    public String decode(String secretKey, String cadenaEncriptada) {
+        String desencriptacion = "";
+        try {
+            byte[] message = Base64.decodeBase64(cadenaEncriptada.getBytes("utf-8"));
+            MessageDigest md5 = MessageDigest.getInstance("MD5");
+            byte[] digestOfPassword = md5.digest(secretKey.getBytes("utf-8"));
+            byte[] keyBytes = Arrays.copyOf(digestOfPassword, 24);
+            SecretKey key = new SecretKeySpec(keyBytes, "DESede");
+            Cipher decipher = Cipher.getInstance("DESede");
+            decipher.init(Cipher.DECRYPT_MODE, key);
+            byte[] plainText = decipher.doFinal(message);
+            desencriptacion = new String(plainText, "UTF-8");
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Algo salió mal");
+        }
+        return desencriptacion;
+    }
 
     //--------------------------------------------------------------------------
     
@@ -307,6 +363,9 @@ public class pnlUpdateUserAirport extends javax.swing.JPanel {
         String email = FlightRequirementsSearch.getEmail();
         String usuario = FlightRequirementsSearch.getUser();
         String contrasenia = FlightRequirementsSearch.getPassword();
+        
+        String secretKey = "aeropuertocampanero";
+        String desencryptedPassword = decode(secretKey, contrasenia);
 
         tfIdentificacion.setText(identificacion);
         tfNombres.setText(nombres);
@@ -314,15 +373,13 @@ public class pnlUpdateUserAirport extends javax.swing.JPanel {
         tfTelefono.setText(telefono);
         tfEmail.setText(email);
         tfUsuario.setText(usuario);
-        pswPassword.setText(contrasenia);
-        pswPasswordConfirmed.setText(contrasenia);
+        pswPassword.setText(desencryptedPassword);
+        pswPasswordConfirmed.setText(desencryptedPassword);
         
     }//GEN-LAST:event_tblUsuarioMouseClicked
 
-    private void pswPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pswPasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pswPasswordActionPerformed
-
+    //--------------------------------------------------------------------------
+    
     private void jcbMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbMostrarActionPerformed
 
         if (jcbMostrar.isSelected()) {
@@ -334,11 +391,51 @@ public class pnlUpdateUserAirport extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jcbMostrarActionPerformed
 
+    //--------------------------------------------------------------------------
+    
     private void btActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btActualizarActionPerformed
         
-        
+        if(tblUsuario.getSelectedRow() == -1){
+            JOptionPane.showMessageDialog(this, "¡Debe seleccionar su usuario para poderlo actualizar!");
+        }
+        else{
+            
+            String id = tfIdentificacion.getText();
+            String nombres = tfNombres.getText();
+            String apellidos = tfApellidos.getText();
+            String telefono = tfTelefono.getText();
+            String email = tfEmail.getText();
+            String usuario = tfUsuario.getText();
+            String contrasenia = pswPassword.getText();
+            String contrasenia2 = pswPasswordConfirmed.getText();
+            
+            if(id.equals("") || nombres.equals("") || apellidos.equals("") || telefono.equals("") || email.equals("") || usuario.equals("") || contrasenia.equals("") || contrasenia2.equals("")){
+                JOptionPane.showMessageDialog(this, "¡Debe ingresar todos los datos del formulario!");
+            }
+            else {
+                if(!contrasenia.equals(contrasenia2)){
+                    JOptionPane.showMessageDialog(this, "¡Confirmación de contraseña incorrecta!");
+                    pswPasswordConfirmed.setText("");
+                }
+                else{
+                    String secretKey = "aeropuertocampanero";
+                    String encryptedPassword = encode(secretKey, contrasenia);
+                    clsAirportStaff updateUser = new clsAirportStaff(0, id, nombres, apellidos, telefono, email, usuario, encryptedPassword);
+                    
+                    controlAdminAirport.updateUser(updateUser);
+                    
+                    Icon m = new ImageIcon(getClass().getResource("/Media/User_Update2.gif"));
+                    JOptionPane.showMessageDialog(this, "¡¡¡Se ha actualizado \n su cuenta de usuario!!!", "Actualización realizada satisfactoriamente", WIDTH, m);
+                    
+                    fillDataTable();
+                    cleanRegisterQuestionnaire();
+                }
+            }
+        }
     }//GEN-LAST:event_btActualizarActionPerformed
 
+    //--------------------------------------------------------------------------
+    
     private void tfIdentificacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfIdentificacionMouseClicked
         
         if(!"".equals(tfIdentificacion.getText())){
@@ -346,6 +443,8 @@ public class pnlUpdateUserAirport extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_tfIdentificacionMouseClicked
 
+    //--------------------------------------------------------------------------
+    
     private void tfTelefonoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfTelefonoMouseClicked
         
         if(!"".equals(tfTelefono.getText())){
@@ -353,6 +452,8 @@ public class pnlUpdateUserAirport extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_tfTelefonoMouseClicked
 
+    //--------------------------------------------------------------------------
+    
     private void tfNombresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfNombresMouseClicked
         
         if(!"".equals(tfNombres.getText())){
@@ -360,6 +461,8 @@ public class pnlUpdateUserAirport extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_tfNombresMouseClicked
 
+    //--------------------------------------------------------------------------
+    
     private void tfApellidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfApellidosMouseClicked
         
         if(!"".equals(tfApellidos.getText())){
@@ -367,6 +470,8 @@ public class pnlUpdateUserAirport extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_tfApellidosMouseClicked
 
+    //--------------------------------------------------------------------------
+    
     private void tfUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfUsuarioMouseClicked
         
         if(!"".equals(tfUsuario.getText())){
@@ -374,6 +479,8 @@ public class pnlUpdateUserAirport extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_tfUsuarioMouseClicked
 
+    //--------------------------------------------------------------------------
+    
     private void pswPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pswPasswordMouseClicked
         
         if(!"".equals(pswPassword.getText())){
@@ -382,12 +489,42 @@ public class pnlUpdateUserAirport extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_pswPasswordMouseClicked
 
+    //--------------------------------------------------------------------------
+    
     private void pswPasswordConfirmedMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pswPasswordConfirmedMouseClicked
         
         if(!"".equals(pswPasswordConfirmed.getText())){
             pswPasswordConfirmed.setText("");
         }
     }//GEN-LAST:event_pswPasswordConfirmedMouseClicked
+
+    //--------------------------------------------------------------------------
+    
+    private void tfNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNombresKeyTyped
+        
+        char caracter = evt.getKeyChar();
+
+        // Verificar si la tecla pulsada no es un digito
+        if(((caracter == '1') || (caracter  == '2') || (caracter  == '3') || (caracter  == '4') || (caracter  == '5') || (caracter  == '6')
+            || (caracter  == '7') || (caracter  == '8') || (caracter  == '9') || (caracter  == '0')))
+        {
+        evt.consume();  // ignorar el evento de teclado
+        }
+    }//GEN-LAST:event_tfNombresKeyTyped
+
+    //--------------------------------------------------------------------------
+    
+    private void tfApellidosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfApellidosKeyTyped
+        
+        char caracter = evt.getKeyChar();
+
+        // Verificar si la tecla pulsada no es un digito
+        if(((caracter == '1') || (caracter  == '2') || (caracter  == '3') || (caracter  == '4') || (caracter  == '5') || (caracter  == '6')
+            || (caracter  == '7') || (caracter  == '8') || (caracter  == '9') || (caracter  == '0')))
+        {
+        evt.consume();  // ignorar el evento de teclado
+        }
+    }//GEN-LAST:event_tfApellidosKeyTyped
 
     //--------------------------------------------------------------------------
     
@@ -405,6 +542,17 @@ public class pnlUpdateUserAirport extends javax.swing.JPanel {
     }
     
     //--------------------------------------------------------------------------
+    
+    private void cleanRegisterQuestionnaire(){
+        tfIdentificacion.setText("");
+        tfNombres.setText("");
+        tfApellidos.setText("");
+        tfTelefono.setText("");
+        tfEmail.setText("");
+        tfUsuario.setText("");
+        pswPassword.setText("");
+        pswPasswordConfirmed.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btActualizar;

@@ -102,6 +102,32 @@ public class modelAirportStaff {
     
     //--------------------------------------------------------------------------
     
+    public boolean updateAirportUser(clsAirportStaff user) {
+        
+        try(Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
+            String query = "UPDATE `tb_airport_staff` SET `id_Airport_staff`=?,`name`=?,`last_name`=?,`phone`=?,`email`=?,`user_staff`=?,`password_staff`=? WHERE email = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            
+            preparedStatement.setString(1, user.getIdentification());
+            preparedStatement.setString(2, user.getName());
+            preparedStatement.setString(3, user.getLastName());
+            preparedStatement.setString(4, user.getPhone());
+            preparedStatement.setString(5, user.getEmail());
+            preparedStatement.setString(6, user.getUser());
+            preparedStatement.setString(7, user.getPassword());
+            preparedStatement.setString(8, user.getEmail());
+            
+            preparedStatement.executeUpdate();
+            
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
     public LinkedList<clsAirportStaff> AdminAirportList(){
         
         LinkedList<clsAirportStaff> Admin = new LinkedList<>();
