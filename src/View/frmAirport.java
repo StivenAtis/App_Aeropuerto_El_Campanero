@@ -1,5 +1,6 @@
 package View;
 
+import Controller.ctlAdmin;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -31,6 +32,8 @@ public class frmAirport extends javax.swing.JFrame {
     private final Color CHANGE_COLOR_MENU = new Color(40, 45, 77);
     
     //--------------------------------------------------------------------------
+    
+    ctlAdmin admin = new ctlAdmin();
     
     public final pnlHomeAirport pnlHome;
     public JScrollPane spContainer;
@@ -92,6 +95,8 @@ public class frmAirport extends javax.swing.JFrame {
         );
         
         if(dialogResult == JOptionPane.YES_OPTION){
+            
+            admin.deleteAdminTable();
             frmLogin login = new  frmLogin();
             login.setVisible(true);
             this.setVisible(false);
@@ -714,7 +719,6 @@ public class frmAirport extends javax.swing.JFrame {
     //--------------------------------------------------------------------------
     
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        //setMyPanelActive("FrmHome");
         this.closeApp();
     }//GEN-LAST:event_btnExitActionPerformed
 

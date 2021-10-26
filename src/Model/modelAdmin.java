@@ -101,4 +101,18 @@ public class modelAdmin {
     }
     
     //--------------------------------------------------------------------------
+    
+    public boolean deleteAdminTable() {
+        try(Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
+            String query = "truncate table `tb_admin`";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
 }

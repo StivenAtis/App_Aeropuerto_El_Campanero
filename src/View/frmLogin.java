@@ -1,5 +1,6 @@
 package View;
 
+import Classes.clsAdmin;
 import Classes.clsLogin;
 import javax.swing.JOptionPane;
 import Controller.*;
@@ -36,6 +37,7 @@ public class frmLogin extends javax.swing.JFrame {
     
     ctlAiportStaff controlLogin = new ctlAiportStaff();
     ctlAirlineStaff controlLoginAirline = new ctlAirlineStaff();
+    ctlAdmin controlAdmin = new ctlAdmin();
     
     //--------------------------------------------------------------------------
     
@@ -255,36 +257,41 @@ public class frmLogin extends javax.swing.JFrame {
             
                         if (cbAeropuerto.isSelected() == true) {
                 
-                                if (login == null) {
-                                        JOptionPane.showMessageDialog(this, "¡El correo electronico: " + email + ". No se encuentra registrado!");
-                                        cleanLoginQuestionnaire();
-                                    }
-                                else{
-                                        String pass = pswPasswordLogin.getText();
-                                        String emailL = tfEmailUserLogin.getText();
-                    
-                                        String secretKey = "aeropuertocampanero";
-                                        String encryptedPassword = encode(secretKey, pass);
-                    
-                                        if (!login.getEmail().equals(emailL) && login.getPassword().equals(encryptedPassword)) {
-                                                JOptionPane.showMessageDialog(this, "¡El correo electronico: " + email + ". No se encuentra registrado!");
-                                                tfEmailUserLogin.setText("");
-                                            }
-                    
-                                        else if (!login.getPassword().equals(encryptedPassword) && login.getEmail().equals(emailL)) {
-                                                JOptionPane.showMessageDialog(this, "¡la contraseña es incorrecta!");
-                                                pswPasswordLogin.setText("");
-                                            }
-                    
-                                        else if(login.getEmail().equals(emailL) && login.getPassword().equals(encryptedPassword)){
-                                                Icon m = new ImageIcon(getClass().getResource("/Media/vuelo.png"));
-                                                JOptionPane.showMessageDialog(this, "¡¡¡Bienvenido!!!", "welcome", WIDTH, m);
-                                                frmAirport  ScheduleFlight_Airport = new  frmAirport();
-                                                ScheduleFlight_Airport.setVisible(true);
-                                                this.setVisible(false);
-                                            }
-                                    }
+                            if (login == null) {
+                                    JOptionPane.showMessageDialog(this, "¡El correo electronico: " + email + ". No se encuentra registrado!");
+                                    cleanLoginQuestionnaire();
+                                }
+                            else{
+                                
+                                String pass = pswPasswordLogin.getText();
+                                String emailL = tfEmailUserLogin.getText();
+
+                                String secretKey = "aeropuertocampanero";
+                                String encryptedPassword = encode(secretKey, pass);
+
+                                if (!login.getEmail().equals(emailL) && login.getPassword().equals(encryptedPassword)) {
+                                    JOptionPane.showMessageDialog(this, "¡El correo electronico: " + email + ". No se encuentra registrado!");
+                                    tfEmailUserLogin.setText("");
+                                }
+
+                                else if (!login.getPassword().equals(encryptedPassword) && login.getEmail().equals(emailL)) {
+                                    JOptionPane.showMessageDialog(this, "¡la contraseña es incorrecta!");
+                                    pswPasswordLogin.setText("");
+                                }
+
+                                else if(login.getEmail().equals(emailL) && login.getPassword().equals(encryptedPassword)){
+
+                                    clsAdmin admin = new clsAdmin(0, emailL);
+                                    controlAdmin.createAdmin(admin);
+
+                                    Icon m = new ImageIcon(getClass().getResource("/Media/vuelo.png"));
+                                    JOptionPane.showMessageDialog(this, "¡¡¡Bienvenido!!!", "welcome", WIDTH, m);
+                                    frmAirport  ScheduleFlight_Airport = new  frmAirport();
+                                    ScheduleFlight_Airport.setVisible(true);
+                                    this.setVisible(false);
+                                }
                             }
+                        }
             
                         if (cbAerolinea.isSelected() == true) {
                 
@@ -293,30 +300,35 @@ public class frmLogin extends javax.swing.JFrame {
                                         cleanLoginQuestionnaire();
                                     }
                                 else{
-                                        String pass = pswPasswordLogin.getText();
-                                        String emailL = tfEmailUserLogin.getText();
+                                    String pass = pswPasswordLogin.getText();
+                                    String emailL = tfEmailUserLogin.getText();
                     
-                                        String secretKey = "aeropuertocampanero";
-                                        String encryptedPassword = encode(secretKey, pass);
+                                    String secretKey = "aeropuertocampanero";
+                                    String encryptedPassword = encode(secretKey, pass);
                     
-                                        if (!loginAirline.getEmail().equals(emailL) && loginAirline.getPassword().equals(encryptedPassword)) {
-                                                JOptionPane.showMessageDialog(this, "¡El correo electronico: " + email + ". No se encuentra registrado!");
-                                                tfEmailUserLogin.setText("");
-                                            }
+                                    if (!loginAirline.getEmail().equals(emailL) && loginAirline.getPassword().equals(encryptedPassword)) {
+                                            JOptionPane.showMessageDialog(this, "¡El correo electronico: " + email + ". No se encuentra registrado!");
+                                            tfEmailUserLogin.setText("");
+                                        }
                     
-                                        else if (!loginAirline.getPassword().equals(encryptedPassword) && loginAirline.getEmail().equals(emailL)) {
-                                                JOptionPane.showMessageDialog(this, "¡la contraseña es incorrecta!");
-                                                pswPasswordLogin.setText("");
-                                            }
+                                    else if (!loginAirline.getPassword().equals(encryptedPassword) && loginAirline.getEmail().equals(emailL)) {
+                                            JOptionPane.showMessageDialog(this, "¡la contraseña es incorrecta!");
+                                            pswPasswordLogin.setText("");
+                                        }
                     
-                                        else if(loginAirline.getEmail().equals(emailL) && loginAirline.getPassword().equals(encryptedPassword)){
-                                                Icon m = new ImageIcon(getClass().getResource("/Media/vuelo.png"));
-                                                JOptionPane.showMessageDialog(this, "¡¡¡Bienvenido!!!", "welcome", WIDTH, m);
-                                                frmAirline  ScheduleFlight_Airline = new  frmAirline();
-                                                ScheduleFlight_Airline.setVisible(true);
-                                                this.setVisible(false);
-                                            }
+                                    else if(loginAirline.getEmail().equals(emailL) && loginAirline.getPassword().equals(encryptedPassword)){
+                                        
+                                        
+                                        clsAdmin admin = new clsAdmin(0, emailL);
+                                        controlAdmin.createAdmin(admin);
+                                        
+                                        Icon m = new ImageIcon(getClass().getResource("/Media/vuelo.png"));
+                                        JOptionPane.showMessageDialog(this, "¡¡¡Bienvenido!!!", "welcome", WIDTH, m);
+                                        frmAirline  ScheduleFlight_Airline = new  frmAirline();
+                                        ScheduleFlight_Airline.setVisible(true);
+                                        this.setVisible(false);
                                     }
+                                }
                             }
             
                         if(cbAerolinea.isSelected() ==  false && cbAeropuerto.isSelected() == false){

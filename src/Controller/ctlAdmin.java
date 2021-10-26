@@ -46,4 +46,11 @@ public class ctlAdmin {
     }
     
     //--------------------------------------------------------------------------
+    
+    public boolean deleteAdminTable(){
+        
+        return modelAdmin.deleteAdminTable();
+    }
+    
+    //--------------------------------------------------------------------------
 }
