@@ -36,6 +36,13 @@ public class ctlAiportStaff {
     
     //--------------------------------------------------------------------------
     
+    public clsAirportStaff readStaffA(String id){
+        
+        return modelStaff.readAirportStaff(id);    
+    }
+    
+    //--------------------------------------------------------------------------
+    
      public LinkedList<clsAirportStaff> listAdminA(){
          
         return modelStaff.AdminAirportList();

@@ -15,6 +15,8 @@ import utils.Constants;
  */
 public class pnlUpdateUserAirport extends javax.swing.JPanel {
 
+    //--------------------------------------------------------------------------
+    
     private ctlAdmin controlAdmin = null;
     private ctlAiportStaff controlAdminAirport = null;
     LinkedList<clsAirportStaff> list;
@@ -22,17 +24,14 @@ public class pnlUpdateUserAirport extends javax.swing.JPanel {
     
     public pnlUpdateUserAirport() {
         
-        //--------------------------------------------------------------------------
-    
-        //ctlAdmin admin = new ctlAdmin();
-        
-        //--------------------------------------------------------------------------
+        //----------------------------------------------------------------------
     
         initComponents();
         controlAdmin = new ctlAdmin();
         controlAdminAirport = new ctlAiportStaff();
         fillDataTable();
         showAdmin();
+        tfEmail.setEditable(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -170,24 +169,54 @@ public class pnlUpdateUserAirport extends javax.swing.JPanel {
         add(lb8, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 500, 390, 40));
 
         tfIdentificacion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        tfIdentificacion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tfIdentificacionMouseClicked(evt);
+            }
+        });
         add(tfIdentificacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, 390, 40));
 
         tfEmail.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         add(tfEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 300, 390, 40));
 
         tfTelefono.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        tfTelefono.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tfTelefonoMouseClicked(evt);
+            }
+        });
         add(tfTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 300, 340, 40));
 
         tfNombres.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        tfNombres.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tfNombresMouseClicked(evt);
+            }
+        });
         add(tfNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 420, 390, 40));
 
         tfApellidos.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        tfApellidos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tfApellidosMouseClicked(evt);
+            }
+        });
         add(tfApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 420, 390, 40));
 
         tfUsuario.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        tfUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tfUsuarioMouseClicked(evt);
+            }
+        });
         add(tfUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 420, 340, 40));
 
         pswPassword.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        pswPassword.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pswPasswordMouseClicked(evt);
+            }
+        });
         pswPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pswPasswordActionPerformed(evt);
@@ -196,6 +225,11 @@ public class pnlUpdateUserAirport extends javax.swing.JPanel {
         add(pswPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 550, 390, 40));
 
         pswPasswordConfirmed.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        pswPasswordConfirmed.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pswPasswordConfirmedMouseClicked(evt);
+            }
+        });
         add(pswPasswordConfirmed, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 550, 390, 40));
 
         jcbMostrar.addActionListener(new java.awt.event.ActionListener() {
@@ -258,69 +292,31 @@ public class pnlUpdateUserAirport extends javax.swing.JPanel {
     }
     
     //--------------------------------------------------------------------------
+    
     private void tblUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUsuarioMouseClicked
+        
         int row = tblUsuario.getSelectedRow();
         String id = tblUsuario.getValueAt(row, 0).toString();
 
-//        clsFlightRequirements FlightRequirementsSearch = controller.readFlightRequirements(id);
-//
-//        String code = FlightRequirementsSearch.getCodigoVuelo();
-//
-//        if (FlightRequirementsSearch.getSalidaLlegada().equals("Vuelo de salida") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de pasajeros")) {
-//
-//            tfTelefono.setText(code);
-//            tfTelefono.setEditable(false);
-//            chboxVueloSalida.setSelected(true);
-//            comboBoxPistaAterrizaje.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{ "Seleccione pista"}));
-//            comboBoxPistaDespegue.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione pista", "pista - 01B","pista - 03B","pista - 06B","pista - 09B","pista - 012B"}));
-//            chboxVueloLlegada.setSelected(false);
-//            chboxVueloPasajeros.setSelected(true);
-//            chboxVueloCarga.setSelected(false);
-//
-//            comboBoxDestino.setSelectedItem(FlightRequirementsSearch.getDestino());
-//        }
-//        if (FlightRequirementsSearch.getSalidaLlegada().equals("Vuelo de llegada") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de pasajeros")) {
-//
-//            tfTelefono.setText(code);
-//            tfTelefono.setEditable(false);
-//            chboxVueloLlegada.setSelected(true);
-//            chboxVueloSalida.setSelected(false);
-//            comboBoxPistaAterrizaje.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{ "Seleccione pista","pista - 01A","pista - 03A","pista - 06A","pista - 09A","pista - 012A"}));
-//            comboBoxPistaDespegue.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione pista"}));
-//            chboxVueloPasajeros.setSelected(true);
-//            chboxVueloCarga.setSelected(false);
-//
-//            comboBoxDestino.setSelectedItem(FlightRequirementsSearch.getDestino());
-//
-//        }
-//
-//        if (FlightRequirementsSearch.getSalidaLlegada().equals("Vuelo de salida") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de carga")) {
-//
-//            tfTelefono.setText(code);
-//            tfTelefono.setEditable(false);
-//            chboxVueloSalida.setSelected(true);
-//            comboBoxPistaAterrizaje.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{ "Seleccione pista"}));
-//            comboBoxPistaDespegue.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione pista", "pista - 01B","pista - 03B","pista - 06B","pista - 09B","pista - 012B"}));
-//            chboxVueloLlegada.setSelected(false);
-//            chboxVueloPasajeros.setSelected(false);
-//            chboxVueloCarga.setSelected(true);
-//
-//            comboBoxDestino.setSelectedItem(FlightRequirementsSearch.getDestino());
-//        }
-//        if (FlightRequirementsSearch.getSalidaLlegada().equals("Vuelo de llegada") && FlightRequirementsSearch.getTipoVuelo().equals("Vuelo de carga")) {
-//
-//            tfTelefono.setText(code);
-//            tfTelefono.setEditable(false);
-//            chboxVueloLlegada.setSelected(true);
-//            chboxVueloSalida.setSelected(false);
-//            comboBoxPistaAterrizaje.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{ "Seleccione pista","pista - 01A","pista - 03A","pista - 06A","pista - 09A","pista - 012A"}));
-//            comboBoxPistaDespegue.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione pista"}));
-//            chboxVueloPasajeros.setSelected(false);
-//            chboxVueloCarga.setSelected(true);
-//
-//            comboBoxDestino.setSelectedItem(FlightRequirementsSearch.getDestino());
+        clsAirportStaff FlightRequirementsSearch = controlAdminAirport.readStaffA(id);
 
-//        }
+        String identificacion = FlightRequirementsSearch.getIdentification();
+        String nombres = FlightRequirementsSearch.getName();
+        String apellidos = FlightRequirementsSearch.getLastName();
+        String telefono = FlightRequirementsSearch.getPhone();
+        String email = FlightRequirementsSearch.getEmail();
+        String usuario = FlightRequirementsSearch.getUser();
+        String contrasenia = FlightRequirementsSearch.getPassword();
+
+        tfIdentificacion.setText(identificacion);
+        tfNombres.setText(nombres);
+        tfApellidos.setText(apellidos);
+        tfTelefono.setText(telefono);
+        tfEmail.setText(email);
+        tfUsuario.setText(usuario);
+        pswPassword.setText(contrasenia);
+        pswPasswordConfirmed.setText(contrasenia);
+        
     }//GEN-LAST:event_tblUsuarioMouseClicked
 
     private void pswPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pswPasswordActionPerformed
@@ -342,6 +338,56 @@ public class pnlUpdateUserAirport extends javax.swing.JPanel {
         
         
     }//GEN-LAST:event_btActualizarActionPerformed
+
+    private void tfIdentificacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfIdentificacionMouseClicked
+        
+        if(!"".equals(tfIdentificacion.getText())){
+            tfIdentificacion.setText("");
+        }
+    }//GEN-LAST:event_tfIdentificacionMouseClicked
+
+    private void tfTelefonoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfTelefonoMouseClicked
+        
+        if(!"".equals(tfTelefono.getText())){
+            tfTelefono.setText("");
+        }
+    }//GEN-LAST:event_tfTelefonoMouseClicked
+
+    private void tfNombresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfNombresMouseClicked
+        
+        if(!"".equals(tfNombres.getText())){
+            tfNombres.setText("");
+        }
+    }//GEN-LAST:event_tfNombresMouseClicked
+
+    private void tfApellidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfApellidosMouseClicked
+        
+        if(!"".equals(tfApellidos.getText())){
+            tfApellidos.setText("");
+        }
+    }//GEN-LAST:event_tfApellidosMouseClicked
+
+    private void tfUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfUsuarioMouseClicked
+        
+        if(!"".equals(tfUsuario.getText())){
+            tfUsuario.setText("");
+        }
+    }//GEN-LAST:event_tfUsuarioMouseClicked
+
+    private void pswPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pswPasswordMouseClicked
+        
+        if(!"".equals(pswPassword.getText())){
+            pswPassword.setText("");
+            pswPasswordConfirmed.setText("");
+        }
+    }//GEN-LAST:event_pswPasswordMouseClicked
+
+    private void pswPasswordConfirmedMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pswPasswordConfirmedMouseClicked
+        
+        if(!"".equals(pswPasswordConfirmed.getText())){
+            pswPasswordConfirmed.setText("");
+        }
+    }//GEN-LAST:event_pswPasswordConfirmedMouseClicked
 
     //--------------------------------------------------------------------------
     
