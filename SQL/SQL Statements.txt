@@ -255,3 +255,46 @@ CREATE TABLE tb_Timetable (
 	runway_landing varchar(50) DEFAULT NULL
 
 )
+
+CREATE TABLE tb_type_flight (
+    id int AUTO_INCREMENT PRIMARY KEY,
+    code_flight varchar(100) NOT NULL,
+    type_flight varchar(255) NOT NULL
+)
+
+CREATE TABLE tb_admin (
+    id int AUTO_INCREMENT PRIMARY KEY,
+    email_admin varchar(100) NOT NULL
+)
+
+CREATE TABLE tb_Airport_staff_delete (
+ 
+    id int AUTO_INCREMENT PRIMARY KEY,
+    id_Airport_staff varchar(15) NOT NULL,
+    name varchar(255) NOT NULL,
+    last_name varchar(255) NOT NULL,
+    phone varchar(20) NOT NULL,
+    email varchar(60) NOT NULL,
+    user_staff varchar(60) BINARY NOT NULL,
+    password_staff varchar(200) NOT NULL, 
+	description varchar(500) NOT NULL,
+    id_airport int NOT NULL,
+	
+    FOREIGN KEY (id_airport) REFERENCES tb_airport(id)
+)
+
+CREATE TABLE tb_airline_staff_delete (
+ 
+    id int AUTO_INCREMENT PRIMARY KEY,
+    id_airline_staff varchar(15) NOT NULL,
+    name varchar(255) NOT NULL,
+    last_name varchar(255) NOT NULL,
+    phone varchar(20) NOT NULL,
+    email varchar(60) NOT NULL,
+    user_staff varchar(60) BINARY NOT NULL,
+    password_staff varchar(200) NOT NULL, 
+    description varchar(500) NOT NULL,
+	id_airline int NOT NULL,
+	
+    FOREIGN KEY (id_airline) REFERENCES tb_airline(id)
+)
