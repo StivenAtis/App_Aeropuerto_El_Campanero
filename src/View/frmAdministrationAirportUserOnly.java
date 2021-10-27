@@ -1,8 +1,12 @@
 package View;
 
+import Classes.clsAdmin;
+import Controller.ctlAiportStaff;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.util.LinkedList;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -15,6 +19,11 @@ import utils.Constants;
  * @author Booh
  */
 public class frmAdministrationAirportUserOnly extends javax.swing.JFrame {
+    
+    //--------------------------------------------------------------------------
+    
+    private ctlAiportStaff controlAdminAirport = null;
+    LinkedList<clsAdmin> AdminObjectList = new LinkedList<>();
     
     //--------------------------------------------------------------------------
     
@@ -43,6 +52,7 @@ public class frmAdministrationAirportUserOnly extends javax.swing.JFrame {
     //--------------------------------------------------------------------------
 
     public frmAdministrationAirportUserOnly() {
+        
         initComponents();
         this.setLocationRelativeTo(null);
         this.setLayout(null);
@@ -53,6 +63,7 @@ public class frmAdministrationAirportUserOnly extends javax.swing.JFrame {
         this.loadPanel(pnlHome);
         btnHome.setVisible(false);
         setMyPanelActive("FrmHome");
+        showAdmin();
     }
     
     //--------------------------------------------------------------------------
@@ -63,6 +74,7 @@ public class frmAdministrationAirportUserOnly extends javax.swing.JFrame {
         spContainer.setBackground(new Color(255, 0,255));
         spContainer.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
         spContainer.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        controlAdminAirport = new ctlAiportStaff();
     }
     
     private void loadPanel(JPanel panel) {
@@ -88,9 +100,18 @@ public class frmAdministrationAirportUserOnly extends javax.swing.JFrame {
         );
         
         if(dialogResult == JOptionPane.YES_OPTION){
-            frmLoginAdmistrationAirport Airport = new  frmLoginAdmistrationAirport();
-            Airport.setVisible(true);
-            this.setVisible(false);
+            
+            if(AdminObjectList.isEmpty() || controlAdminAirport.listAdminValidation().isEmpty()){
+                
+                frmLogin login = new frmLogin();
+                login.setVisible(true);
+                this.setVisible(false);
+            }
+            else{
+                frmLoginAdmistrationAirport Airport = new  frmLoginAdmistrationAirport();
+                Airport.setVisible(true);
+                this.setVisible(false);
+            }
         }
     }
     
@@ -458,6 +479,21 @@ public class frmAdministrationAirportUserOnly extends javax.swing.JFrame {
         });
     }
 
+    //--------------------------------------------------------------------------
+    
+    private void showAdmin(){
+        AdminObjectList = controlAdminAirport.listAdminValidation();
+        
+        DefaultListModel model = new DefaultListModel();
+        int index = 0;
+        
+        for (clsAdmin admin : AdminObjectList) {
+            String data = "CODIGO VUELO: " + admin.getEmail_admin();
+            model.add(index, data);
+            index++;
+        }
+    }
+    
     //--------------------------------------------------------------------------
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -1,5 +1,17 @@
 package View;
 
+import Classes.clsAirportStaff;
+import Classes.clsAirportStaffDelete;
+import Controller.ctlAdmin;
+import Controller.ctlAiportStaff;
+import static java.awt.image.ImageObserver.WIDTH;
+import java.util.LinkedList;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import utils.Constants;
+
 /**
  *
  * @author Booh
@@ -8,8 +20,17 @@ public class pnlDeleteUserAirport extends javax.swing.JPanel {
 
     //--------------------------------------------------------------------------
     
+    private ctlAiportStaff controlAdminAirport = null;
+    LinkedList<clsAirportStaff> list;
+    ctlAdmin admin = new ctlAdmin();
+    
+    //--------------------------------------------------------------------------
+    
     public pnlDeleteUserAirport() {
+        
         initComponents();
+        controlAdminAirport = new ctlAiportStaff();
+        fillDataTable();
     }
 
     //--------------------------------------------------------------------------
@@ -77,11 +98,6 @@ public class pnlDeleteUserAirport extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblUsuarioMouseClicked(evt);
-            }
-        });
         jScrollPane1.setViewportView(tblUsuario);
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 1160, 60));
@@ -123,18 +139,92 @@ public class pnlDeleteUserAirport extends javax.swing.JPanel {
 
     //--------------------------------------------------------------------------
     
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        txtAreaEliminacion.setText("");
-    }//GEN-LAST:event_btnEliminarActionPerformed
+    private void fillDataTable() {
+        
+        list = controlAdminAirport.listAdminA();
+        
+        controlAdminAirport.listAdminValidation();
+            
+        String datos[][] = new String[list.size()][7];
 
+        if(list.size() > 0) {
+            for (int i = 0; i < list.size(); i++) {
+                datos[i][Constants.EMAIL_ADMIN_ID] = list.get(i).getIdentification();
+                datos[i][Constants.EMAIL_ADMIN_NAME] = list.get(i).getName();
+                datos[i][Constants.EMAIL_ADMIN_LASTNAME] = list.get(i).getLastName();
+                datos[i][Constants.EMAIL_ADMIN_PHONE] = list.get(i).getPhone();
+                datos[i][Constants.EMAIL_ADMIN_EMAIL] = list.get(i).getEmail();
+                datos[i][Constants.EMAIL_ADMIN_USER] = list.get(i).getUser();
+                datos[i][Constants.EMAIL_ADMIN_PASSWORD] = list.get(i).getPassword();
+            }        
+        }        
+        String[] columns = {
+            "NUMERO IDENTIFICACIÓN", "NOMBRES", "APELLIDOS", "TELEFONO", "EMAIL", "NOMBRE USUARIO", "CONTRASEÑA"};
+        DefaultTableModel model = new DefaultTableModel(datos, columns);
+        int[] columnSize = {30, 50, 50, 50, 50, 50, 50};
+        for(int x=0; x<columnSize.length;x++)
+            tblUsuario.getColumnModel().getColumn(x).setPreferredWidth(columnSize[x]);
+        tblUsuario.setRowHeight(30);
+        tblUsuario.setModel(model);
+    }
+    
     //--------------------------------------------------------------------------
     
-    private void tblUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUsuarioMouseClicked
-        int row = tblUsuario.getSelectedRow();
-        String id = tblUsuario.getValueAt(row, 0).toString();
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         
-        
-    }//GEN-LAST:event_tblUsuarioMouseClicked
+        if(tblUsuario.getSelectedRow() == -1){
+            JOptionPane.showMessageDialog(this, "¡Debe seleccionar su usuario para poderlo eliminar!");
+        }
+        else{
+            
+            String text = txtAreaEliminacion.getText();
+            
+            if("".equals(text)){
+                JOptionPane.showMessageDialog(this, "¡Debe especificar la razón de porque cancela su cuenta!");
+            }
+            else{
+                
+                int fila = tblUsuario.getSelectedRow();
+                String valor = tblUsuario.getValueAt(fila, 0).toString();
+                
+                int respuesta = JOptionPane.showConfirmDialog(this, "¿Está seguro que desea cancelar el vuelo?");
+    
+                if (respuesta == JOptionPane.OK_OPTION) {
+                    
+                    
+                    
+                    clsAirportStaff read = controlAdminAirport.readStaffA(valor);
+                    String id_user = read.getIdentification();
+                    String name = read.getName();
+                    String lastName= read.getLastName();
+                    String phone = read.getPhone();
+                    String email = read.getEmail();
+                    String user = read.getUser();
+                    String pass = read.getPassword();
+                    
+                    clsAirportStaffDelete userDelete = new clsAirportStaffDelete(0, id_user, name, lastName, phone, email, user, pass, text, "1");
+                    controlAdminAirport.createStaffDelete(userDelete);
+                    
+                    clsAirportStaff DelteUser = new clsAirportStaff(0, valor, "2", "3", "", "", "", "");
+                    controlAdminAirport.deleteUser(DelteUser);
+                    
+                    fillDataTable();
+                    
+                    txtAreaEliminacion.setText("");
+                    Icon m = new ImageIcon(getClass().getResource("/Media/User_Update2.gif"));
+                    JOptionPane.showMessageDialog(this, "¡¡¡Se ha eliminado \n su cuenta de usuario!!!", "Cuenta eliminada satisfactoriamente", WIDTH, m);
+                    
+                    admin.deleteAdminTable();
+                    controlAdminAirport.listAdminValidation();
+                    controlAdminAirport.listAdminValidation().removeAll(list);
+                }
+                else {
+                    
+                    JOptionPane.showMessageDialog(this, "Solicitud cancelada");
+                }
+            }
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     //--------------------------------------------------------------------------
     

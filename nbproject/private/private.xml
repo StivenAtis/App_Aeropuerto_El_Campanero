@@ -4,25 +4,12 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/Documents/Archivos/Archivos/NetBeansProjects/Aeropuerto_El_Campanero_Sprint_2/src/View/frmAeropuerto.java</file>
-            <file>file:/D:/Documents/Archivos/Archivos/NetBeansProjects/Aeropuerto_El_Campanero_Sprint_2/src/View/pnlUpdateUserAirport.java</file>
-            <file>file:/D:/Documents/Archivos/Archivos/NetBeansProjects/Aeropuerto_El_Campanero_Sprint_2/src/View/frmAdministrationAirlineUserOnly.java</file>
-            <file>file:/D:/Documents/Archivos/Archivos/NetBeansProjects/Aeropuerto_El_Campanero_Sprint_2/src/View/pnlDeleteUserAirport.java</file>
-            <file>file:/D:/Documents/Archivos/Archivos/NetBeansProjects/Aeropuerto_El_Campanero_Sprint_2/src/Model/modelFlight_Airline.java</file>
-            <file>file:/D:/Documents/Archivos/Archivos/NetBeansProjects/Aeropuerto_El_Campanero_Sprint_2/src/Classes/clsAdmin.java</file>
-            <file>file:/D:/Documents/Archivos/Archivos/NetBeansProjects/Aeropuerto_El_Campanero_Sprint_2/src/View/pnlRefuseFlight.java</file>
-            <file>file:/D:/Documents/Archivos/Archivos/NetBeansProjects/Aeropuerto_El_Campanero_Sprint_2/src/View/pnlUpdateUserAirline.java</file>
-            <file>file:/D:/Documents/Archivos/Archivos/NetBeansProjects/Aeropuerto_El_Campanero_Sprint_2/src/View/pnlAbortFlightAirlinee.java</file>
+            <file>file:/D:/Documents/Archivos/Archivos/NetBeansProjects/Aeropuerto_El_Campanero_Sprint_2/src/Classes/clsAirportStaffDelete.java</file>
             <file>file:/D:/Documents/Archivos/Archivos/NetBeansProjects/Aeropuerto_El_Campanero_Sprint_2/src/View/frmLoginAdmistrationAirline.java</file>
             <file>file:/D:/Documents/Archivos/Archivos/NetBeansProjects/Aeropuerto_El_Campanero_Sprint_2/src/View/frmAirport.java</file>
-            <file>file:/D:/Documents/Archivos/Archivos/NetBeansProjects/Aeropuerto_El_Campanero_Sprint_2/src/View/pnlDeleteUserAirline.java</file>
-            <file>file:/D:/Documents/Archivos/Archivos/NetBeansProjects/Aeropuerto_El_Campanero_Sprint_2/src/View/pnlScheduleFlight.java</file>
-            <file>file:/D:/Documents/Archivos/Archivos/NetBeansProjects/Aeropuerto_El_Campanero_Sprint_2/src/View/frmLogin.java</file>
             <file>file:/D:/Documents/Archivos/Archivos/NetBeansProjects/Aeropuerto_El_Campanero_Sprint_2/src/View/frmLoginAdmistrationAirport.java</file>
-            <file>file:/D:/Documents/Archivos/Archivos/NetBeansProjects/Aeropuerto_El_Campanero_Sprint_2/src/View/frmAdministrationAirport.java</file>
-            <file>file:/D:/Documents/Archivos/Archivos/NetBeansProjects/Aeropuerto_El_Campanero_Sprint_2/src/View/frmAdministrationAirportUserOnly.java</file>
-            <file>file:/D:/Documents/Archivos/Archivos/NetBeansProjects/Aeropuerto_El_Campanero_Sprint_2/src/Model/modelAdmin.java</file>
             <file>file:/D:/Documents/Archivos/Archivos/NetBeansProjects/Aeropuerto_El_Campanero_Sprint_2/src/utils/Constants.java</file>
-            <file>file:/D:/Documents/Archivos/Archivos/NetBeansProjects/Aeropuerto_El_Campanero_Sprint_2/src/View/frmAdministrationAirline.java</file>
+            <file>file:/D:/Documents/Archivos/Archivos/NetBeansProjects/Aeropuerto_El_Campanero_Sprint_2/src/View/pnlCancelFlightAirport.java</file>
             <file>file:/D:/Documents/Archivos/Archivos/NetBeansProjects/Aeropuerto_El_Campanero_Sprint_2/src/View/frmAirline.java</file>
         </group>
     </open-files>

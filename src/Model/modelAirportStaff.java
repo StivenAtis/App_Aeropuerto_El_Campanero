@@ -2,6 +2,7 @@ package Model;
 
 import Classes.clsAdmin;
 import Classes.clsAirportStaff;
+import Classes.clsAirportStaffDelete;
 import Classes.clsLogin;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -27,7 +28,6 @@ public class modelAirportStaff {
         try (Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())){
             String query = "INSERT INTO `tb_airport_staff`(`id_Airport_staff`, `name`, `last_name`, `phone`, `email`, `user_staff`, `password_staff`, `id_airport`) VALUES ('0',?,?,'0',?,?,?,'1')";
             PreparedStatement preparedStatement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
-            //preparedStatement.setString(1, AirportStaff.getId());
             preparedStatement.setString(1, AirportStaff.getName());
             preparedStatement.setString(2, AirportStaff.getLastName());
             preparedStatement.setString(3, AirportStaff.getEmail());
@@ -38,6 +38,33 @@ public class modelAirportStaff {
             
             if(AffectedRows>0){
                 System.out.println("AirportStaff registered.");
+            }
+            return false;
+        } catch (Exception e) {
+            System.out.println("Error saving: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    public boolean createAirportStaffDelete(clsAirportStaffDelete AirportStaff){
+        try (Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())){
+            String query = "INSERT INTO `tb_airport_staff_delete`(`id_Airport_staff`, `name`, `last_name`, `phone`, `email`, `user_staff`, `password_staff`, `description`, `id_airport`) VALUES (?,?,?,?,?,?,?,?,'1')";
+            PreparedStatement preparedStatement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, AirportStaff.getIdentification());
+            preparedStatement.setString(2, AirportStaff.getName());
+            preparedStatement.setString(3, AirportStaff.getLastName());
+            preparedStatement.setString(4, AirportStaff.getPhone());
+            preparedStatement.setString(5, AirportStaff.getEmail());
+            preparedStatement.setString(6, AirportStaff.getUser());
+            preparedStatement.setString(7, AirportStaff.getPassword());
+            preparedStatement.setString(8, AirportStaff.getDescription());
+            
+            int AffectedRows = preparedStatement.executeUpdate();
+            
+            if(AffectedRows>0){
+                System.out.println("AirportStaffDelete registered.");
             }
             return false;
         } catch (Exception e) {
@@ -128,6 +155,21 @@ public class modelAirportStaff {
     
     //--------------------------------------------------------------------------
     
+    public boolean deleteUser(clsAirportStaff user) {
+        try(Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
+            String query = "DELETE FROM `tb_airport_staff` WHERE id_Airport_staff= ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, user.getIdentification());
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
     public LinkedList<clsAirportStaff> AdminAirportList(){
         
         LinkedList<clsAirportStaff> Admin = new LinkedList<>();
@@ -148,6 +190,30 @@ public class modelAirportStaff {
                 rs.getString("user_staff"),
                 rs.getString("password_staff"));
                 
+                Admin.add(FRAdmin);
+            }
+            return Admin;
+        } catch (Exception e) {
+            System.out.println("Error querying: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    public LinkedList<clsAdmin> AdminLogin(){
+        
+        LinkedList<clsAdmin> Admin = new LinkedList<>();
+        
+        try (Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
+            String query = "SELECT `id`, `email_admin` FROM `tb_admin`";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet rs = preparedStatement.executeQuery();
+            
+            while (rs.next()) {
+                clsAdmin FRAdmin = new clsAdmin(
+                rs.getInt("id"),
+                rs.getString("email_admin"));            
                 Admin.add(FRAdmin);
             }
             return Admin;

@@ -276,6 +276,7 @@ public class pnlUpdateUserAirport extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
      //--------------------------------------------------------------------------
+    
     public String encode(String secretKey, String cadena) {
         String encriptacion = "";
         try {
