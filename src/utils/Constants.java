@@ -138,6 +138,8 @@ public class Constants {
     
     public static final String PANEL_SETTINGS = "pnlSettings";
     public static final String PANEL_ABOUT = "pnlInfo";
+    
+    public static final String PANEL_REGISTERED_USERS = "pnlRegisteredUsers";
 
     //Constants ToolBar
     public static final String TITLE_LOGIN = "LOGIN";
@@ -166,6 +168,8 @@ public class Constants {
     public static final String TITLE_SETTINGS = "SETTINGS";
     public static final String TITLE_ABOUT = "ACERCA DE";
     public static final String TITLE_HOME = "HOME";
+    
+    public static final String TITLE_REGISTERED_USERS = "USUARIOS REGISTRADOS";
     
     //Icon ToolBar
     public static final String ICON_LOGIN = "login_30px.png";

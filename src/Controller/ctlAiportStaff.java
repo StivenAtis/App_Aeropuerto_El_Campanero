@@ -72,6 +72,13 @@ public class ctlAiportStaff {
     }
     
     //--------------------------------------------------------------------------
+     
+     public LinkedList<clsAirportStaff> listAirportStaffA(){
+         
+        return modelStaff.AirportStaffList();
+    }
+    
+    //--------------------------------------------------------------------------
     
     public LinkedList<clsAdmin> listAdminValidation(){
          

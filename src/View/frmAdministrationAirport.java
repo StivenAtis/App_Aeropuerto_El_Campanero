@@ -37,6 +37,7 @@ public class frmAdministrationAirport extends javax.swing.JFrame {
     
     public final pnlHomeAirportAdministration pnlHome;
     private pnlgraphFlightsRequestedScheduled_Airport pnlFlightsChart;
+    private pnlRegisteredUsers pnlRegisteredUsers;
     public JScrollPane spContainer;
     
     //--------------------------------------------------------------------------
@@ -173,7 +174,7 @@ public class frmAdministrationAirport extends javax.swing.JFrame {
         lblSubtitle.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblSubtitle.setForeground(new java.awt.Color(204, 204, 204));
         lblSubtitle.setText("HOME");
-        pnlFirstTopBar.add(lblSubtitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 50, 180, 50));
+        pnlFirstTopBar.add(lblSubtitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 50, 210, 50));
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(204, 204, 204));
@@ -202,9 +203,9 @@ public class frmAdministrationAirport extends javax.swing.JFrame {
                 btnHomeActionPerformed(evt);
             }
         });
-        pnlRechazerVuelo.add(btnHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 50));
+        pnlRechazerVuelo.add(btnHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 180, 50));
 
-        pnlFirstTopBar.add(pnlRechazerVuelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 50, 110, 50));
+        pnlFirstTopBar.add(pnlRechazerVuelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 50, 180, 50));
 
         getContentPane().add(pnlFirstTopBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1600, 100));
 
@@ -565,10 +566,11 @@ public class frmAdministrationAirport extends javax.swing.JFrame {
     //--------------------------------------------------------------------------
     
     private void btnVuelosSolicitadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVuelosSolicitadosActionPerformed
-//        pnlFlightsRequiredAirline = new pnlFlightsRequiredAirline();
-//        this.loadPanel(pnlFlightsRequiredAirline);
-//        setMyPanelActive(Constants.PANEL_FLIGHTREQUESTED);
-//        changeIconSubtitleBar(Constants.TITLE_FLIGHTREQUESTED, Constants.ICON_FLIGHTREQUESTED);
+        
+        pnlRegisteredUsers = new pnlRegisteredUsers();
+        this.loadPanel(pnlRegisteredUsers);
+        setMyPanelActive(Constants.PANEL_REGISTERED_USERS);
+        changeIconSubtitleBar(Constants.TITLE_REGISTERED_USERS, Constants.ICON_FLIGHTREQUESTED);
         btnHome.setVisible(true);
     }//GEN-LAST:event_btnVuelosSolicitadosActionPerformed
 
