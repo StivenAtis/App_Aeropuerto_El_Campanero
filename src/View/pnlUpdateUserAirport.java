@@ -275,7 +275,7 @@ public class pnlUpdateUserAirport extends javax.swing.JPanel {
         add(lbBanner_pnl, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 790));
     }// </editor-fold>//GEN-END:initComponents
 
-     //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     
     public String encode(String secretKey, String cadena) {
         String encriptacion = "";

@@ -408,7 +408,7 @@ public class pnlRegister extends javax.swing.JPanel {
 
                         if(password.equals(Cpassword)){
 
-                            clsAirlineStaff user = new clsAirlineStaff(0, name, lastName, email_emp, user_emp, encryptedPassword);
+                            clsAirlineStaff user = new clsAirlineStaff(0, "0",name, lastName, "0", email_emp, user_emp, encryptedPassword);
                             controlAirlineStaff.createStaff(user);
 
                             Icon m = new ImageIcon(getClass().getResource("/Media/passed.png"));

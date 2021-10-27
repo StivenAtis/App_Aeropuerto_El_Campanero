@@ -4,9 +4,9 @@ package Classes;
  *
  * @author Booh
  */
-public class clsAirlineStaff {
+public class clsAirlineStaffDelete {
     
-    private int Id;
+     private int Id;
     private String identification;
     private String name;
     private String lastName;
@@ -14,10 +14,12 @@ public class clsAirlineStaff {
     private String email;
     private String user;
     private String password;
-    
+    private String description;
+    private String id_airport;
+
     //--------------------------------------------------------------------------
 
-    public clsAirlineStaff(int Id, String identification, String name, String lastName, String phone, String email, String user, String password) {
+    public clsAirlineStaffDelete(int Id, String identification, String name, String lastName, String phone, String email, String user, String password, String description, String id_airport) {
         this.Id = Id;
         this.identification = identification;
         this.name = name;
@@ -26,8 +28,10 @@ public class clsAirlineStaff {
         this.email = email;
         this.user = user;
         this.password = password;
+        this.description = description;
+        this.id_airport = id_airport;
     }
-
+    
     //--------------------------------------------------------------------------
     
     public int getId() {
@@ -36,6 +40,14 @@ public class clsAirlineStaff {
 
     public void setId(int Id) {
         this.Id = Id;
+    }
+
+    public String getIdentification() {
+        return identification;
+    }
+
+    public void setIdentification(String identification) {
+        this.identification = identification;
     }
 
     public String getName() {
@@ -52,6 +64,14 @@ public class clsAirlineStaff {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getEmail() {
@@ -77,21 +97,21 @@ public class clsAirlineStaff {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    public String getIdentification() {
-        return identification;
+
+    public String getDescription() {
+        return description;
     }
 
-    public void setIdentification(String identification) {
-        this.identification = identification;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getId_airport() {
+        return id_airport;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setId_airport(String id_airport) {
+        this.id_airport = id_airport;
     }
     
     //--------------------------------------------------------------------------
