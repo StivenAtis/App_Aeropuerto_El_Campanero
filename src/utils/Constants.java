@@ -141,6 +141,7 @@ public class Constants {
     
     public static final String PANEL_REGISTERED_USERS = "pnlRegisteredUsers";
     public static final String PANEL_UPDATE_USERS = "pnlUpdateUserData";
+    public static final String PANEL_DELETE_USERS = "pnlDeleteUsersAirport";
 
     //Constants ToolBar
     public static final String TITLE_LOGIN = "LOGIN";
@@ -172,6 +173,7 @@ public class Constants {
     
     public static final String TITLE_REGISTERED_USERS = "USUARIOS REGISTRADOS";
     public static final String TITLE_UPDATE_USERS = "ACTUALIZAR USUARIOS";
+    public static final String TITLE_DELETE_USERS = "ELIMINAR USUARIOS";
     
     //Icon ToolBar
     public static final String ICON_LOGIN = "login_30px.png";

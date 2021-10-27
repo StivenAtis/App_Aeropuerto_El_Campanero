@@ -39,6 +39,7 @@ public class frmAdministrationAirport extends javax.swing.JFrame {
     private pnlgraphFlightsRequestedScheduled_Airport pnlFlightsChart;
     private pnlRegisteredUsers pnlRegisteredUsers;
     private pnlUpdateUserData pnlUpdateUserData;
+    private pnlDeleteUsersAirport pnlDeleteUsersAirport;
     public JScrollPane spContainer;
     
     //--------------------------------------------------------------------------
@@ -656,10 +657,10 @@ public class frmAdministrationAirport extends javax.swing.JFrame {
     
     private void btnVuelosRechazadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVuelosRechazadosActionPerformed
 
-//        pnlDeclinedFlights = new pnlDeclinedFlights();
-//        this.loadPanel(pnlDeclinedFlights);
-//        setMyPanelActive(Constants.PANEL_DECLINEFLIGHTS);
-//        changeIconSubtitleBar(Constants.TITLE_DECLINEFLIGHTS, Constants.ICON_DECLINEFLIGHTS);
+        pnlDeleteUsersAirport = new pnlDeleteUsersAirport();
+        this.loadPanel(pnlDeleteUsersAirport);
+        setMyPanelActive(Constants.PANEL_DELETE_USERS);
+        changeIconSubtitleBar(Constants.TITLE_DELETE_USERS, Constants.ICON_DECLINEFLIGHTS);
         btnHome.setVisible(true);
     }//GEN-LAST:event_btnVuelosRechazadosActionPerformed
 

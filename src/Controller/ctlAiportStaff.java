@@ -73,6 +73,13 @@ public class ctlAiportStaff {
     
     //--------------------------------------------------------------------------
     
+    public boolean deleteUserEmail(clsAirportStaff user){
+        
+        return modelStaff.deleteUserEmail((clsAirportStaff) user);
+    }
+    
+    //--------------------------------------------------------------------------
+    
      public LinkedList<clsAirportStaff> listAdminA(){
          
         return modelStaff.AdminAirportList();

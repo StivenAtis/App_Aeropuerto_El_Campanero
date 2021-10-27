@@ -197,6 +197,21 @@ public class modelAirportStaff {
             return false;
         }
     }
+
+    //--------------------------------------------------------------------------
+    
+    public boolean deleteUserEmail(clsAirportStaff user) {
+        try(Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
+            String query = "DELETE FROM `tb_airport_staff` WHERE email = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, user.getEmail());
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return false;
+        }
+    }
     
     //--------------------------------------------------------------------------
     
