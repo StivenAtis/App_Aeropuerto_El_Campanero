@@ -1,8 +1,12 @@
 package View;
 
+import Classes.clsAdmin;
+import Controller.ctlAirlineStaff;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.util.LinkedList;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -16,6 +20,11 @@ import utils.Constants;
  */
 
 public class frmAdministrationAirlineUserOnly extends javax.swing.JFrame {
+    
+    //--------------------------------------------------------------------------
+    
+    private ctlAirlineStaff controlAdminAirline = null;
+    LinkedList<clsAdmin> AdminObjectList = new LinkedList<>();
     
     //--------------------------------------------------------------------------
     
@@ -44,6 +53,7 @@ public class frmAdministrationAirlineUserOnly extends javax.swing.JFrame {
     //--------------------------------------------------------------------------
 
     public frmAdministrationAirlineUserOnly() {
+        
         initComponents();
         this.setLocationRelativeTo(null);
         this.setLayout(null);
@@ -54,30 +64,41 @@ public class frmAdministrationAirlineUserOnly extends javax.swing.JFrame {
         this.loadPanel(pnlHome);
         btnHome.setVisible(false);
         setMyPanelActive("FrmHome");
+        showAdmin();
     }
     
     //--------------------------------------------------------------------------
     
     private void init_container() {
+        
         spContainer = new JScrollPane();
         spContainer.setBounds(278, 89, 1324, 793);
         spContainer.setBackground(new Color(255, 0,255));
         spContainer.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
         spContainer.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        controlAdminAirline = new ctlAirlineStaff();
     }
+    
+    //--------------------------------------------------------------------------
     
     private void loadPanel(JPanel panel) {
         spContainer.setViewportView(panel);
         spContainer.validate();
     }
     
+    //--------------------------------------------------------------------------
+    
     private void changeColorMenu(JPanel panel) {
         panel.setBackground(CHANGE_COLOR_MENU);
     }
     
+    //--------------------------------------------------------------------------
+    
     private void resetColorMenu(JPanel panel) {
         panel.setBackground(INITIAL_COLOR_MENU);
     }
+    
+    //--------------------------------------------------------------------------
     
     private void closeApp() {
         int dialogResult = JOptionPane.showConfirmDialog (
@@ -89,19 +110,34 @@ public class frmAdministrationAirlineUserOnly extends javax.swing.JFrame {
         );
         
         if(dialogResult == JOptionPane.YES_OPTION){
-            frmLoginAdmistrationAirline Airline = new  frmLoginAdmistrationAirline();
-            Airline.setVisible(true);
-            this.setVisible(false);
+            
+            if(AdminObjectList.isEmpty() || controlAdminAirline.listAdminValidation().isEmpty()){
+                
+                frmLogin login = new frmLogin();
+                login.setVisible(true);
+                this.setVisible(false);
+            }
+            else{
+                frmLoginAdmistrationAirline Airline = new  frmLoginAdmistrationAirline();
+                Airline.setVisible(true);
+                this.setVisible(false);
+            }
         }
     }
+    
+    //--------------------------------------------------------------------------
     
     private String getMyPanelActive() {
         return panelActive;
     }
 
+    //--------------------------------------------------------------------------
+    
     private void setMyPanelActive(String panelActive) {
         this.panelActive = panelActive;
     }
+    
+    //--------------------------------------------------------------------------
     
     private void changeIconSubtitleBar(String subtitle, String urlImage) {
         lblSubtitle.setText(subtitle);
@@ -429,6 +465,20 @@ public class frmAdministrationAirlineUserOnly extends javax.swing.JFrame {
         btnHome.setVisible(true);
     }//GEN-LAST:event_btnEliminarUsuarioActionPerformed
 
+    //--------------------------------------------------------------------------
+    
+    private void showAdmin(){
+        AdminObjectList = controlAdminAirline.listAdminValidation();
+        
+        DefaultListModel model = new DefaultListModel();
+        int index = 0;
+        
+        for (clsAdmin admin : AdminObjectList) {
+            String data = "CODIGO VUELO: " + admin.getEmail_admin();
+            model.add(index, data);
+            index++;
+        }
+    }
     //--------------------------------------------------------------------------
     
     public static void main(String args[]) {

@@ -69,6 +69,7 @@ public class frmAdministrationAirportUserOnly extends javax.swing.JFrame {
     //--------------------------------------------------------------------------
     
     private void init_container() {
+        
         spContainer = new JScrollPane();
         spContainer.setBounds(278, 89, 1324, 793);
         spContainer.setBackground(new Color(255, 0,255));
@@ -77,18 +78,26 @@ public class frmAdministrationAirportUserOnly extends javax.swing.JFrame {
         controlAdminAirport = new ctlAiportStaff();
     }
     
+    //--------------------------------------------------------------------------
+    
     private void loadPanel(JPanel panel) {
         spContainer.setViewportView(panel);
         spContainer.validate();
     }
     
+    //--------------------------------------------------------------------------
+    
     private void changeColorMenu(JPanel panel) {
         panel.setBackground(CHANGE_COLOR_MENU);
     }
     
+    //--------------------------------------------------------------------------
+    
     private void resetColorMenu(JPanel panel) {
         panel.setBackground(INITIAL_COLOR_MENU);
     }
+    
+    //--------------------------------------------------------------------------
     
     private void closeApp() {
         int dialogResult = JOptionPane.showConfirmDialog (
@@ -115,13 +124,19 @@ public class frmAdministrationAirportUserOnly extends javax.swing.JFrame {
         }
     }
     
+    //--------------------------------------------------------------------------
+    
     private String getMyPanelActive() {
         return panelActive;
     }
 
+    //--------------------------------------------------------------------------
+    
     private void setMyPanelActive(String panelActive) {
         this.panelActive = panelActive;
     }
+    
+    //--------------------------------------------------------------------------
     
     private void changeIconSubtitleBar(String subtitle, String urlImage) {
         lblSubtitle.setText(subtitle);
@@ -381,7 +396,6 @@ public class frmAdministrationAirportUserOnly extends javax.swing.JFrame {
     //--------------------------------------------------------------------------
     
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        //setMyPanelActive("FrmHome");
         this.closeApp();
     }//GEN-LAST:event_btnExitActionPerformed
 
@@ -453,6 +467,21 @@ public class frmAdministrationAirportUserOnly extends javax.swing.JFrame {
 
     //--------------------------------------------------------------------------
     
+    private void showAdmin(){
+        AdminObjectList = controlAdminAirport.listAdminValidation();
+        
+        DefaultListModel model = new DefaultListModel();
+        int index = 0;
+        
+        for (clsAdmin admin : AdminObjectList) {
+            String data = "CODIGO VUELO: " + admin.getEmail_admin();
+            model.add(index, data);
+            index++;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
     public static void main(String args[]) {
         
         try {
@@ -477,21 +506,6 @@ public class frmAdministrationAirportUserOnly extends javax.swing.JFrame {
                 new frmAdministrationAirportUserOnly().setVisible(true);
             }
         });
-    }
-
-    //--------------------------------------------------------------------------
-    
-    private void showAdmin(){
-        AdminObjectList = controlAdminAirport.listAdminValidation();
-        
-        DefaultListModel model = new DefaultListModel();
-        int index = 0;
-        
-        for (clsAdmin admin : AdminObjectList) {
-            String data = "CODIGO VUELO: " + admin.getEmail_admin();
-            model.add(index, data);
-            index++;
-        }
     }
     
     //--------------------------------------------------------------------------

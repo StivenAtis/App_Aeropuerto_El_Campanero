@@ -187,11 +187,9 @@ public class pnlDeleteUserAirport extends javax.swing.JPanel {
                 int fila = tblUsuario.getSelectedRow();
                 String valor = tblUsuario.getValueAt(fila, 0).toString();
                 
-                int respuesta = JOptionPane.showConfirmDialog(this, "¿Está seguro que desea cancelar el vuelo?");
+                int respuesta = JOptionPane.showConfirmDialog(this, "¿Está seguro que desea que desea eliminar su cuenta de usuario?");
     
                 if (respuesta == JOptionPane.OK_OPTION) {
-                    
-                    
                     
                     clsAirportStaff read = controlAdminAirport.readStaffA(valor);
                     String id_user = read.getIdentification();

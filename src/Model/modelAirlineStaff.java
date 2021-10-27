@@ -30,7 +30,7 @@ public class modelAirlineStaff {
     
     public boolean createAirlineStaff(clsAirlineStaff AirlineStaff){
         try (Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())){
-            String query = "INSERT INTO `tb_airline_staff`(`id_Airline_staff`, `name`, `last_name`, `phone`, `email`, `user_staff`, `password_staff`, `id_airline`) VALUES ('0',?,?,'0',?,?,?,'1')";
+            String query = "INSERT INTO `tb_airline_staff`(`id_airline_staff`, `name`, `last_name`, `phone`, `email`, `user_staff`, `password_staff`, `id_airline`) VALUES ('0',?,?,'0',?,?,?,'1')";
             PreparedStatement preparedStatement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, AirlineStaff.getName());
             preparedStatement.setString(2, AirlineStaff.getLastName());
@@ -54,7 +54,7 @@ public class modelAirlineStaff {
     
     public boolean createAirlineStaffDelete(clsAirlineStaffDelete AirportStaff){
         try (Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())){
-            String query = "INSERT INTO `tb_airline_staff_delete`(`id_Airport_staff`, `name`, `last_name`, `phone`, `email`, `user_staff`, `password_staff`, `description`, `id_airport`) VALUES (?,?,?,?,?,?,?,?,'1')";
+            String query = "INSERT INTO `tb_airline_staff_delete`(`id_airline_staff`, `name`, `last_name`, `phone`, `email`, `user_staff`, `password_staff`, `description`, `id_airline`) VALUES (?,?,?,?,?,?,?,?,'1')";
             PreparedStatement preparedStatement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, AirportStaff.getIdentification());
             preparedStatement.setString(2, AirportStaff.getName());
