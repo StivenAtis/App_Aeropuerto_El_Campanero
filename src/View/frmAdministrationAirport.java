@@ -38,6 +38,7 @@ public class frmAdministrationAirport extends javax.swing.JFrame {
     public final pnlHomeAirportAdministration pnlHome;
     private pnlgraphFlightsRequestedScheduled_Airport pnlFlightsChart;
     private pnlRegisteredUsers pnlRegisteredUsers;
+    private pnlUpdateUserData pnlUpdateUserData;
     public JScrollPane spContainer;
     
     //--------------------------------------------------------------------------
@@ -544,10 +545,10 @@ public class frmAdministrationAirport extends javax.swing.JFrame {
     
     private void btnVuelosAgendadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVuelosAgendadosActionPerformed
 
-//        pnlScheduledFlightsAirline = new pnlScheduledFlightsAirline();
-//        this.loadPanel(pnlScheduledFlightsAirline);
-//        setMyPanelActive(Constants.PANEL_SCHUDELEDFLIGHTSAIRLINE);
-//        changeIconSubtitleBar(Constants.TITLE_SCHUDELEDFLIGHTS, Constants.ICON_SCHUDELEDFLIGHTS);
+        pnlUpdateUserData = new pnlUpdateUserData();
+        this.loadPanel(pnlUpdateUserData);
+        setMyPanelActive(Constants.PANEL_UPDATE_USERS);
+        changeIconSubtitleBar(Constants.TITLE_UPDATE_USER, Constants.ICON_SCHUDELEDFLIGHTS);
         btnHome.setVisible(true);
     }//GEN-LAST:event_btnVuelosAgendadosActionPerformed
 
