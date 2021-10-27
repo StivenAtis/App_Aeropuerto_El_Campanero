@@ -182,9 +182,9 @@ public class frmAirport extends javax.swing.JFrame {
         pnlFirstTopBar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnHome.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnHome.setForeground(new java.awt.Color(255, 255, 255));
+        btnHome.setForeground(new java.awt.Color(204, 204, 204));
         btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/home_30px.png"))); // NOI18N
-        btnHome.setText("Home");
+        btnHome.setText("HOME");
         btnHome.setContentAreaFilled(false);
         btnHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

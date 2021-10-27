@@ -205,10 +205,11 @@ public class frmAirline extends javax.swing.JFrame {
         pnlRechazerVuelo.setBackground(new java.awt.Color(28, 31, 52));
         pnlRechazerVuelo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        btnHome.setBackground(new java.awt.Color(204, 204, 204));
         btnHome.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnHome.setForeground(new java.awt.Color(255, 255, 255));
+        btnHome.setForeground(new java.awt.Color(204, 204, 204));
         btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/home_30px.png"))); // NOI18N
-        btnHome.setText("Home");
+        btnHome.setText("HOME");
         btnHome.setContentAreaFilled(false);
         btnHome.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnHome.addMouseListener(new java.awt.event.MouseAdapter() {
