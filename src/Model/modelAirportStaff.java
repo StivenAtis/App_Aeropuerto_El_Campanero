@@ -159,6 +159,38 @@ public class modelAirportStaff {
     
     //--------------------------------------------------------------------------
     
+    public clsAirportStaffDelete readAirportStaffEmailDelete(String id){
+        try (Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
+            String query ="SELECT `id`, `id_Airport_staff`, `name`, `last_name`, `phone`, `email`, `user_staff`, `password_staff`, `description`, `id_airport` FROM `tb_airport_staff_delete` WHERE email = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            
+            preparedStatement.setString(1, id);
+            
+            ResultSet rs = preparedStatement.executeQuery();
+            
+            if(rs.next()){
+                clsAirportStaffDelete login_obtained = new clsAirportStaffDelete(
+                rs.getInt("id"),
+                rs.getString("id_Airport_staff"),
+                rs.getString("name"),
+                rs.getString("last_name"),
+                rs.getString("phone"),
+                rs.getString("email"),
+                rs.getString("user_staff"),
+                rs.getString("password_staff"),
+                rs.getString("description"),
+                rs.getString("id_airport"));
+                return login_obtained;
+            }
+            return null;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
     public boolean updateAirportUser(clsAirportStaff user) {
         
         try(Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {

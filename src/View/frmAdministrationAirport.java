@@ -40,6 +40,7 @@ public class frmAdministrationAirport extends javax.swing.JFrame {
     private pnlRegisteredUsers pnlRegisteredUsers;
     private pnlUpdateUserData pnlUpdateUserData;
     private pnlDeleteUsersAirport pnlDeleteUsersAirport;
+    private pnlQueryUsersAirport pnlQueryUsersAirport;
     public JScrollPane spContainer;
     
     //--------------------------------------------------------------------------
@@ -634,10 +635,10 @@ public class frmAdministrationAirport extends javax.swing.JFrame {
     
     private void btnConsultaVueloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaVueloActionPerformed
 
-//        pnlFlightQuery = new pnlFlightQuery();
-//        this.loadPanel(pnlFlightQuery);
-//        setMyPanelActive(Constants.PANEL_FLIGHTQUERY);
-//        changeIconSubtitleBar(Constants.TITLE_FLIGHTQUERY, Constants.ICON_FLIGHTQUERY);
+        pnlQueryUsersAirport = new pnlQueryUsersAirport();
+        this.loadPanel(pnlQueryUsersAirport);
+        setMyPanelActive(Constants.PANEL_QUERY_USERS);
+        changeIconSubtitleBar(Constants.TITLE_QUERY_USERS, Constants.ICON_FLIGHTQUERY);
         btnHome.setVisible(true);
     }//GEN-LAST:event_btnConsultaVueloActionPerformed
 

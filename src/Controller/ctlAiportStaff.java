@@ -59,6 +59,13 @@ public class ctlAiportStaff {
     
     //--------------------------------------------------------------------------
     
+    public clsAirportStaffDelete readStaffEmailDelete(String id){
+        
+        return modelStaff.readAirportStaffEmailDelete(id);    
+    }
+    
+    //--------------------------------------------------------------------------
+    
     public boolean updateUser (clsAirportStaff user){
         
             return modelStaff.updateAirportUser((clsAirportStaff) user);
