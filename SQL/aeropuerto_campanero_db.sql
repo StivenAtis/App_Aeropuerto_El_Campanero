@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 27, 2021 at 05:24 AM
+-- Generation Time: Oct 28, 2021 at 06:58 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 7.4.21
 
@@ -71,6 +71,14 @@ CREATE TABLE `tb_airline_staff` (
   `id_airline` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `tb_airline_staff`
+--
+
+INSERT INTO `tb_airline_staff` (`id`, `id_airline_staff`, `name`, `last_name`, `phone`, `email`, `user_staff`, `password_staff`, `id_airline`) VALUES
+(11, '123456789', 'user', 'usert', '0', 'user1@aerolinea.com', 'user_1', 'sFgSHi+uAtw=', 1),
+(12, '00123456789', 'user', 'user', '0', 'user2@aerolinea.com', 'user_2', 'u3z7BVMkEIlBUoEwnxN92w==', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -96,7 +104,8 @@ CREATE TABLE `tb_airline_staff_delete` (
 
 INSERT INTO `tb_airline_staff_delete` (`id`, `id_airline_staff`, `name`, `last_name`, `phone`, `email`, `user_staff`, `password_staff`, `description`, `id_airline`) VALUES
 (1, '123456789', 'User', 'user', '0', 'user2@aerolinea.com', 'user', 'sFgSHi+uAtw=', 'Por que si. :)', 1),
-(2, '123456789', 'User name', 'User last name', '3178660000', 'email@aerolinea.com', 'usuario legal', 'sFgSHi+uAtw=', 'Se elimina por que me equivoque de empresa. :3', 1);
+(2, '123456789', 'User name', 'User last name', '3178660000', 'email@aerolinea.com', 'usuario legal', 'sFgSHi+uAtw=', 'Se elimina por que me equivoque de empresa. :3', 1),
+(3, '1234567890', 'User', 'User', '0', 'user3@aerolinea.com', 'user', 'ECvQFTlLhlL1M7I4kG8UEg==', 'Por que si. ;)', 1);
 
 -- --------------------------------------------------------
 
@@ -140,7 +149,11 @@ CREATE TABLE `tb_airport_staff` (
 --
 
 INSERT INTO `tb_airport_staff` (`id`, `id_Airport_staff`, `name`, `last_name`, `phone`, `email`, `user_staff`, `password_staff`, `id_airport`) VALUES
-(11, '123456789', 'Nombre', 'Apellido', '3178660000', 'user6@elcampanero.com', 'User_funcional', 'sFgSHi+uAtw=', 1);
+(11, '123456789', 'Nombre primer usuario', 'Apellido', '3178660000', 'user1@elcampanero.com', 'User_funcional', 'sFgSHi+uAtw=', 1),
+(12, '123456789456', 'User two', 'User two', '0', 'user2@elcampanero.com', 'user', 'A6oxY75RKa8=', 1),
+(13, '0', 'User_', 'User_', '0', 'user3@elcampanero.com', 'User', 'A6oxY75RKa8=', 1),
+(14, '0', 'User', 'User', '0', 'user4@elcampanero.com', 'User', 'u3z7BVMkEImbHcAUXSHqPA==', 1),
+(15, '1023456789', 'User', 'User', '0', 'user5@elcampanero.com', 'User', 'u3z7BVMkEIlXNLir5JvKOg==', 1);
 
 -- --------------------------------------------------------
 
@@ -171,7 +184,8 @@ INSERT INTO `tb_airport_staff_delete` (`id`, `id_Airport_staff`, `name`, `last_n
 (3, '0', 'qw', 'qw', '0', 'w@elcampanero.com', 'user_2', 'ICwqWdJS76M=', 'Porque no se.', 1),
 (4, '0', 'nombre_', 'apellido_', '0', 'user4@elcampanero.com', 'user_4', 'ICwqWdJS76M=', 'Por que no me gusta.', 1),
 (5, '123456789', 'User', 'User', '0', 'user5@elcampanero.com', 'useer', 'ICwqWdJS76M=', 'Por que si. :)', 1),
-(6, '123', 'user', 'user', '0', 'user6@elcampanero.com', 'user', 'ICwqWdJS76M=', 'No.', 1);
+(6, '123', 'user', 'user', '0', 'user6@elcampanero.com', 'user', 'ICwqWdJS76M=', 'No.', 1),
+(16, '12345678900', 'Nombre sexto usuario', 'Apellidos sexto usuario', '1234567890', 'user6@elcampanero.com', 'User sexto', '', 'Porque si. :)', 1);
 
 -- --------------------------------------------------------
 
@@ -774,13 +788,13 @@ ALTER TABLE `tb_airline`
 -- AUTO_INCREMENT for table `tb_airline_staff`
 --
 ALTER TABLE `tb_airline_staff`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `tb_airline_staff_delete`
 --
 ALTER TABLE `tb_airline_staff_delete`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tb_airport`
@@ -792,13 +806,13 @@ ALTER TABLE `tb_airport`
 -- AUTO_INCREMENT for table `tb_airport_staff`
 --
 ALTER TABLE `tb_airport_staff`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `tb_airport_staff_delete`
 --
 ALTER TABLE `tb_airport_staff_delete`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `tb_arrival`
