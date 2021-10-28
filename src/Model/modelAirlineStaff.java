@@ -3,7 +3,6 @@ package Model;
 import Classes.clsAdmin;
 import Classes.clsAirlineStaff;
 import Classes.clsAirlineStaffDelete;
-import Classes.clsAirportStaff;
 import Classes.clsLogin;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -133,6 +132,69 @@ public class modelAirlineStaff {
     
     //--------------------------------------------------------------------------
     
+    public clsAirlineStaff readAirlineStaffEmail(String id){
+        try (Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
+            String query ="SELECT `id`, `id_airline_staff`, `name`, `last_name`, `phone`, `email`, `user_staff`, `password_staff` FROM `tb_airline_staff` WHERE email = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            
+            preparedStatement.setString(1, id);
+            
+            ResultSet rs = preparedStatement.executeQuery();
+            
+            if(rs.next()){
+                clsAirlineStaff login_obtained = new clsAirlineStaff(
+                rs.getInt("id"),
+                rs.getString("id_airline_staff"),
+                rs.getString("name"),
+                rs.getString("last_name"),
+                rs.getString("phone"),
+                rs.getString("email"),
+                rs.getString("user_staff"),
+                rs.getString("password_staff"));
+                return login_obtained;
+            }
+            return null;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    public clsAirlineStaffDelete readAirlineStaffEmailDelete(String id){
+        try (Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
+            String query ="SELECT `id`, `id_airline_staff`, `name`, `last_name`, `phone`, `email`, `user_staff`, `password_staff`, `description`, `id_airline` FROM `tb_airline_staff_delete` WHERE email = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            
+            preparedStatement.setString(1, id);
+            
+            ResultSet rs = preparedStatement.executeQuery();
+            
+            if(rs.next()){
+                clsAirlineStaffDelete login_obtained = new clsAirlineStaffDelete(
+                rs.getInt("id"),
+                rs.getString("id_airline_staff"),
+                rs.getString("name"),
+                rs.getString("last_name"),
+                rs.getString("phone"),
+                rs.getString("email"),
+                rs.getString("user_staff"),
+                rs.getString("password_staff"),
+                rs.getString("description"),
+                rs.getString("id_airport"));
+                return login_obtained;
+            }
+            return null;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    
     public boolean updateAirlineUser(clsAirlineStaff user) {
         
         try(Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
@@ -174,12 +236,58 @@ public class modelAirlineStaff {
     
     //--------------------------------------------------------------------------
     
+    public boolean deleteUserEmail(clsAirlineStaff user) {
+        try(Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
+            String query = "DELETE FROM `tb_airline_staff` WHERE email = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, user.getEmail());
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
     public LinkedList<clsAirlineStaff> AdminAirlineList(){
         
         LinkedList<clsAirlineStaff> Admin = new LinkedList<>();
         
         try (Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
             String query = "SELECT ast.id, ast.id_airline_staff, ast.name, ast.last_name, ast.phone, ast.email, ast.user_staff, ast.password_staff FROM `tb_airline_staff` AS ast INNER JOIN tb_admin AS ad WHERE ad.email_admin=ast.email";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet rs = preparedStatement.executeQuery();
+            
+            while (rs.next()) {
+                clsAirlineStaff FRAdmin = new clsAirlineStaff(
+                rs.getInt("id"),
+                rs.getString("id_airline_staff"),
+                rs.getString("name"),
+                rs.getString("last_name"),
+                rs.getString("phone"),
+                rs.getString("email"),
+                rs.getString("user_staff"),
+                rs.getString("password_staff"));
+                
+                Admin.add(FRAdmin);
+            }
+            return Admin;
+        } catch (Exception e) {
+            System.out.println("Error querying: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    public LinkedList<clsAirlineStaff> AirlineStaffList(){
+        
+        LinkedList<clsAirlineStaff> Admin = new LinkedList<>();
+        
+        try (Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
+            String query = "SELECT `id`, `id_airline_staff`, `name`, `last_name`, `phone`, `email`, `user_staff`, `password_staff` FROM `tb_airline_staff`";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet rs = preparedStatement.executeQuery();
             

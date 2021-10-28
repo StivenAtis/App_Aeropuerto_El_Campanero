@@ -1,7 +1,7 @@
 package View;
 
-import Classes.clsAirportStaff;
-import Controller.ctlAiportStaff;
+import Classes.clsAirlineStaff;
+import Controller.ctlAirlineStaff;
 import java.util.LinkedList;
 import javax.swing.table.DefaultTableModel;
 import utils.Constants;
@@ -10,18 +10,19 @@ import utils.Constants;
  *
  * @author Booh
  */
-public class pnlRegisteredUsers extends javax.swing.JPanel {
+public class pnlRegisteredUsersAirline extends javax.swing.JPanel {
 
     //--------------------------------------------------------------------------
     
-    private ctlAiportStaff controlAdminAirport = null;
-    LinkedList<clsAirportStaff> list;
+    private ctlAirlineStaff controlAdminAirline = null;
+    LinkedList<clsAirlineStaff> list;
     
     //--------------------------------------------------------------------------
     
-    public pnlRegisteredUsers() {
+    public pnlRegisteredUsersAirline() {
+        
         initComponents();
-        controlAdminAirport = new ctlAiportStaff();
+        controlAdminAirline = new ctlAirlineStaff();
         fillDataTable();
     }
 
@@ -111,7 +112,7 @@ public class pnlRegisteredUsers extends javax.swing.JPanel {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Background_login_2.png"))); // NOI18N
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 1180, 730));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Banner_Airport_Administration_2.jpg"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Banner_airline_Adiministration.jpg"))); // NOI18N
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 790));
     }// </editor-fold>//GEN-END:initComponents
 
@@ -119,7 +120,7 @@ public class pnlRegisteredUsers extends javax.swing.JPanel {
     
     private void fillDataTable() {
         
-        list = controlAdminAirport.listAirportStaffA();
+        list = controlAdminAirline.listAirlineStaffA();
         
         String datos[][] = new String[list.size()][7];
 
@@ -145,7 +146,7 @@ public class pnlRegisteredUsers extends javax.swing.JPanel {
     }
     
     //--------------------------------------------------------------------------
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

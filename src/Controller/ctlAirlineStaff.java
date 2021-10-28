@@ -3,7 +3,6 @@ package Controller;
 import Classes.clsAdmin;
 import Classes.clsAirlineStaff;
 import Classes.clsAirlineStaffDelete;
-import Classes.clsAirportStaff;
 import Classes.clsLogin;
 import Model.modelAirlineStaff;
 import java.util.LinkedList;
@@ -53,6 +52,20 @@ public class ctlAirlineStaff {
     
     //--------------------------------------------------------------------------
     
+    public clsAirlineStaff readStaffEmail(String id){
+        
+        return modelStaff.readAirlineStaffEmail(id);    
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    public clsAirlineStaffDelete readStaffEmailDelete(String id){
+        
+        return modelStaff.readAirlineStaffEmailDelete(id);    
+    }
+    
+    //--------------------------------------------------------------------------
+    
     public boolean updateUser (clsAirlineStaff user){
         
             return modelStaff.updateAirlineUser((clsAirlineStaff) user);
@@ -67,9 +80,23 @@ public class ctlAirlineStaff {
     
     //--------------------------------------------------------------------------
     
+    public boolean deleteUserEmail(clsAirlineStaff user){
+        
+        return modelStaff.deleteUserEmail((clsAirlineStaff) user);
+    }
+    
+    //--------------------------------------------------------------------------
+    
      public LinkedList<clsAirlineStaff> listAdminA(){
          
         return modelStaff.AdminAirlineList();
+    }
+    
+    //--------------------------------------------------------------------------
+     
+     public LinkedList<clsAirlineStaff> listAirlineStaffA(){
+         
+        return modelStaff.AirlineStaffList();
     }
     
     //--------------------------------------------------------------------------
