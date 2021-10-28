@@ -142,6 +142,7 @@ public class Constants {
     public static final String PANEL_REGISTERED_USERS = "pnlRegisteredUsers";
     public static final String PANEL_REGISTERED_USERS_AIRLINE = "pnlRegisteredUsersAirline";
     public static final String PANEL_UPDATE_USERS = "pnlUpdateUserData";
+    public static final String PANEL_UPDATE_USERS_AIRLINE = "pnlUpdateUserDataAirline";
     public static final String PANEL_DELETE_USERS = "pnlDeleteUsersAirport";
     public static final String PANEL_QUERY_USERS = "pnlQueryUsersAirport";
 
@@ -176,6 +177,7 @@ public class Constants {
     public static final String TITLE_REGISTERED_USERS = "USUARIOS REGISTRADOS";
     public static final String TITLE_REGISTERED_USERS_AIRLINE = "USUARIOS REGISTRADOS";
     public static final String TITLE_UPDATE_USERS = "ACTUALIZAR USUARIOS";
+    public static final String TITLE_UPDATE_USERS_AIRLINE = "ACTUALIZAR USUARIOS";
     public static final String TITLE_DELETE_USERS = "ELIMINAR USUARIOS";
     public static final String TITLE_QUERY_USERS = "CONSULTAR USUARIOS";
     
