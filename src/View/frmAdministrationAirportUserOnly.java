@@ -208,7 +208,7 @@ public class frmAdministrationAirportUserOnly extends javax.swing.JFrame {
         });
         pnlLoginMenu.add(btnUpdateUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 186, 50));
 
-        lblIcon4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/file_30px.png"))); // NOI18N
+        lblIcon4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/assets/edit_30px.png"))); // NOI18N
         pnlLoginMenu.add(lblIcon4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 50));
 
         pnleXITMenu.setBackground(new java.awt.Color(28, 31, 52));
@@ -270,7 +270,7 @@ public class frmAdministrationAirportUserOnly extends javax.swing.JFrame {
         });
         pnlRechazados.add(btnEliminarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 150, 50));
 
-        lblIcon11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/cancel_fly_30px.png"))); // NOI18N
+        lblIcon11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/assets/delete_bin_30px.png"))); // NOI18N
         pnlRechazados.add(lblIcon11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 42));
 
         javax.swing.GroupLayout pnlSideBarLayout = new javax.swing.GroupLayout(pnlSideBar);
@@ -418,7 +418,7 @@ public class frmAdministrationAirportUserOnly extends javax.swing.JFrame {
         pnlDeleteUserAirport = new pnlDeleteUserAirport();
         this.loadPanel(pnlDeleteUserAirport);
         setMyPanelActive(Constants.PANEL_DELETEUSER_AIRPORT);
-        changeIconSubtitleBar(Constants.TITLE_DELETE_USER, Constants.ICON_DECLINEFLIGHTS);
+        changeIconSubtitleBar(Constants.TITLE_DELETE_USER, Constants.ICON_DELETE_USER);
         btnHome.setVisible(true);
     }//GEN-LAST:event_btnEliminarUsuarioActionPerformed
 
@@ -449,7 +449,7 @@ public class frmAdministrationAirportUserOnly extends javax.swing.JFrame {
         pnlUpdateUserAirport = new pnlUpdateUserAirport();
         this.loadPanel(pnlUpdateUserAirport);
         setMyPanelActive(Constants.PANEL_UPDATEUSER_AIRPORT);
-        changeIconSubtitleBar(Constants.TITLE_UPDATE_USER, Constants.ICON_SCHUDELEDFLIGHTS);
+        changeIconSubtitleBar(Constants.TITLE_UPDATE_USER, Constants.ICON_EDIT_USER);
         btnHome.setVisible(true);
     }//GEN-LAST:event_btnUpdateUserActionPerformed
 

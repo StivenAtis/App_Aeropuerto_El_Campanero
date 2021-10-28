@@ -161,7 +161,7 @@ public class frmAdministrationAirlineUserOnly extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jLabel23 = new javax.swing.JLabel();
         pnlLoginMenu = new javax.swing.JPanel();
-        btnVuelosAgendados = new javax.swing.JButton();
+        btnActualizarUsuario = new javax.swing.JButton();
         lblIcon4 = new javax.swing.JLabel();
         pnleXITMenu = new javax.swing.JPanel();
         btnExit = new javax.swing.JButton();
@@ -237,30 +237,30 @@ public class frmAdministrationAirlineUserOnly extends javax.swing.JFrame {
         pnlLoginMenu.setBackground(new java.awt.Color(28, 31, 52));
         pnlLoginMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnVuelosAgendados.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnVuelosAgendados.setForeground(new java.awt.Color(204, 204, 204));
-        btnVuelosAgendados.setText("Actualizar datos usuario");
-        btnVuelosAgendados.setBorderPainted(false);
-        btnVuelosAgendados.setContentAreaFilled(false);
-        btnVuelosAgendados.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnVuelosAgendados.setFocusPainted(false);
-        btnVuelosAgendados.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnVuelosAgendados.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnActualizarUsuario.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnActualizarUsuario.setForeground(new java.awt.Color(204, 204, 204));
+        btnActualizarUsuario.setText("Actualizar datos usuario");
+        btnActualizarUsuario.setBorderPainted(false);
+        btnActualizarUsuario.setContentAreaFilled(false);
+        btnActualizarUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnActualizarUsuario.setFocusPainted(false);
+        btnActualizarUsuario.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnActualizarUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnVuelosAgendadosMouseEntered(evt);
+                btnActualizarUsuarioMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnVuelosAgendadosMouseExited(evt);
+                btnActualizarUsuarioMouseExited(evt);
             }
         });
-        btnVuelosAgendados.addActionListener(new java.awt.event.ActionListener() {
+        btnActualizarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVuelosAgendadosActionPerformed(evt);
+                btnActualizarUsuarioActionPerformed(evt);
             }
         });
-        pnlLoginMenu.add(btnVuelosAgendados, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 186, 50));
+        pnlLoginMenu.add(btnActualizarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 186, 50));
 
-        lblIcon4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/file_30px.png"))); // NOI18N
+        lblIcon4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/assets/edit_30px.png"))); // NOI18N
         pnlLoginMenu.add(lblIcon4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 50));
 
         pnleXITMenu.setBackground(new java.awt.Color(28, 31, 52));
@@ -322,7 +322,7 @@ public class frmAdministrationAirlineUserOnly extends javax.swing.JFrame {
         });
         pnEliminar.add(btnEliminarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 150, 50));
 
-        lblIcon11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/cancel_fly_30px.png"))); // NOI18N
+        lblIcon11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/assets/delete_bin_30px.png"))); // NOI18N
         pnEliminar.add(lblIcon11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 42));
 
         javax.swing.GroupLayout pnlSideBarLayout = new javax.swing.GroupLayout(pnlSideBar);
@@ -403,26 +403,26 @@ public class frmAdministrationAirlineUserOnly extends javax.swing.JFrame {
 
     //--------------------------------------------------------------------------
     
-    private void btnVuelosAgendadosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVuelosAgendadosMouseEntered
+    private void btnActualizarUsuarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActualizarUsuarioMouseEntered
         changeColorMenu(pnlLoginMenu);
-    }//GEN-LAST:event_btnVuelosAgendadosMouseEntered
+    }//GEN-LAST:event_btnActualizarUsuarioMouseEntered
 
     //--------------------------------------------------------------------------
     
-    private void btnVuelosAgendadosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVuelosAgendadosMouseExited
+    private void btnActualizarUsuarioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActualizarUsuarioMouseExited
         resetColorMenu(pnlLoginMenu);
-    }//GEN-LAST:event_btnVuelosAgendadosMouseExited
+    }//GEN-LAST:event_btnActualizarUsuarioMouseExited
 
     //--------------------------------------------------------------------------
     
-    private void btnVuelosAgendadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVuelosAgendadosActionPerformed
+    private void btnActualizarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarUsuarioActionPerformed
 
         pnlUpdateUserAirline = new pnlUpdateUserAirline();
         this.loadPanel(pnlUpdateUserAirline);
         setMyPanelActive(Constants.PANEL_UPDATEUSER_AIRLINE);
-        changeIconSubtitleBar(Constants.TITLE_UPDATE_USER, Constants.ICON_SCHUDELEDFLIGHTS);
+        changeIconSubtitleBar(Constants.TITLE_UPDATE_USER, Constants.ICON_EDIT_USER);
         btnHome.setVisible(true);
-    }//GEN-LAST:event_btnVuelosAgendadosActionPerformed
+    }//GEN-LAST:event_btnActualizarUsuarioActionPerformed
 
     //--------------------------------------------------------------------------
     
@@ -461,7 +461,7 @@ public class frmAdministrationAirlineUserOnly extends javax.swing.JFrame {
                 pnlDeleteUserAirline = new pnlDeleteUserAirline();
                 this.loadPanel(pnlDeleteUserAirline);
                 setMyPanelActive(Constants.PANEL_DELETEUSER_AIRLINE);
-                changeIconSubtitleBar(Constants.TITLE_DELETE_USER, Constants.ICON_DECLINEFLIGHTS);
+                changeIconSubtitleBar(Constants.TITLE_DELETE_USER, Constants.ICON_DELETE_USER);
         btnHome.setVisible(true);
     }//GEN-LAST:event_btnEliminarUsuarioActionPerformed
 
@@ -510,10 +510,10 @@ public class frmAdministrationAirlineUserOnly extends javax.swing.JFrame {
     //--------------------------------------------------------------------------
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizarUsuario;
     private javax.swing.JButton btnEliminarUsuario;
     private javax.swing.JButton btnExit;
     public javax.swing.JButton btnHome;
-    private javax.swing.JButton btnVuelosAgendados;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;

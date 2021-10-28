@@ -590,7 +590,7 @@
             <Component class="javax.swing.JLabel" name="lblIcon9">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Media/reports_30px.png"/>
+                  <Image iconType="3" name="/views/assets/xls_35px.png"/>
                 </Property>
               </Properties>
               <Constraints>

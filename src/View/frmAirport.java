@@ -388,7 +388,7 @@ public class frmAirport extends javax.swing.JFrame {
         });
         pnlReportes.add(btnReports, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 150, 50));
 
-        lblIcon9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/reports_30px.png"))); // NOI18N
+        lblIcon9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/assets/xls_35px.png"))); // NOI18N
         pnlReportes.add(lblIcon9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 42));
 
         pnlAdministracion.setBackground(new java.awt.Color(28, 31, 52));
@@ -833,7 +833,7 @@ public class frmAirport extends javax.swing.JFrame {
         pnlReports = new pnlReports();
         this.loadPanel(pnlReports);
         setMyPanelActive(Constants.PANEL_REPORTS);
-        changeIconSubtitleBar(Constants.TITLE_REPORTS, Constants.ICON_REPORTS);
+        changeIconSubtitleBar(Constants.TITLE_REPORTS, Constants.ICON_REPORTS_USER);
         btnHome.setVisible(true);
     }//GEN-LAST:event_btnReportsActionPerformed
 

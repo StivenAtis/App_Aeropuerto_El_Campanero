@@ -211,6 +211,12 @@ public class Constants {
     public static final String ICON_ABOUT = "AcercaDe.png";
     public static final String ICON_HOME = "home_30px.png";
     
+    public static final String ICON_DELETE_USER = "delete_bin_30px.png";
+    public static final String ICON_EDIT_USER = "edit_30px.png";
+    public static final String ICON_GRAPH_USER = "graph_30px.png";
+    public static final String ICON_REPORTS_USER = "xls_35px.png";
+    public static final String ICON_USERS = "users_35px.png";
+    
     //Constants jComboBox
     public static final String ITEM_SELECT = "-Select-";
     

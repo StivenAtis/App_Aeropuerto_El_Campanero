@@ -188,7 +188,7 @@ public class frmAdministrationAirline extends javax.swing.JFrame {
         });
         pnlLoginMenu.add(ActualizarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 186, 50));
 
-        lblIcon4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/file_30px.png"))); // NOI18N
+        lblIcon4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/edit_30px.png"))); // NOI18N
         pnlLoginMenu.add(lblIcon4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 50));
 
         pnlRegistroMenu.setBackground(new java.awt.Color(28, 31, 52));
@@ -217,7 +217,7 @@ public class frmAdministrationAirline extends javax.swing.JFrame {
         });
         pnlRegistroMenu.add(btnUsuariosRegistrados, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 180, 50));
 
-        lblIcon3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/request_30px.png"))); // NOI18N
+        lblIcon3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/assets/users_35px.png"))); // NOI18N
         pnlRegistroMenu.add(lblIcon3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 50));
 
         pnlReportes.setBackground(new java.awt.Color(28, 31, 52));
@@ -246,7 +246,7 @@ public class frmAdministrationAirline extends javax.swing.JFrame {
         });
         pnlReportes.add(btnReports, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 150, 50));
 
-        lblIcon9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/reports_30px.png"))); // NOI18N
+        lblIcon9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/assets/xls_35px.png"))); // NOI18N
         pnlReportes.add(lblIcon9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 42));
 
         pnleXITMenu.setBackground(new java.awt.Color(28, 31, 52));
@@ -341,7 +341,7 @@ public class frmAdministrationAirline extends javax.swing.JFrame {
         });
         pnlRechazados.add(btnEliminarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 150, 50));
 
-        lblIcon11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/cancel_fly_30px.png"))); // NOI18N
+        lblIcon11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/delete_bin_30px.png"))); // NOI18N
         pnlRechazados.add(lblIcon11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 42));
 
         pnlGrafVuelosCancelados.setBackground(new java.awt.Color(28, 31, 52));
@@ -370,7 +370,7 @@ public class frmAdministrationAirline extends javax.swing.JFrame {
         });
         pnlGrafVuelosCancelados.add(btnGrafica, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 190, 50));
 
-        lblIcon10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/administration_30px.png"))); // NOI18N
+        lblIcon10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/assets/graph_30px.png"))); // NOI18N
         pnlGrafVuelosCancelados.add(lblIcon10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 42));
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -529,7 +529,7 @@ public class frmAdministrationAirline extends javax.swing.JFrame {
         pnlUpdateUserDataAirline = new pnlUpdateUserDataAirline();
         this.loadPanel(pnlUpdateUserDataAirline);
         setMyPanelActive(Constants.PANEL_UPDATE_USERS_AIRLINE);
-        changeIconSubtitleBar(Constants.TITLE_UPDATE_USERS_AIRLINE, Constants.ICON_SCHUDELEDFLIGHTS);
+        changeIconSubtitleBar(Constants.TITLE_UPDATE_USERS_AIRLINE, Constants.ICON_EDIT_USER);
         btnHome.setVisible(true);
     }//GEN-LAST:event_ActualizarUsuarioActionPerformed
 
@@ -545,7 +545,7 @@ public class frmAdministrationAirline extends javax.swing.JFrame {
                 pnlRegisteredUsersAirline = new pnlRegisteredUsersAirline();
                 this.loadPanel(pnlRegisteredUsersAirline);
                 setMyPanelActive(Constants.PANEL_REGISTERED_USERS_AIRLINE);
-                changeIconSubtitleBar(Constants.TITLE_REGISTERED_USERS_AIRLINE, Constants.ICON_FLIGHTREQUESTED);
+                changeIconSubtitleBar(Constants.TITLE_REGISTERED_USERS_AIRLINE, Constants.ICON_USERS);
         btnHome.setVisible(true);
     }//GEN-LAST:event_btnUsuariosRegistradosActionPerformed
 
@@ -562,7 +562,7 @@ public class frmAdministrationAirline extends javax.swing.JFrame {
         pnlReportsUserAirline = new pnlReportsUserAirline();
         this.loadPanel(pnlReportsUserAirline);
         setMyPanelActive(Constants.PANEL_REPORTS_USERS_AIRLINE);
-        changeIconSubtitleBar(Constants.TITLE_REPORTS_USERS_AIRLINE, Constants.ICON_REPORTS);
+        changeIconSubtitleBar(Constants.TITLE_REPORTS_USERS_AIRLINE, Constants.ICON_REPORTS_USER);
         btnHome.setVisible(true);
     }//GEN-LAST:event_btnReportsActionPerformed
 
@@ -608,7 +608,7 @@ public class frmAdministrationAirline extends javax.swing.JFrame {
         pnlDeleteUsersAirline = new pnlDeleteUsersAirline();
         this.loadPanel(pnlDeleteUsersAirline);
         setMyPanelActive(Constants.PANEL_DELETE_USERS_AIRLINE);
-        changeIconSubtitleBar(Constants.TITLE_DELETE_USERS_AIRLINE, Constants.ICON_DECLINEFLIGHTS);
+        changeIconSubtitleBar(Constants.TITLE_DELETE_USERS_AIRLINE, Constants.ICON_DELETE_USER);
         btnHome.setVisible(true);
     }//GEN-LAST:event_btnEliminarUsuarioActionPerformed
 
@@ -625,7 +625,7 @@ public class frmAdministrationAirline extends javax.swing.JFrame {
         pnlFlightsChart = new pnlgraphFlightsRequestedScheduled_Airline();
         this.loadPanel(pnlFlightsChart);
         setMyPanelActive(Constants.PANEL_CHART_FLIGHT_A);
-        changeIconSubtitleBar(Constants.TITLE_CHART, Constants.ICON_SCHUDELEDFLIGHTS);
+        changeIconSubtitleBar(Constants.TITLE_CHART, Constants.ICON_GRAPH_USER);
         
         btnHome.setVisible(true);
     }//GEN-LAST:event_btnGraficaActionPerformed
