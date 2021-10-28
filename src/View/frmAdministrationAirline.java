@@ -41,6 +41,7 @@ public class frmAdministrationAirline extends javax.swing.JFrame {
     private pnlUpdateUserDataAirline pnlUpdateUserDataAirline;
     private pnlDeleteUsersAirline pnlDeleteUsersAirline;
     private pnlQueryUsersAirline pnlQueryUsersAirline;
+    private pnlReportsUserAirline pnlReportsUserAirline;
     public JScrollPane spContainer;
     
     //--------------------------------------------------------------------------
@@ -558,10 +559,10 @@ public class frmAdministrationAirline extends javax.swing.JFrame {
 
     private void btnReportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportsActionPerformed
 
-        //        pnlReportsAirline = new pnlReportsAirline();
-        //        this.loadPanel(pnlReportsAirline);
-        //        setMyPanelActive(Constants.PANEL_REPORTSAIRLINE);
-        //        changeIconSubtitleBar(Constants.TITLE_REPORTS, Constants.ICON_REPORTS);
+        pnlReportsUserAirline = new pnlReportsUserAirline();
+        this.loadPanel(pnlReportsUserAirline);
+        setMyPanelActive(Constants.PANEL_REPORTS_USERS_AIRLINE);
+        changeIconSubtitleBar(Constants.TITLE_REPORTS_USERS_AIRLINE, Constants.ICON_REPORTS);
         btnHome.setVisible(true);
     }//GEN-LAST:event_btnReportsActionPerformed
 
@@ -574,7 +575,6 @@ public class frmAdministrationAirline extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitMouseExited
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        //setMyPanelActive("FrmHome");
         this.closeApp();
     }//GEN-LAST:event_btnExitActionPerformed
 

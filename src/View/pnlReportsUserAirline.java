@@ -1,8 +1,8 @@
 package View;
 
-import Classes.clsAirportStaff;
-import Classes.clsAirportStaffDelete;
-import Controller.ctlAiportStaff;
+import Classes.clsAirlineStaff;
+import Classes.clsAirlineStaffDelete;
+import Controller.ctlAirlineStaff;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -27,26 +27,28 @@ import org.apache.poi.ss.usermodel.IndexedColors;
  *
  * @author Booh
  */
-public class pnlReportsUserAirport extends javax.swing.JPanel {
+public class pnlReportsUserAirline extends javax.swing.JPanel {
     
     //--------------------------------------------------------------------------
     
-    ctlAiportStaff controlAirport = new ctlAiportStaff();
+    ctlAirlineStaff controlAirport = new ctlAirlineStaff();
     
-    LinkedList<clsAirportStaff> usersObjectList = new LinkedList<>();
-    LinkedList<clsAirportStaffDelete> usersDeleteObjectList = new LinkedList<>();
+    LinkedList<clsAirlineStaff> usersObjectList = new LinkedList<>();
+    LinkedList<clsAirlineStaffDelete> usersDeleteObjectList = new LinkedList<>();
     
     LocalDate currentDate = LocalDate.now();
     
     //--------------------------------------------------------------------------
 
-    public pnlReportsUserAirport() {
+    public pnlReportsUserAirline() {
         
         initComponents();
         showUsers();
         showUsersDelete();
     }
 
+    //--------------------------------------------------------------------------
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -103,7 +105,7 @@ public class pnlReportsUserAirport extends javax.swing.JPanel {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Background_login_2.png"))); // NOI18N
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 1130, 730));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Banner_Airport_Administration_2.jpg"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Banner_airline_Adiministration.jpg"))); // NOI18N
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 790));
     }// </editor-fold>//GEN-END:initComponents
 
@@ -129,7 +131,7 @@ public class pnlReportsUserAirport extends javax.swing.JPanel {
                 int width = 28; // Where width is number of caracters
                 sheet.setDefaultColumnWidth(width);
 
-                book.setSheetName(0, "Usuarios Activos - Aeropuerto");
+                book.setSheetName(0, "Usuarios Activos - Aerolínea");
 
                 //Create sheet styles:
                 CellStyle styleHeader = book.createCellStyle();
@@ -178,7 +180,7 @@ public class pnlReportsUserAirport extends javax.swing.JPanel {
                 try {
                     LocalDateTime DateWithTime = LocalDateTime.now();
                     DateTimeFormatter DateFormat = DateTimeFormatter.ofPattern("dd_mm_yyyy_hh_mm_ss");
-                    FileOutputStream file = new FileOutputStream("Reportes Aeropuerto/Reporte de usuarios activos - " + DateWithTime.format(DateFormat) + ".xls");
+                    FileOutputStream file = new FileOutputStream("Reportes Aerolínea/Reporte de usuarios activos - " + DateWithTime.format(DateFormat) + ".xls");
                     book.write(file);
                     file.close();
                     JOptionPane.showMessageDialog(this, "Reporte generado satisfactoriamente");
@@ -206,8 +208,8 @@ public class pnlReportsUserAirport extends javax.swing.JPanel {
                 int width = 28; // Where width is number of caracters
                 sheet.setDefaultColumnWidth(width);
 
-                book.setSheetName(0, "Usuarios Inactivos - Aeropuerto");
-                
+                book.setSheetName(0, "Usuarios Inactivos - Aerolínea");
+
                 //Create sheet styles:
                 CellStyle styleHeader = book.createCellStyle();
                 styleHeader.setFillForegroundColor(IndexedColors.LIGHT_CORNFLOWER_BLUE.getIndex());
@@ -252,12 +254,12 @@ public class pnlReportsUserAirport extends javax.swing.JPanel {
                     cell.setCellValue(usersDeleteObjectList.get(i).getPassword());
                     cell = row.createCell(7);
                     cell.setCellValue(usersDeleteObjectList.get(i).getDescription());
-                    }
+                }
 
                 try {
                     LocalDateTime DateWithTime = LocalDateTime.now();
                     DateTimeFormatter DateFormat = DateTimeFormatter.ofPattern("dd_mm_yyyy_hh_mm_ss");
-                    FileOutputStream file = new FileOutputStream("Reportes Aeropuerto/Reporte de usuarios inactivos - " + DateWithTime.format(DateFormat) + ".xls");
+                    FileOutputStream file = new FileOutputStream("Reportes Aerolínea/Reporte de usuarios inactivos - " + DateWithTime.format(DateFormat) + ".xls");
                     book.write(file);
                     file.close();
                     JOptionPane.showMessageDialog(this, "Reporte generado satisfactoriamente");
@@ -282,18 +284,18 @@ public class pnlReportsUserAirport extends javax.swing.JPanel {
                 //Create sheet(s) in book:
                 HSSFSheet sheet = book.createSheet();
                 HSSFSheet sheet1 = book.createSheet();
-                
+
                 int width = 28; // Where width is number of caracters
                 sheet.setDefaultColumnWidth(width);
                 sheet1.setDefaultColumnWidth(width);
-  
+
                 book.setSheetName(0, "1 - Usuarios Activos");
                 book.setSheetName(1, "2 - Usuarios Inactivos");
-                
+
                 //Create sheet styles:
                 CellStyle styleHeader = book.createCellStyle();
                 styleHeader.setFillForegroundColor(IndexedColors.LIGHT_CORNFLOWER_BLUE.getIndex());
-                
+
                 //styleHeader.set
                 styleHeader.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 
@@ -368,7 +370,7 @@ public class pnlReportsUserAirport extends javax.swing.JPanel {
                 try {
                     LocalDateTime DateWithTime = LocalDateTime.now();
                     DateTimeFormatter DateFormat = DateTimeFormatter.ofPattern("dd_mm_yyyy_hh_mm_ss");
-                    FileOutputStream file = new FileOutputStream("Reportes Aeropuerto/Reporte total usuarios - " + DateWithTime.format(DateFormat) + ".xls");
+                    FileOutputStream file = new FileOutputStream("Reportes Aerolínea/Reporte total usuarios - " + DateWithTime.format(DateFormat) + ".xls");
                     book.write(file);
                     file.close();
                     JOptionPane.showMessageDialog(this, "Reporte generado satisfactoriamente");
@@ -389,12 +391,12 @@ public class pnlReportsUserAirport extends javax.swing.JPanel {
 
     private void showUsers(){
          
-        usersObjectList = controlAirport.listAirportStaffA();
+        usersObjectList = controlAirport.listAirlineStaffA();
          
         DefaultListModel model = new DefaultListModel();
         int index = 0;
         
-        for (clsAirportStaff user : usersObjectList) {
+        for (clsAirlineStaff user : usersObjectList) {
             String data = "IDENTIFICACIÓN: " + user.getIdentification()+ " - " + "NOMBRES: " + user.getName()+ " - " + " APELLIDOS: " + user.getLastName()+ " - " +
                           "TELEFONO: " + user.getPhone()+ " - " + "EMAIL: " + user.getEmail()+ " - " + "USUARIO: " + user.getUser()+ " - " + "CONTRASEÑA: " + 
                          user.getPassword();
@@ -407,12 +409,12 @@ public class pnlReportsUserAirport extends javax.swing.JPanel {
     
     private void showUsersDelete(){
          
-        usersDeleteObjectList = controlAirport.listAirportStaffDelete();
+        usersDeleteObjectList = controlAirport.listAirlineStaffDelete();
          
         DefaultListModel model = new DefaultListModel();
         int index = 0;
         
-        for (clsAirportStaffDelete user : usersDeleteObjectList) {
+        for (clsAirlineStaffDelete user : usersDeleteObjectList) {
             String data = "IDENTIFICACIÓN: " + user.getIdentification()+ " - " + "NOMBRES: " + user.getName()+ " - " + " APELLIDOS: " + user.getLastName()+ " - " +
                           "TELEFONO: " + user.getPhone()+ " - " + "EMAIL: " + user.getEmail()+ " - " + "USUARIO: " + user.getUser()+ " - " + "CONTRASEÑA: " + 
                          user.getPassword() + " DESCRIPCIÓN: " + user.getDescription();

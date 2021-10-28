@@ -97,10 +97,6 @@ public class frmAdministrationAirport extends javax.swing.JFrame {
             this.setVisible(false);
         }
     }
-    
-    private String getMyPanelActive() {
-        return panelActive;
-    }
 
     private void setMyPanelActive(String panelActive) {
         this.panelActive = panelActive;
@@ -616,7 +612,6 @@ public class frmAdministrationAirport extends javax.swing.JFrame {
     //--------------------------------------------------------------------------
     
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        //setMyPanelActive("FrmHome");
         this.closeApp();
     }//GEN-LAST:event_btnExitActionPerformed
 
@@ -666,14 +661,20 @@ public class frmAdministrationAirport extends javax.swing.JFrame {
         btnHome.setVisible(true);
     }//GEN-LAST:event_btnVuelosRechazadosActionPerformed
 
+    //--------------------------------------------------------------------------
+    
     private void acercaDE5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_acercaDE5MouseEntered
         changeColorMenu(pnlGrafVuelosCancelados);
     }//GEN-LAST:event_acercaDE5MouseEntered
 
+    //--------------------------------------------------------------------------
+    
     private void acercaDE5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_acercaDE5MouseExited
         resetColorMenu(pnlGrafVuelosCancelados);
     }//GEN-LAST:event_acercaDE5MouseExited
 
+    //--------------------------------------------------------------------------
+    
     private void acercaDE5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acercaDE5ActionPerformed
 
         pnlFlightsChart = new pnlgraphFlightsRequestedScheduled_Airport();

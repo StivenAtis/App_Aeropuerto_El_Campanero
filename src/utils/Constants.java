@@ -148,6 +148,7 @@ public class Constants {
     public static final String PANEL_QUERY_USERS = "pnlQueryUsersAirport";
     public static final String PANEL_QUERY_USERS_AIRLINE = "pnlQueryUsersAirline";
     public static final String PANEL_REPORTS_USERS = "pnlReportsUserAirport";
+    public static final String PANEL_REPORTS_USERS_AIRLINE = "pnlReportsUserAirline";
 
     //Constants ToolBar
     public static final String TITLE_LOGIN = "LOGIN";
@@ -186,7 +187,7 @@ public class Constants {
     public static final String TITLE_QUERY_USERS = "CONSULTAR USUARIOS";
     public static final String TITLE_QUERY_USERS_AIRLINE = "CONSULTAR USUARIOS";
     public static final String TITLE_REPORTS_USERS = "REPORTE DE USUARIOS";
-    public static final String TITLE_REPORTS_USERS_AIRLINE = "CONSULTAR USUARIOS";
+    public static final String TITLE_REPORTS_USERS_AIRLINE = "REPORTE DE USUARIOS";
     
     //Icon ToolBar
     public static final String ICON_LOGIN = "login_30px.png";
