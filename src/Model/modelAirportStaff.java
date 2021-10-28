@@ -309,6 +309,39 @@ public class modelAirportStaff {
     
     //--------------------------------------------------------------------------
     
+    public LinkedList<clsAirportStaffDelete> AirportStaffListDelete(){
+        
+        LinkedList<clsAirportStaffDelete> Admin = new LinkedList<>();
+        
+        try (Connection connection = DriverManager.getConnection(DataDB.getUrl(), DataDB.getUser(), DataDB.getPass())) {
+            String query = "SELECT `id`, `id_Airport_staff`, `name`, `last_name`, `phone`, `email`, `user_staff`, `password_staff`, `description`, `id_airport` FROM `tb_airport_staff_delete`";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet rs = preparedStatement.executeQuery();
+            
+            while (rs.next()) {
+                clsAirportStaffDelete FRAdmin = new clsAirportStaffDelete(
+                rs.getInt("id"),
+                rs.getString("id_Airport_staff"),
+                rs.getString("name"),
+                rs.getString("last_name"),
+                rs.getString("phone"),
+                rs.getString("email"),
+                rs.getString("user_staff"),
+                rs.getString("password_staff"),
+                rs.getString("description"),
+                rs.getString("id_airport"));
+                
+                Admin.add(FRAdmin);
+            }
+            return Admin;
+        } catch (Exception e) {
+            System.out.println("Error querying: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
     public LinkedList<clsAdmin> AdminLogin(){
         
         LinkedList<clsAdmin> Admin = new LinkedList<>();
