@@ -92,7 +92,7 @@ public class frmAdministrationAirline extends javax.swing.JFrame {
         );
         
         if(dialogResult == JOptionPane.YES_OPTION){
-            frmAirline Airline = new  frmAirline();
+            frmLoginAdmistrationAirline Airline = new  frmLoginAdmistrationAirline();
             Airline.setVisible(true);
             this.setVisible(false);
         }

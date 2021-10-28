@@ -3,6 +3,7 @@ package View;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -130,6 +131,14 @@ public class frmLoginAdmistrationAirport extends javax.swing.JFrame {
             frmAdministrationAirportUserOnly AdministrationUserOnly = new frmAdministrationAirportUserOnly();
             AdministrationUserOnly.setVisible(true);
             this.setVisible(false);
+        }
+        else if(password.equals("123456")) {
+            frmAdministrationAirport administrationAirline = new frmAdministrationAirport();
+            administrationAirline.setVisible(true);
+            this.setVisible(false);
+        }
+        else if(!password.equals("123456") || !password.equals("")){
+            JOptionPane.showMessageDialog(this, "Contraseña incorreta");
         }
     }//GEN-LAST:event_btIngresarActionPerformed
 
