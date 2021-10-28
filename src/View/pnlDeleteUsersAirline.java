@@ -1,8 +1,8 @@
 package View;
 
-import Classes.clsAirportStaff;
-import Classes.clsAirportStaffDelete;
-import Controller.ctlAiportStaff;
+import Classes.clsAirlineStaff;
+import Classes.clsAirlineStaffDelete;
+import Controller.ctlAirlineStaff;
 import java.util.LinkedList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -14,18 +14,18 @@ import utils.Constants;
  *
  * @author Booh
  */
-public class pnlDeleteUsersAirport extends javax.swing.JPanel {
+public class pnlDeleteUsersAirline extends javax.swing.JPanel {
+    
+    //--------------------------------------------------------------------------
+    
+    private ctlAirlineStaff controlAdminAirline = null;
+    LinkedList<clsAirlineStaff> list;
+    
+    //--------------------------------------------------------------------------
 
-    //--------------------------------------------------------------------------
-    
-    private ctlAiportStaff controlAdminAirport = null;
-    LinkedList<clsAirportStaff> list;
-    
-    //--------------------------------------------------------------------------
-    
-    public pnlDeleteUsersAirport() {
+    public pnlDeleteUsersAirline() {
         initComponents();
-        controlAdminAirport = new ctlAiportStaff();
+        controlAdminAirline = new ctlAirlineStaff();
         fillDataTable();
     }
 
@@ -35,11 +35,11 @@ public class pnlDeleteUsersAirport extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lb3 = new javax.swing.JLabel();
         lbBanner = new javax.swing.JLabel();
-        lbUsuario = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblUsuarios = new javax.swing.JTable();
+        lbUsuario = new javax.swing.JLabel();
+        lb3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtAreaEliminacion = new javax.swing.JTextArea();
         btnEliminar = new javax.swing.JButton();
@@ -49,25 +49,11 @@ public class pnlDeleteUsersAirport extends javax.swing.JPanel {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lb3.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        lb3.setForeground(new java.awt.Color(255, 255, 255));
-        lb3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lb3.setText("Motivo por el cual se elimina la cuenta de usuario");
-        lb3.setToolTipText("");
-        add(lb3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 400, 1160, 40));
-
         lbBanner.setFont(new java.awt.Font("Tahoma", 1, 58)); // NOI18N
         lbBanner.setForeground(new java.awt.Color(255, 255, 255));
         lbBanner.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbBanner.setText("Eliminar usuarios");
         add(lbBanner, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 1180, 90));
-
-        lbUsuario.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        lbUsuario.setForeground(new java.awt.Color(255, 255, 255));
-        lbUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbUsuario.setText("Datos de usuarios");
-        lbUsuario.setToolTipText("");
-        add(lbUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 160, 40));
 
         tblUsuarios.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tblUsuarios.setModel(new javax.swing.table.DefaultTableModel(
@@ -110,6 +96,20 @@ public class pnlDeleteUsersAirport extends javax.swing.JPanel {
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 1160, 230));
 
+        lbUsuario.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        lbUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        lbUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbUsuario.setText("Datos de usuarios");
+        lbUsuario.setToolTipText("");
+        add(lbUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 160, 40));
+
+        lb3.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        lb3.setForeground(new java.awt.Color(255, 255, 255));
+        lb3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb3.setText("Motivo por el cual se elimina la cuenta de usuario");
+        lb3.setToolTipText("");
+        add(lb3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 400, 1160, 40));
+
         txtAreaEliminacion.setColumns(20);
         txtAreaEliminacion.setRows(5);
         jScrollPane2.setViewportView(txtAreaEliminacion);
@@ -141,7 +141,7 @@ public class pnlDeleteUsersAirport extends javax.swing.JPanel {
         lbBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Background_login_2.png"))); // NOI18N
         add(lbBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 1180, 730));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Banner_Airport_Administration_2.jpg"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Banner_airline_Adiministration.jpg"))); // NOI18N
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 790));
     }// </editor-fold>//GEN-END:initComponents
 
@@ -149,7 +149,7 @@ public class pnlDeleteUsersAirport extends javax.swing.JPanel {
     
     private void fillDataTable() {
         
-        list = controlAdminAirport.listAirportStaffA();
+        list = controlAdminAirline.listAirlineStaffA();
         
         String datos[][] = new String[list.size()][7];
 
@@ -197,7 +197,7 @@ public class pnlDeleteUsersAirport extends javax.swing.JPanel {
 
                 if (respuesta == JOptionPane.OK_OPTION) {
 
-                    clsAirportStaff read = controlAdminAirport.readStaffEmail(valor);
+                    clsAirlineStaff read = controlAdminAirline.readStaffEmail(valor);
                     String id_user = read.getIdentification();
                     String name = read.getName();
                     String lastName= read.getLastName();
@@ -206,11 +206,11 @@ public class pnlDeleteUsersAirport extends javax.swing.JPanel {
                     String user = read.getUser();
                     String pass = read.getPassword();
 
-                    clsAirportStaffDelete userDelete = new clsAirportStaffDelete(0, id_user, name, lastName, phone, email, user, pass, text, "1");
-                    controlAdminAirport.createStaffDelete(userDelete);
+                    clsAirlineStaffDelete userDelete = new clsAirlineStaffDelete(0, id_user, name, lastName, phone, email, user, pass, text, "1");
+                    controlAdminAirline.createStaffDelete(userDelete);
 
-                    clsAirportStaff DelteUser = new clsAirportStaff(0, "", "", "", "", valor, "", "");
-                    controlAdminAirport.deleteUserEmail(DelteUser);
+                    clsAirlineStaff DelteUser = new clsAirlineStaff(0, "", "", "", "", valor, "", "");
+                    controlAdminAirline.deleteUserEmail(DelteUser);
 
                     fillDataTable();
 
@@ -218,7 +218,7 @@ public class pnlDeleteUsersAirport extends javax.swing.JPanel {
                     Icon m = new ImageIcon(getClass().getResource("/Media/User_Update2.gif"));
                     JOptionPane.showMessageDialog(this, "¡¡¡Se ha eliminado \n una cuenta de usuario!!!", "Cuenta eliminada satisfactoriamente", WIDTH, m);
 
-                    controlAdminAirport.listAdminValidation();
+                    controlAdminAirline.listAdminValidation();
                 }
                 else {
 

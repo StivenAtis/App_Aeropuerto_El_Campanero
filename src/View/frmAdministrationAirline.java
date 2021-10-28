@@ -39,6 +39,7 @@ public class frmAdministrationAirline extends javax.swing.JFrame {
     private pnlgraphFlightsRequestedScheduled_Airline pnlFlightsChart;
     private pnlRegisteredUsersAirline pnlRegisteredUsersAirline;
     private pnlUpdateUserDataAirline pnlUpdateUserDataAirline;
+    private pnlDeleteUsersAirline pnlDeleteUsersAirline;
     public JScrollPane spContainer;
     
     //--------------------------------------------------------------------------
@@ -93,10 +94,6 @@ public class frmAdministrationAirline extends javax.swing.JFrame {
             Airline.setVisible(true);
             this.setVisible(false);
         }
-    }
-    
-    private String getMyPanelActive() {
-        return panelActive;
     }
 
     private void setMyPanelActive(String panelActive) {
@@ -607,10 +604,10 @@ public class frmAdministrationAirline extends javax.swing.JFrame {
 
     private void btnEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarUsuarioActionPerformed
 
-        //        pnlDeclinedFlights = new pnlDeclinedFlights();
-        //        this.loadPanel(pnlDeclinedFlights);
-        //        setMyPanelActive(Constants.PANEL_DECLINEFLIGHTS);
-        //        changeIconSubtitleBar(Constants.TITLE_DECLINEFLIGHTS, Constants.ICON_DECLINEFLIGHTS);
+        pnlDeleteUsersAirline = new pnlDeleteUsersAirline();
+        this.loadPanel(pnlDeleteUsersAirline);
+        setMyPanelActive(Constants.PANEL_DELETE_USERS_AIRLINE);
+        changeIconSubtitleBar(Constants.TITLE_DELETE_USERS_AIRLINE, Constants.ICON_DECLINEFLIGHTS);
         btnHome.setVisible(true);
     }//GEN-LAST:event_btnEliminarUsuarioActionPerformed
 
