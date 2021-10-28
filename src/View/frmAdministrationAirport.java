@@ -550,7 +550,7 @@ public class frmAdministrationAirport extends javax.swing.JFrame {
         pnlUpdateUserData = new pnlUpdateUserData();
         this.loadPanel(pnlUpdateUserData);
         setMyPanelActive(Constants.PANEL_UPDATE_USERS);
-        changeIconSubtitleBar(Constants.TITLE_UPDATE_USER, Constants.ICON_SCHUDELEDFLIGHTS);
+        changeIconSubtitleBar(Constants.TITLE_UPDATE_USERS, Constants.ICON_SCHUDELEDFLIGHTS);
         btnHome.setVisible(true);
     }//GEN-LAST:event_btnVuelosAgendadosActionPerformed
 

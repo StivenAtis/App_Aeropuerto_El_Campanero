@@ -146,6 +146,7 @@ public class Constants {
     public static final String PANEL_DELETE_USERS = "pnlDeleteUsersAirport";
     public static final String PANEL_DELETE_USERS_AIRLINE = "pnlDeleteUsersAirline";
     public static final String PANEL_QUERY_USERS = "pnlQueryUsersAirport";
+    public static final String PANEL_QUERY_USERS_AIRLINE = "pnlQueryUsersAirline";
 
     //Constants ToolBar
     public static final String TITLE_LOGIN = "LOGIN";
@@ -182,6 +183,7 @@ public class Constants {
     public static final String TITLE_DELETE_USERS = "ELIMINAR USUARIOS";
     public static final String TITLE_DELETE_USERS_AIRLINE = "ELIMINAR USUARIOS";
     public static final String TITLE_QUERY_USERS = "CONSULTAR USUARIOS";
+    public static final String TITLE_QUERY_USERS_AIRLINE = "CONSULTAR USUARIOS";
     
     //Icon ToolBar
     public static final String ICON_LOGIN = "login_30px.png";

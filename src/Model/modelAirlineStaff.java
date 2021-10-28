@@ -182,7 +182,7 @@ public class modelAirlineStaff {
                 rs.getString("user_staff"),
                 rs.getString("password_staff"),
                 rs.getString("description"),
-                rs.getString("id_airport"));
+                rs.getString("id_airline"));
                 return login_obtained;
             }
             return null;

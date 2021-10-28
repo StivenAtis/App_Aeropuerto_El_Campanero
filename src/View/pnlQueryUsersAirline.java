@@ -1,34 +1,34 @@
 package View;
 
-import Classes.clsAirportStaff;
-import Classes.clsAirportStaffDelete;
-import Controller.ctlAiportStaff;
+import Classes.clsAirlineStaff;
+import Classes.clsAirlineStaffDelete;
+import Controller.ctlAirlineStaff;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Booh
  */
-public class pnlQueryUsersAirport extends javax.swing.JPanel {
+public class pnlQueryUsersAirline extends javax.swing.JPanel {
     
     //--------------------------------------------------------------------------
     
-    ctlAiportStaff controlAirportStaff = new ctlAiportStaff();
+    ctlAirlineStaff controlAirlineStaff = new ctlAirlineStaff();
 
     //--------------------------------------------------------------------------
-    
-    public pnlQueryUsersAirport() {
+
+    public pnlQueryUsersAirline() {
         initComponents();
     }
-
+    
     //--------------------------------------------------------------------------
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnConsultar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
+        btnConsultar = new javax.swing.JButton();
         lbBanner = new javax.swing.JLabel();
         tfEmailUser = new javax.swing.JTextField();
         lb1 = new javax.swing.JLabel();
@@ -43,17 +43,6 @@ public class pnlQueryUsersAirport extends javax.swing.JPanel {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Consultar_min.png"))); // NOI18N
-        btnConsultar.setContentAreaFilled(false);
-        btnConsultar.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Consultar_min.png"))); // NOI18N
-        btnConsultar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Consultar_max.png"))); // NOI18N
-        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConsultarActionPerformed(evt);
-            }
-        });
-        add(btnConsultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 100, 330, 120));
-
         btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Limpiar_min.png"))); // NOI18N
         btnLimpiar.setContentAreaFilled(false);
         btnLimpiar.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Limpiar_min.png"))); // NOI18N
@@ -64,6 +53,17 @@ public class pnlQueryUsersAirport extends javax.swing.JPanel {
             }
         });
         add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 100, 330, 120));
+
+        btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Consultar_min.png"))); // NOI18N
+        btnConsultar.setContentAreaFilled(false);
+        btnConsultar.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Consultar_min.png"))); // NOI18N
+        btnConsultar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Consultar_max.png"))); // NOI18N
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
+        add(btnConsultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 100, 330, 120));
 
         lbBanner.setFont(new java.awt.Font("Tahoma", 1, 58)); // NOI18N
         lbBanner.setForeground(new java.awt.Color(255, 255, 255));
@@ -114,9 +114,18 @@ public class pnlQueryUsersAirport extends javax.swing.JPanel {
         lbBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Background_login_2.png"))); // NOI18N
         add(lbBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 1180, 730));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Banner_Airport_Administration_2.jpg"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Banner_airline_Adiministration.jpg"))); // NOI18N
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 790));
     }// </editor-fold>//GEN-END:initComponents
+
+    //--------------------------------------------------------------------------
+    
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+
+        tfEmailUser.setText("");
+        txtAInfoUser.setText("");
+        txtAInfoUserTrs.setText("");
+    }//GEN-LAST:event_btnLimpiarActionPerformed
 
     //--------------------------------------------------------------------------
     
@@ -129,8 +138,8 @@ public class pnlQueryUsersAirport extends javax.swing.JPanel {
         }
         else{
 
-            clsAirportStaff UserSearch = controlAirportStaff.readStaffEmail(emailEncontrado);
-            clsAirportStaffDelete UserDelete = controlAirportStaff.readStaffEmailDelete(emailEncontrado);
+            clsAirlineStaff UserSearch = controlAirlineStaff.readStaffEmail(emailEncontrado);
+            clsAirlineStaffDelete UserDelete = controlAirlineStaff.readStaffEmailDelete(emailEncontrado);
 
             if (UserSearch == null && UserDelete == null) {
                 JOptionPane.showMessageDialog(this, "¡No existe datos para el usuario con email: " + emailEncontrado + "!");
@@ -169,15 +178,6 @@ public class pnlQueryUsersAirport extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_btnConsultarActionPerformed
-
-    //--------------------------------------------------------------------------
-    
-    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-
-        tfEmailUser.setText("");
-        txtAInfoUser.setText("");
-        txtAInfoUserTrs.setText("");
-    }//GEN-LAST:event_btnLimpiarActionPerformed
 
     //--------------------------------------------------------------------------
     

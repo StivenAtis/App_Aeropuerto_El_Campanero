@@ -142,6 +142,7 @@ public class pnlRegisteredUsers extends javax.swing.JPanel {
             tblUsuarios.getColumnModel().getColumn(x).setPreferredWidth(columnSize[x]);
         tblUsuarios.setRowHeight(30);
         tblUsuarios.setModel(model);
+        tblUsuarios.setEnabled(false);
     }
     
     //--------------------------------------------------------------------------

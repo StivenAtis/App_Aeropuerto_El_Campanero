@@ -40,6 +40,7 @@ public class frmAdministrationAirline extends javax.swing.JFrame {
     private pnlRegisteredUsersAirline pnlRegisteredUsersAirline;
     private pnlUpdateUserDataAirline pnlUpdateUserDataAirline;
     private pnlDeleteUsersAirline pnlDeleteUsersAirline;
+    private pnlQueryUsersAirline pnlQueryUsersAirline;
     public JScrollPane spContainer;
     
     //--------------------------------------------------------------------------
@@ -587,10 +588,10 @@ public class frmAdministrationAirline extends javax.swing.JFrame {
 
     private void btnConsultaUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaUsuarioActionPerformed
 
-        //        pnlFlightQuery = new pnlFlightQuery();
-        //        this.loadPanel(pnlFlightQuery);
-        //        setMyPanelActive(Constants.PANEL_FLIGHTQUERY);
-        //        changeIconSubtitleBar(Constants.TITLE_FLIGHTQUERY, Constants.ICON_FLIGHTQUERY);
+        pnlQueryUsersAirline = new pnlQueryUsersAirline();
+        this.loadPanel(pnlQueryUsersAirline);
+        setMyPanelActive(Constants.PANEL_QUERY_USERS_AIRLINE);
+        changeIconSubtitleBar(Constants.TITLE_QUERY_USERS_AIRLINE, Constants.ICON_FLIGHTQUERY);
         btnHome.setVisible(true);
     }//GEN-LAST:event_btnConsultaUsuarioActionPerformed
 
